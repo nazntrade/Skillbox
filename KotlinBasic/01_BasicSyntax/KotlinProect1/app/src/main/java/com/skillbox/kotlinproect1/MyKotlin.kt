@@ -5,7 +5,7 @@ fun main() {
     val lastNameString = "Nazentsev"
 
     var heightInt = 175
-    var weight = 100.54f
+    var weight = 38f
 
     val isChild1 = "is a Child"
     val isChild2 = "is not a Child"
