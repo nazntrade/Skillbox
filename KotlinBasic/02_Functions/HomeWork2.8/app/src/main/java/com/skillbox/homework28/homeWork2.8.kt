@@ -23,7 +23,6 @@ fun solveEquation(a: Int, b: Int, c: Int): Double {
             x1=${x1}            
             x2=${x2}""")
     return (x1 + x2)
-
 }
 
 
