@@ -8,13 +8,11 @@ fun main() {
     println("root sum is $solutionSum")
 }
 
-fun solveEquation(a: Int, b: Int, c: Int): Double {
+fun solveEquation(a: Int, b: Int, c: Int): Double? {
 //*finding discriminant
     val d = (b * b - 4.0 * a * c)
-    if (d < 0) {
-        println("equation has no roots")
-        return Double.NaN
-    }
+    if (d < 0) return null
+
 //finding roots
 
     val x1 = (sqrt(d) - b) / 2.0 * a
