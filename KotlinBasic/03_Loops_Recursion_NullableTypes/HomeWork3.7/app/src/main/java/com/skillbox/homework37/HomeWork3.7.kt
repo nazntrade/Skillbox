@@ -1,24 +1,21 @@
-@file:Suppress("UNREACHABLE_CODE")
-
 package com.skillbox.homework37
 
 fun main() {
     print("How many numbers do you want to enter? ")
     val quantityNumber = inputInt()
     val sum = enterNumber(quantityNumber)
-
+    // calculate the greatest common divisor
     print("Enter number ")
-    val b = inputInt()
-    val gcd = (sum % b)
-    return if (b == 0) sum
-    else gcd
-
-    print("GCD is $gcd")
-
+    val n = inputInt()
+    println("the greatest common divisor $sum and $n is ${gcd(sum, n)}")
+    println("Bye bye")
 }
-private tailrec fun inputInt(): Int {return readLine()?.toIntOrNull() ?: inputInt()}
 
-fun enterNumber(quantityNumber: Int) {
+private tailrec fun inputInt(): Int {
+    return readLine()?.toIntOrNull() ?: inputInt()
+}
+
+fun enterNumber(quantityNumber: Int): Int {
     var sum = 0
     var posCount = 0
     repeat(quantityNumber) {
@@ -29,7 +26,9 @@ fun enterNumber(quantityNumber: Int) {
     }
     println("The quantity positive numbers is $posCount")
     println("The sum of the numbers is $sum")
-
+    return sum
 }
 
-
+fun gcd(sum: Int, n: Int): Int {
+    return if (n == 0) sum else gcd(n, sum % n)
+}
