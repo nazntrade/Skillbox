@@ -22,10 +22,10 @@ fun main() {
 
     println("The sum of the lengths of all numbers is ${createMutableList.sumBy { it.length }} ")
 
-    var phoneBookMap = mutableMapOf<String, String>()
+    val phoneBookMap = mutableMapOf<String, String>()
     uniqueNumbers.forEach { it ->
         println("Enter name for phone number $it: ")
-        var name: String? = readLine()
+        val name: String? = readLine()
         if (name != null) {
             phoneBookMap[it] = name
         }
@@ -36,10 +36,10 @@ fun main() {
 }
 
 fun enterMutableList(n: Int): MutableList<String> {
-    var enterNumber = mutableListOf<String>()
+    val enterNumber = mutableListOf<String>()
     repeat(n) {
         println("Enter $it phone number")
-        var number: String? = readLine()
+        val number: String? = readLine()
         if (number != null) enterNumber.add(it, number)
     }
     return enterNumber
