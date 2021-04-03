@@ -1,5 +1,7 @@
 package com.skillbox.homework4
+
 import android.graphics.Insets.add
+
 fun main() {
     println("How many phone numbers do you want to enter: ")
     val n = readLine()?.toIntOrNull() ?: return
@@ -25,7 +27,6 @@ fun main() {
         println("Enter name for phone number $it: ")
         var name: String? = readLine()
         if (name != null) {
-            (it)
             phoneBookMap[it] = name
         }
     }
@@ -33,6 +34,7 @@ fun main() {
         println("Human: $value. Phone number: $key")
     }
 }
+
 fun enterMutableList(n: Int): MutableList<String> {
     var enterNumber = mutableListOf<String>()
     repeat(n) {
