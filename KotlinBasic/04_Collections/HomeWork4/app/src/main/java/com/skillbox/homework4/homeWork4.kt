@@ -1,6 +1,4 @@
 package com.skillbox.homework4
-
-
 fun main() {
     println("How many phone numbers do you want to enter: ")
     val n = readLine()?.toIntOrNull() ?: return
