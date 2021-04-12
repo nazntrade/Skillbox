@@ -1,7 +1,5 @@
 package com.skillbox.homework4
 
-import android.graphics.Insets.add
-
 fun main() {
     println("How many phone numbers do you want to enter: ")
     val n = readLine()?.toIntOrNull() ?: return
