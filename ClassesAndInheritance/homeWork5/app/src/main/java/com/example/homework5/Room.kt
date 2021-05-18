@@ -1,6 +1,6 @@
 package com.example.homework5
 
-open class room(
+open class Room(
 
     override val area: Double = 0.0,
 

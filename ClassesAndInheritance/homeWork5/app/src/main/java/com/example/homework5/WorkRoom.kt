@@ -1,6 +1,6 @@
 package com.example.homework5
 
-class workRoom : room(6.1) {
+class WorkRoom : Room(6.1) {
 
     override val title: String = "Work room"
     fun pc() {

@@ -2,28 +2,28 @@ package com.example.homework5
 
 fun main() {
 
-    val ordinaryRoom = room(2.5)
+    val ordinaryRoom = Room(2.5)
     ordinaryRoom.getDescription()
 
-    val bedroom = bedroom()
+    val bedroom = Bedroom()
     bedroom.getDescription()
 
-    val childrenRoom = childrensRoom()
+    val childrenRoom = ChildrensRoom()
     childrenRoom.getDescription()
 
-    val freeRoom = freeRoom("Gum")
+    val freeRoom = FreeRoom("Gum")
     freeRoom.getDescription()
 
-    val livingRoom = livingRoom()
+    val livingRoom = LivingRoom()
     livingRoom.getDescription()
 
-    val kitchen = kitchen()
+    val kitchen = Kitchen()
     kitchen.getDescription()
 
-    val bathroom = bathroom()
+    val bathroom = Bathroom()
     bathroom.getDescription()
 
-    val workRoom = workRoom()
+    val workRoom = WorkRoom()
     workRoom.getDescription()
     workRoom.pc()
 
