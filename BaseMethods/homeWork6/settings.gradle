@@ -1,0 +1,2 @@
+rootProject.name = "homeWork6"
+include ':app'
