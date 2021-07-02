@@ -1,4 +1,4 @@
-package com.example.homework7
+package com.example.homework7 
 
 fun main() {
 
