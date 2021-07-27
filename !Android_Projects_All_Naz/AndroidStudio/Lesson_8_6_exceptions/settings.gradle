@@ -1,0 +1,2 @@
+rootProject.name = "Lesson_8_6_exceptions"
+include ':app'

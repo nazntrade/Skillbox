@@ -1,0 +1,2 @@
+rootProject.name = "TextBook_Lambda_Higher_order_functions"
+include ':app'
