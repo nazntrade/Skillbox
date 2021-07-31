@@ -1,36 +1,51 @@
 package com.example.homework_8_7_exceptions
 
-fun main() {
+class Wheel(var pressure: Double = 0.0) {
 
-    val wheel = Wheel(0.0)
-    wheel.setPressure(15.4)
+    class TooHighPressure : Exception()
 
-}
+    class TooLowPressure : Exception()
 
-class Wheel(val pressure: Double = 0.0) {
+    class IncorrectPressure : Exception()
 
-    class TooHighPressure(s: String) : Exception() {}
-
-    class TooLowPressure(s: String) : Exception() {}
-
-    class IncorrectPressure(s: String) : Exception() {}
-
-    fun setPressure(value: Double) {
-        val pressure = value + pressure
+    fun setPressure(value: Double): Double {
+        pressure = value
         if (pressure < 0 || pressure > 10) {
-            throw IncorrectPressure("The pressure not in range 0..10: $pressure")
+            try {
+                throw IncorrectPressure()
+            } catch (t: IncorrectPressure) {
+                println("The pumping was failed. Not valid value. The pressure $pressure bar not in range 0..10.")
+            }
         }
+        return pressure
     }
 
-    fun check(pressure: Double) {
+    fun check() {
+
         if (pressure < 0 || pressure > 10) {
-            throw IncorrectPressure("The pressure not in range 0..10: $pressure")
+            try {
+                throw IncorrectPressure()
+            } catch (t: IncorrectPressure) {
+                println("Check showed: not valid value. The pressure $pressure bar not in range 0..10.")
+            }
         }
-        if (pressure < 1.6) {
-            throw TooLowPressure("The pressure is too low: $pressure - increase pressure")
+
+        if (pressure in 0.0..1.6) {
+            try {
+                throw TooLowPressure()
+            } catch (t: TooLowPressure) {
+                println("When the pressure was pumped to $pressure bar, the operation was successful. Use isn't possible. The pressure is too low.")
+            }
         }
-        if (pressure > 2.5) {
-            throw TooHighPressure("The pressure is too high: $pressure - turn down the pressure")
+        if (pressure in 2.5..10.0) {
+            try {
+                throw TooHighPressure()
+            } catch (t: TooHighPressure) {
+                println("When the pressure was pumped to $pressure bar, the operation was successful. Use isn't possible. The pressure is too high.")
+            }
+        }
+        if (pressure in 1.6..2.5) {
+            println("When the pressure was pumped to $pressure bar, the operation was successful. Use is possible.")
         }
     }
 }
