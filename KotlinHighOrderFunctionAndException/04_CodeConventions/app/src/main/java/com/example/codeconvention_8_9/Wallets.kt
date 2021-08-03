@@ -1,11 +1,8 @@
 package com.example.homework7
 
-sealed class Wallets    {
+sealed class Wallets {
 
     class VirtualWalletClass : Wallets() {
-
-
-
 
         private var amountVirtUSD: Double = 0.0
         private var amountVirtRUR: Double = 0.0

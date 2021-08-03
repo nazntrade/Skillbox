@@ -1,6 +1,6 @@
 package com.example.homework7
 
-fun main(     )     {
+fun main() {
 
     val realWallet = Wallets.RealWalletClass()
 

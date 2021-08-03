@@ -1,8 +1,6 @@
 package com.example.homework7
 
-enum class Currencies       {
-
-
+enum class Currencies {
 
     USD,
     EUR,
