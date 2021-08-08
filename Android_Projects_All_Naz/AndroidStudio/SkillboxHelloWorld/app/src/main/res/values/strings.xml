@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SkillboxHelloWorld</string>
+
+    <string name="main_name_value">Светло</string>
+    <plurals name="main_quantity_string">
+        <item quantity="one">%1$d значение</item>
+        <item quantity="few">%1$d значения</item>
+        <item quantity="other">%1$d значений</item>
+    </plurals>
 </resources>

@@ -18,11 +18,57 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            applicationIdSuffix ".debug"
+            manifestPlaceholders = [appName: "DebugSkillbox"]
+        }
+
+        qa {
+            initWith debug
+            manifestPlaceholders = [appName: "QaSkillbox"]
+            applicationIdSuffix ".qa"
+        }
+
         release {
+            manifestPlaceholders = [appName: "ReleaseSkillbox"]
+            applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "type", "brand"
+
+    productFlavors {
+        demo {
+            applicationIdSuffix ".demo"
+            versionNameSuffix "Demo"
+            dimension "type"
+        }
+
+        full {
+            applicationIdSuffix ".full"
+            versionNameSuffix "Full"
+            dimension "type"
+        }
+
+        cola {
+            versionCode = android.defaultConfig.versionCode + 100
+            applicationIdSuffix ".cola"
+            versionNameSuffix "Cola"
+            dimension "brand"
+        }
+
+        pepsi {
+            minSdkVersion 29
+            applicationIdSuffix ".pepsi"
+            versionNameSuffix "Pepsi"
+            dimension "brand"
+        }
+    }
+
     compileOptions {
         sourceCompatibility "1.8"
         targetCompatibility "1.8"
