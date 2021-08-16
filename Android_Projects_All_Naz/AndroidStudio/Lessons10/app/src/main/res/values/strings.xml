@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Lessons10</string>
+    <string name="text_view">Text view</string>
+    <string name="name_hint">Enter your name</string>
+    <string name="hello_string">Hello, %1$s</string>
+    <string name="clear_text">Clear</string>
+    <string name="cleared_text">Text cleared</string>
+    <string name="make_a_long_operation">make a long operation</string>
+    <string name="long_operation_completed">operation completed</string>
+    <string name="enter_text">Enter text</string>
+    <string name="add">Add</string>
+</resources>
