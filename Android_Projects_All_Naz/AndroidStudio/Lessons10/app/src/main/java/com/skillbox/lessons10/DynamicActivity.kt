@@ -31,9 +31,10 @@ class DynamicActivity : AppCompatActivity() {
             view.apply {
                 textView.text = textToAdd
                 deleteButton.setOnClickListener {
-                    container.removeView()
+                    container.removeView(this)
                 }
             }
+            container.addView(view)
         }
     }
 }
