@@ -8,62 +8,54 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
+import com.skillbox.homework10.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val button = findViewById<Button>(R.id.Button)
-        button.setOnClickListener {
+        binding.button.setOnClickListener {
             makeProgressBar()
         }
-        val inputEmail = findViewById<EditText>(R.id.InputEmail)
-        inputEmail.setOnClickListener {
+        binding.inputEmail.setOnClickListener {
             checkButtonOn()
         }
-        val inputPassword = findViewById<EditText>(R.id.InputPassword)
-        inputPassword.setOnClickListener {
+        binding.inputPassword.setOnClickListener {
             checkButtonOn()
         }
-        val checkbox = findViewById<CheckBox>(R.id.checkbox)
-        checkbox.setOnClickListener {
+        binding.checkbox.setOnClickListener {
             checkButtonOn()
         }
 
     }
 
     fun checkButtonOn() {
-        val button = findViewById<Button>(R.id.Button)
-        val inputEmail = findViewById<EditText>(R.id.InputEmail)
-        val inputPassword = findViewById<EditText>(R.id.InputPassword)
-        val checkbox = findViewById<CheckBox>(R.id.checkbox)
-
-        button.isEnabled =
-            inputEmail.text.isNotEmpty() && inputPassword.text.isNotEmpty() && checkbox.isChecked
+        binding.button.isEnabled =
+            binding.inputEmail.text.isNotEmpty()
+                    && binding.inputPassword.text.isNotEmpty()
+                    && binding.checkbox.isChecked
     }
 
     fun makeProgressBar() {
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        progressBar.visibility = View.VISIBLE
-        val button = findViewById<Button>(R.id.Button)
-        button.isEnabled = false
-        val inputEmail = findViewById<EditText>(R.id.InputEmail)
-        inputEmail.isEnabled = false
-        val inputPassword = findViewById<EditText>(R.id.InputPassword)
-        inputPassword.isEnabled = false
-        val checkbox = findViewById<CheckBox>(R.id.checkbox)
-        checkbox.isEnabled = false
+        binding.progressBar.visibility = View.VISIBLE
+        binding.button.isEnabled = false
+        binding.inputEmail.isEnabled = false
+        binding.inputPassword.isEnabled = false
+        binding.checkbox.isEnabled = false
 
         Handler().postDelayed({
-            progressBar.visibility = View.GONE
-            button.isEnabled = true
-            inputEmail.isEnabled = true
-            inputPassword.isEnabled = true
-            checkbox.isEnabled = true
-            Toast.makeText(this, R.string.you_are_logged_in,
-                Toast.LENGTH_LONG)
+            binding.progressBar.visibility = View.GONE
+            binding.button.isEnabled = true
+            binding.inputEmail.isEnabled = true
+            binding.inputPassword.isEnabled = true
+            binding.checkbox.isEnabled = true
+            Toast.makeText(
+                this, R.string.you_are_logged_in,
+                Toast.LENGTH_LONG
+            )
                 .show()
         }, 2000)
     }
