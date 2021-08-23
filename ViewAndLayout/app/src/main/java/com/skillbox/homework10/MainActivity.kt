@@ -3,11 +3,7 @@ package com.skillbox.homework10
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
 import com.skillbox.homework10.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,42 +17,42 @@ class MainActivity : AppCompatActivity() {
             makeProgressBar()
         }
         binding.inputEmail.setOnClickListener {
-            checkButtonOn()
+            checkButton()
         }
         binding.inputPassword.setOnClickListener {
-            checkButtonOn()
+            checkButton()
         }
         binding.checkbox.setOnClickListener {
-            checkButtonOn()
+            checkButton()
         }
-
     }
 
-    fun checkButtonOn() {
+    fun checkButton() {
         binding.button.isEnabled =
             binding.inputEmail.text.isNotEmpty()
                     && binding.inputPassword.text.isNotEmpty()
                     && binding.checkbox.isChecked
     }
 
-    fun makeProgressBar() {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun makeProgressBar() {
+        val view = layoutInflater.inflate(R.layout.progres_bar, binding.container, false)
+        view.apply {
+            binding.container.addView(view)
+        }
+//        binding.progressBar.visibility = View.VISIBLE
         binding.button.isEnabled = false
         binding.inputEmail.isEnabled = false
         binding.inputPassword.isEnabled = false
         binding.checkbox.isEnabled = false
 
         Handler().postDelayed({
-            binding.progressBar.visibility = View.GONE
+//            binding.progressBar.visibility = View.GONE
             binding.button.isEnabled = true
             binding.inputEmail.isEnabled = true
             binding.inputPassword.isEnabled = true
             binding.checkbox.isEnabled = true
-            Toast.makeText(
-                this, R.string.you_are_logged_in,
-                Toast.LENGTH_LONG
-            )
-                .show()
+            binding.container.removeView(view)
+            Toast.makeText(this, R.string.you_are_logged_in, Toast.LENGTH_LONG).show()
         }, 2000)
     }
 }
