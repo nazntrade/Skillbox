@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Lesson11_5</string>
+    <string name="action_1">Action 1</string>
+    <string name="action_2">Action 2</string>
+    <string name="action_3">Action 3</string>
 </resources>
