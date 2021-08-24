@@ -3,6 +3,8 @@ package com.skillbox.homework10
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.*
 import com.skillbox.homework10.databinding.ActivityMainBinding
 
@@ -16,12 +18,24 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             makeProgressBar()
         }
-        binding.inputEmail.setOnClickListener {
-            checkButton()
-        }
-        binding.inputPassword.setOnClickListener {
-            checkButton()
-        }
+        binding.inputEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                checkButton()
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
+        binding.inputPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                checkButton()
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
         binding.checkbox.setOnClickListener {
             checkButton()
         }
