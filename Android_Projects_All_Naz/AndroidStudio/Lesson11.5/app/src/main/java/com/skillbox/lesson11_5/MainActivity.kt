@@ -64,9 +64,7 @@ class MainActivity : AppCompatActivity() {
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
                 binding.expendTextView.text = "search collapsed"
                 return true
-
             }
-
         })
 
         (searchItem.actionView as android.widget.SearchView).setOnQueryTextListener(
