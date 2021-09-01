@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search_toolbar"
+        android:icon="@drawable/ic_search"
+        android:title="@string/action_search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/play"
+        android:icon="@drawable/ic_play"
+        android:title="@string/play_book"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/night_theme"
+        android:checkable="false"
+        android:title="@string/click_1" />
+    <item
+        android:id="@+id/timer_shutdown"
+        android:icon="@drawable/ic_alarm"
+        android:iconTint="@color/teal_700"
+        android:title="@string/timer_turn_off"
+        app:showAsAction="ifRoom" />
+
+</menu>
