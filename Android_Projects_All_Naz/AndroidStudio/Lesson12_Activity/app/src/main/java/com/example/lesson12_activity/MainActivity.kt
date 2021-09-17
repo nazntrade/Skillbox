@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.viewbinding.BuildConfig
 import com.example.lesson12_activity.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

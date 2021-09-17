@@ -3,34 +3,59 @@ package com.skillbox.homework12_12_Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.widget.*
-import androidx.viewbinding.BuildConfig
 import com.skillbox.homework12_12_Activity.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private val tag = "MainActivity"
 
-
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        DebugLogger.v(tag, "onCreate ${hashCode()}")
+        DebugLogger.v(tag, "onCreate")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+//      ANR
+        binding.buttonAnr.setOnClickListener {
+            Thread.sleep(10000)
+            Toast.makeText(this, "ooppps", Toast.LENGTH_LONG).show()
+        }
 
+//      checking correct login or email
         binding.button.setOnClickListener {
             makeProgressBar()
+            if (binding.inputEmail.text.isNotEmpty() && binding.inputPassword.text.isNotEmpty()
+                && Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString()).matches()
+            ) {
+                binding.validationText.text = "You Entered valid Email and password"
+                Toast.makeText(this, "The Pentagon is crashed", Toast.LENGTH_SHORT).show()
+            } else binding.validationText.text = "Enter valid Email"
         }
-        binding.inputEmail.setOnClickListener {
-            checkButton()
-        }
-        binding.inputPassword.setOnClickListener {
-            checkButton()
-        }
+
+        binding.inputEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                checkButton()
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
+        binding.inputPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                checkButton()
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
         binding.checkbox.setOnClickListener {
             checkButton()
         }
@@ -61,32 +86,34 @@ class MainActivity : AppCompatActivity() {
             binding.inputPassword.isEnabled = true
             binding.checkbox.isEnabled = true
             binding.container.removeView(view)
-            Toast.makeText(this, R.string.you_are_logged_in, Toast.LENGTH_LONG).show()
         }, 2000)
     }
-
+//  LifeCycles activity
     override fun onStart() {
         super.onStart()
-        DebugLogger.d(tag, "onStart ${hashCode()}")
+        DebugLogger.d(tag, "onStart")
     }
+
     override fun onResume() {
         super.onResume()
-        DebugLogger.i(tag, "onResume ${hashCode()}")
+        DebugLogger.i(tag, "onResume")
     }
+
     override fun onPause() {
         super.onPause()
-        DebugLogger.w(tag, "onPause ${hashCode()}")
+        DebugLogger.w(tag, "onPause")
     }
+
     override fun onStop() {
         super.onStop()
-        DebugLogger.e(tag, "onStop ${hashCode()}")
+        DebugLogger.e(tag, "onStop")
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        DebugLogger.v(tag, "onDestroy ${hashCode()}")
+        DebugLogger.v(tag, "onDestroy")
     }
 }
-
 
 object DebugLogger {
     fun v(tag: String, message: String) {
@@ -94,21 +121,25 @@ object DebugLogger {
             Log.v(tag, message)
         }
     }
+
     fun d(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
     }
+
     fun i(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, message)
         }
     }
+
     fun w(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, message)
         }
     }
+
     fun e(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message)

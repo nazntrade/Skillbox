@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,16 +15,13 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="233dp"
             android:scaleType="centerCrop"
             android:src="@drawable/pentagon"
-            app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nameText"
@@ -43,14 +41,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            android:layout_marginTop="20dp"
             android:enabled="true"
             android:hint="@string/enter_your_email"
             android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/inputPassword"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/nameText"
             app:layout_constraintVertical_chainStyle="spread" />
 
         <EditText
@@ -58,11 +56,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:enabled="true"
             android:hint="@string/enter_your_password"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="@+id/inputEmail"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/inputEmail"
@@ -74,26 +71,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="12dp"
+            android:layout_marginStart="25dp"
             android:enabled="true"
             android:text="@string/i_agree_to_total_control"
             android:textSize="10sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button"
+            app:layout_constraintBottom_toBottomOf="@+id/button"
             app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/button" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
             android:enabled="false"
             android:text="@string/enter"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/checkbox"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+            app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -109,20 +110,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="16dp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="267dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="433dp" />
-
         <!--        <ProgressBar-->
         <!--            android:id="@+id/progressBar"-->
         <!--            android:layout_width="wrap_content"-->
@@ -133,22 +120,35 @@
 
         <LinearLayout
             android:id="@+id/container"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintStart_toEndOf="@+id/checkbox"
+            app:layout_constraintTop_toTopOf="@+id/button" />
+
+        <Button
+            android:id="@+id/button_anr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline6" />
+            android:text="press 3 times"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/validationText" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
+        <TextView
+            android:id="@+id/validationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="50dp" />
+            android:layout_marginTop="24dp"
+            android:text=""
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
