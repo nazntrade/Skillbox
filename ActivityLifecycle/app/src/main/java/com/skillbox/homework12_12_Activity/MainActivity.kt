@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private fun isValidEmail (): Boolean {
+    private fun isValidEmail(): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString()).matches()
     }
 
@@ -29,11 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
 //      ANR
         binding.buttonAnr.setOnClickListener {
+            Handler().postDelayed({
+                Toast.makeText(this, "ooppps, something wrong", Toast.LENGTH_LONG).show()
+            }, 2000)
             Thread.sleep(10000)
-            Toast.makeText(this, "ooppps", Toast.LENGTH_LONG).show()
         }
 
 //      checking correct login or email
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 checkButton()
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -60,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 checkButton()
             }
+
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -95,7 +99,8 @@ class MainActivity : AppCompatActivity() {
             binding.container.removeView(view)
         }, 2000)
     }
-//  LifeCycles activity
+
+    //  LifeCycles activity
     override fun onStart() {
         super.onStart()
         DebugLogger.d(tag, "onStart")
@@ -133,21 +138,25 @@ object DebugLogger {
             Log.v(tag, message)
         }
     }
+
     fun d(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
     }
+
     fun i(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, message)
         }
     }
+
     fun w(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, message)
         }
     }
+
     fun e(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message)
