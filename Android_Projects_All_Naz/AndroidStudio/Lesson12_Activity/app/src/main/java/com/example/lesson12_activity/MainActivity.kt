@@ -1,6 +1,5 @@
 package com.example.lesson12_activity
 
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log

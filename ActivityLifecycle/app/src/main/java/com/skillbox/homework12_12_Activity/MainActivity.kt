@@ -10,6 +10,7 @@ import android.util.Log
 import android.util.Patterns
 import android.widget.*
 import com.skillbox.homework12_12_Activity.databinding.ActivityMainBinding
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,9 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private fun isValidEmail(): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString()).matches()
-    }
+    private var state = FormState(false, "")
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//      ANR
+        //      ANR
         binding.buttonAnr.setOnClickListener {
             Handler().postDelayed({
                 Toast.makeText(this, "ooppps, something wrong", Toast.LENGTH_LONG).show()
@@ -40,12 +39,12 @@ class MainActivity : AppCompatActivity() {
 
 //      checking correct login or email
         binding.button.setOnClickListener {
-            makeProgressBar()
             if (binding.inputEmail.text.isNotEmpty() && binding.inputPassword.text.isNotEmpty()
                 && isValidEmail()
             ) {
                 binding.validationText.text = "You Entered valid Email and password"
                 Toast.makeText(this, "The Pentagon is crashed", Toast.LENGTH_LONG).show()
+                makeProgressBar()
             } else binding.validationText.text = "Error: enter valid Email"
         }
 
@@ -100,6 +99,10 @@ class MainActivity : AppCompatActivity() {
         }, 2000)
     }
 
+    private fun isValidEmail(): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString()).matches()
+    }
+
     //  LifeCycles activity
     override fun onStart() {
         super.onStart()
@@ -126,10 +129,23 @@ class MainActivity : AppCompatActivity() {
         DebugLogger.v(tag, "onDestroy")
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putParcelable()
-//    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val state = FormState(binding.button.isEnabled, binding.validationText.text.toString())
+        outState.putParcelable(KEY_STATE, state)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        state = savedInstanceState.getParcelable(KEY_STATE) ?: FormState(false, "")
+//        Toast.makeText(this, "Value: $state", Toast.LENGTH_SHORT).show()
+        binding.button.isEnabled = state.valid
+        binding.validationText.text = state.message
+    }
+
+    companion object {
+        private const val KEY_STATE = "state"
+    }
 }
 
 object DebugLogger {
