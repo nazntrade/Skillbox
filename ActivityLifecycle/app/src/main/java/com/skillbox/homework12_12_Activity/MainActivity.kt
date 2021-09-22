@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    //    variable for bundle
     private var state = FormState(false, "")
 
     @SuppressLint("SetTextI18n")
@@ -129,12 +130,14 @@ class MainActivity : AppCompatActivity() {
         DebugLogger.v(tag, "onDestroy")
     }
 
+    //   put in bundle
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val state = FormState(binding.button.isEnabled, binding.validationText.text.toString())
         outState.putParcelable(KEY_STATE, state)
     }
 
+    //   put out bundle and refresh View
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         state = savedInstanceState.getParcelable(KEY_STATE) ?: FormState(false, "")
