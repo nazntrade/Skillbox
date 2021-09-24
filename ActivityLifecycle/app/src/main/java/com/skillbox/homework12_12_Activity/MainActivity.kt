@@ -106,22 +106,18 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         DebugLogger.d(tag, "onStart")
     }
-
     override fun onResume() {
         super.onResume()
         DebugLogger.i(tag, "onResume")
     }
-
     override fun onPause() {
         super.onPause()
         DebugLogger.w(tag, "onPause")
     }
-
     override fun onStop() {
         super.onStop()
         DebugLogger.e(tag, "onStop")
     }
-
     override fun onDestroy() {
         super.onDestroy()
         DebugLogger.v(tag, "onDestroy")
@@ -154,25 +150,21 @@ object DebugLogger {
             Log.v(tag, message)
         }
     }
-
     fun d(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
     }
-
     fun i(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, message)
         }
     }
-
     fun w(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, message)
         }
     }
-
     fun e(tag: String, message: String) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, message)
