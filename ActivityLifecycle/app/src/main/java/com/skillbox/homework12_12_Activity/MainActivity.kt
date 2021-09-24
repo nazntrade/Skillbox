@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
-import android.widget.*
 import com.skillbox.homework12_12_Activity.databinding.ActivityMainBinding
 import android.widget.Toast
 import androidx.viewbinding.BuildConfig
@@ -68,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         binding.checkbox.setOnClickListener {
             checkButton()
         }
-
     }
 
     fun checkButton() {
@@ -180,3 +178,5 @@ object DebugLogger {
     }
 }
 
+
+//
