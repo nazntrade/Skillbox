@@ -8,9 +8,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
-import android.widget.*
 import com.skillbox.homework12_12_Activity.databinding.ActivityMainBinding
 import android.widget.Toast
+import androidx.viewbinding.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 checkButton()
             }
-
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -63,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 checkButton()
             }
-
             override fun afterTextChanged(p0: Editable?) {}
         })
 
@@ -183,3 +181,5 @@ object DebugLogger {
     }
 }
 
+
+//
