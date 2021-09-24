@@ -49,21 +49,7 @@ class MainActivity : AppCompatActivity() {
             } else binding.validationText.text = "Error: enter valid Email"
         }
 
-        binding.inputEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                checkButton()
-            }
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        binding.inputPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                checkButton()
-            }
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+        emailPasswordFieldCheck()
 
         binding.checkbox.setOnClickListener {
             checkButton()
@@ -75,6 +61,19 @@ class MainActivity : AppCompatActivity() {
             binding.inputEmail.text.isNotEmpty()
                     && binding.inputPassword.text.isNotEmpty()
                     && binding.checkbox.isChecked
+    }
+
+    fun emailPasswordFieldCheck() {
+        listOf(binding.inputEmail, binding.inputPassword).forEach {
+            it.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    checkButton()
+                }
+
+                override fun afterTextChanged(p0: Editable?) {}
+            })
+        }
     }
 
     private fun makeProgressBar() {
@@ -180,6 +179,3 @@ object DebugLogger {
         }
     }
 }
-
-//
-//
