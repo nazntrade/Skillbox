@@ -1,10 +1,13 @@
 package com.example.lessons13_newscreens
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
@@ -24,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         binding.startExplicitButton.setOnClickListener {
             val messageText = binding.messageEditText.text.toString()
             startActivity(SecondActivity.getIntent(this, messageText))
+        }
+
+        binding.takePhotoButton.setOnClickListener {
+            dispatchTakePictureIntent()
         }
 
         binding.sendEmailButton.setOnClickListener {
@@ -47,6 +54,32 @@ class MainActivity : AppCompatActivity() {
                     toast("No component to handle intent")
                 }
             }
+        }
+    }
+
+    private fun dispatchTakePictureIntent() {
+
+        //на нек.устр.необх.обяз разреш для исп камеры
+
+
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        check camera app
+        cameraIntent.resolveActivity(packageManager)?.also {
+            startActivityForResult(cameraIntent, PHOTO_REQUEST_CODE)
+        }
+    }
+
+    //    обработать рез., устан.изобр в ImageView
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PHOTO_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                val previewBitmap = data?.getParcelableExtra("data") as? Bitmap
+                binding.resultPhotoImageView.setImageBitmap(previewBitmap)
+            } else {
+                toast("Photo capture was cancelled")
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -77,5 +110,9 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("LifecycleTest", "MainActivity|onDestroy|${hashCode()}")
+    }
+
+    companion object {
+        private const val PHOTO_REQUEST_CODE = 123
     }
 }
