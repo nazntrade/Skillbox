@@ -45,5 +45,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'androidx.activity:activity-ktx:1.3.1'
-    implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha09'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha10'//благодаря этой библиотеке
+                                                          //можно сильно упростить код с лончером
 }

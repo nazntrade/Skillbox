@@ -23,6 +23,22 @@ import java.util.jar.Manifest
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
+
+    // в уроке этот prepareCall метод! он больше не существует
+//      prepareCall(ActivityResultContracts.TakePicture()) {
+//                  bitmap ?: toast("Photo capture was cancelled")
+//            binding.resultPhotoImageView.setImageBitmap(bitmap)}
+//        вместо него новый (с добавл.в gradle)
+    // лончер нужно создавать именно тут, чтоб его можно было вернуть после паузы и стоп
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { result ->
+            if (result != null) {
+                toast("Result : $result")
+                binding.resultPhotoImageView.setImageBitmap(result)
+            }
+            else toast("No Result")
+        }
+
     @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +46,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Log.d("LifecycleTest", "MainActivity|onCreate|${hashCode()}")
-
-// в уроке этот метод. он больше не существует
-//      prepareCall(ActivityResultContracts.TakePicture()) {
-//                  bitmap ?: toast("Photo capture was cancelled")
-//            binding.resultPhotoImageView.setImageBitmap(bitmap)}
-//        вместо него новый (с добавл.в gradle)
-
-        val launcher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result != null) toast("Result : $result")
-                else toast("No Result")
-            }
-
 
         binding.startExplicitButton.setOnClickListener {
             val messageText = binding.messageEditText.text.toString()
@@ -78,7 +81,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dispatchTakePictureIntent() {
-
         //на нек.устр.необх.обяз разреш для исп камеры/проверка разреш
         val isCameraPermissionGranted =
             ContextCompat.checkSelfPermission(
@@ -92,26 +94,8 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(android.Manifest.permission.CAMERA),
                 14 //просто интовая константа,кот мы не используем
             )
-        } else {//если разреш есть - откр камеру
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        check camera app
-            cameraIntent.resolveActivity(packageManager)?.also {
-                startActivityForResult(cameraIntent, PHOTO_REQUEST_CODE)
-            }
-        }
-    }
-
-    //    обработать рез., устан.изобр в ImageView
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == PHOTO_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                val previewBitmap = data?.getParcelableExtra("data") as? Bitmap
-                binding.resultPhotoImageView.setImageBitmap(previewBitmap)
-            } else {
-                toast("Photo capture was cancelled")
-            }
         } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            cameraLauncher.launch(null) //упростили благодаря библиотеке ktx
         }
     }
 
