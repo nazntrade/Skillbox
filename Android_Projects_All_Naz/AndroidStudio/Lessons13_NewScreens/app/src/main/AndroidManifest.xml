@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.lessons13_newscreens">
 
     <queries>
@@ -15,8 +16,14 @@
             <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
     </queries>
+    <queries>
+        <!-- Camera -->
+        <intent>
+            <action android:name="android.intent.category.BROWSABLE" />
+        </intent>
+    </queries>
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -38,6 +45,23 @@
         </activity>
 
         <activity android:name=".SecondActivity" />
+
+        <activity
+            android:name=".CourseActivity"
+            android:exported="true">
+            <tools:validation testUrl="https://skillbox.ru/course/profession-android-developer-2021/" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="skillbox.ru"
+                    android:pathPrefix="/course/" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".EmailActivity"
             android:exported="true">

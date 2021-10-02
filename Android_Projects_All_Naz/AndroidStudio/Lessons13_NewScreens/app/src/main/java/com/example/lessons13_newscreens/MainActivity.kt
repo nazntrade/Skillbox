@@ -1,28 +1,24 @@
 package com.example.lessons13_newscreens
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Instrumentation
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.lessons13_newscreens.databinding.ActivityMainBinding
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
+
+    //https://skillbox.ru/course/profession-android-developer-2021/
 
     // в уроке этот prepareCall метод! он больше не существует
 //      prepareCall(ActivityResultContracts.TakePicture()) {
@@ -57,25 +53,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.sendEmailButton.setOnClickListener {
-            val emailAddress = binding.emailAddressEditText.text.toString()
-            val emailSubject = binding.subjectEditText.text.toString()
-            val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()
-            if (!isEmailValid) {
-                toast("Enter valid email address")
-            } else {
-                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:") // only email apps should handle this
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddress))
-                    putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-                }
+            dispatchEmailIntent()
+        }
+    }
+
+    private fun dispatchEmailIntent(){
+        val emailAddress = binding.emailAddressEditText.text.toString()
+        val emailSubject = binding.subjectEditText.text.toString()
+        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()
+        if (!isEmailValid) {
+            toast("Enter valid email address")
+        } else {
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:") // only email apps should handle this
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddress))
+                putExtra(Intent.EXTRA_SUBJECT, emailSubject)
+            }
 
 //                startActivity(emailIntent)
 
-                if (emailIntent.resolveActivity(packageManager) != null) {
-                    startActivity(emailIntent)
-                } else {
-                    toast("No component to handle intent")
-                }
+            if (emailIntent.resolveActivity(packageManager) != null) {
+                startActivity(emailIntent)
+            } else {
+                toast("No component to handle intent")
             }
         }
     }
