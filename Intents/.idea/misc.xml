@@ -4,12 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/SkillBox/android_basic/ActivityLifecycle/app/src/main/res/layout/activity_main.xml" value="0.67" />
+        <entry key="..\:/Android/SkillBox/android_basic/Intents/app/src/main/res/layout/activity_login.xml" value="0.3703125" />
         <entry key="..\:/Android/SkillBox/android_basic/Intents/app/src/main/res/layout/activity_main.xml" value="0.3703125" />
         <entry key="..\:/Android/SkillBox/android_basic/Intents/app/src/main/res/layout/progres_bar.xml" value="0.3703125" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

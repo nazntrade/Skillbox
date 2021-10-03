@@ -17,7 +17,6 @@ import com.example.lessons13_newscreens.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
-
     //https://skillbox.ru/course/profession-android-developer-2021/
 
     // в уроке этот prepareCall метод! он больше не существует
@@ -31,8 +30,7 @@ class MainActivity : AppCompatActivity() {
             if (result != null) {
                 toast("Result : $result")
                 binding.resultPhotoImageView.setImageBitmap(result)
-            }
-            else toast("No Result")
+            } else toast("No Result")
         }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun dispatchEmailIntent(){
+    private fun dispatchEmailIntent() {
         val emailAddress = binding.emailAddressEditText.text.toString()
         val emailSubject = binding.subjectEditText.text.toString()
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()
