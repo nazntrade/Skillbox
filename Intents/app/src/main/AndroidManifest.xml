@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.skillbox.homework13_opening_new_screens">
 
     <queries>
@@ -26,14 +27,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--объявил новое активити и добавил intent filter-->
+        <!--объявил новое активити и добавил intent filter-->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DIAL" />
-<!--                <data android:scheme="tel" />-->
+                <!--                <data android:scheme="tel" />-->
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--     регистр.нов.актив.,кот.будет открывать ссылку https://stackoverflow.com/questions/   -->
+        <activity
+            android:name=".ForumActivity"
+            android:exported="true">
+            <tools:validation testUrl="https://stackoverflow.com/questions/69431817/boost-signals2-return-lambda-from-functor-object" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="stackoverflow.com"
+                    android:pathPrefix="/questions/" />
             </intent-filter>
         </activity>
     </application>
