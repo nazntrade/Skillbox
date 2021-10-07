@@ -49,9 +49,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="stackoverflow.com"
-                    android:pathPrefix="/questions/" />
+                    android:pathPrefix="/questions/"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
     </application>
