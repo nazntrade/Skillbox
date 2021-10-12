@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding.replaceFragmentButton.setOnClickListener {
             replaceInfoFragment()
         }
-
     }
 
     private fun showInfoFragment() {
