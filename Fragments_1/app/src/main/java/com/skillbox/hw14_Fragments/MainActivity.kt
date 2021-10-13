@@ -1,7 +1,7 @@
 package com.skillbox.hw14_Fragments
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.skillbox.hw14_Fragments.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,11 +17,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceLoginFragment() {
-
-        supportFragmentManager.beginTransaction()
-            //вместо добавления - переписываем, чтоб они не накладывались 2 раз. Задний не работает
-            .replace(R.id.container, LoginFragment.newInstance(""))
-            .commit()
+        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.container) != null
+//благодаря проверке, после переворота, фрагмент не переписывается занова
+        if (!alreadyHasFragment) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container, LoginFragment())
+                .commit()
+        }
     }
 
 }

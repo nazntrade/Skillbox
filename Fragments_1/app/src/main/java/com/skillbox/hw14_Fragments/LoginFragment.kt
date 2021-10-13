@@ -74,14 +74,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         view.apply {
             binding.container.addView(view)
         }
-//        binding.progressBar.visibility = View.VISIBLE
         binding.button.isEnabled = false
         binding.inputEmail.isEnabled = false
         binding.inputPassword.isEnabled = false
         binding.checkbox.isEnabled = false
 
         Handler().postDelayed({
-//            binding.progressBar.visibility = View.GONE
             binding.button.isEnabled = true
             binding.inputEmail.isEnabled = true
             binding.inputPassword.isEnabled = true
@@ -94,33 +92,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString()).matches()
     }
 
-    //   put in bundle
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        val state = FormState(binding.button.isEnabled, binding.validationText.text.toString())
-//        outState.putParcelable(KEY_STATE, state)
-//    }
-//
-//    //   put out bundle and refresh View
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        state = savedInstanceState.getParcelable(KEY_STATE) ?: FormState(false, "")
-//        binding.button.isEnabled = state.valid
-//        binding.validationText.text = state.message
-//    }
-//
     fun toast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
-
-    companion object {
-        private const val KEY_TEXT = "key text"
-
-        fun newInstance(text: String): LoginFragment {
-            return LoginFragment().withArguments {
-                putString(KEY_TEXT, text)
-            }
-        }
-    }
-
 }
