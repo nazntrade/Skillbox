@@ -113,7 +113,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
-//    companion object {
-//        private const val KEY_STATE = "state"
-//    }
+    companion object {
+        private const val KEY_TEXT = "key text"
+
+        fun newInstance(text: String): LoginFragment {
+            return LoginFragment().withArguments {
+                putString(KEY_TEXT, text)
+            }
+        }
+    }
+
 }

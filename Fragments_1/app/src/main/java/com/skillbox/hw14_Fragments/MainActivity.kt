@@ -13,7 +13,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        replaceLoginFragment()
     }
+
+    private fun replaceLoginFragment() {
+
+        supportFragmentManager.beginTransaction()
+            //вместо добавления - переписываем, чтоб они не накладывались 2 раз. Задний не работает
+            .replace(R.id.container, LoginFragment.newInstance(""))
+            .commit()
+    }
+
 }
 
