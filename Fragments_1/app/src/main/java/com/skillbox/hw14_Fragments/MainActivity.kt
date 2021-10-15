@@ -13,15 +13,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceLoginFragment()
+        addLoginFragment()
+
     }
 
-    private fun replaceLoginFragment() {
-        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.container) != null
+    private fun addLoginFragment() {
+        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.containerMainActivity) != null
 //благодаря проверке, после переворота, фрагмент не переписывается занова
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.container, LoginFragment())
+                .replace(R.id.containerMainActivity, LoginFragment())
                 .commit()
         }
     }

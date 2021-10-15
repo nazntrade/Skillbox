@@ -3,6 +3,7 @@ package com.skillbox.hw14_Fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
@@ -11,35 +12,35 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.skillbox.hw14_Fragments.databinding.FragmentLoginBinding
 
+
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     lateinit var binding: FragmentLoginBinding
 
     //    variable for bundle
-    private var state = FormState(false, "")
+//    private var state = FormState(false, "")
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
 
-        //      ANR
-        binding.buttonAnr.setOnClickListener {
-            Handler().postDelayed({
-                toast("ooppps, something wrong")
-            }, 2000)
-            Thread.sleep(10000)
-        }
-
 //      checking correct login or email
-        binding.button.setOnClickListener {
-            if (binding.inputEmail.text.isNotEmpty() && binding.inputPassword.text.isNotEmpty()
+        binding.buttonLogin.setOnClickListener {
+            if (binding.inputPassword.text.isNotEmpty()
                 && isValidEmail()
             ) {
                 binding.validationText.text = "You Entered valid Email and password"
-                toast("The Pentagon is crashed")
                 makeProgressBar()
-            } else binding.validationText.text = "Error: enter valid Email"
+
+                //opening mainActivity//////// Обычный Handler устарел
+                Handler(Looper.myLooper()!!) .postDelayed({
+                    val mainFragment = MainFragment()
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.containerMainActivity, mainFragment)
+                        ?.commit()
+                }, 3000)
+            }
         }
 
         emailPasswordFieldCheck()
@@ -49,11 +50,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    fun checkButton() {
-        binding.button.isEnabled =
-            binding.inputEmail.text.isNotEmpty()
-                    && binding.inputPassword.text.isNotEmpty()
-                    && binding.checkbox.isChecked
+    private fun checkButton() {
+        binding.buttonLogin.isEnabled =
+            binding.inputPassword.text.isNotEmpty() && binding.checkbox.isChecked && isValidEmail()
+        binding.validationText.text = ""
     }
 
     private fun emailPasswordFieldCheck() {
@@ -70,21 +70,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun makeProgressBar() {
-        val view = layoutInflater.inflate(R.layout.progres_bar, binding.container, false)
+        val view = layoutInflater.inflate(R.layout.progres_bar, binding.containerProgressBar, false)
         view.apply {
-            binding.container.addView(view)
+            binding.containerProgressBar.addView(view)
         }
-        binding.button.isEnabled = false
+        binding.buttonLogin.isEnabled = false
         binding.inputEmail.isEnabled = false
         binding.inputPassword.isEnabled = false
         binding.checkbox.isEnabled = false
-
-        Handler().postDelayed({
-            binding.button.isEnabled = true
+        Handler(Looper.myLooper()!!).postDelayed({
+            binding.buttonLogin.isEnabled = true
             binding.inputEmail.isEnabled = true
             binding.inputPassword.isEnabled = true
             binding.checkbox.isEnabled = true
-            binding.container.removeView(view)
+            binding.containerProgressBar.removeView(view)
         }, 2000)
     }
 
@@ -92,7 +91,4 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString()).matches()
     }
 
-    fun toast(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
 }
