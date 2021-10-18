@@ -6,7 +6,7 @@ import com.skillbox.hw14_Fragments.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.containerMainActivity, LoginFragment())
+                .addToBackStack(null)
                 .commit()
         }
     }

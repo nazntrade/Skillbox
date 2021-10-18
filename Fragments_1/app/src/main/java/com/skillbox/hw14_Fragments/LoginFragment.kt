@@ -17,9 +17,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     lateinit var binding: FragmentLoginBinding
 
-    //    variable for bundle
-//    private var state = FormState(false, "")
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

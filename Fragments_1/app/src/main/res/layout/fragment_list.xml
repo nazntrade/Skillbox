@@ -1,224 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerVenom"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp">
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Venom" />
 
-        <ImageView
-            android:id="@+id/imageViewVenomIcon"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/venom_ic"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Spider-man" />
 
-        <TextView
-            android:id="@+id/textViewVenom"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Venom"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageViewVenomIcon" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thor" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerSpiderMan"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp">
-
-        <ImageView
-            android:id="@+id/imageViewSpiderIcon"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/spiderman_icon"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewSpiderClosed"
-            app:layout_constraintStart_toEndOf="@id/textViewSpider"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="CLOSED"
-            android:textColor="@color/gray"
-            android:gravity="center_vertical"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/textViewSpider"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Spider-man"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textViewSpiderClosed"
-            app:layout_constraintStart_toEndOf="@id/imageViewSpiderIcon" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerSuperMan"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp">
-
-        <ImageView
-            android:id="@+id/imageViewSuperManIcon"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/superman_icon"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewSuperClosed"
-            app:layout_constraintStart_toEndOf="@id/textViewSuperMen"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="CLOSED"
-            android:textColor="@color/gray"
-            android:gravity="center_vertical"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/textViewSuperMen"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Supermen"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textViewSuperClosed"
-            app:layout_constraintStart_toEndOf="@id/imageViewSuperManIcon" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerThor"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp">
-
-        <ImageView
-            android:id="@+id/imageViewThor"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/thor_icon"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewThorClosed"
-            app:layout_constraintStart_toEndOf="@id/textViewThor"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="CLOSED"
-            android:textColor="@color/gray"
-            android:gravity="center_vertical"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/textViewThor"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Thor"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textViewThorClosed"
-            app:layout_constraintStart_toEndOf="@id/imageViewThor" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerIronMan"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp">
-
-        <ImageView
-            android:id="@+id/imageViewIronManIcon"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ironman_icon"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewIronClosed"
-            app:layout_constraintStart_toEndOf="@id/textViewIronMan"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="CLOSED"
-            android:textColor="@color/gray"
-            android:gravity="center_vertical"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/textViewIronMan"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Iron man"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textViewIronClosed"
-            app:layout_constraintStart_toEndOf="@id/imageViewIronManIcon" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerNaz"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp">
-
-        <ImageView
-            android:id="@+id/imageViewNaz"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/naz_icon"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewNaz"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Nazentsev Andrey"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageViewNaz" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Andrew Nazentsev" />
 
 </LinearLayout>

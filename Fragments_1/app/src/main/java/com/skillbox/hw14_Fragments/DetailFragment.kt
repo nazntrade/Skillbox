@@ -14,17 +14,15 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding = FragmentDetailBinding.bind(view)
 
         binding.textViewDetail.text = requireArguments().getString(KEY_TEXT)
-
     }
+
     companion object {
         private const val KEY_TEXT = "key text"
 
         fun newInstance(text: String): DetailFragment {
             return DetailFragment().withArguments {
                 putString(KEY_TEXT, text)
-
             }
         }
     }
-
 }
