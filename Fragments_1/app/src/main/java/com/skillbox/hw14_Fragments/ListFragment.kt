@@ -13,6 +13,10 @@ open class ListFragment : Fragment(R.layout.fragment_list) {
 
     private lateinit var binding: FragmentListBinding
 
+    private val itemSelectListener: ItemSelectListener?
+        get() = activity?.let { it as? ItemSelectListener }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListBinding.bind(view)
@@ -27,18 +31,22 @@ open class ListFragment : Fragment(R.layout.fragment_list) {
             .forEach { constraintLayout: ConstraintLayout ->
                 constraintLayout.setOnClickListener {
 
-                    addDetailVenomFragment()
+                    onButtonClick(binding.containerSpiderMan.toString())
 
                 }
             }
     }
 
-    private fun addDetailVenomFragment() {
-        val detailVenomFragment = DetailVenomFragment()
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.containerMain, detailVenomFragment, "findDetailFragment")
-            .addToBackStack(null)
-            .commit()
+//    private fun addDetailFragment() {
+//        val detailFragment = DetailFragment()
+//        requireActivity().supportFragmentManager.beginTransaction()
+//            .replace(R.id.containerMain, detailFragment, "findDetailFragment")
+//            .addToBackStack(null)
+//            .commit()
+//    }
+
+    private fun onButtonClick(buttonText: String) {
+        itemSelectListener?.onItemSelect(buttonText)
     }
 
 }

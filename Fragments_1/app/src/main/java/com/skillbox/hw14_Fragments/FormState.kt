@@ -2,7 +2,7 @@ package com.skillbox.hw14_Fragments
 
 import android.os.Parcelable
 //class for safe activity
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FormState(
