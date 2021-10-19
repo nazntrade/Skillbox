@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JsonAndRetrofit</string>
+    <string name="search_input_hint">Введите пользователя</string>
+    <string name="search_button">Искать</string>
+</resources>

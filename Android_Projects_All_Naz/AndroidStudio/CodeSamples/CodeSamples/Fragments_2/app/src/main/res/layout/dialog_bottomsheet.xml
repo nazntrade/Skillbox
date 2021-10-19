@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_bottom_sheet_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Add photo"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_btn_add_photo_camera"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@android:color/white"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/ic_add_a_photo"
+        android:gravity="start|center_vertical"
+        android:text="Open camera"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_btn_add_photo_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@android:color/white"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/ic_gallery_photo"
+        android:gravity="start|center_vertical"
+        android:text="Open gallery"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tv_btn_remove_photo"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@android:color/white"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/ic_delete_photo"
+        android:gravity="start|center_vertical"
+        android:text="Remove photo"
+        android:textSize="16sp" />
+
+</LinearLayout>

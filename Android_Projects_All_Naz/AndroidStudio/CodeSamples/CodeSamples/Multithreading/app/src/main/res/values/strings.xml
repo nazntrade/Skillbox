@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Multithreading</string>
+    <string name="execute_action">Execute action</string>
+</resources>
