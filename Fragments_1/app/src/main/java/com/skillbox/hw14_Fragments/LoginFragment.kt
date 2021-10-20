@@ -35,6 +35,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     val mainFragment = MainFragment()
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.containerMainActivity, mainFragment)
+//                        ?.addToBackStack(null)
                         ?.commit()
                 }, 3000)
             }
