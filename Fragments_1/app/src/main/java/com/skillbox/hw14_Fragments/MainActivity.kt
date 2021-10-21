@@ -23,13 +23,9 @@ class MainActivity : AppCompatActivity() {
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.containerMainActivity, LoginFragment())
-                .addToBackStack(null)
                 .commit()
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }
 
