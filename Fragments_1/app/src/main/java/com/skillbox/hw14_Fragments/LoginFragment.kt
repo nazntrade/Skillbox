@@ -31,11 +31,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 makeProgressBar()
 
                 //opening mainActivity//////// Обычный Handler устарел
-                Handler(Looper.myLooper()!!) .postDelayed({
+                Handler(Looper.myLooper()!!).postDelayed({
                     val mainFragment = MainFragment()
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.containerMainActivity, mainFragment)
-                        ?.addToBackStack(null)
                         ?.commit()
                 }, 3000)
             }

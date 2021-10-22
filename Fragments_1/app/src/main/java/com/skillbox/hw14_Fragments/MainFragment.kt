@@ -30,10 +30,10 @@ class MainFragment : Fragment(R.layout.fragment_main), ItemSelectListener {
     }
 
     override fun onItemSelect(text: String) {
-        Log.d("aaaaaa", "aaaaaa")
         childFragmentManager.beginTransaction()
             .replace(R.id.containerMainFragment, DetailFragment.newInstance(text))
             .addToBackStack(null)
             .commit()
     }
+
 }

@@ -38,9 +38,4 @@ open class ListFragment : Fragment(R.layout.fragment_list) {
 
     private val itemSelectListener: ItemSelectListener?
         get() = parentFragment.let { it as? ItemSelectListener }
-
-
-}
-override fun onBackPressed() {
-    supportFragmentManager.popBackStack()
 }

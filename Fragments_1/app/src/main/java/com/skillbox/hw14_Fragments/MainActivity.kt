@@ -18,7 +18,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addLoginFragment() {
-        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.containerMainActivity) != null
+        val alreadyHasFragment =
+            supportFragmentManager.findFragmentById(R.id.containerMainActivity) != null
 //благодаря проверке, после переворота, фрагмент не переписывается занова
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
@@ -27,5 +28,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val mainFragment = supportFragmentManager.findFragmentById(R.id.containerMainActivity)
+        val childFragment =
+            mainFragment?.childFragmentManager?.findFragmentById(R.id.containerMainFragment)
+        if (childFragment != null && mainFragment.childFragmentManager.backStackEntryCount > 1)
+            mainFragment.childFragmentManager.popBackStack()
+        else
+            super.onBackPressed()
+    }
 }
+
+
 
