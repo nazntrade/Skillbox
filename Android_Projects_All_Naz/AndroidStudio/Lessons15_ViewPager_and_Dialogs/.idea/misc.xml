@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/onboarding_drawable_1.xml" value="0.3388888888888889" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/onboarding_drawable_2.xml" value="0.3388888888888889" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/onboarding_drawable_3.xml" value="0.3388888888888889" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/activity_main.xml" value="0.2962962962962963" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/fragment_onboarding.xml" value="0.2962962962962963" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

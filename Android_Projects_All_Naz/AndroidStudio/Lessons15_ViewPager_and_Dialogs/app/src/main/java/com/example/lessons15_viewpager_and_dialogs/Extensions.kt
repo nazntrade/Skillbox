@@ -1,4 +1,4 @@
-package com.skillbox.hw14_Fragments
+package com.example.lessons15_viewpager_and_dialogs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 // чтобы удобно добавлять в фрагменты разные аргументы
 
 
-//Lesson14.4 - t.28.30
+//Lesson14.4 - time.28.30
 fun <T : Fragment> T.withArguments(action: Bundle.() -> Unit): T {
     return apply {
         val args: Bundle = Bundle().apply(action)

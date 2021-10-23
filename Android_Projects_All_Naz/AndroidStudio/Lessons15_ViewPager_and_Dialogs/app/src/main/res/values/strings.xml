@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lessons15_ViewPager_and_Dialogs</string>
+    <string name="onboarding_text_1">Visionary technology</string>
+    <string name="onboarding_text_2">Mobile feed</string>
+    <string name="onboarding_text_3">The world is mine</string>
+    <string name="onboarding_text_4">Live photo</string>
+    <string name="onboarding_text_5">Welcome cats</string>
+
+</resources>
