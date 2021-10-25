@@ -19,8 +19,18 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
 
+<!--        <activity-->
+<!--            android:name=".TabsActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
         <activity
-            android:name=".TabsActivity"
+            android:name=".DialogActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

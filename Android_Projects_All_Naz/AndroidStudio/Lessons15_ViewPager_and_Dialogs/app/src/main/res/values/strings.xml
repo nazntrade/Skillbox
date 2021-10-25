@@ -5,5 +5,9 @@
     <string name="onboarding_text_3">The world is mine</string>
     <string name="onboarding_text_4">Live photo</string>
     <string name="onboarding_text_5">Welcome cats</string>
+    <string name="show_simple_dialog">Show simple dialog</string>
+    <string name="dialog_message">Simple dialog message</string>
+    <string name="dialog_with_button">Dialog with button</string>
+    <string name="show_dialog_with_button">Show dialog_with_button</string>
 
 </resources>
