@@ -3,12 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/ic_add_a_photo.xml" value="0.3296296296296296" />
         <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/onboarding_drawable_1.xml" value="0.3388888888888889" />
         <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/onboarding_drawable_2.xml" value="0.3388888888888889" />
         <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/drawable-v24/onboarding_drawable_3.xml" value="0.3388888888888889" />
-        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/activity_dialog.xml" value="0.15555555555555556" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/activity_dialog.xml" value="0.28888888888888886" />
         <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/activity_main.xml" value="0.2962962962962963" />
         <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/activity_tabs.xml" value="0.1796875" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/dialog_attention.xml" value="0.28888888888888886" />
+        <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/dialog_bottomsheet.xml" value="0.3692708333333333" />
         <entry key="..\:/Android/SkillBox/android_basic/Android_Projects_All_Naz/AndroidStudio/Lessons15_ViewPager_and_Dialogs/app/src/main/res/layout/fragment_onboarding.xml" value="0.2962962962962963" />
       </map>
     </option>

@@ -8,6 +8,9 @@
     <string name="show_simple_dialog">Show simple dialog</string>
     <string name="dialog_message">Simple dialog message</string>
     <string name="dialog_with_button">Dialog with button</string>
-    <string name="show_dialog_with_button">Show dialog_with_button</string>
+    <string name="show_dialog_with_button">Show dialog with button</string>
+    <string name="show_dialog_with_single_choice">show dialog with single choice</string>
+    <string name="sow_dialog_with_custom_layout">Sow dialog with custom layout</string>
+    <string name="show_dialog_fragment">show Dialog Fragment</string>
 
 </resources>
