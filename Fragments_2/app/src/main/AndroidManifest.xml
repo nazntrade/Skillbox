@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HW15_ViewPager_dialog_fragments">
         <activity
-            android:name=".MainActivity"
+            android:name=".AppActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
