@@ -7,7 +7,6 @@ import com.example.hw15_viewpager_dialog_fragments.databinding.ActivityAppBindin
 
 class AppActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAppBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAppBinding.inflate(layoutInflater)
@@ -22,6 +21,4 @@ class AppActivity : AppCompatActivity() {
             .replace(R.id.containerAppActivity, viewPagerFragment)
             .commit()
     }
-
-
 }
