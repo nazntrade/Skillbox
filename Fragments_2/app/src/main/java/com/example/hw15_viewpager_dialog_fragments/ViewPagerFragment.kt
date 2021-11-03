@@ -1,9 +1,8 @@
 package com.example.hw15_viewpager_dialog_fragments
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -20,27 +19,27 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
     private val screens: List<ArticleScreen> = listOf(
         ArticleScreen(
             textRes = R.string.s_o_l_i_d_,
-//            tag = R.string.rules_tag,
+            tag = ArticleTag.Rules,
             drawableRes = R.drawable.solid_img
         ),
         ArticleScreen(
             textRes = R.string.clean_code,
-//            tag = R.string.rules_tag,
+            tag = ArticleTag.Rules,
             drawableRes = R.drawable.cleane_code_img
         ),
         ArticleScreen(
             textRes = R.string.nineAdviseToDeveloper,
-//            tag = R.string.advice_tag,
+            tag = ArticleTag.Advise,
             drawableRes = R.drawable.android_professin_img
         ),
         ArticleScreen(
             textRes = R.string.typical_mistakes,
-//            tag = R.string.advice_tag,
+            tag = ArticleTag.Advise,
             drawableRes = R.drawable.android_img
         ),
         ArticleScreen(
             textRes = R.string.health_programmer,
-//            tag = R.string.health_tag,
+            tag = ArticleTag.Health,
             drawableRes = R.drawable.sport_img
         )
     )
@@ -105,17 +104,32 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
         }
     }
 
-    private var dialog: AlertDialog? = null
-    val tags = ArticleTag.values().map { it.nameId }.toIntArray()
     private fun showDialogWithSingleChoice() {
+        val tags = ArticleTag.values().map { it.name }.toTypedArray()
+        val filterArticles: MutableList<String> = mutableListOf()
+        val checkedItems = BooleanArray(ArticleTag.values().size) { true }
+
         AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.dialog_window)) //луче все класть в ресы
-            .setItems(tags) { _, which -> getFilterArticles() }//установим элемент    15.6 t12.50
-            .show()// можно без .create()
+            .setTitle(getString(R.string.dialog_window))
+            .setMultiChoiceItems(tags, checkedItems) { _, which, isChecked ->
+                checkedItems[which] = isChecked
+            }
+            .setNeutralButton("Ok") { _, _ ->
+                for (i in tags.indices) {
+                    val checked = checkedItems[i]
+                    if (checked) {
+                        filterArticles.add(i.toString())
+//                        Log.d("aaaaaaaaaa", "$filterArticles")
+                        val newScreens = screens.filter { tag in filterArticles }.toList()
+                        val adapter = ArticleAdapter(newScreens, this)
+                        binding.viewPager.adapter = adapter
+
+                    }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
-
-    private fun getFilterArticles() =
-
 
 }
 
