@@ -1,7 +1,10 @@
 package com.example.hw15_viewpager_dialog_fragments
 
+import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hw15_viewpager_dialog_fragments.databinding.FragmentViewpagerBinding
@@ -13,12 +16,6 @@ import java.util.*
 
 
 class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
-
-    val tags: List<ArticleTag> = listOf(
-        ArticleTag.Rules,
-        ArticleTag.Advices,
-        ArticleTag.Health
-    )
 
     private val screens: List<ArticleScreen> = listOf(
         ArticleScreen(
@@ -101,6 +98,24 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
                 binding.tabLayout.getTabAt(position)?.removeBadge()
             }
         })
+
+        //DialogWindow filter
+        binding.bottomFilter.setOnClickListener {
+            showDialogWithSingleChoice()
+        }
     }
+
+    private var dialog: AlertDialog? = null
+    val tags = ArticleTag.values().map { it.nameId }.toIntArray()
+    private fun showDialogWithSingleChoice() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.dialog_window)) //луче все класть в ресы
+            .setItems(tags) { _, which -> getFilterArticles() }//установим элемент    15.6 t12.50
+            .show()// можно без .create()
+    }
+
+    private fun getFilterArticles() =
+
+
 }
 
