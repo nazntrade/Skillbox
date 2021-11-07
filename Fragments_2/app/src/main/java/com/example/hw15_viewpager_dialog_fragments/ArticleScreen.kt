@@ -6,5 +6,5 @@ import androidx.annotation.StringRes
 data class ArticleScreen(
     @StringRes val textRes: Int,
     @DrawableRes val drawableRes: Int,
-    val tag: ArticleTag
+    val tag: ArticleTagEnum
 )
