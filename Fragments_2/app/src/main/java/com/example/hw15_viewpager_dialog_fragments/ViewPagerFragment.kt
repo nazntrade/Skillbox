@@ -16,7 +16,7 @@ import java.util.*
 
 class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
 
-    private val screens: List<ArticleScreen> = listOf(
+    private var screens: List<ArticleScreen> = listOf(
         ArticleScreen(
             textRes = R.string.s_o_l_i_d_,
             tag = ArticleTag.Rules,
@@ -101,35 +101,36 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
         //DialogWindow filter
         binding.bottomFilter.setOnClickListener {
             showDialogWithSingleChoice()
+
         }
     }
 
     private fun showDialogWithSingleChoice() {
         val tags = ArticleTag.values().map { it.name }.toTypedArray()
-        val filterArticles: MutableList<String> = mutableListOf()
         val checkedItems = BooleanArray(ArticleTag.values().size) { true }
+        val filterArticles: MutableList<String> = mutableListOf()
 
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.dialog_window))
             .setMultiChoiceItems(tags, checkedItems) { _, which, isChecked ->
                 checkedItems[which] = isChecked
             }
-            .setNeutralButton("Ok") { _, _ ->
+            .setPositiveButton("Ok") { _, _ ->
                 for (i in tags.indices) {
                     val checked = checkedItems[i]
                     if (checked) {
                         filterArticles.add(i.toString())
-//                        Log.d("aaaaaaaaaa", "$filterArticles")
-                        val newScreens = screens.filter { tag in filterArticles }.toList()
-                        val adapter = ArticleAdapter(newScreens, this)
-                        binding.viewPager.adapter = adapter
-
                     }
                 }
+                val newScreens: List<ArticleScreen> =
+                    screens.filter { it.tag.name in filterArticles }
+                val adapter = ArticleAdapter(newScreens, this)
+                binding.viewPager.adapter = adapter
+
+
             }
             .setNegativeButton("Cancel", null)
             .show()
+
     }
-
 }
-
