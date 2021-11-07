@@ -19,27 +19,27 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
     private var screens: List<ArticleScreen> = listOf(
         ArticleScreen(
             textRes = R.string.s_o_l_i_d_,
-            tag = ArticleTag.Rules,
+            tag = ArticleTagEnum.Rules,
             drawableRes = R.drawable.solid_img
         ),
         ArticleScreen(
             textRes = R.string.clean_code,
-            tag = ArticleTag.Rules,
+            tag = ArticleTagEnum.Rules,
             drawableRes = R.drawable.cleane_code_img
         ),
         ArticleScreen(
             textRes = R.string.nineAdviseToDeveloper,
-            tag = ArticleTag.Advise,
+            tag = ArticleTagEnum.Advise,
             drawableRes = R.drawable.android_professin_img
         ),
         ArticleScreen(
             textRes = R.string.typical_mistakes,
-            tag = ArticleTag.Advise,
+            tag = ArticleTagEnum.Advise,
             drawableRes = R.drawable.android_img
         ),
         ArticleScreen(
             textRes = R.string.health_programmer,
-            tag = ArticleTag.Health,
+            tag = ArticleTagEnum.Health,
             drawableRes = R.drawable.sport_img
         )
     )
@@ -106,8 +106,8 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
     }
 
     private fun showDialogWithSingleChoice() {
-        val tags = ArticleTag.values().map { it.name }.toTypedArray()
-        val checkedItems = BooleanArray(ArticleTag.values().size) { true }
+        val tags = ArticleTagEnum.values().map { it.name }.toTypedArray()
+        val checkedItems = BooleanArray(ArticleTagEnum.values().size) { true }
         val filterArticles: MutableList<String> = mutableListOf()
 
         AlertDialog.Builder(requireContext())
