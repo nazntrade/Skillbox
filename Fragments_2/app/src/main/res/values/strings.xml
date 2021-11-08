@@ -321,9 +321,15 @@ Genymotion.
     <string name="rules_tag">Rules</string>
     <string name="advice_tag">Advices</string>
     <string name="health_tag">Health</string>
+    <string name="solid_head">S.O.L.I.D</string>
+    <string name="clean_head">Clean</string>
+    <string name="advice_head">Advice</string>
+    <string name="mistake_head">Errors</string>
+    <string name="health_head">Health</string>
     <string name="generate_an_event">generate an event</string>
     <string name="filter">filter</string>
     <string name="articles">Articles</string>
     <string name="dialog_window">Select a topic for the article</string>
+    <string name="articles_description">Articles description</string>
 
 </resources>

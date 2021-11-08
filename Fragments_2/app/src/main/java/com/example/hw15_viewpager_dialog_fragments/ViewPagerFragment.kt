@@ -1,17 +1,17 @@
 package com.example.hw15_viewpager_dialog_fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hw15_viewpager_dialog_fragments.databinding.FragmentViewpagerBinding
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-import androidx.viewpager.widget.ViewPager
+import com.example.hw15_viewpager_dialog_fragments.ArticleTagEnum.Rules
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
+import kotlin.math.abs
+import kotlin.math.max
 
 
 class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
@@ -19,26 +19,31 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
     private var screens: List<ArticleScreen> = listOf(
         ArticleScreen(
             textRes = R.string.s_o_l_i_d_,
-            tag = ArticleTagEnum.Rules,
+            textResHead = R.string.solid_head,
+            tag = Rules,
             drawableRes = R.drawable.solid_img
         ),
         ArticleScreen(
             textRes = R.string.clean_code,
-            tag = ArticleTagEnum.Rules,
+            textResHead = R.string.clean_head,
+            tag = Rules,
             drawableRes = R.drawable.cleane_code_img
         ),
         ArticleScreen(
             textRes = R.string.nineAdviseToDeveloper,
+            textResHead = R.string.advice_head,
             tag = ArticleTagEnum.Advise,
             drawableRes = R.drawable.android_professin_img
         ),
         ArticleScreen(
             textRes = R.string.typical_mistakes,
+            textResHead = R.string.mistake_head,
             tag = ArticleTagEnum.Advise,
             drawableRes = R.drawable.android_img
         ),
         ArticleScreen(
             textRes = R.string.health_programmer,
+            textResHead = R.string.health_head,
             tag = ArticleTagEnum.Health,
             drawableRes = R.drawable.sport_img
         )
@@ -49,47 +54,34 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentViewpagerBinding.bind(view)
 
-        val adapter = ArticleAdapter(screens, this)
-        binding.viewPager.adapter = adapter
+        adapter(screens)
+
         binding.viewPager.offscreenPageLimit = 1
         binding.wormDotsIndicator.setViewPager2(binding.viewPager)
-        binding.viewPager.setPageTransformer(object : ViewPager2.PageTransformer {
-            override fun transformPage(page: View, position: Float) {
-                if (position < -1) {  // [-Infinity,-1)
+        binding.viewPager.setPageTransformer { page, position ->
+            when {
+                position < -1 -> {  // [-Infinity,-1)
                     // This page is way off-screen to the left.
                     page.alpha = 0f
-                } else if (position <= 1) { // [-1,1]
-                    page.scaleX = Math.max(0.65f, 1 - Math.abs(position))
-                    page.scaleY = Math.max(0.65f, 1 - Math.abs(position))
-                    page.alpha = Math.max(0.3f, 1 - Math.abs(position))
-                } else {  // (1,+Infinity]
+                }
+                position <= 1 -> { // [-1,1]
+                    page.scaleX = max(0.65f, 1 - abs(position))
+                    page.scaleY = max(0.65f, 1 - abs(position))
+                    page.alpha = max(0.3f, 1 - abs(position))
+                }
+                else -> {  // (1,+Infinity]
                     // This page is way off-screen to the right.
                     page.alpha = 0f
                 }
             }
-        })
+        }
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "S.O.L.I.D."
-                1 -> tab.text = "Clean"
-                2 -> tab.text = "Advise"
-                3 -> tab.text = "Errors"
-                4 -> tab.text = "Health"
-            }
+            tab.setText(screens[position].textResHead)
         }.attach()
 
         val len: Int = screens.size
-        val randomGenerator = Random()
-        val randomInt: Int = randomGenerator.nextInt(len)
-        binding.generateButton.setOnClickListener {
-            binding.tabLayout.getTabAt(randomInt)?.orCreateBadge?.apply {
-                if (number == 0) {
-                    number = 1
-                } else number += 1
-                badgeGravity = BadgeDrawable.TOP_END
-            }
-        }
+        randomGenerator(len)
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -101,15 +93,14 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
         //DialogWindow filter
         binding.bottomFilter.setOnClickListener {
             showDialogWithSingleChoice()
-
         }
     }
 
+    private var checkedItems = BooleanArray(ArticleTagEnum.values().size) { true }
+
     private fun showDialogWithSingleChoice() {
         val tags = ArticleTagEnum.values().map { it.name }.toTypedArray()
-        val checkedItems = BooleanArray(ArticleTagEnum.values().size) { true }
         val filterArticles: MutableList<String> = mutableListOf()
-
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.dialog_window))
             .setMultiChoiceItems(tags, checkedItems) { _, which, isChecked ->
@@ -119,18 +110,41 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
                 for (i in tags.indices) {
                     val checked = checkedItems[i]
                     if (checked) {
-                        filterArticles.add(i.toString())
+                        filterArticles.add(tags[i])
                     }
                 }
                 val newScreens: List<ArticleScreen> =
                     screens.filter { it.tag.name in filterArticles }
-                val adapter = ArticleAdapter(newScreens, this)
-                binding.viewPager.adapter = adapter
 
+                adapter(newScreens)
+
+                TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+                    tab.setText(newScreens[position].textResHead)
+                }.attach()
+
+                val len: Int = newScreens.size
+                randomGenerator(len)
 
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
 
+    private fun randomGenerator(len: Int) {
+        val randomGenerator = Random()
+        val randomInt: Int = randomGenerator.nextInt(len)
+        binding.generateButton.setOnClickListener {
+            binding.tabLayout.getTabAt(randomInt)?.orCreateBadge?.apply {
+                if (number == 0) {
+                    number = 1
+                } else number += 1
+                badgeGravity = BadgeDrawable.TOP_END
+            }
+        }
+    }
+
+    private fun adapter(objects:List<ArticleScreen>){
+        val adapter = ArticleAdapter(objects, this)
+        binding.viewPager.adapter = adapter
     }
 }

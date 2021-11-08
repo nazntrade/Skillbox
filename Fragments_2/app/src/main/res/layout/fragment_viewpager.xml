@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_gravity="center"
+        android:background="@color/tab_ind"
         app:tabBackground="@color/tab"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/tab_ind"
