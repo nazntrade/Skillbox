@@ -57,7 +57,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
         adapter(screens)
 
         binding.viewPager.offscreenPageLimit = 1
-        binding.wormDotsIndicator.setViewPager2(binding.viewPager)
+        wormDotsIndicator()
         binding.viewPager.setPageTransformer { page, position ->
             when {
                 position < -1 -> {  // [-Infinity,-1)
@@ -122,6 +122,8 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
                     tab.setText(newScreens[position].textResHead)
                 }.attach()
 
+                wormDotsIndicator()
+
                 val len: Int = newScreens.size
                 randomGenerator(len)
 
@@ -142,6 +144,11 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
             }
         }
     }
+
+    private fun wormDotsIndicator() {
+        binding.wormDotsIndicator.setViewPager2(binding.viewPager)
+    }
+
 
     private fun adapter(objects:List<ArticleScreen>){
         val adapter = ArticleAdapter(objects, this)
