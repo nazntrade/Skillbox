@@ -4,15 +4,13 @@ sealed class Animal {
     data class Dog(
         val name: String,
         val breed: String,
-        val avatarLink: String,
-        val dogSize: Int,
+        val avatarLink: String
         ) : Animal()
 
     data class Cat(
         val name: String,
         val breed: String,
-        val avatarLink: String,
-        val toiletTrained: String,
+        val avatarLink: String
         ) : Animal()
 
     data class Bird(

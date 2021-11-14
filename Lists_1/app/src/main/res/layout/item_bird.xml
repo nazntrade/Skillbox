@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/teal_200">
+    android:background="@color/orange">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -25,10 +24,8 @@
             android:id="@+id/nameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/imageView3"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
-            android:textColor="@color/red"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/breedTextView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +38,6 @@
             android:id="@+id/breedTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/imageView3"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toTopOf="@+id/songTextView"
@@ -54,7 +50,6 @@
             android:id="@+id/songTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/imageView3"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toTopOf="@id/alarmTextView"
@@ -67,7 +62,6 @@
             android:id="@+id/alarmTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/imageView3"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,10 +73,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/discountImageView3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="16dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 </RelativeLayout>

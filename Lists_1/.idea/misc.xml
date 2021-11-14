@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/activity_main.xml" value="0.20052083333333334" />
-        <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/item_bird.xml" value="0.33" />
+        <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/fragment_pet_hop_list.xml" value="0.25" />
+        <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/item_animal.xml" value="0.20052083333333334" />
+        <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/item_bird.xml" value="0.20052083333333334" />
         <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/item_cat.xml" value="0.20052083333333334" />
         <entry key="..\:/Android/SkillBox/android_basic/Lists_1/app/src/main/res/layout/item_dog.xml" value="0.33" />
       </map>
