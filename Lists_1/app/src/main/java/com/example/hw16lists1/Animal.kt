@@ -5,19 +5,22 @@ sealed class Animal {
         val name: String,
         val breed: String,
         val avatarLink: String,
-        val toiletTrained: String,
-    ) : Animal()
+        val dogSize: Int,
+        ) : Animal()
 
     data class Cat(
         val name: String,
         val breed: String,
         val avatarLink: String,
-        val dogSize: String,
-    ) : Animal()
+        val toiletTrained: String,
+        ) : Animal()
 
     data class Bird(
         val name: String,
         val breed: String,
         val avatarLink: String,
+        val song: String,
+        val funAlarm: String,
+        val discountLink: String
     ) : Animal()
 }
