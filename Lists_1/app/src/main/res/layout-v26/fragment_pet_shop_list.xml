@@ -39,7 +39,6 @@
         android:src="@drawable/ic_add"
         android:layout_margin="16dp"
         app:fabSize="normal"
-        android:tooltipText="add kitty"
         android:backgroundTint="@color/cardview_dark_background"
         app:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

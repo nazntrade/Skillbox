@@ -42,7 +42,7 @@ class UserAdapter(
     override fun getItemCount(): Int =
         users.size //должен вернуть кол-во элементов кот.будет в наш.списке
 
-    fun updateUsers(newUsers: List<User>){
+    fun updateUsers(newUsers: List<User>) {
         users = newUsers
 
     }
@@ -51,7 +51,7 @@ class UserAdapter(
     class Holder(
         view: View,
         onItemClicked: (position: Int) -> Unit
-        ) : RecyclerView.ViewHolder(view) {
+    ) : RecyclerView.ViewHolder(view) {
 
         //3.3 он будет устанавливать все данные во вьюшки
         private val nameTextView: TextView = view.findViewById(R.id.nameTextView)

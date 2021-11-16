@@ -2,9 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/orange">
+    android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/discountImageView3"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:padding="16dp"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -26,13 +33,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
-            android:textSize="20sp"
+            android:textColor="@color/black_red"
+            android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/breedTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/avatarImageView"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/first_names" />
+            tools:text="Lily" />
 
         <TextView
             android:id="@+id/breedTextView"
@@ -44,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatarImageView"
             app:layout_constraintTop_toBottomOf="@+id/nameTextView"
-            tools:text="Haski" />
+            tools:text="Canary" />
 
         <TextView
             android:id="@+id/songTextView"
@@ -56,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatarImageView"
             app:layout_constraintTop_toBottomOf="@+id/breedTextView"
-            tools:text="singing" />
+            tools:text="Sings melody" />
 
         <TextView
             android:id="@+id/alarmTextView"
@@ -68,16 +76,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatarImageView"
             app:layout_constraintTop_toBottomOf="@+id/songTextView"
-            tools:text="Alarm" />
+            tools:text="Wakes up in the morning with a beautiful melody" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/discountImageView3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:padding="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        tools:src="@tools:sample/backgrounds/scenic" />
 </RelativeLayout>

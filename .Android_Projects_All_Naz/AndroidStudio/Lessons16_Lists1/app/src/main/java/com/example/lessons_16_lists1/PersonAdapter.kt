@@ -11,12 +11,12 @@ import coil.transform.CircleCropTransformation
 
 class PersonAdapter(
     private val onItemClick: (position: Int) -> Unit
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() { //RecyclerView.ViewHolder это базовый клас для всех ВьюХолдеров. И теперь мы смодем исп.разные виды ВьюХОлдеры
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() { //RecyclerView.ViewHolder это базовый клас для всех ВьюХолдеров. И теперь мы смодем исп.разные виды ВьюХОлдеры
 
     private var persons: List<Person> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             TYPE_USER -> UserHolder(parent.inflate(R.layout.item_user), onItemClick)
             TYPE_DEVELOPER -> DeveloperHolder(parent.inflate(R.layout.item_developer), onItemClick)
             else -> error("Incorrect viewType =$viewType")
@@ -24,7 +24,7 @@ class PersonAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(persons[position]) {
+        return when (persons[position]) {
             is Person.Developer -> TYPE_DEVELOPER
             is Person.User -> TYPE_USER
         }
@@ -33,7 +33,7 @@ class PersonAdapter(
     override fun getItemCount(): Int = persons.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is UserHolder -> {
                 val person = persons[position].let { it as? Person.User }
                     ?: error("Person at position = $position is not a user")//les 16.6 t23.30
@@ -56,7 +56,7 @@ class PersonAdapter(
     abstract class BasePersonHolder(
         view: View,
         onItemClick: (position: Int) -> Unit
-    ): RecyclerView.ViewHolder(view) {
+    ) : RecyclerView.ViewHolder(view) {
 
         private val nameTextView: TextView = view.findViewById(R.id.nameTextView)
         private val ageTextView: TextView = view.findViewById(R.id.ageTextView)
@@ -76,21 +76,18 @@ class PersonAdapter(
 
             nameTextView.text = name
             ageTextView.text = "Age = ${age}"
-
             avatarImageView.load(avatarLink) {
                 error(R.drawable.ic_error)
                 placeholder(R.drawable.ic_portrait)
                 transformations(CircleCropTransformation())
             }
-
         }
-
     }
 
     class UserHolder(
         view: View,
         onItemClick: (position: Int) -> Unit
-    ): BasePersonHolder(view, onItemClick) {
+    ) : BasePersonHolder(view, onItemClick) {
         init {
             view.findViewById<TextView>(R.id.developerTextView).isVisible = false
         }
@@ -103,16 +100,16 @@ class PersonAdapter(
     class DeveloperHolder(
         view: View,
         onItemClick: (position: Int) -> Unit
-    ): BasePersonHolder(view, onItemClick) {
+    ) : BasePersonHolder(view, onItemClick) {
 
-        private val programmingLanguageView: TextView = view.findViewById(R.id.programmingLanguageTextView)
+        private val programmingLanguageView: TextView =
+            view.findViewById(R.id.programmingLanguageTextView)
 
         fun bind(person: Person.Developer) {
             bindMainInfo(person.name, person.avatarLink, person.age)
-            programmingLanguageView.text = "Programming language ${person.programmingLanguage}"
+            "Programming language ${person.programmingLanguage}".also { programmingLanguageView.text = it }
 //            itemView.context.resources.getString(R.string.app_name)
         }
-
     }
 
     companion object {

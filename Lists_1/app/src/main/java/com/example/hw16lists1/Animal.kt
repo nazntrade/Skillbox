@@ -4,7 +4,8 @@ sealed class Animal {
     data class Dog(
         val name: String,
         val breed: String,
-        val avatarLink: String
+        val avatarLink: String,
+        val skill: String
         ) : Animal()
 
     data class Cat(
@@ -18,7 +19,7 @@ sealed class Animal {
         val breed: String,
         val avatarLink: String,
         val song: String,
-        val funAlarm: String,
+        val alarm: String,
         val discountLink: String
     ) : Animal()
 }
