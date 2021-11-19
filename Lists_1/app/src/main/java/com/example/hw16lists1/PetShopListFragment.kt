@@ -108,55 +108,26 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun addNewKittyWithDialogWindow() {
         val view = layoutInflater.inflate(R.layout.dialog_add_kitty, null)
+        val dialogNameTextView = view.findViewById<EditText>(R.id.dialogNameTextView)
+        val dialogBreedTextView = view.findViewById<EditText>(R.id.dialogBreedTextView)
+
         AlertDialog.Builder(requireContext())
             .setView(R.layout.dialog_add_kitty)
             .setPositiveButton("Ok") { _, _ ->
-                Log.d("aaaa", "newAnimal")
-                val dialogNameTextView = view.findViewById<EditText>(R.id.dialogNameTextView)
-                val dialogBreedTextView = view.findViewById<EditText>(R.id.dialogBreedTextView)
-//                val newAnimal = Animal.Cat(
-//                    name = dialogNameTextView.text.toString(),
-//                    breed = dialogBreedTextView.text.toString(),
-//                    avatarLink = "http://funkot.ru/wp-content/uploads/2013/08/red-kitten-blue-eyes.jpg"
-//                )
-//                animals = listOf(newAnimal) + animals
-
-//                listOf(dialogNameTextView, dialogBreedTextView).forEach {
-//                    it.doAfterTextChanged {
-//                        Log.d("aaaa", "doAfterTextChanged")
-//                            val newAnimal = Animal.Cat(
-//                                name = dialogNameTextView.toString(),
-//                                breed = dialogBreedTextView.toString(),
-//                                avatarLink = "http://funkot.ru/wp-content/uploads/2013/08/red-kitten-blue-eyes.jpg"
-//                            )
-//                            animals = listOf(newAnimal) + animals
-//                    }
-//                }
                 listOf(dialogNameTextView, dialogBreedTextView).forEach {
-                    it.addTextChangedListener(object : TextWatcher {
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                            Log.d("aaaa", "beforeTextChanged")
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            Log.d("aaaa", "onTextChanged")
-                        }
-                        override fun afterTextChanged(p0: Editable?) {
-                            val newAnimal = Animal.Cat(
-                                name = dialogNameTextView.text.toString(),
-                                breed = dialogBreedTextView.text.toString(),
-                                avatarLink = "http://funkot.ru/wp-content/uploads/2013/08/red-kitten-blue-eyes.jpg"
-                            )
-                            animals = listOf(newAnimal) + animals}
-                    })
+                    it.doAfterTextChanged {
+                        Log.d("aaaa", "doAfterTextChanged")
+                        val newAnimal = Animal.Cat(
+                            name = dialogNameTextView.text.toString(),
+                            breed = dialogBreedTextView.text.toString(),
+                            avatarLink = "http://funkot.ru/wp-content/uploads/2013/08/red-kitten-blue-eyes.jpg"
+                        )
+                        animals = listOf(newAnimal) + animals
+                    }
+                    petShopAdapter?.updateAnimals(animals)
+                    petShopAdapter?.notifyItemInserted(0)
+                    binding.petList.scrollToPosition(0)
                 }
-                petShopAdapter?.updateAnimals(animals)
-                petShopAdapter?.notifyItemInserted(0)
-                binding.petList.scrollToPosition(0)
             }
             .setNegativeButton("Cancel", null)
             .show()
