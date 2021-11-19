@@ -1,6 +1,5 @@
 package com.example.hw16lists1
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView

@@ -1,23 +1,28 @@
 package com.example.hw16lists1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw16lists1.databinding.FragmentPetShopListBinding
 import android.widget.EditText
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doBeforeTextChanged
-import com.example.hw16lists1.databinding.ActivityMainBinding.inflate
 
 class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
+
+    private val photoKitty = listOf(
+        "https://4lapy.ru/upload/medialibrary/84c/84c48b8e8e4b57579667392f8936e5ba.jpg",
+        "https://4lapy.ru/upload/medialibrary/333/3333804f3bc651dd079b2cea3137c43f.jpg",
+        "https://4lapy.ru/upload/medialibrary/c28/c28954d7e723bb37b1b1cd03d2877c7f.jpg",
+        "https://icdn.lenta.ru/images/2019/11/01/13/20191101130724350/pic_88f54b592eb591cd6252313b5ec3e06d.png",
+        "https://4lapy.ru/upload/medialibrary/f10/f10cd0408880f408ce7b688d55e65bab.jpg",
+        "https://4lapy.ru/upload/medialibrary/856/856f7a45deeb0280e4dab47901c20516.jpg",
+        "https://4lapy.ru/upload/medialibrary/4cb/4cb22a00822d18f124e52e6584550a9e.jpg",
+        "https://4lapy.ru/upload/medialibrary/163/163aaeb717d5a8713e8832762c4ef392.jpg",
+    )
 
     private var animals = listOf(
         Animal.Dog(
@@ -65,8 +70,9 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private var petShopAdapter: PetShopAdapter? = null
 
-
     private lateinit var binding: FragmentPetShopListBinding
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPetShopListBinding.bind(view)
@@ -110,27 +116,21 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         val view = layoutInflater.inflate(R.layout.dialog_add_kitty, null)
         val dialogNameTextView = view.findViewById<EditText>(R.id.dialogNameTextView)
         val dialogBreedTextView = view.findViewById<EditText>(R.id.dialogBreedTextView)
-
-        AlertDialog.Builder(requireContext())
-            .setView(R.layout.dialog_add_kitty)
-            .setPositiveButton("Ok") { _, _ ->
-                listOf(dialogNameTextView, dialogBreedTextView).forEach {
-                    it.doAfterTextChanged {
-                        Log.d("aaaa", "doAfterTextChanged")
-                        val newAnimal = Animal.Cat(
-                            name = dialogNameTextView.text.toString(),
-                            breed = dialogBreedTextView.text.toString(),
-                            avatarLink = "http://funkot.ru/wp-content/uploads/2013/08/red-kitten-blue-eyes.jpg"
-                        )
-                        animals = listOf(newAnimal) + animals
-                    }
-                    petShopAdapter?.updateAnimals(animals)
-                    petShopAdapter?.notifyItemInserted(0)
-                    binding.petList.scrollToPosition(0)
-                }
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(view)
+        builder.setPositiveButton("Ok") { _, _ ->
+            Log.d("aaaa", "setPositiveButton")
+            val newAnimal = Animal.Cat(
+                name = dialogNameTextView.text.toString(),
+                breed = dialogBreedTextView.text.toString(),
+                avatarLink = photoKitty.random()
+            )
+            animals = listOf(newAnimal) + animals
+            petShopAdapter?.updateAnimals(animals)
+            petShopAdapter?.notifyItemInserted(0)
+            binding.petList.scrollToPosition(0)
+        }
+        builder.setNegativeButton("Cancel", null)
+        builder.show()
     }
 }
-//http://funkot.ru/wp-content/uploads/2013/08/red-kitten-blue-eyes.jpg

@@ -6,13 +6,13 @@ sealed class Animal {
         val breed: String,
         val avatarLink: String,
         val skill: String
-        ) : Animal()
+    ) : Animal()
 
     data class Cat(
         val name: String,
         val breed: String,
         val avatarLink: String
-        ) : Animal()
+    ) : Animal()
 
     data class Bird(
         val name: String,
