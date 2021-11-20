@@ -107,7 +107,6 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
             binding.emptyTextView.isGone = false
             "List empty".also { binding.emptyTextView.text = it }
         }
-
         petShopAdapter?.updateAnimals(animals)
         petShopAdapter?.notifyItemRemoved(position)
     }
