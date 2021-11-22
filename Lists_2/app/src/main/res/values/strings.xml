@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hw16Lists1</string>
+    <string name="dialog_window">Congratulations, a new kitten has appeared in the store. Enter his details.</string>
+    <string name="breed_hint">Breed</string>
+    <string name="name_hint">Name</string>
+    <string name="article">articles</string>
+    <string name="list">List</string>
+</resources>
