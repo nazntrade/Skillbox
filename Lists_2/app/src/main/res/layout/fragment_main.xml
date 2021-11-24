@@ -9,6 +9,7 @@
     <Button
         android:id="@+id/articleButton"
         android:layout_width="150dp"
+        android:textColor="@color/black"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
@@ -17,6 +18,7 @@
     <Button
         android:id="@+id/listButton"
         android:layout_width="150dp"
+        android:textColor="@color/black"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"

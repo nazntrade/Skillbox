@@ -10,4 +10,7 @@
     <color name="red">#FF0F09</color>
     <color name="black_red">#FF610604</color>
     <color name="orange">#FFFF7C09</color>
+    <color name="tab">#3F51B5</color>
+    <color name="tab_ind">#02FF0C</color>
+
 </resources>

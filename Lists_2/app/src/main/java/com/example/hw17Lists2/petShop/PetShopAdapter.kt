@@ -1,12 +1,15 @@
-package com.example.Hw17Lists2
+package com.example.hw17Lists2.petShop
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.example.hw17Lists2.R
+import com.example.hw17Lists2.databinding.ItemAnimalBinding
+import com.example.hw17Lists2.databinding.ItemBirdBinding
+import com.example.hw17Lists2.databinding.ItemDogBinding
 
 class PetShopAdapter(
     private val onItemClick: (position: Int) -> Unit
@@ -15,6 +18,11 @@ class PetShopAdapter(
     private var animals: List<Animal> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        val bindingCat = ItemAnimalBinding.inflate(LayoutInflater.from(parent.context))
+        val bindingBird = ItemBirdBinding.inflate(LayoutInflater.from(parent.context))
+        val bindingDog = ItemDogBinding.inflate(LayoutInflater.from(parent.context))
+
         return when (viewType) {
             TYPE_CAT -> CatHolder(parent.inflate(R.layout.item_animal), onItemClick)
             TYPE_DOG -> DogHolder(parent.inflate(R.layout.item_dog), onItemClick)
@@ -65,13 +73,13 @@ class PetShopAdapter(
         view: View,
         onItemClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(view) {
-
-        private val nameTextView: TextView = view.findViewById(R.id.nameTextView)
-        private val avatarImageView: ImageView = view.findViewById(R.id.avatarImageView)
-        private val breedTextView: TextView = view.findViewById(R.id.breedTextView)
+        private var bindingBaseAnimalsHolder = ItemAnimalBinding.bind(view)
+        private val nameTextView = bindingBaseAnimalsHolder.nameTextView
+        private val avatarImageView = bindingBaseAnimalsHolder.avatarImageView
+        private val breedTextView = bindingBaseAnimalsHolder.breedTextView
 
         init {
-            view.setOnClickListener {
+            bindingBaseAnimalsHolder.root.setOnClickListener {
                 onItemClick(bindingAdapterPosition)
             }
         }
@@ -91,6 +99,7 @@ class PetShopAdapter(
         view: View,
         onItemClick: (position: Int) -> Unit
     ) : BaseAnimalsHolder(view, onItemClick) {
+        private var bindingCatHolder = ItemAnimalBinding.bind(view)
         fun bindCat(animalCat: Animal.Cat) {
             bindMainInfo(animalCat.name, animalCat.avatarLink, animalCat.breed)
         }
@@ -100,7 +109,8 @@ class PetShopAdapter(
         view: View,
         onItemClick: (position: Int) -> Unit
     ) : BaseAnimalsHolder(view, onItemClick) {
-        private val dogSkillTextView: TextView = view.findViewById(R.id.dogSkillTextView)
+        private var bindingDogHolder = ItemDogBinding.bind(view)
+        private val dogSkillTextView = bindingDogHolder.dogSkillTextView
         fun bindDog(animalDog: Animal.Dog) {
             bindMainInfo(animalDog.name, animalDog.avatarLink, animalDog.breed)
             "Skill: ${animalDog.skill}".also { dogSkillTextView.text = it }
@@ -111,9 +121,10 @@ class PetShopAdapter(
         view: View,
         onItemClick: (position: Int) -> Unit
     ) : BaseAnimalsHolder(view, onItemClick) {
-        private val songTextView: TextView = view.findViewById(R.id.songTextView)
-        private val alarmTextView: TextView = view.findViewById(R.id.alarmTextView)
-        private val discountImageView3: ImageView = view.findViewById(R.id.discountImageView3)
+        private var bindingBirdHolder = ItemBirdBinding.bind(view)
+        private val songTextView = bindingBirdHolder.songTextView
+        private val alarmTextView = bindingBirdHolder.alarmTextView
+        private val discountImageView3 = bindingBirdHolder.discountImageView3
         fun bindBird(animalBird: Animal.Bird) {
             bindMainInfo(animalBird.name, animalBird.avatarLink, animalBird.breed)
             "Sounds: ${animalBird.song}".also { songTextView.text = it }

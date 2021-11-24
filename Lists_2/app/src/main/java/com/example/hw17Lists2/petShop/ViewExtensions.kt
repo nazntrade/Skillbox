@@ -1,4 +1,4 @@
-package com.example.Hw17Lists2
+package com.example.hw17Lists2.petShop
 
 import android.view.LayoutInflater
 import android.view.View

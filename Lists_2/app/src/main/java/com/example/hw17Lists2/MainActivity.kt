@@ -1,8 +1,8 @@
-package com.example.Hw17Lists2
+package com.example.hw17Lists2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.Hw17Lists2.databinding.ActivityMainBinding
+import com.example.hw17Lists2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

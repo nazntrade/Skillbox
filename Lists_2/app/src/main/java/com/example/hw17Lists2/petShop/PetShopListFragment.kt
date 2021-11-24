@@ -1,4 +1,4 @@
-package com.example.Hw17Lists2
+package com.example.hw17Lists2.petShop
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,10 +6,11 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.example.Hw17Lists2.databinding.FragmentPetShopListBinding
 import android.widget.EditText
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hw17Lists2.R
+import com.example.hw17Lists2.databinding.FragmentPetShopListBinding
 
 class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
@@ -37,7 +38,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
             avatarLink = "https://t1.ea.ltmcdn.com/en/images/5/9/5/img_caring_for_a_canary_595_600.jpg",
             song = "Melody",
             alarm = "Wakes up in 6:00 am with a beautiful melody",
-            discountLink = "https://previews.123rf.com/images/msvectorplus/msvectorplus1710/msvectorplus171000110/88259461-special-offer-30-discount-on-the-goods-vector-red-icon-.jpg"
+            discountLink = "https://cdn.shopify.com/s/files/1/2075/1699/t/27/assets/sale-sticker_300x.png"
         ),
         Animal.Dog(
             name = "Rex",

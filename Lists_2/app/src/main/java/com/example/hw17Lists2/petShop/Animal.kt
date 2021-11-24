@@ -1,4 +1,4 @@
-package com.example.Hw17Lists2
+package com.example.hw17Lists2.petShop
 
 sealed class Animal {
     data class Dog(

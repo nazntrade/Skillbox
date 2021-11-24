@@ -1,10 +1,12 @@
-package com.example.Hw17Lists2
+package com.example.hw17Lists2
 
+import com.example.hw17Lists2.petShop.PetShopListFragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.Hw17Lists2.databinding.FragmentMainBinding
+import com.example.hw17Lists2.artikles.ViewPagerFragment
+import com.example.hw17Lists2.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -16,7 +18,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding = FragmentMainBinding.bind(view)
 
         binding.articleButton.setOnClickListener {
-
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, ViewPagerFragment())
+                ?.addToBackStack("ViewPagerFragment")
+                ?.commit()
         }
 
         binding.listButton.setOnClickListener {
