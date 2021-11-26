@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.hw17Lists2.R
@@ -19,9 +20,9 @@ class PetShopAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        val bindingCat = ItemAnimalBinding.inflate(LayoutInflater.from(parent.context))
-        val bindingBird = ItemBirdBinding.inflate(LayoutInflater.from(parent.context))
-        val bindingDog = ItemDogBinding.inflate(LayoutInflater.from(parent.context))
+//        val bindingCat = ItemAnimalBinding.inflate(LayoutInflater.from(parent.context))
+//        val bindingBird = ItemBirdBinding.inflate(LayoutInflater.from(parent.context))
+//        val bindingDog = ItemDogBinding.inflate(LayoutInflater.from(parent.context))
 
         return when (viewType) {
             TYPE_CAT -> CatHolder(parent.inflate(R.layout.item_animal), onItemClick)
@@ -70,10 +71,10 @@ class PetShopAdapter(
     }
 
     abstract class BaseAnimalsHolder(
-        view: View,
+        binding: ViewBinding,
         onItemClick: (position: Int) -> Unit
-    ) : RecyclerView.ViewHolder(view) {
-        private var bindingBaseAnimalsHolder = ItemAnimalBinding.bind(view)
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private var bindingBaseAnimalsHolder = ItemAnimalBinding.bind(itemView)
         private val nameTextView = bindingBaseAnimalsHolder.nameTextView
         private val avatarImageView = bindingBaseAnimalsHolder.avatarImageView
         private val breedTextView = bindingBaseAnimalsHolder.breedTextView
@@ -96,20 +97,20 @@ class PetShopAdapter(
     }
 
     class CatHolder(
-        view: View,
+        binding: ViewBinding,
         onItemClick: (position: Int) -> Unit
-    ) : BaseAnimalsHolder(view, onItemClick) {
-        private var bindingCatHolder = ItemAnimalBinding.bind(view)
+    ) : BaseAnimalsHolder(binding, onItemClick) {
+        private var bindingCatHolder = ItemAnimalBinding.bind(itemView)
         fun bindCat(animalCat: Animal.Cat) {
             bindMainInfo(animalCat.name, animalCat.avatarLink, animalCat.breed)
         }
     }
 
     class DogHolder(
-        view: View,
+        binding: ViewBinding,
         onItemClick: (position: Int) -> Unit
-    ) : BaseAnimalsHolder(view, onItemClick) {
-        private var bindingDogHolder = ItemDogBinding.bind(view)
+    ) : BaseAnimalsHolder(binding, onItemClick) {
+        private var bindingDogHolder = ItemDogBinding.bind(itemView)
         private val dogSkillTextView = bindingDogHolder.dogSkillTextView
         fun bindDog(animalDog: Animal.Dog) {
             bindMainInfo(animalDog.name, animalDog.avatarLink, animalDog.breed)
@@ -118,10 +119,10 @@ class PetShopAdapter(
     }
 
     class BirdHolder(
-        view: View,
+        binding: ViewBinding,
         onItemClick: (position: Int) -> Unit
-    ) : BaseAnimalsHolder(view, onItemClick) {
-        private var bindingBirdHolder = ItemBirdBinding.bind(view)
+    ) : BaseAnimalsHolder(binding, onItemClick) {
+        private var bindingBirdHolder = ItemBirdBinding.bind(itemView)
         private val songTextView = bindingBirdHolder.songTextView
         private val alarmTextView = bindingBirdHolder.alarmTextView
         private val discountImageView3 = bindingBirdHolder.discountImageView3
