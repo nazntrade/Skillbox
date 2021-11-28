@@ -2,6 +2,7 @@ package com.example.hw17Lists2.petShop
 
 sealed class Animal {
     data class Dog(
+        val id: Long,
         val name: String,
         val breed: String,
         val avatarLink: String,
@@ -9,12 +10,14 @@ sealed class Animal {
     ) : Animal()
 
     data class Cat(
+        val id: Long,
         val name: String,
         val breed: String,
         val avatarLink: String
     ) : Animal()
 
     data class Bird(
+        val id: Long,
         val name: String,
         val breed: String,
         val avatarLink: String,

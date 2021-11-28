@@ -5,8 +5,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.hw17Lists2.imagesLists.StaggeredGridImageListFragment
 import com.example.hw17Lists2.artikles.ViewPagerFragment
 import com.example.hw17Lists2.databinding.FragmentMainBinding
+import com.example.hw17Lists2.imagesLists.GridImageListFragment
+import com.example.hw17Lists2.imagesLists.HorizontalImageListFragment
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -29,6 +32,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 ?.replace(R.id.container, PetShopListFragment())
                 ?.addToBackStack("PetShopListFragment")
                 ?.commit()
+        }
+
+        binding.buttonHorizontal.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, HorizontalImageListFragment())
+                ?.addToBackStack("HorizontalImageListFragment")
+                ?.commit()
+        }
+
+        binding.buttonStaggeredGrid.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, StaggeredGridImageListFragment())
+                ?.addToBackStack("StaggeredGridImageListFragment")
+                ?.commit()
+        }
+
+        binding.buttonGrid.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, GridImageListFragment())
+                ?.addToBackStack("GridImageListFragment")
+                ?.commit()
+
         }
     }
 }

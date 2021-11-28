@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/list_icon"
         android:label="HW17List2"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/list_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hw17Lists2">
         <activity

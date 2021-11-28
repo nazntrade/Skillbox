@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
+    android:background="?attr/selectableItemBackground"
     android:padding="8dp">
 
     <ImageView
@@ -19,9 +19,8 @@
         android:id="@+id/nameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:textColor="@color/white"
         android:layout_marginStart="16dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/breedTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -33,11 +32,10 @@
         android:id="@+id/breedTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/black"
         android:layout_marginStart="16dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/avatarImageView"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"

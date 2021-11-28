@@ -2,7 +2,6 @@ package com.example.hw17Lists2.petShop
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -11,6 +10,7 @@ import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw17Lists2.R
 import com.example.hw17Lists2.databinding.FragmentPetShopListBinding
+import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator
 
 class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
@@ -27,12 +27,14 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private var animals = listOf(
         Animal.Dog(
+            id = 1,
             name = "Jack",
             breed = "Terrier",
             avatarLink = "https://petlovershop.my/wp-content/uploads/2020/08/cute-puppy-body-image.jpg",
             skill = "Brings slippers in the morning"
         ),
         Animal.Bird(
+            id = 2,
             name = "Lily",
             breed = "Canary",
             avatarLink = "https://t1.ea.ltmcdn.com/en/images/5/9/5/img_caring_for_a_canary_595_600.jpg",
@@ -41,28 +43,33 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
             discountLink = "https://cdn.shopify.com/s/files/1/2075/1699/t/27/assets/sale-sticker_300x.png"
         ),
         Animal.Dog(
+            id = 3,
             name = "Rex",
             breed = "Basset Retriever",
             avatarLink = "https://www.thesprucepets.com/thmb/kV_cfc9P4QWe-klxZ8y--awxvY4=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg",
             skill = "Can wash dishes"
         ),
         Animal.Dog(
+            id = 4,
             name = "Hatiko",
             breed = "Husky",
             avatarLink = "https://t3.ftcdn.net/jpg/00/76/45/00/240_F_76450072_L4d6TMlp1VZ1GiGTBoeigC3j7XpS0qsC.jpg",
             skill = "Can pull heavy sleds"
         ),
         Animal.Cat(
+            id = 5,
             name = "Kuzya",
             breed = "Mongrel",
             avatarLink = "https://retina.news.mail.ru/pic/a8/f2/image41654962_9fba1228514748f41eb40f1683d1090d.jpg",
         ),
         Animal.Cat(
+            id = 6,
             name = "Queen",
             breed = "American Bobtail Cat",
             avatarLink = "https://aif-s3.aif.ru/images/025/372/86a0db4ddf636ee9b3edfc4a73233efa.jpg"
         ),
         Animal.Cat(
+            id = 7,
             name = "Simon",
             breed = "British",
             avatarLink = "https://i.7fon.org/1000/u296606.jpg"
@@ -83,8 +90,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
             addNewKittyWithDialogWindow()
         }
 
-        petShopAdapter?.updateAnimals(animals)
-        petShopAdapter?.notifyDataSetChanged()
+        petShopAdapter?.items = animals
     }
 
     override fun onDestroyView() {
@@ -93,12 +99,12 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
     }
 
     private fun initList() {
-
         petShopAdapter = PetShopAdapter { position -> deleteAnimals(position) }
         with(binding.petList) {
             adapter = petShopAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
+            itemAnimator = FlipInRightYAnimator()
         }
     }
 
@@ -108,8 +114,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
             binding.emptyTextView.isGone = false
             "List empty".also { binding.emptyTextView.text = it }
         }
-        petShopAdapter?.updateAnimals(animals)
-        petShopAdapter?.notifyItemRemoved(position)
+        petShopAdapter?.items = animals
     }
 
     private fun addNewKittyWithDialogWindow() {
@@ -119,15 +124,14 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(view)
         builder.setPositiveButton("Ok") { _, _ ->
-            Log.d("aaaa", "setPositiveButton")
             val newAnimal = Animal.Cat(
                 name = dialogNameTextView.text.toString(),
                 breed = dialogBreedTextView.text.toString(),
-                avatarLink = photoKitty.random()
+                avatarLink = photoKitty.random(),
+                id = (9999..112121).random().toLong()
             )
             animals = listOf(newAnimal) + animals
-            petShopAdapter?.updateAnimals(animals)
-            petShopAdapter?.notifyItemInserted(0)
+            petShopAdapter?.items = animals
             binding.petList.scrollToPosition(0)
         }
         builder.setNegativeButton("Cancel", null)

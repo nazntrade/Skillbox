@@ -151,7 +151,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_viewpager) {
     }
 
 
-    private fun adapter(objects:List<ArticleScreen>){
+    private fun adapter(objects: List<ArticleScreen>) {
         val adapter = ArticleAdapter(objects, this)
         binding.viewPager.adapter = adapter
     }

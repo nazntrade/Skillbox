@@ -336,5 +336,8 @@ Genymotion.
     <string name="articles">Articles</string>
     <string name="dialog_window">Select a topic for the article</string>
     <string name="articles_description">Articles description</string>
+    <string name="grid">grid</string>
+    <string name="horizontal">horizontal</string>
+    <string name="staggeredGrid">staggeredGrid</string>
 
 </resources>

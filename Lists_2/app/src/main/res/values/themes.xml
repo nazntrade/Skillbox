@@ -12,5 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/design_default_color_primary_dark</item>
         <!-- Customize your theme here. -->
+        <item name="android:listDivider">@drawable/divider</item>
     </style>
 </resources>

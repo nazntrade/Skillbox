@@ -1,0 +1,13 @@
+Set of libraries
+https://developer.android.com/jetpack/getting-started
+
+
+RecyclerView Animators
+https://github.com/wasabeef/recyclerview-animators  
+
+Download images
+https://github.com/coil-kt/coil
+
+Librarie for Delegate Adapters
+https://github.com/sockeqwe/AdapterDelegates
+
