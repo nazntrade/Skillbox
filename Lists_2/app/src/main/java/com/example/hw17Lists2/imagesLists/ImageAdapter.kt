@@ -41,6 +41,5 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
                 placeholder(R.drawable.placeholder_transparent)
             }
         }
-
     }
 }
