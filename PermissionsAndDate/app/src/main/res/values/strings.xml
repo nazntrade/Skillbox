@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HW18_PermissionsAndDate</string>
+    <string name="get_location">get location</string>
+</resources>

@@ -1,13 +1,20 @@
-Set of libraries
-https://developer.android.com/jetpack/getting-started
+Set of libraries jetpack
+   https://developer.android.com/jetpack/getting-started
 
 
 RecyclerView Animators
-https://github.com/wasabeef/recyclerview-animators  
+   https://github.com/wasabeef/recyclerview-animators  
 
 Download images
-https://github.com/coil-kt/coil
+   https://github.com/coil-kt/coil
 
-Librarie for Delegate Adapters
-https://github.com/sockeqwe/AdapterDelegates
+Delegate Adapters
+   https://github.com/sockeqwe/AdapterDelegates
 
+Date and Time
+   https://github.com/JakeWharton/ThreeTenABP  
+
+
+
+PermissionsDispatcher 
+   https://github.com/permissions-dispatcher/PermissionsDispatcher

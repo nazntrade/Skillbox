@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">L18_PermissionsAndData</string>
+    <string name="normal_permission">Normal permission</string>
+    <string name="dangerous_permission">Dangerous permission</string>
+    <string name="load_image">Load image</string>
+    <string name="get_current_location">Get current location</string>
+    <string name="enter_the_message">Enter the message</string>
+</resources>
