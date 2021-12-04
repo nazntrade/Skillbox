@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">HW18_PermissionsAndDate</string>
     <string name="get_location">get location</string>
+    <string name="add_location">add location</string>
+    <string name="allow">allow</string>
+    <string name="no_locations">No locations</string>
+    <string name="you_need_permission">In order to display the location, you need permission</string>
 </resources>
