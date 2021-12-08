@@ -47,12 +47,14 @@ class DangerousPermissionFragment : Fragment(R.layout.fragment_dangerous_permiss
     }
 
     // узнать что выбрал пользователь
+    //это работает, даже если пользователь отберет разрешения прямо в момент работы приложения
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //Опять проверяем, если (все) разрешение есть, то ...
         if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
             showLocationInfo()
         } else {

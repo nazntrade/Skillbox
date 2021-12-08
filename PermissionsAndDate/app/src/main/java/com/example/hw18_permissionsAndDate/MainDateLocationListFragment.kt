@@ -12,12 +12,23 @@ import com.example.hw18_permissionsAndDate.databinding.FragmentMainDateLocationL
 
 class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_location_list) {
 
+    private var dateLocationMessageAdapter: DateLocationMessageAdapter? = null
+
     lateinit var binding: FragmentMainDateLocationListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainDateLocationListBinding.bind(view)
 
         checkPermissionShowLocation()
+        initList()
+    }
+
+    private fun initList(){
+        dateLocationMessageAdapter = DateLocationMessageAdapter()
+        with(binding.dateLocationList){
+            adapter = dateLocationMessageAdapter
+            layoutManager = Li
+        }
     }
 
     private fun checkPermissionShowLocation() {
@@ -26,37 +37,52 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
         if (isLocationPermissionGranted) {
-            binding.addLocationButton.isGone = false
-            binding.infoTextView.isGone = false
-            binding.infoTextView.text = getString(R.string.no_locations)
-            showLocation()
+            showButtonAndTextLocation()
         } else {
-            binding.allowButton.isGone = false
-            binding.infoTextView.isGone = false
-            binding.infoTextView.text = getString(R.string.you_need_permission)
             requestLocationPermission()
         }
     }
 
-    private fun showLocation() {
-        binding.addLocationButton.setOnClickListener {
-            binding.infoTextView.isGone = true
-            binding.infoTextView.text = ""
-        }
-    }
-
-    private fun requestLocationPermission() {
-        binding.allowButton.setOnClickListener {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_REQUEST_CODE
-            )
-        }
-//        checkPermissionShowLocation()
+    //проверяем, что выбрал пользователь и в зависимости от выбора продолжаем ...
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }){
+            showButtonAndTextLocation()
+        }else requestLocationPermission()
     }
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 4313
     }
 
+    private fun showButtonAndTextLocation() {
+        binding.allowButton.isGone = true
+        binding.addLocationButton.isGone = false
+        binding.infoTextView.isGone = false
+        binding.infoTextView.text = getString(R.string.no_locations)
+        showLocationInfo()
+    }
+
+    private fun requestLocationPermission() {
+        binding.allowButton.isGone = false
+        binding.infoTextView.isGone = false
+        binding.infoTextView.text = getString(R.string.you_need_permission)
+        binding.allowButton.setOnClickListener {
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun showLocationInfo(){
+        binding.addLocationButton.setOnClickListener {
+            binding.infoTextView.isGone = true
+            binding.infoTextView.text = ""
+        }
+    }
 }
