@@ -2,17 +2,23 @@ package com.example.hw18_permissionsAndDate
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw18_permissionsAndDate.databinding.FragmentMainDateLocationListBinding
+import com.google.android.gms.location.LocationServices
+import org.threeten.bp.*
 
 
 class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_location_list) {
 
     private var dateLocationMessageAdapter: DateLocationMessageAdapter? = null
+    private var dateLocationMessages: List<DateLocationMessage> = listOf()
+
 
     lateinit var binding: FragmentMainDateLocationListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -23,12 +29,11 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
         initList()
     }
 
-    private fun initList(){
+    private fun initList() = with(binding.dateLocationList) {
         dateLocationMessageAdapter = DateLocationMessageAdapter()
-        with(binding.dateLocationList){
-            adapter = dateLocationMessageAdapter
-            layoutManager = Li
-        }
+        adapter = dateLocationMessageAdapter
+        layoutManager = LinearLayoutManager(requireContext())
+        dateLocationMessageAdapter?.submitList(dateLocationMessages)
     }
 
     private fun checkPermissionShowLocation() {
@@ -50,9 +55,9 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }){
+        if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
             showButtonAndTextLocation()
-        }else requestLocationPermission()
+        } else requestLocationPermission()
     }
 
     companion object {
@@ -64,7 +69,11 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
         binding.addLocationButton.isGone = false
         binding.infoTextView.isGone = false
         binding.infoTextView.text = getString(R.string.no_locations)
-        showLocationInfo()
+        binding.addLocationButton.setOnClickListener {
+            binding.infoTextView.isGone = true
+            binding.infoTextView.text = ""
+            showMessageLocationAndDateInfo()
+        }
     }
 
     private fun requestLocationPermission() {
@@ -79,10 +88,51 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
         }
     }
 
-    private fun showLocationInfo(){
-        binding.addLocationButton.setOnClickListener {
-            binding.infoTextView.isGone = true
-            binding.infoTextView.text = ""
+    private fun showMessageLocationAndDateInfo() {
+        val currentDateTime = LocalDateTime.now()
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val newDateLocationMessages = DateLocationMessage(
+                id = (9999..999999).random().toLong(),
+                image = "https://www.technipages.com/wp-content/uploads/2020/10/fix-google-maps-not-updating-location-600x341.png",
+                location = LocationServices.getFusedLocationProviderClient(requireContext())
+                    .lastLocation
+                    .addOnSuccessListener {
+                        it?.let {
+                            """
+                              Lat = ${it.latitude}
+                              Lng = ${it.longitude}
+                              Alt = ${it.altitude}
+                              Speed = ${it.speed}
+                              Accuracy = ${it.accuracy}
+                          """.trimIndent()
+                        }
+                    }
+                    //                обработка отмены
+                    .addOnCanceledListener {
+                        toast("Запрос локации был отменен")
+                    }
+                    //обработка отмены
+                    .addOnFailureListener {
+                        toast("Запрос локации завершился неудачно")
+                    }.toString()
+                ,
+                createdAt = currentDateTime
+            )
+            dateLocationMessages = dateLocationMessages + listOf(newDateLocationMessages)
+            dateLocationMessageAdapter?.submitList(dateLocationMessages)
+
         }
+        else requestLocationPermission()
+
+
     }
+
 }
+
+
+
