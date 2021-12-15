@@ -38,6 +38,7 @@ class CatAdapterDelegate(
         private val breedTextView = binding.breedTextView
         private val avatarImageView = binding.avatarImageView
 
+        //инициализируем нажатия на каждый элемент списка!!!
         init {
             binding.root.setOnClickListener {
                 onItemClick(bindingAdapterPosition)

@@ -1,10 +1,10 @@
 package com.example.hw18_permissionsAndDate
 
-import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Instant
 
 data class DateLocationMessage(
         val id: Long,
         val image: String,
         var location: String,
-        val createdAt: LocalDateTime
+        var createdAt: Instant
 )

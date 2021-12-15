@@ -39,6 +39,7 @@ class DogAdapterDelegate(
         private val avatarImageView = binding.avatarImageView
         private val dogSkillTextView = binding.dogSkillTextView
 
+        //инициализируем нажатия на каждый элемент списка!!!
         init {
             binding.root.setOnClickListener {
                 onItemClick(bindingAdapterPosition)

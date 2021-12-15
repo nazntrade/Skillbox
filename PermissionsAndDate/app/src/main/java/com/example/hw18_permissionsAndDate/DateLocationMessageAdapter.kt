@@ -9,7 +9,9 @@ import coil.load
 import com.example.hw18_permissionsAndDate.databinding.ItemDateLocationBinding
 import org.threeten.bp.format.DateTimeFormatter
 
-class DateLocationMessageAdapter :
+class DateLocationMessageAdapter(
+    private val onItemClick: (position: Int) -> Unit
+) :
     ListAdapter<DateLocationMessage, DateLocationMessageAdapter.Holder>(MessageDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -18,7 +20,7 @@ class DateLocationMessageAdapter :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), onItemClick
         )
     }
 
@@ -44,8 +46,16 @@ class DateLocationMessageAdapter :
     }
 
     class Holder(
-        private val binding: ItemDateLocationBinding
+        private val binding: ItemDateLocationBinding,
+        onItemClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        //инициализируем нажатия на каждый элемент списка!!!
+        init {
+            binding.root.setOnClickListener {
+                onItemClick(bindingAdapterPosition)
+            }
+        }
 
         private val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yy")
             .withZone(org.threeten.bp.ZoneId.systemDefault())

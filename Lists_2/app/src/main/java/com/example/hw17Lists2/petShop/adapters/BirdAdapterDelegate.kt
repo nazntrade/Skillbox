@@ -43,6 +43,7 @@ class BirdAdapterDelegate(
         private val alarmTextView = binding.alarmTextView
         private val discountImageView3 = binding.discountImageView3
 
+        //инициализируем нажатия на каждый элемент списка!!!
         init {
             binding.root.setOnClickListener {
                 onItemClick(bindingAdapterPosition)
