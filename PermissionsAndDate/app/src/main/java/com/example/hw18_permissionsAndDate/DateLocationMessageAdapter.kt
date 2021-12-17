@@ -28,7 +28,6 @@ class DateLocationMessageAdapter(
         holder.bind(getItem(position))
     }
 
-
     class MessageDiffUtilCallback : DiffUtil.ItemCallback<DateLocationMessage>() {
         override fun areItemsTheSame(
             oldItem: DateLocationMessage,
@@ -68,5 +67,4 @@ class DateLocationMessageAdapter(
             binding.dataTextView.text = formatter.format(dateLocationMessage.createdAt)
         }
     }
-
 }

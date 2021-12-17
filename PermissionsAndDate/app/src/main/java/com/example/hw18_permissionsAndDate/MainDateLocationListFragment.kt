@@ -5,15 +5,12 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.hw18_permissionsAndDate.databinding.FragmentMainDateLocationListBinding
-import com.example.hw18_permissionsAndDate.databinding.ItemDateLocationBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.threeten.bp.*
@@ -24,7 +21,6 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
     private var dateLocationMessages: List<DateLocationMessage> = listOf()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var selectedMessageInstant: Instant? = null
-    lateinit var instant: Instant
     private lateinit var binding: FragmentMainDateLocationListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,13 +33,13 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
     private fun initList() = with(binding.dateLocationList) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         dateLocationMessageAdapter =
-            DateLocationMessageAdapter { position -> dateTimePicker(position, instant) }
+            DateLocationMessageAdapter { position -> dateTimePicker(position) }
         adapter = dateLocationMessageAdapter
         layoutManager = LinearLayoutManager(requireContext())
         dateLocationMessageAdapter?.submitList(dateLocationMessages)
     }
 
-    private fun dateTimePicker(position: Int, instant: Instant) {
+    private fun dateTimePicker(position: Int) {
         val currentDateTime = LocalDateTime.now()
         DatePickerDialog(
             requireContext(), { _, year, month, dayOfMonth ->
@@ -53,6 +49,9 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
                             LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
                                 .atZone(ZoneId.systemDefault())
                         selectedMessageInstant = zonedDateTime.toInstant()
+                        dateLocationMessages[position].createdAt =
+                            selectedMessageInstant ?: Instant.now()
+                        dateLocationMessageAdapter?.notifyItemChanged(position)
                     },
                     currentDateTime.hour,
                     currentDateTime.minute,
@@ -63,19 +62,14 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
             currentDateTime.month.value - 1,
             currentDateTime.dayOfMonth
         ).show()
-        dateLocationMessages =
-            dateLocationMessages + dateLocationMessages[position].copy(createdAt = instant)
-
-//        dateLocationMessageAdapter?.submitList(dateLocationMessages)
-        dateLocationMessageAdapter?.notifyItemChanged(position)
     }
 
     private fun checkPermissionShowLocation() {
-        val isLocationPermissionGranted = ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-        if (isLocationPermissionGranted) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             showButtonAndTextLocation()
         } else {
             requestLocationPermission()
@@ -111,14 +105,22 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
     }
 
     private fun requestLocationPermission() {
-        binding.allowButton.isGone = false
-        binding.infoTextView.isGone = false
-        binding.infoTextView.text = getString(R.string.you_need_permission)
-        binding.allowButton.setOnClickListener {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_REQUEST_CODE
-            )
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            showButtonAndTextLocation()
+        } else {
+            binding.allowButton.isGone = false
+            binding.infoTextView.isGone = false
+            binding.infoTextView.text = getString(R.string.you_need_permission)
+            binding.allowButton.setOnClickListener {
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    PERMISSION_REQUEST_CODE
+                )
+            }
         }
     }
 
@@ -140,7 +142,7 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
                                 Alt = ${location.altitude}
                                 Speed = ${location.speed}
                                 Accuracy = ${location.accuracy}""").trimIndent(),
-                            createdAt = selectedMessageInstant ?: Instant.now()
+                            createdAt = Instant.now()
                         )
                         dateLocationMessages =
                             dateLocationMessages + listOf(newDateLocationMessages)
@@ -157,6 +159,5 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
                 }
         }
     }
-
 }
 
