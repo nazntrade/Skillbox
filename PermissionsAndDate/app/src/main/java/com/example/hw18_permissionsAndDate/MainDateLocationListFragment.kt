@@ -159,5 +159,9 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
                 }
         }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dateLocationMessageAdapter = null
+    }
 }
 
