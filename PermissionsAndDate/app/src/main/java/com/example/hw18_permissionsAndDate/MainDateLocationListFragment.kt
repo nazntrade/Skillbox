@@ -24,7 +24,7 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
     private var dateLocationMessages: List<DateLocationMessage> = listOf()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var selectedMessageInstant: Instant? = null
-
+    lateinit var instant: Instant
     private lateinit var binding: FragmentMainDateLocationListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,13 +37,13 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
     private fun initList() = with(binding.dateLocationList) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         dateLocationMessageAdapter =
-            DateLocationMessageAdapter { position -> dateTimePicker(position) }
+            DateLocationMessageAdapter { position -> dateTimePicker(position, instant) }
         adapter = dateLocationMessageAdapter
         layoutManager = LinearLayoutManager(requireContext())
         dateLocationMessageAdapter?.submitList(dateLocationMessages)
     }
 
-    private fun dateTimePicker(position: Int) {
+    private fun dateTimePicker(position: Int, instant: Instant) {
         val currentDateTime = LocalDateTime.now()
         DatePickerDialog(
             requireContext(), { _, year, month, dayOfMonth ->
@@ -63,10 +63,11 @@ class MainDateLocationListFragment : Fragment(R.layout.fragment_main_date_locati
             currentDateTime.month.value - 1,
             currentDateTime.dayOfMonth
         ).show()
-        dateLocationMessages[position].createdAt = selectedMessageInstant!!
+        dateLocationMessages =
+            dateLocationMessages + dateLocationMessages[position].copy(createdAt = instant)
 
-//         dateLocationMessageAdapter?.submitList(dateLocationMessages)
-
+//        dateLocationMessageAdapter?.submitList(dateLocationMessages)
+        dateLocationMessageAdapter?.notifyItemChanged(position)
     }
 
     private fun checkPermissionShowLocation() {
