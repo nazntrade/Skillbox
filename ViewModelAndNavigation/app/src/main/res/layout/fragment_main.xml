@@ -9,11 +9,12 @@
     <Button
         android:id="@+id/articleButton"
         android:layout_width="150dp"
+        android:theme="@style/Button.Gray"
+        android:backgroundTint="@color/gray"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="@string/article"
-        android:textColor="@color/black" />
+        android:text="@string/article" />
 
     <Button
         android:id="@+id/listButton"
@@ -34,6 +35,7 @@
             android:id="@+id/buttonStaggeredGrid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray"
             android:padding="10dp"
             android:text="@string/staggeredGrid"
             app:layout_constraintEnd_toStartOf="@+id/buttonHorizontal"
@@ -45,6 +47,7 @@
             android:id="@+id/buttonHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray"
             android:padding="10dp"
             android:text="@string/horizontal"
             app:layout_constraintEnd_toStartOf="@+id/buttonGrid"
@@ -56,6 +59,7 @@
             android:id="@+id/buttonGrid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray"
             android:padding="10dp"
             android:text="@string/grid"
             app:layout_constraintEnd_toEndOf="parent"

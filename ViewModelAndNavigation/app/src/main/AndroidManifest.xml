@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hw17Lists2">
+    package="com.example.hw_ViewModelAndNavigation">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/list_icon"
-        android:label="HW17List2"
+        android:label="HW_ViewModelAndNavigation"
         android:roundIcon="@drawable/list_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hw17Lists2">
         <activity
-            android:name="com.example.hw17Lists2.MainActivity"
+            android:name="com.example.hw_ViewModelAndNavigation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

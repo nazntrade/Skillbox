@@ -49,4 +49,15 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.2'
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.1'
+
+    //ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-rc01"
+
 }

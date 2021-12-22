@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation "io.coil-kt:coil:1.1.1"
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
