@@ -335,6 +335,7 @@ Genymotion.
     <string name="filter">filter</string>
     <string name="articles">Articles</string>
     <string name="dialog_window">Select a topic for the article</string>
+    <string name="dialog_window_kitty">Add name and breed</string>
     <string name="articles_description">Articles description</string>
     <string name="grid">grid</string>
     <string name="horizontal">horizontal</string>

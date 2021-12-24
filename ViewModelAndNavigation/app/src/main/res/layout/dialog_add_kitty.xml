@@ -16,7 +16,7 @@
         android:paddingBottom="8dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="@string/dialog_window"
+        android:text="@string/dialog_window_kitten"
         android:layout_height="wrap_content" />
 
     <EditText
