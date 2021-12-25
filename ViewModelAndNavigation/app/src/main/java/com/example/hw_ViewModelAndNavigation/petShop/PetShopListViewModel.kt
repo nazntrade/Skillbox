@@ -7,7 +7,7 @@ class PetShopListViewModel : ViewModel() {
     private val repository = PetShopRepository()
     private var animals = repository.animals
 
-    fun addKitty() {
+    fun addKitty(name: String, bread: String) {
         repository.addKitty()
     }
 

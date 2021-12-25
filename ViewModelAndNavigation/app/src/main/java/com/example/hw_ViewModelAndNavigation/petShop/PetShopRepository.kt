@@ -1,5 +1,6 @@
 package com.example.hw_ViewModelAndNavigation.petShop
 
+import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
@@ -32,7 +33,7 @@ class PetShopRepository {
             id = 2,
             name = "Lily",
             breed = "Canary",
-            avatarLink = "https://t1.ea.ltmcdn.com/en/images/5/9/5/img_caring_for_a_canary_595_600.jpg",
+            avatarLink = "https://moika78.ru/news2/2020/09/Snimok-ekrana-2020-09-30-v-11.31.12.png",
             song = "Melody",
             alarm = "Wakes up in 6:00 am with a beautiful melody",
             discountLink = "https://cdn.shopify.com/s/files/1/2075/1699/t/27/assets/sale-sticker_300x.png"
@@ -71,35 +72,19 @@ class PetShopRepository {
         )
     )
 
-   private val binding = FragmentPetShopListBinding()
-
     fun addKitty() {
-
-        val view = binding.root.inflate(R.layout.dialog_add_kitty)
-        val dialogNameTextView = view.findViewById<EditText>(R.id.dialogNameTextView)
-        val dialogBreedTextView = view.findViewById<EditText>(R.id.dialogBreedTextView)
-        val builder = AlertDialog.Builder(view.context)
-        builder.setView(view)
-        builder.setPositiveButton("Ok") { _, _ ->
-            val newAnimal = Animal.Cat(
-                name = dialogNameTextView.text.toString(),
-                breed = dialogBreedTextView.text.toString(),
-                avatarLink = photoKitty.random(),
-                id = (9999..112121).random().toLong()
-            )
-            animals = listOf(newAnimal) + animals
-            binding.petList.scrollToPosition(0)
-        }
-        builder.setNegativeButton("Cancel", null)
-        builder.show()
-
+        val newAnimal = Animal.Cat(
+            name = "",
+            breed = "",
+            avatarLink = photoKitty.random(),
+            id = (9999..112121).random().toLong()
+        )
+        animals = listOf(newAnimal) + animals
     }
 
     fun deleteAnimals(position: Int) {
         animals = animals.filterIndexed { index, animal -> index != position }
-        if (animals.isEmpty()) {
-            binding.emptyTextView.isGone = false
-            "List empty".also { binding.emptyTextView.text = it }
-        }
+        Log.d("aaa", "$animals")
+
     }
 }
