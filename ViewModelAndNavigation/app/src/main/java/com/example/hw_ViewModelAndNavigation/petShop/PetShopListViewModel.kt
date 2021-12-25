@@ -1,20 +1,24 @@
 package com.example.hw_ViewModelAndNavigation.petShop
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PetShopListViewModel : ViewModel() {
 
     private val repository = PetShopRepository()
-    private var animals = repository.animals
+    val animalsLiveData = MutableLiveData(repository.animals)
 
-    fun addKitty(name: String, bread: String) {
-        repository.addKitty()
+    fun addKitty(name: String, bread: String): List<Animal> {
+        val newAnimals = repository.addKitty()
+        val updateList = listOf(newAnimals) + animalsLiveData.value.orEmpty()
+        animalsLiveData.postValue(updateList)
+        return updateList
     }
 
     fun deleteAnimals(position: Int) {
-       repository.deleteAnimals(position)
+        animalsLiveData.postValue(
+            repository.deleteAnimals(animalsLiveData.value.orEmpty(),position)
+        )
     }
-
-    fun getAnimalsList() = animals
 }
 

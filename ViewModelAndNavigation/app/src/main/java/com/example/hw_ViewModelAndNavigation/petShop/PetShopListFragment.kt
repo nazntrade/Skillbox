@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isEmpty
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,12 +26,10 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPetShopListBinding.bind(view)
         initList()
-
         binding.addFab.setOnClickListener {
             addNewKittyWithDialogWindow()
         }
-
-        updatePetShopList()
+        observeViewModelState()
     }
 
     override fun onDestroyView() {
@@ -50,11 +49,10 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun deleteAnimals(position: Int) {
         petShopListViewModel.deleteAnimals(position)
-        if (petShopListViewModel.getAnimalsList().isEmpty()) {
+        if (petShopListViewModel.animalsLiveData.value?.isEmpty() == true) {
             binding.emptyTextView.isGone = false
             "List empty".also { binding.emptyTextView.text = it }
         }
-        updatePetShopList()
     }
 
     private fun addNewKittyWithDialogWindow() {
@@ -72,11 +70,10 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         }
         builder.setNegativeButton("Cancel", null)
         builder.show()
-
-        updatePetShopList()
     }
 
-    private fun updatePetShopList() {
-        petShopAdapter?.items = petShopListViewModel.getAnimalsList()
+    private fun observeViewModelState(){
+        petShopListViewModel.animalsLiveData
+            .observe(this) { newAnimals -> petShopAdapter?.items = newAnimals}
     }
 }

@@ -1,25 +1,6 @@
 package com.example.hw_ViewModelAndNavigation.petShop
 
-import android.util.Log
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isGone
-import com.example.hw_ViewModelAndNavigation.R
-import com.example.hw_ViewModelAndNavigation.databinding.FragmentPetShopListBinding
-import com.example.hw_ViewModelAndNavigation.inflate
-
 class PetShopRepository {
-
-    private val photoKitty = listOf(
-        "https://4lapy.ru/upload/medialibrary/84c/84c48b8e8e4b57579667392f8936e5ba.jpg",
-        "https://4lapy.ru/upload/medialibrary/333/3333804f3bc651dd079b2cea3137c43f.jpg",
-        "https://4lapy.ru/upload/medialibrary/c28/c28954d7e723bb37b1b1cd03d2877c7f.jpg",
-        "https://icdn.lenta.ru/images/2019/11/01/13/20191101130724350/pic_88f54b592eb591cd6252313b5ec3e06d.png",
-        "https://4lapy.ru/upload/medialibrary/f10/f10cd0408880f408ce7b688d55e65bab.jpg",
-        "https://4lapy.ru/upload/medialibrary/856/856f7a45deeb0280e4dab47901c20516.jpg",
-        "https://4lapy.ru/upload/medialibrary/4cb/4cb22a00822d18f124e52e6584550a9e.jpg",
-        "https://4lapy.ru/upload/medialibrary/163/163aaeb717d5a8713e8832762c4ef392.jpg",
-    )
 
     var animals = listOf(
         Animal.Dog(
@@ -72,19 +53,31 @@ class PetShopRepository {
         )
     )
 
-    fun addKitty() {
-        val newAnimal = Animal.Cat(
-            name = "",
-            breed = "",
-            avatarLink = photoKitty.random(),
-            id = (9999..112121).random().toLong()
+    private fun getRandomPhotoKitty(): String {
+        val photoKitty = listOf(
+            "https://4lapy.ru/upload/medialibrary/84c/84c48b8e8e4b57579667392f8936e5ba.jpg",
+            "https://4lapy.ru/upload/medialibrary/333/3333804f3bc651dd079b2cea3137c43f.jpg",
+            "https://4lapy.ru/upload/medialibrary/c28/c28954d7e723bb37b1b1cd03d2877c7f.jpg",
+            "https://icdn.lenta.ru/images/2019/11/01/13/20191101130724350/pic_88f54b592eb591cd6252313b5ec3e06d.png",
+            "https://4lapy.ru/upload/medialibrary/f10/f10cd0408880f408ce7b688d55e65bab.jpg",
+            "https://4lapy.ru/upload/medialibrary/856/856f7a45deeb0280e4dab47901c20516.jpg",
+            "https://4lapy.ru/upload/medialibrary/4cb/4cb22a00822d18f124e52e6584550a9e.jpg",
+            "https://4lapy.ru/upload/medialibrary/163/163aaeb717d5a8713e8832762c4ef392.jpg",
         )
-        animals = listOf(newAnimal) + animals
+        return photoKitty.random()
     }
 
-    fun deleteAnimals(position: Int) {
-        animals = animals.filterIndexed { index, animal -> index != position }
-        Log.d("aaa", "$animals")
+    fun addKitty(): Animal.Cat {
+        //      animals = listOf(newAnimal) + animals
+        return Animal.Cat(
+            name = "",
+            breed = "",
+            avatarLink = getRandomPhotoKitty(),
+            id = (9999..112121).random().toLong()
+        )
+    }
 
+    fun deleteAnimals(animals: List<Animal>, position: Int): List<Animal> {
+        return animals.filterIndexed { index, animal -> index != position }
     }
 }
