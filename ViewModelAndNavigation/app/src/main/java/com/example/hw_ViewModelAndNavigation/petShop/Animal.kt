@@ -11,8 +11,8 @@ sealed class Animal {
 
     data class Cat(
         val id: Long,
-        val name: String,
-        val breed: String,
+        var name: String,
+        var breed: String,
         val avatarLink: String
     ) : Animal()
 

@@ -62,10 +62,9 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         val builder = AlertDialog.Builder(view.context)
         builder.setView(view)
         builder.setPositiveButton("Ok") { _, _ ->
-            petShopListViewModel.addKitty(
-                name = dialogNameTextView.text.toString(),
-                bread = dialogBreedTextView.text.toString()
-            )
+            petShopListViewModel.newAnimals.name = dialogNameTextView.text.toString()
+            petShopListViewModel.newAnimals.breed = dialogBreedTextView.text.toString()
+            petShopListViewModel.addAndUpdateListFun()
             binding.petList.scrollToPosition(0)
         }
         builder.setNegativeButton("Cancel", null)

@@ -8,16 +8,21 @@ class PetShopListViewModel : ViewModel() {
     private val repository = PetShopRepository()
     val animalsLiveData = MutableLiveData(repository.animals)
 
-    fun addKitty(name: String, bread: String): List<Animal> {
-        val newAnimals = repository.addKitty()
+    val newAnimals: Animal.Cat = repository.addKitty()
+    fun addAndUpdateListFun(): List<Animal> {
         val updateList = listOf(newAnimals) + animalsLiveData.value.orEmpty()
         animalsLiveData.postValue(updateList)
         return updateList
     }
 
+//    fun addKitty(): Animal.Cat {
+//
+//        return newAnimals
+//    }
+
     fun deleteAnimals(position: Int) {
         animalsLiveData.postValue(
-            repository.deleteAnimals(animalsLiveData.value.orEmpty(),position)
+            repository.deleteAnimals(animalsLiveData.value.orEmpty(), position)
         )
     }
 }
