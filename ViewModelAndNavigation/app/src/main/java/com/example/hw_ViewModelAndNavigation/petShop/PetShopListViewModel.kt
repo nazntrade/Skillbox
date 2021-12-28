@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 class PetShopListViewModel : ViewModel() {
 
     private val repository = PetShopRepository()
-    val animalsLiveData = MutableLiveData(repository.animals)
+    val animalsLiveData : MutableLiveData<>
+        get() {MutableLiveData(repository.animals)}
     val newAnimals: Animal.Cat = repository.addKitty()
 
     fun addAndUpdateListFun(): List<Animal> {

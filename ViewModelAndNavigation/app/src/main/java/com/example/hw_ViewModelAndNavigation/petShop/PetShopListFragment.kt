@@ -49,10 +49,6 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun deleteAnimals(position: Int) {
         petShopListViewModel.deleteAnimals(position)
-        if (petShopListViewModel.animalsLiveData.value?.isEmpty() == true) {
-            binding.emptyTextView.isGone = false
-            "List empty".also { binding.emptyTextView.text = it }
-        }
     }
 
     private fun addNewKittyWithDialogWindow() {
@@ -73,6 +69,12 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun observeViewModelState(){
         petShopListViewModel.animalsLiveData
-            .observe(this) { newAnimals -> petShopAdapter?.items = newAnimals}
+            //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв(по рекоменд.преподавателя)все заработало!!!
+            .observe(this) { newAnimals -> petShopAdapter?.items = newAnimals
+                if (newAnimals.isEmpty()) {
+                    binding.emptyTextView.isGone = false
+                    "List empty".also { binding.emptyTextView.text = it }
+                }
+            }
     }
 }
