@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isEmpty
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -67,14 +67,19 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         builder.show()
     }
 
-    private fun observeViewModelState(){
-        petShopListViewModel.animalsLiveData
+    private fun observeViewModelState() {
+        petShopListViewModel.animalsLiveDataGet
             //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв(по рекоменд.преподавателя)все заработало!!!
-            .observe(this) { newAnimals -> petShopAdapter?.items = newAnimals
+            .observe(viewLifecycleOwner) { newAnimals ->
+                petShopAdapter?.items = newAnimals
                 if (newAnimals.isEmpty()) {
                     binding.emptyTextView.isGone = false
                     "List empty".also { binding.emptyTextView.text = it }
                 }
+            }
+        petShopListViewModel.showToastGet
+            .observe(viewLifecycleOwner) {
+                Toast.makeText(requireContext(), "Kitty added", Toast.LENGTH_SHORT).show()
             }
     }
 }

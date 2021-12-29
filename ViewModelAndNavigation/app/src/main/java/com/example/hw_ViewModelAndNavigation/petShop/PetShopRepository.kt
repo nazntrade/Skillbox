@@ -68,7 +68,6 @@ class PetShopRepository {
     }
 
     fun addKitty(): Animal.Cat {
-        //      animals = listOf(newAnimal) + animals
         return Animal.Cat(
             name = "",
             breed = "",
