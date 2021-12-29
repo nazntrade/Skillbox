@@ -38,7 +38,8 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
     }
 
     private fun initList() {
-        petShopAdapter = PetShopAdapter { position -> deleteAnimals(position) }
+        petShopAdapter = PetShopAdapter { position ->
+            deleteAnimals(position) }
         with(binding.petList) {
             adapter = petShopAdapter
             layoutManager = LinearLayoutManager(requireContext())

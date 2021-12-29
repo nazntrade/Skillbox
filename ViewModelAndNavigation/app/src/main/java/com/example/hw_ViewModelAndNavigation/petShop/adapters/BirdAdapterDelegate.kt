@@ -46,7 +46,9 @@ class BirdAdapterDelegate(
         //инициализируем нажатия на каждый элемент списка!!!
         init {
             binding.root.setOnClickListener {
-                onItemClick(bindingAdapterPosition)
+                if (binding.root.setOnLongClickListener()) {
+                    onItemClick(bindingAdapterPosition)
+                }
             }
         }
 

@@ -340,5 +340,6 @@ Genymotion.
     <string name="grid">grid</string>
     <string name="horizontal">horizontal</string>
     <string name="staggeredGrid">staggeredGrid</string>
+    <string name="detail_info">detail info</string>
 
 </resources>

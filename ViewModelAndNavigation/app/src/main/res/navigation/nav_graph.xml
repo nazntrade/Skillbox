@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.hw_ViewModelAndNavigation.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_petShopListFragment"
+            app:destination="@id/petShopListFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/petShopListFragment"
+        android:name="com.example.hw_ViewModelAndNavigation.petShop.PetShopListFragment"
+        android:label="PetShopListFragment"
+        tools:layout="@layout/fragment_pet_shop_list" >
+        <action
+            android:id="@+id/action_petShopListFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.hw_ViewModelAndNavigation.petShop.DetailsFragment"
+        tools:layout="@layout/fragment_details"
+        android:label="DetailsFragment" />
+</navigation>
