@@ -7,14 +7,15 @@ import com.example.hw_ViewModelAndNavigation.petShop.adapters.DogAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 class PetShopAdapter(
-    onItemClick: (position: Int) -> Unit
+    onItemClick: (position: Int) -> Unit,
+    onItemLongClick: (position: Int) -> Unit
 ) : AsyncListDifferDelegationAdapter<Animal>(AnimalDiffUtilCallback()) {
 
     init {
         delegatesManager
-            .addDelegate(CatAdapterDelegate(onItemClick))
-            .addDelegate(DogAdapterDelegate(onItemClick))
-            .addDelegate(BirdAdapterDelegate(onItemClick))
+            .addDelegate(CatAdapterDelegate(onItemClick, onItemLongClick))
+            .addDelegate(DogAdapterDelegate(onItemClick, onItemLongClick))
+            .addDelegate(BirdAdapterDelegate(onItemClick, onItemLongClick))
     }
 
     class AnimalDiffUtilCallback : DiffUtil.ItemCallback<Animal>() {

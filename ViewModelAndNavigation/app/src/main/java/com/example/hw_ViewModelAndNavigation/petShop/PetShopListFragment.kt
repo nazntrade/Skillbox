@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_ViewModelAndNavigation.R
 import com.example.hw_ViewModelAndNavigation.databinding.FragmentPetShopListBinding
@@ -38,8 +39,9 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
     }
 
     private fun initList() {
-        petShopAdapter = PetShopAdapter { position ->
-            deleteAnimals(position) }
+        petShopAdapter = PetShopAdapter(
+            { navigate() },
+            { position -> deleteAnimals(position) })
         with(binding.petList) {
             adapter = petShopAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -50,6 +52,10 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun deleteAnimals(position: Int) {
         petShopListViewModel.deleteAnimals(position)
+    }
+
+    private fun navigate() {
+        findNavController().navigate(R.id.action_petShopListFragment_to_detailsFragment)
     }
 
     private fun addNewKittyWithDialogWindow() {

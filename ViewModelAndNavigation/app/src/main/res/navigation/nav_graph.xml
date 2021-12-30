@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.hw_ViewModelAndNavigation.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_petShopListFragment"
             app:destination="@id/petShopListFragment"
@@ -19,7 +19,7 @@
         android:id="@+id/petShopListFragment"
         android:name="com.example.hw_ViewModelAndNavigation.petShop.PetShopListFragment"
         android:label="PetShopListFragment"
-        tools:layout="@layout/fragment_pet_shop_list" >
+        tools:layout="@layout/fragment_pet_shop_list">
         <action
             android:id="@+id/action_petShopListFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />

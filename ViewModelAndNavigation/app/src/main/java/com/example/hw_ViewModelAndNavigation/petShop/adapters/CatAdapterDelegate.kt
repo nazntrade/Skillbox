@@ -11,7 +11,8 @@ import com.example.hw_ViewModelAndNavigation.petShop.Animal
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class CatAdapterDelegate(
-    private val onItemClick: (position: Int) -> Unit
+    private val onItemClick: (position: Int) -> Unit,
+    private val onItemLongClick: (position: Int) -> Unit
 ) : AbsListItemAdapterDelegate<Animal.Cat, Animal, CatAdapterDelegate.CatHolder>() {
 
     override fun isForViewType(item: Animal, items: MutableList<Animal>, position: Int): Boolean {
@@ -22,7 +23,7 @@ class CatAdapterDelegate(
         return CatHolder(
             ItemAnimalBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            ), onItemClick
+            ), onItemClick, onItemLongClick
         )
     }
 
@@ -32,7 +33,8 @@ class CatAdapterDelegate(
 
     class CatHolder(
         binding: ItemAnimalBinding,
-        onItemClick: (position: Int) -> Unit
+        onItemClick: (position: Int) -> Unit,
+        onItemLongClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private val nameTextView = binding.nameTextView
         private val breedTextView = binding.breedTextView
@@ -42,6 +44,10 @@ class CatAdapterDelegate(
         init {
             binding.root.setOnClickListener {
                 onItemClick(bindingAdapterPosition)
+            }
+            binding.root.setOnLongClickListener {
+                onItemLongClick(bindingAdapterPosition)
+                true
             }
         }
 

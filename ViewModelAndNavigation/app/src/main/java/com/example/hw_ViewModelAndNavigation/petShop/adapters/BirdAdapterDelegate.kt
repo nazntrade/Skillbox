@@ -10,8 +10,10 @@ import com.example.hw_ViewModelAndNavigation.databinding.ItemBirdBinding
 import com.example.hw_ViewModelAndNavigation.petShop.Animal
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
+
 class BirdAdapterDelegate(
-    private val onItemClick: (position: Int) -> Unit
+    private val onItemClick: (position: Int) -> Unit,
+    private val onItemLongClick: (position: Int) -> Unit
 ) : AbsListItemAdapterDelegate<Animal.Bird, Animal, BirdAdapterDelegate.BirdHolder>() {
 
     override fun isForViewType(item: Animal, items: MutableList<Animal>, position: Int): Boolean {
@@ -22,7 +24,7 @@ class BirdAdapterDelegate(
         return BirdHolder(
             ItemBirdBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            ), onItemClick
+            ), onItemClick, onItemLongClick
         )
     }
 
@@ -34,7 +36,8 @@ class BirdAdapterDelegate(
 
     class BirdHolder(
         binding: ItemBirdBinding,
-        onItemClick: (position: Int) -> Unit
+        onItemClick: (position: Int) -> Unit,
+        onItemLongClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private val nameTextView = binding.nameTextView
         private val breedTextView = binding.breedTextView
@@ -46,9 +49,11 @@ class BirdAdapterDelegate(
         //инициализируем нажатия на каждый элемент списка!!!
         init {
             binding.root.setOnClickListener {
-                if (binding.root.setOnLongClickListener()) {
-                    onItemClick(bindingAdapterPosition)
-                }
+                onItemClick(bindingAdapterPosition)
+            }
+            binding.root.setOnLongClickListener {
+                onItemLongClick(bindingAdapterPosition)
+                true
             }
         }
 
@@ -62,7 +67,6 @@ class BirdAdapterDelegate(
             }
             "Sounds: ${animalBird.song}".also { songTextView.text = it }
             "Alarm: ${animalBird.alarm}".also { alarmTextView.text = it }
-//            discountImageView3.text = animalBird.discountLink
             discountImageView3.load(animalBird.discountLink) {
                 error(R.drawable.ic_404)
                 placeholder(R.drawable.ic_animal)
