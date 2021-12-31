@@ -12,7 +12,7 @@ import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class CatAdapterDelegate(
     private val onItemClick: (position: Int) -> Unit,
-    private val onItemLongClick: (position: Int) -> Unit
+    private val onItemLongClick: (id: Long) -> Unit
 ) : AbsListItemAdapterDelegate<Animal.Cat, Animal, CatAdapterDelegate.CatHolder>() {
 
     override fun isForViewType(item: Animal, items: MutableList<Animal>, position: Int): Boolean {
@@ -34,19 +34,22 @@ class CatAdapterDelegate(
     class CatHolder(
         binding: ItemAnimalBinding,
         onItemClick: (position: Int) -> Unit,
-        onItemLongClick: (position: Int) -> Unit
+        onItemLongClick: (id: Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private val nameTextView = binding.nameTextView
         private val breedTextView = binding.breedTextView
         private val avatarImageView = binding.avatarImageView
 
         //инициализируем нажатия на каждый элемент списка!!!
+        private var currentId: Long? = null
         init {
             binding.root.setOnClickListener {
                 onItemClick(bindingAdapterPosition)
             }
             binding.root.setOnLongClickListener {
-                onItemLongClick(bindingAdapterPosition)
+                currentId?.let {
+                    onItemLongClick(it)
+                }
                 true
             }
         }

@@ -40,7 +40,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun initList() {
         petShopAdapter = PetShopAdapter(
-            { navigate() },
+            { id -> navigate(id) },
             { position -> deleteAnimals(position) })
         with(binding.petList) {
             adapter = petShopAdapter
@@ -54,8 +54,9 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         petShopListViewModel.deleteAnimals(position)
     }
 
-    private fun navigate() {
-        findNavController().navigate(R.id.action_petShopListFragment_to_detailsFragment)
+    private fun navigate(id: Long) {
+        val action = PetShopListFragmentDirections.actionPetShopListFragmentToDetailsFragment(id)
+        findNavController().navigate(action)
     }
 
     private fun addNewKittyWithDialogWindow() {

@@ -7,8 +7,8 @@ import com.example.hw_ViewModelAndNavigation.petShop.adapters.DogAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 class PetShopAdapter(
-    onItemClick: (position: Int) -> Unit,
-    onItemLongClick: (position: Int) -> Unit
+    onItemLongClick: (id: Long) -> Unit,
+    onItemClick: (position: Int) -> Unit
 ) : AsyncListDifferDelegationAdapter<Animal>(AnimalDiffUtilCallback()) {
 
     init {
