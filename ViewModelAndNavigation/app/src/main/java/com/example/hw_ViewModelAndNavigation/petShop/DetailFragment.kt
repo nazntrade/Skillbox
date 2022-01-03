@@ -14,6 +14,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailsBinding.bind(view)
-        binding.idTextView.text = args.animalId.toString()
+        "Animal Id: ${args.animalId}".also { binding.idTextView.text = it }
     }
 }

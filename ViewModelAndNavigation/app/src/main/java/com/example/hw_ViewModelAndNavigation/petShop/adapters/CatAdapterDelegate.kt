@@ -1,5 +1,6 @@
 package com.example.hw_ViewModelAndNavigation.petShop.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,8 @@ import com.example.hw_ViewModelAndNavigation.petShop.Animal
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class CatAdapterDelegate(
-    private val onItemClick: (position: Int) -> Unit,
-    private val onItemLongClick: (id: Long) -> Unit
+    private var onItemClick: (id: Long) -> Unit,
+    private var onItemLongClick: (position: Int) -> Unit
 ) : AbsListItemAdapterDelegate<Animal.Cat, Animal, CatAdapterDelegate.CatHolder>() {
 
     override fun isForViewType(item: Animal, items: MutableList<Animal>, position: Int): Boolean {
@@ -27,14 +28,18 @@ class CatAdapterDelegate(
         )
     }
 
-    override fun onBindViewHolder(item: Animal.Cat, holder: CatHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(
+        item: Animal.Cat,
+        holder: CatHolder,
+        payloads: MutableList<Any>
+    ) {
         holder.bindCat(item)
     }
 
     class CatHolder(
         binding: ItemAnimalBinding,
-        onItemClick: (position: Int) -> Unit,
-        onItemLongClick: (id: Long) -> Unit
+        onItemClick: (id: Long) -> Unit,
+        onItemLongClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private val nameTextView = binding.nameTextView
         private val breedTextView = binding.breedTextView
@@ -42,19 +47,26 @@ class CatAdapterDelegate(
 
         //инициализируем нажатия на каждый элемент списка!!!
         private var currentId: Long? = null
+
         init {
             binding.root.setOnClickListener {
-                onItemClick(bindingAdapterPosition)
+                currentId?.let {
+                    Log.d("aaa", "aaa")
+                    onItemClick(it)
+                }
             }
             binding.root.setOnLongClickListener {
-                currentId?.let {
-                    onItemLongClick(it)
-                }
+                Log.d("aaa", "bbb")
+
+                onItemLongClick(bindingAdapterPosition)
                 true
             }
         }
 
-        fun bindCat(animalCat: Animal.Cat) {
+        fun bindCat(
+            animalCat: Animal.Cat
+        ) {
+            currentId = animalCat.id
             "Name: ${animalCat.name}".also { nameTextView.text = it }
             "Breed: ${animalCat.breed}".also { breedTextView.text = it }
             avatarImageView.load(animalCat.avatarLink) {

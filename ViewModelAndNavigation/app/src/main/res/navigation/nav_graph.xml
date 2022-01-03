@@ -28,7 +28,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.hw_ViewModelAndNavigation.petShop.DetailsFragment"
         tools:layout="@layout/fragment_details"
-        android:label="DetailsFragment" >
+        android:label="DetailsFragment">
         <argument
             android:name="animalId"
             app:argType="long" />

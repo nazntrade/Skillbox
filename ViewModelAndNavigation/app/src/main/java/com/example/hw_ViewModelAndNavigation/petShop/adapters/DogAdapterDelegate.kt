@@ -11,8 +11,8 @@ import com.example.hw_ViewModelAndNavigation.petShop.Animal
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class DogAdapterDelegate(
-    private val onItemClick: (position: Int) -> Unit,
-    private val onItemLongClick: (id: Long) -> Unit
+    private var onItemClick: (id: Long) -> Unit,
+    private var onItemLongClick: (position: Int) -> Unit
 ) : AbsListItemAdapterDelegate<Animal.Dog, Animal, DogAdapterDelegate.DogHolder>() {
 
     override fun isForViewType(item: Animal, items: MutableList<Animal>, position: Int): Boolean {
@@ -33,8 +33,8 @@ class DogAdapterDelegate(
 
     class DogHolder(
         binding: ItemDogBinding,
-        onItemClick: (position: Int) -> Unit,
-        onItemLongClick: (id: Long) -> Unit
+        onItemClick: (id: Long) -> Unit,
+        onItemLongClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private val nameTextView = binding.nameTextView
         private val breedTextView = binding.breedTextView
@@ -43,19 +43,21 @@ class DogAdapterDelegate(
 
         //инициализируем нажатия на каждый элемент списка!!!
         private var currentId: Long? = null
+
         init {
             binding.root.setOnClickListener {
-                onItemClick(bindingAdapterPosition)
+                currentId?.let {
+                    onItemClick(it)
+                }
             }
             binding.root.setOnLongClickListener {
-                currentId?.let {
-                    onItemLongClick(it)
-                }
+                onItemLongClick(bindingAdapterPosition)
                 true
             }
         }
 
         fun bindDog(animalDog: Animal.Dog) {
+            currentId = animalDog.id
             "Name: ${animalDog.name}".also { nameTextView.text = it }
             "Breed: ${animalDog.breed}".also { breedTextView.text = it }
             avatarImageView.load(animalDog.avatarLink) {
