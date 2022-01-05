@@ -1,6 +1,5 @@
 package com.example.hw_ViewModelAndNavigation.petShop
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -19,10 +18,9 @@ import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator
 class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private var petShopAdapter: PetShopAdapter? = null
-    private val petShopListViewModel: PetShopListViewModel by viewModels()
-    lateinit var binding: FragmentPetShopListBinding
+    private val viewModel: PetShopListViewModel by viewModels()
+    private lateinit var binding: FragmentPetShopListBinding
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPetShopListBinding.bind(view)
@@ -51,7 +49,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
     }
 
     private fun deleteAnimals(position: Int) {
-        petShopListViewModel.deleteAnimals(position)
+        viewModel.deleteAnimals(position)
     }
 
     private fun navigate(id: Long) {
@@ -66,17 +64,24 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         val builder = AlertDialog.Builder(view.context)
         builder.setView(view)
         builder.setPositiveButton("Ok") { _, _ ->
-            petShopListViewModel.newAnimals.name = dialogNameTextView.text.toString()
-            petShopListViewModel.newAnimals.breed = dialogBreedTextView.text.toString()
-            petShopListViewModel.addAndUpdateListFun()
-            binding.petList.scrollToPosition(0)
+            val newCat = Animal.Cat(
+                id = viewModel.newAnimals.id,
+                name = dialogNameTextView.text.toString(),
+                breed = dialogBreedTextView.text.toString(),
+                avatarLink = viewModel.newAnimals.avatarLink
+            )
+//            viewModel.addAndUpdateListFun(newCat)
+//            binding.petList.scrollToPosition(0)
+            petShopAdapter?.setItems(viewModel.addAndUpdateListFun(newCat)) {
+                binding.petList.scrollToPosition(0)
+            }
         }
         builder.setNegativeButton("Cancel", null)
         builder.show()
     }
 
     private fun observeViewModelState() {
-        petShopListViewModel.animalsLiveDataGet
+        viewModel.animalsLiveDataGet
             //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв(по рекоменд.преподавателя)все заработало!!!
             .observe(viewLifecycleOwner) { newAnimals ->
                 petShopAdapter?.items = newAnimals
@@ -85,7 +90,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
                     "List empty".also { binding.emptyTextView.text = it }
                 }
             }
-        petShopListViewModel.showToastGet
+        viewModel.showToastGet
             .observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), "Kitty added", Toast.LENGTH_SHORT).show()
             }

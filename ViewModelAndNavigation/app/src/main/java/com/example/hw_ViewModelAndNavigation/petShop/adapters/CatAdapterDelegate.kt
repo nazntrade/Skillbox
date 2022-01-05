@@ -1,6 +1,5 @@
 package com.example.hw_ViewModelAndNavigation.petShop.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -51,13 +50,10 @@ class CatAdapterDelegate(
         init {
             binding.root.setOnClickListener {
                 currentId?.let {
-                    Log.d("aaa", "aaa")
                     onItemClick(it)
                 }
             }
             binding.root.setOnLongClickListener {
-                Log.d("aaa", "bbb")
-
                 onItemLongClick(bindingAdapterPosition)
                 true
             }
