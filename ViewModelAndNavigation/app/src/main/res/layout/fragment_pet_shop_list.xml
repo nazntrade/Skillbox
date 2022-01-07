@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:backgroundTint="@color/cardview_dark_background"
-        android:contentDescription="addItem"
+        android:contentDescription="@string/addItem"
         android:src="@drawable/ic_add"
         android:tooltipText="add kitty"
         app:fabSize="normal"

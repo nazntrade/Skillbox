@@ -70,11 +70,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
                 breed = dialogBreedTextView.text.toString(),
                 avatarLink = viewModel.newAnimals.avatarLink
             )
-//            viewModel.addAndUpdateListFun(newCat)
-//            binding.petList.scrollToPosition(0)
-            petShopAdapter?.setItems(viewModel.addAndUpdateListFun(newCat)) {
-                binding.petList.scrollToPosition(0)
-            }
+            viewModel.addAndUpdateListFun(newCat)
         }
         builder.setNegativeButton("Cancel", null)
         builder.show()
@@ -85,6 +81,9 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
             //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв(по рекоменд.преподавателя)все заработало!!!
             .observe(viewLifecycleOwner) { newAnimals ->
                 petShopAdapter?.items = newAnimals
+                petShopAdapter?.setItems(newAnimals) {
+                    binding.petList.scrollToPosition(0)
+                }
                 if (newAnimals.isEmpty()) {
                     binding.emptyTextView.isGone = false
                     "List empty".also { binding.emptyTextView.text = it }

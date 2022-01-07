@@ -24,11 +24,10 @@ class PetShopListViewModel : ViewModel() {
     val showToastGet: LiveData<Unit>
         get() = showToastLiveData
 
-    fun addAndUpdateListFun(newAnimals: Animal): List<Animal> {
+    fun addAndUpdateListFun(newAnimals: Animal) {
         val updateList = listOf(newAnimals) + animalsLiveData.value.orEmpty()
         animalsLiveData.postValue(updateList)
         showToastLiveData.postValue(Unit)
-        return updateList
     }
 
     fun deleteAnimals(position: Int) {
