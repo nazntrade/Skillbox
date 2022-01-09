@@ -65,10 +65,10 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         builder.setView(view)
         builder.setPositiveButton("Ok") { _, _ ->
             val newCat = Animal.Cat(
-                id = viewModel.newAnimals.id,
+                id = viewModel.newAnimal.id,
                 name = dialogNameTextView.text.toString(),
                 breed = dialogBreedTextView.text.toString(),
-                avatarLink = viewModel.newAnimals.avatarLink
+                avatarLink = viewModel.newAnimal.avatarLink
             )
             viewModel.addAndUpdateListFun(newCat)
         }
@@ -77,7 +77,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
     }
 
     private fun observeViewModelState() {
-        viewModel.animalsLiveDataGet
+        viewModel.liveData
             //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв(по рекоменд.преподавателя)все заработало!!!
             .observe(viewLifecycleOwner) { newAnimals ->
                 petShopAdapter?.items = newAnimals
