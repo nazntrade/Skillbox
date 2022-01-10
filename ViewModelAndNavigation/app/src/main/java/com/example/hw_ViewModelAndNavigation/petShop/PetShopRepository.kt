@@ -57,7 +57,7 @@ class PetShopRepository {
         )
     )
 
-    private fun getRandomPhotoKitty(): String {
+     fun getRandomPhotoKitty(): String {
         val photoKitty = listOf(
             "https://4lapy.ru/upload/medialibrary/84c/84c48b8e8e4b57579667392f8936e5ba.jpg",
             "https://4lapy.ru/upload/medialibrary/333/3333804f3bc651dd079b2cea3137c43f.jpg",
@@ -71,15 +71,8 @@ class PetShopRepository {
         return photoKitty.random()
     }
 
-    val newAnimal: Animal.Cat = Animal.Cat(
-        name = "",
-        breed = "",
-        avatarLink = getRandomPhotoKitty(),
-        id = (9999..112121).random().toLong()
-    )
-
-    fun addKitty(newAnimal: Animal) {
-        animals.value = listOf(newAnimal) + (animals.value ?: emptyList())
+    fun addKitty(newCat: Animal) {
+        animals.value = listOf(newCat) + (animals.value ?: emptyList())
     }
 
     fun deleteAnimals(position: Int) {

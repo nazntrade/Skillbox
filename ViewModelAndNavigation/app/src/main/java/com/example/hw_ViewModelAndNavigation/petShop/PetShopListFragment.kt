@@ -65,10 +65,10 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
         builder.setView(view)
         builder.setPositiveButton("Ok") { _, _ ->
             val newCat = Animal.Cat(
-                id = viewModel.newAnimal.id,
+                id = (9999..112121).random().toLong(),
                 name = dialogNameTextView.text.toString(),
                 breed = dialogBreedTextView.text.toString(),
-                avatarLink = viewModel.newAnimal.avatarLink
+                avatarLink = viewModel.getRandomPhoto
             )
             viewModel.addAndUpdateListFun(newCat)
         }

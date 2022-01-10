@@ -9,19 +9,20 @@ class PetShopListViewModel : ViewModel() {
 
     val liveData: LiveData<List<Animal>> = repository.animals
 
-    val newAnimal: Animal.Cat = repository.newAnimal
+    val getRandomPhoto
+        get() = repository.getRandomPhotoKitty()
 
     private val showToastLiveData = SingleLiveEvent<Unit>()
     val showToastGet: LiveData<Unit>
         get() = showToastLiveData
 
-    fun addAndUpdateListFun(newAnimal: Animal) {
-        repository.addKitty(newAnimal)
+    fun addAndUpdateListFun(newCat: Animal) {
+        repository.addKitty(newCat)
         showToastLiveData.postValue(Unit)
     }
 
     fun deleteAnimals(position: Int) {
-        repository.deleteAnimals(position )
+        repository.deleteAnimals(position)
     }
 }
 
