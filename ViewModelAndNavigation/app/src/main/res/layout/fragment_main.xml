@@ -9,12 +9,12 @@
     <Button
         android:id="@+id/articleButton"
         android:layout_width="150dp"
-        android:theme="@style/Button.Gray"
-        android:backgroundTint="@color/gray"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="@string/article" />
+        android:backgroundTint="@color/gray"
+        android:text="@string/article"
+        android:theme="@style/Button.Gray" />
 
     <Button
         android:id="@+id/listButton"

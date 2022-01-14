@@ -57,7 +57,7 @@ class PetShopRepository {
         )
     )
 
-     fun getRandomPhotoKitty(): String {
+    fun getRandomPhotoKitty(): String {
         val photoKitty = listOf(
             "https://4lapy.ru/upload/medialibrary/84c/84c48b8e8e4b57579667392f8936e5ba.jpg",
             "https://4lapy.ru/upload/medialibrary/333/3333804f3bc651dd079b2cea3137c43f.jpg",
