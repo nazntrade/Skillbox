@@ -8,7 +8,7 @@ import androidx.lifecycle.observe
 import com.skillbox.lessons_multithreading.R
 import kotlinx.android.synthetic.main.fragment_threading.*
 
-class ThreadingFragment: Fragment(R.layout.fragment_threading) {
+class ThreadingFragment : Fragment(R.layout.fragment_threading) {
 
     private val viewModel: ThreadingViewModel by viewModels()
 
@@ -21,7 +21,8 @@ class ThreadingFragment: Fragment(R.layout.fragment_threading) {
             Log.d("ThreadTest", "livedata changed on ${Thread.currentThread().name}")
             timeTextView.text = it.toString()
         }
-        viewModel.movies.observe(viewLifecycleOwner) { moviesTextView.text = it }
+        viewModel.movies.observe(viewLifecycleOwner) {
+            moviesTextView.text = it
+        }
     }
-
 }
