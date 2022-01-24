@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SkillBox/android_basic/.Android_Projects_All_Naz/AndroidStudio/Lessons_Multithreading/app/src/main/res/layout/activity_main.xml" value="0.203125" />
+        <entry key="..\:/Android/SkillBox/android_basic/.Android_Projects_All_Naz/AndroidStudio/Lessons_Multithreading/app/src/main/res/layout/fragment_handler.xml" value="0.203125" />
+        <entry key="..\:/Android/SkillBox/android_basic/.Android_Projects_All_Naz/AndroidStudio/Lessons_Multithreading/app/src/main/res/layout/fragment_main.xml" value="0.203125" />
         <entry key="..\:/Android/SkillBox/android_basic/.Android_Projects_All_Naz/AndroidStudio/Lessons_Multithreading/app/src/main/res/layout/fragment_threading.xml" value="0.196875" />
       </map>
     </option>

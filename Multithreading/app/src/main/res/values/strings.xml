@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Multithreading</string>
+    <string name="app_name">HW_Multithreading</string>
+    <string name="get_movie">get movie</string>
 </resources>
