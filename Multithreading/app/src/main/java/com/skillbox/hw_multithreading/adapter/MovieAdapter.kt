@@ -1,26 +1,37 @@
 package com.skillbox.hw_multithreading.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.skillbox.hw_multithreading.R
 import com.skillbox.hw_multithreading.databinding.MovieItemBinding
+import com.skillbox.hw_multithreading.networking.Movie
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
+    private val movies: List<Movie> = emptyList()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.movie_item, parent, false)
+        return MovieHolder(MovieItemBinding.bind(view))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
+        holder.bindMovie(movies)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = movies.size
 
-    class ViewHolder(
+    class MovieHolder(
         binding: MovieItemBinding
-    ) : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private val titleMovieTextView = binding.movieTitleTextView
+        private val yearMovieTextView = binding.movieYearTextView
 
+        fun bindMovie(movies: Movie) {
+            "Title: ${movies.title}".also { titleMovieTextView.text = it }
+            "year: ${movies.year}".also { yearMovieTextView.text = it }
+        }
     }
 }
