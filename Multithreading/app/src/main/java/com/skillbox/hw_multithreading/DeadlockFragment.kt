@@ -45,7 +45,6 @@ class DeadlockFragment: Fragment() {
         thread2.start()
     }
 
-
     data class Person(
         val name: String
     ) {

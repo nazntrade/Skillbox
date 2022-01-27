@@ -9,7 +9,7 @@ import com.skillbox.hw_multithreading.networking.Movie
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
-    private val movies: List<Movie> = emptyList()
+    private var movies: List<Movie> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,7 +18,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.bindMovie(movies)
+        val movieBound = movies[position]
+        holder.bindMovie(movieBound)
     }
 
     override fun getItemCount(): Int = movies.size
