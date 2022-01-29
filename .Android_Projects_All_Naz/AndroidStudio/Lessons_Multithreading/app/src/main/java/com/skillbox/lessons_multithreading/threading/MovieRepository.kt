@@ -8,7 +8,7 @@ import java.util.Collections
 
 class MovieRepository {
 
-    fun getMovieById(movieId: String): Movie? {
+    private fun getMovieById(movieId: String): Movie? {
         return Network.api().getMovieById(movieId, MOVIE_API_KEY).execute()
             .body() //ignore exceptions
     }

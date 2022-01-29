@@ -23,16 +23,7 @@ object Network {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getMovieById(movieId: String): Movie? {
-        return try {
-            api().getMovieById(movieId, MOVIE_API_KEY).execute().body()
-        } catch (e: IOException) {
-            // Проблемы с интернет соединением
-            null
-        }
-    }
-
-    private fun api(): MovieApi {
+    fun api(): MovieApi {
         return retrofit.create()
     }
 }

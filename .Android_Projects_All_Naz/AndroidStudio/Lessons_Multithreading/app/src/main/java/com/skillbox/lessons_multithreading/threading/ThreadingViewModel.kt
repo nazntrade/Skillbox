@@ -50,6 +50,5 @@ class ThreadingViewModel : ViewModel() {
             moviesLiveData.postValue(movies)
         }
         Log.d("ThreadTest", "requestMovies end on ${Thread.currentThread().name}")
-
     }
 }
