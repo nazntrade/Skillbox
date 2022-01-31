@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HW_Multithreading</string>
     <string name="get_movie">get movie</string>
+    <string name="list_updated">The List updated</string>
 </resources>

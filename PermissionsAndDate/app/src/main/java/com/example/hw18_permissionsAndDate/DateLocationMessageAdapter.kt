@@ -14,20 +14,6 @@ class DateLocationMessageAdapter(
 ) :
     ListAdapter<DateLocationMessage, DateLocationMessageAdapter.Holder>(MessageDiffUtilCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(
-            ItemDateLocationBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            ), onItemClick
-        )
-    }
-
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
     class MessageDiffUtilCallback : DiffUtil.ItemCallback<DateLocationMessage>() {
         override fun areItemsTheSame(
             oldItem: DateLocationMessage,
@@ -42,6 +28,20 @@ class DateLocationMessageAdapter(
         ): Boolean {
             return oldItem == newItem
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        return Holder(
+            ItemDateLocationBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), onItemClick
+        )
+    }
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     class Holder(

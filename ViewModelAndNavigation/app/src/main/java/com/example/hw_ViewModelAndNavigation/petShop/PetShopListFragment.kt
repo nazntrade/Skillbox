@@ -78,7 +78,7 @@ class PetShopListFragment : Fragment(R.layout.fragment_pet_shop_list) {
 
     private fun observeViewModelState() {
         viewModel.liveData
-            //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв(по рекоменд.преподавателя)все заработало!!!
+            //разобрать обзерв. Раньше иф был в ф-ии делейт и не работал. как только перенес в обзерв все заработало!!!
             .observe(viewLifecycleOwner) { newAnimals ->
                 petShopAdapter?.items = newAnimals
                 petShopAdapter?.setItems(newAnimals) {
