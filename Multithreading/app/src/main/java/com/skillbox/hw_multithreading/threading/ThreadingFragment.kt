@@ -20,6 +20,7 @@ class ThreadingFragment : Fragment(R.layout.fragment_threading) {
     private var movieAdapter: MovieAdapter? = null
     private val viewModel: ThreadingViewModel by viewModels()
     private var movies: List<Movie> = listOf()
+    private val handler = Handler(Looper.myLooper()!!)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,12 +47,14 @@ class ThreadingFragment : Fragment(R.layout.fragment_threading) {
     private fun observe() {
         viewModel.movies.observe(viewLifecycleOwner) {
             movies = viewModel.movieFromViewModel
-            movieAdapter?.submitList(movies.shuffled()){
-                binding.movieList.scrollToPosition(0)
+            handler.post {
+                movieAdapter?.submitList(movies.shuffled()){
+                    binding.movieList.scrollToPosition(0)
+                }
             }
         }
         viewModel.showToastGet.observe(viewLifecycleOwner) {
-            Handler(Looper.myLooper()!!).postDelayed({
+            handler.postDelayed({
                 Toast.makeText(context, getString(R.string.list_updated), Toast.LENGTH_SHORT).show()
             }, 1000)
         }

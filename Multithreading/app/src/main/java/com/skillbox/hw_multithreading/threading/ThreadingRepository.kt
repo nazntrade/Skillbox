@@ -49,8 +49,6 @@ class ThreadingRepository {
     ) {
         newMovie = emptyList<Movie>().toMutableList()
         Thread {
-            Log.d("ThreadTest", "livedata changed on ${Thread.currentThread().name}")
-
             val threads = movieIds.chunked(1).map { movieChunk ->
                 Thread {
                     val movies = movieChunk.mapNotNull { movieId ->
