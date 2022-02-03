@@ -16,7 +16,7 @@
 
 
 // если подписчик получил уведомление, то это оповещение больше не кому не будет доставлено
-package com.skillbox.hw_multithreading.threading;
+package com.skillbox.hw_multithreading;
 
 import android.util.Log;
 

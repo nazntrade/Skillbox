@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.skillbox.hw_multithreading.MainFragment"
         tools:layout="@layout/fragment_main"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_deadlockFragment"
             app:destination="@id/deadlockFragment" />

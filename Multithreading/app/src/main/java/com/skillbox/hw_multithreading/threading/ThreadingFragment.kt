@@ -3,12 +3,12 @@ package com.skillbox.hw_multithreading.threading
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.skillbox.hw_multithreading.R
 import com.skillbox.hw_multithreading.adapter.MovieAdapter
 import com.skillbox.hw_multithreading.databinding.FragmentThreadingBinding
@@ -21,6 +21,7 @@ class ThreadingFragment : Fragment(R.layout.fragment_threading) {
     private val viewModel: ThreadingViewModel by viewModels()
     private var movies: List<Movie> = listOf()
     private val handler = Handler(Looper.myLooper()!!)
+    var mSwipeRefreshLayout: SwipeRefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +30,12 @@ class ThreadingFragment : Fragment(R.layout.fragment_threading) {
         initList()
 
         binding.movieButton.setOnClickListener {
-            viewModel.getMovie()
+            viewModel.fetchMovie()
+        }
+
+        mSwipeRefreshLayout = binding.swipeRefreshLayout
+        mSwipeRefreshLayout!!.setOnRefreshListener {
+            viewModel.fetchMovie()
         }
 
         observe()
@@ -48,9 +54,10 @@ class ThreadingFragment : Fragment(R.layout.fragment_threading) {
         viewModel.movies.observe(viewLifecycleOwner) {
             movies = viewModel.movieFromViewModel
             handler.post {
-                movieAdapter?.submitList(movies.shuffled()){
+                movieAdapter?.submitList(movies.shuffled()) {
                     binding.movieList.scrollToPosition(0)
                 }
+                mSwipeRefreshLayout!!.isRefreshing = false
             }
         }
         viewModel.showToastGet.observe(viewLifecycleOwner) {

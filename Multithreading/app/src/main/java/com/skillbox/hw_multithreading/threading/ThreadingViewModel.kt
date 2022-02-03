@@ -3,6 +3,7 @@ package com.skillbox.hw_multithreading.threading
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.skillbox.hw_multithreading.SingleLiveEvent
 
 class ThreadingViewModel : ViewModel() {
 
@@ -12,7 +13,8 @@ class ThreadingViewModel : ViewModel() {
     val movieFromViewModel
         get() = movieRepository.movieFromRepository
 
-    private val showToastLiveData = SingleLiveEvent<Unit>()
+    private val showToastLiveData =
+        SingleLiveEvent<Unit>()
     val showToastGet: LiveData<Unit>
         get() = showToastLiveData
 
@@ -20,7 +22,7 @@ class ThreadingViewModel : ViewModel() {
     val movies: LiveData<String?>
         get() = liveData
 
-    fun getMovie() {
+    fun fetchMovie() {
         movieRepository.fetchMovie(movieIds) { movies ->
             liveData.postValue(movies.toString())
             showToastLiveData.postValue(Unit)

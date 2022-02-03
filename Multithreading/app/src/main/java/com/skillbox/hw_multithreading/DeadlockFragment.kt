@@ -3,7 +3,7 @@ package com.skillbox.hw_multithreading
 import android.util.Log
 import androidx.fragment.app.Fragment
 
-class DeadlockFragment: Fragment() {
+class DeadlockFragment : Fragment() {
 
     private var i = 0
     private val lock1 = Any()

@@ -1,6 +1,5 @@
 package com.skillbox.hw_multithreading.threading
 
-import android.util.Log
 import com.skillbox.hw_multithreading.networking.Movie
 import com.skillbox.hw_multithreading.networking.Network
 import com.skillbox.hw_multithreading.networking.Network.MOVIE_API_KEY
@@ -42,12 +41,12 @@ class ThreadingRepository {
             .body()
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     fun fetchMovie(
         movieIds: List<String>,
         onMoviesFetched: (movies: List<Movie>) -> Unit
     ) {
-        newMovie = emptyList<Movie>().toMutableList()
+        newMovie = emptyList<Movie>().toMutableList()//for update movie
+
         Thread {
             val threads = movieIds.chunked(1).map { movieChunk ->
                 Thread {
@@ -57,7 +56,6 @@ class ThreadingRepository {
                     newMovie.addAll(movies)
                 }
             }
-
             threads.forEach { it.start() }
             threads.forEach { it.join() }
 
