@@ -31,9 +31,6 @@ class ThreadingRepository {
         "tt0253474"
     )
 
-    val movieFromRepository
-        get() = newMovie
-
     private var newMovie: MutableList<Movie> = Collections.synchronizedList(mutableListOf<Movie>())
 
     private fun getMovieById(movieId: String): Movie? {
