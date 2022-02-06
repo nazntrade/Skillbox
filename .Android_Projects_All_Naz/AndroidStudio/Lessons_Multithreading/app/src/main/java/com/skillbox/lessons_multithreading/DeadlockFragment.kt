@@ -3,7 +3,7 @@ package com.skillbox.lessons_multithreading
 import android.util.Log
 import androidx.fragment.app.Fragment
 
-class DeadlockFragment: Fragment() {
+class DeadlockFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()

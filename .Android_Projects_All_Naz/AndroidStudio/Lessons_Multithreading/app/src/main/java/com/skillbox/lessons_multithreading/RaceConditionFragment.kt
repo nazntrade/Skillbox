@@ -3,7 +3,7 @@ package com.skillbox.lessons_multithreading
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 
-class RaceConditionFragment: Fragment() {
+class RaceConditionFragment : Fragment() {
 
     private var value: Int = 0
 
@@ -29,7 +29,7 @@ class RaceConditionFragment: Fragment() {
             }
         }
             .map { it.join() }
-        Toast.makeText(requireContext(), "value=$value, expected=$expectedValue", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "value=$value, expected=$expectedValue", Toast.LENGTH_LONG)
+            .show()
     }
-
 }
