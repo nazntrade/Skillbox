@@ -17,7 +17,6 @@ class DeadlockFragment : Fragment() {
 
         val thread1 = Thread {
             Log.d("Deadlock", "Start1")
-
             (0..1000000).forEach {
                 synchronized(lock1) {
                     synchronized(lock2) {
@@ -37,10 +36,8 @@ class DeadlockFragment : Fragment() {
                     }
                 }
             }
-
             Log.d("Deadlock", "End2")
         }
-
         thread1.start()
         thread2.start()
     }
@@ -48,7 +45,6 @@ class DeadlockFragment : Fragment() {
     data class Person(
         val name: String
     ) {
-
         fun throwBallTo(friend: Person) {
             synchronized(this) {
                 Log.d(
@@ -59,6 +55,5 @@ class DeadlockFragment : Fragment() {
             }
             friend.throwBallTo(this)
         }
-
     }
 }

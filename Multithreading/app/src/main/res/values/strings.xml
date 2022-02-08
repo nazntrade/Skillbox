@@ -2,4 +2,8 @@
     <string name="app_name">HW_Multithreading</string>
     <string name="get_movie">get movie</string>
     <string name="list_updated">The List updated</string>
+    <string name="input_thread_count">Input thread count</string>
+    <string name="input_increment">Input increment</string>
+    <string name="not_synchronized">Not Synchronized</string>
+    <string name="_synchronized">Synchronized</string>
 </resources>
