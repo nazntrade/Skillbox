@@ -3,7 +3,7 @@ package com.skillbox.hw_multithreading
 import android.util.Log
 import androidx.fragment.app.Fragment
 
-class DeadlockFragment : Fragment() {
+class DeadlockFragment2 : Fragment() {
 
     private var i = 0
     private val lock1 = Any()
@@ -19,7 +19,6 @@ class DeadlockFragment : Fragment() {
             (0..1000000).forEach { _ ->
                 synchronized(lock1) {
                     synchronized(lock2) {
-                        friend1.throwBallTo(friend2)
                         i++
                     }
                 }
@@ -32,7 +31,6 @@ class DeadlockFragment : Fragment() {
             (0..1000000).forEach { _ ->
                 synchronized(lock2) {
                     synchronized(lock1) {
-                        friend1.throwBallTo(friend2)
                         i++
                     }
                 }
