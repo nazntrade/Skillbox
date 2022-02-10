@@ -22,13 +22,16 @@ class DeadlockFragment : Fragment() {
 
         @Synchronized // remove @Synchronized in order for the program to work
         fun throwBallTo(friend: Person) {
-            i++
-            Log.d(
-                "Deadlock",
-                "$name throw to ${friend.name} on thread ${Thread.currentThread().name}. Increment $i"
-            )
-            Thread.sleep(500)
-            friend.throwBack(this)
+            while (i in 0..20) {
+                i++
+                Log.d(
+                    "Deadlock",
+                    "$name throw to ${friend.name} on thread " +
+                            "${Thread.currentThread().name}. Increment $i"
+                )
+                Thread.sleep(500)
+                friend.throwBack(this)
+            }
         }
 
         @Synchronized // remove @Synchronized in order for the program to work
