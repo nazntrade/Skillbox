@@ -29,13 +29,13 @@ class DeadlockFragment : Fragment() {
     ) {
 
         fun throwBallTo(friend: Person) {
-            synchronized(this) {
+            /*synchronized(this) {*/
                 Log.d(
                     "Person",
                     "$name бросает мяч ${friend.name} на потоке ${Thread.currentThread().name}"
                 )
                 Thread.sleep(500)
-            }
+            /*}*/
             friend.throwBallTo(this)
         }
 
