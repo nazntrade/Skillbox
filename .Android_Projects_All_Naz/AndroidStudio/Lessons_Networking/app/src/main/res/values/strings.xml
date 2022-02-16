@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">L_Networking</string>
+    <string name="search_hint">Введите название фильма</string>
+    <string name="search">Искать</string>
+</resources>
