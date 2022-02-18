@@ -14,10 +14,10 @@
     <string name="sample_some_title">Sample Some Title</string>
     <string name="logoImdb">logoImdb</string>
     <string name="moviePoster">MoviePoster</string>
-    <string-array name="type">
-        TV series
-        Movie
-        Episode
-        Nothing selected
+    <string-array name="items_dropDown_menu">
+        <item>TV series</item>
+        <item>Movie</item>
+        <item>Episode</item>
+        <item>Nothing selected</item>
     </string-array>
 </resources>
