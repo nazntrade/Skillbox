@@ -80,7 +80,7 @@
         app:layout_constraintTop_toTopOf="@+id/countryTextView" />
 
     <TextView
-        android:id="@+id/imdbIdTextView"
+        android:id="@+id/idImdbTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/gray"

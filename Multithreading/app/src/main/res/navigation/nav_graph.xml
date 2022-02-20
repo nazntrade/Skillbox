@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.skillbox.hw_multithreading.MainFragment"
-        tools:layout="@layout/fragment_main"
-        android:label="MainFragment">
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_deadlockFragment"
             app:destination="@id/deadlockFragment" />
@@ -37,7 +37,7 @@
         android:label="RaceConditionFragment" />
     <fragment
         android:id="@+id/threadingFragment"
-        tools:layout="@layout/fragment_threading"
         android:name="com.skillbox.hw_multithreading.threading.ThreadingFragment"
-        android:label="ThreadingFragment" />
+        android:label="ThreadingFragment"
+        tools:layout="@layout/fragment_threading" />
 </navigation>

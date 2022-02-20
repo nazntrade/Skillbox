@@ -9,15 +9,14 @@
     <string name="year">year</string>
     <string name="duration">duration</string>
     <string name="country">country</string>
-    <string name="type">type</string>
-    <string name="imdb_id">imdbId</string>
+    <string name="type">Type</string>
+    <string name="imdb_id">idImdb</string>
     <string name="sample_some_title">Sample Some Title</string>
     <string name="logoImdb">logoImdb</string>
     <string name="moviePoster">MoviePoster</string>
     <string-array name="items_dropDown_menu">
-        <item>TV series</item>
+        <item>TV-series</item>
         <item>Movie</item>
         <item>Episode</item>
-        <item>Nothing selected</item>
     </string-array>
 </resources>
