@@ -1,13 +1,24 @@
-package com.skillbox.lessons_networking.movie_list
+implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import com.skillbox.lessons_networking.R
-import com.skillbox.lessons_networking.utils.inflate
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_movie.*
+
+class MovieListAdapter: AsyncListDifferDelegationAdapter<RemoteMovie>(MovieDiffUtilCallback()) {
+
+    init {
+        delegatesManager.addDelegate(MovieDelegateAdapter())
+    }
+
+    class MovieDiffUtilCallback : DiffUtil.ItemCallback<RemoteMovie>() {
+        override fun areItemsTheSame(oldItem: RemoteMovie, newItem: RemoteMovie): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: RemoteMovie, newItem: RemoteMovie): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class MovieDelegateAdapter: AbsListItemAdapterDelegate<RemoteMovie, RemoteMovie, MovieDelegateAdapter.Holder>() {
 
@@ -33,5 +44,6 @@ class MovieDelegateAdapter: AbsListItemAdapterDelegate<RemoteMovie, RemoteMovie,
             titleTextView.text = item.title
             yearTextView.text = item.year.toString()
         }
+
     }
 }

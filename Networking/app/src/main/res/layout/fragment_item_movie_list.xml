@@ -38,16 +38,16 @@
         android:textColor="@color/gray"
         android:layout_margin="4dp"
         android:text="@string/year"
-        app:layout_constraintBottom_toTopOf="@+id/durationTextView"
+        app:layout_constraintBottom_toTopOf="@+id/runtimeTextView"
         app:layout_constraintStart_toEndOf="@+id/posterImageView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
-        android:id="@+id/durationTextView"
+        android:id="@+id/runtimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="@string/duration"
+        android:text="@string/runtime"
         android:shadowColor="@color/gray"
         android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/countryTextView"
@@ -64,7 +64,7 @@
         android:text="@string/country"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@+id/durationTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/runtimeTextView" />
 
     <TextView
         android:id="@+id/typeTextView"
@@ -80,13 +80,13 @@
         app:layout_constraintTop_toTopOf="@+id/countryTextView" />
 
     <TextView
-        android:id="@+id/idImdbTextView"
+        android:id="@+id/imdbIDTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/gray"
         android:textColor="@color/gray"
         android:layout_margin="4dp"
-        android:text="@string/imdb_id"
+        android:text="@string/imdbID"
         app:layout_constraintBottom_toBottomOf="@+id/typeTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/typeTextView" />

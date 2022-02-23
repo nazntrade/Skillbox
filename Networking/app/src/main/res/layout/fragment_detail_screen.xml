@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleDetailTextView">
 
         <TextView
-            android:id="@+id/descriptionDetailTextView"
+            android:id="@+id/plotDetailTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="12dp"

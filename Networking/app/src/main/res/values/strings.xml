@@ -7,10 +7,10 @@
     <string name="posterDescription">poster</string>
     <string name="title">Title</string>
     <string name="year">year</string>
-    <string name="duration">duration</string>
+    <string name="runtime">runtime</string>
     <string name="country">country</string>
-    <string name="type">Type</string>
-    <string name="imdb_id">idImdb</string>
+    <string name="type">type</string>
+    <string name="imdbID">imdbID</string>
     <string name="sample_some_title">Sample Some Title</string>
     <string name="logoImdb">logoImdb</string>
     <string name="moviePoster">MoviePoster</string>
