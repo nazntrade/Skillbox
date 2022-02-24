@@ -1,0 +1,30 @@
+in gradle ...
+
+
+for activity
+
+class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        
+    }
+}
+
+
+for fragment
+
+class InfoFragment : Fragment(R.layout./fragment_info) {
+    lateinit var binding: /FragmentInfoBinding
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = /FragmentInfoBinding.bind(view)
+
+       
+    }
+}

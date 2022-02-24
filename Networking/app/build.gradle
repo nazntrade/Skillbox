@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    //как в уроке это использовать нельзя. лезет ошибка сборки нового класса
+    //id 'androidx.navigation.safeargs.kotlin'
+    //нужно
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -60,7 +64,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
 
     //navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
 
     //Okhttp
     implementation "com.squareup.okhttp3:okhttp:4.8.0"

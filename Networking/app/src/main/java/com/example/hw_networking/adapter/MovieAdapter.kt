@@ -4,20 +4,21 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.hw_networking.movies.RemoteMovie
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class MovieAdapter: AsyncListDifferDelegationAdapter<RemoteMovie>(MovieDiffUtilCallback()) {
+class MovieAdapter(
+    onItemClick: (imdbID: String) -> Unit
+) : AsyncListDifferDelegationAdapter<RemoteMovie>(MovieDiffUtilCallback()) {
 
     init {
-        delegatesManager.addDelegate(MovieDelegateAdapter())
+        delegatesManager.addDelegate(MovieDelegateAdapter(onItemClick))
     }
 
-    class MovieDiffUtilCallback: DiffUtil.ItemCallback<RemoteMovie>(){
+    class MovieDiffUtilCallback : DiffUtil.ItemCallback<RemoteMovie>() {
         override fun areItemsTheSame(oldItem: RemoteMovie, newItem: RemoteMovie): Boolean {
-            TODO("Not yet implemented")
+            return oldItem.imdbID == newItem.imdbID
         }
 
         override fun areContentsTheSame(oldItem: RemoteMovie, newItem: RemoteMovie): Boolean {
-            TODO("Not yet implemented")
+            return oldItem == newItem
         }
-
     }
 }

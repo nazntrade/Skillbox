@@ -1,11 +1,15 @@
 package com.example.hw_networking.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.hw_networking.R
+import com.example.hw_networking.databinding.FragmentItemMovieListBinding
 import com.example.hw_networking.movies.RemoteMovie
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
-class MovieDelegateAdapter:
+class MovieDelegateAdapter(private val onItemClick: (imdbID: String) -> Unit) :
     AbsListItemAdapterDelegate<RemoteMovie, RemoteMovie, MovieDelegateAdapter.MovieHolder>() {
 
     override fun isForViewType(
@@ -13,11 +17,15 @@ class MovieDelegateAdapter:
         items: MutableList<RemoteMovie>,
         position: Int
     ): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): MovieHolder {
-        TODO("Not yet implemented")
+        return MovieHolder(
+            FragmentItemMovieListBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            ), onItemClick
+        )
     }
 
     override fun onBindViewHolder(
@@ -25,11 +33,43 @@ class MovieDelegateAdapter:
         holder: MovieHolder,
         payloads: MutableList<Any>
     ) {
-        TODO("Not yet implemented")
+        holder.bind(item)
     }
 
-    class MovieHolder(): RecyclerView.ViewHolder(){
+    class MovieHolder(
+        binding: FragmentItemMovieListBinding,
+        onItemClick: (imdbID: String) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
+        private val posterView = binding.posterImageView
+        private val titleView = binding.titleTextView
+        private val yearView = binding.yearTextView
+        private val runtimeView = binding.runtimeTextView
+        private val countryView = binding.countryTextView
+        private val typeView = binding.typeTextView
+        private val imdbIDView = binding.imdbIDTextView
+
+        private var currentId: String? = null
+        init {
+            binding.root.setOnClickListener {
+               currentId?.let {
+                   onItemClick(it)
+               }
+            }
+        }
+
+        fun bind(item: RemoteMovie) {
+            posterView.load(item.poster) {
+                error(R.drawable.ic_404)
+                placeholder(R.drawable.loading)
+            }
+            titleView.text = item.title
+            "year: ${item.year}".also { yearView.text = it }
+            "runtime: ${item.runtime}".also { runtimeView.text = it }
+            countryView.text = item.country
+            "type: ${item.type}".also { typeView.text = it }
+            "ID: ${item.imdbID}".also { imdbIDView.text = it }
+        }
     }
-
 }
+

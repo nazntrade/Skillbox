@@ -7,15 +7,20 @@
     <fragment
         android:id="@+id/searchMovieFragment"
         android:name="com.example.hw_networking.movies.MovieMainFragment"
-        tools:layout="@layout/fragment_main_search_movie"
-        android:label="SearchMovieFragment" >
+        android:label="SearchMovieFragment"
+        tools:layout="@layout/fragment_main_search_movie">
         <action
             android:id="@+id/action_searchMovieFragment_to_detailScreenFragment"
-            app:destination="@id/detailScreenFragment" />
+            app:destination="@id/detailScreenFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/detailScreenFragment"
         android:name="com.example.hw_networking.movies.DetailScreenFragment"
-        tools:layout="@layout/fragment_detail_screen"
-        android:label="DetailScreenFragment" />
+        android:label="DetailScreenFragment"
+        tools:layout="@layout/fragment_detail_screen">
+        <argument
+            android:name="imdbID"
+            app:argType="string" />
+    </fragment>
 </navigation>

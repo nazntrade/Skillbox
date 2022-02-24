@@ -39,6 +39,20 @@ PermissionsDispatcher
 
 //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-rc01"
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
+     
+    in build.gradle(:app)
+    plugins {
+       id 'androidx.navigation.safeargs'
+    }
+
+    in build.gradle(project)
+    buildscript {
+        dependencies {
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1'
+       }
+    }
+
 
 //Networking
     implementation 'com.google.code.gson:gson:2.8.6'

@@ -1,49 +1,123 @@
 implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 
-
-class MovieListAdapter: AsyncListDifferDelegationAdapter<RemoteMovie>(MovieDiffUtilCallback()) {
-
-    init {
-        delegatesManager.addDelegate(MovieDelegateAdapter())
+    private fun initList() {
+        petShopAdapter = PetShopAdapter(
+            { id -> navigate(id) },
+            { position -> deleteAnimals(position) })
+        with(binding.petList) {
+            adapter = petShopAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            itemAnimator = FlipInRightYAnimator()
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        }
     }
 
-    class MovieDiffUtilCallback : DiffUtil.ItemCallback<RemoteMovie>() {
-        override fun areItemsTheSame(oldItem: RemoteMovie, newItem: RemoteMovie): Boolean {
-            return oldItem.id == newItem.id
+    private fun deleteAnimals(position: Int) {
+        viewModel.deleteAnimals(position)
+    }
+
+    private fun navigate(id: Long) {
+        val action = PetShopListFragmentDirections.actionPetShopListFragmentToDetailsFragment(id)
+        findNavController().navigate(action)
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class PetShopAdapter(
+    onItemClick: (id: Long) -> Unit,
+    onItemLongClick: (position: Int) -> Unit
+) : AsyncListDifferDelegationAdapter<Animal>(AnimalDiffUtilCallback()) {
+
+    init {
+        delegatesManager
+            .addDelegate(CatAdapterDelegate(onItemClick, onItemLongClick))
+            .addDelegate(DogAdapterDelegate(onItemClick, onItemLongClick))
+            .addDelegate(BirdAdapterDelegate(onItemClick, onItemLongClick))
+    }
+
+    class AnimalDiffUtilCallback : DiffUtil.ItemCallback<Animal>() {
+        override fun areItemsTheSame(oldItem: Animal, newItem: Animal): Boolean {
+            return when {
+                oldItem is Animal.Cat && newItem is Animal.Cat -> oldItem.id == newItem.id
+                oldItem is Animal.Dog && newItem is Animal.Dog -> oldItem.id == newItem.id
+                oldItem is Animal.Bird && newItem is Animal.Bird -> oldItem.id == newItem.id
+                else -> false
+            }
         }
 
-        override fun areContentsTheSame(oldItem: RemoteMovie, newItem: RemoteMovie): Boolean {
+        override fun areContentsTheSame(oldItem: Animal, newItem: Animal): Boolean {
             return oldItem == newItem
         }
     }
-
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MovieDelegateAdapter: AbsListItemAdapterDelegate<RemoteMovie, RemoteMovie, MovieDelegateAdapter.Holder>() {
+class BirdAdapterDelegate(
+    private var onItemClick: (id: Long) -> Unit,
+    private var onItemLongClick: (position: Int) -> Unit
+) : AbsListItemAdapterDelegate<Animal.Bird, Animal, BirdAdapterDelegate.BirdHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(R.layout.item_movie))
+    override fun isForViewType(item: Animal, items: MutableList<Animal>, position: Int): Boolean {
+        return item is Animal.Bird
     }
 
-    override fun isForViewType(
-        item: RemoteMovie,
-        items: MutableList<RemoteMovie>,
-        position: Int
-    ): Boolean = true
-
-    override fun onBindViewHolder(item: RemoteMovie, holder: Holder, payloads: MutableList<Any>) {
-        holder.bind(item)
+    override fun onCreateViewHolder(parent: ViewGroup): BirdHolder {
+        return BirdHolder(
+            ItemBirdBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            ), onItemClick, onItemLongClick
+        )
     }
 
-    class Holder(
-        override val containerView: View
-    ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    override fun onBindViewHolder(
+        item: Animal.Bird, holder: BirdHolder, payloads: MutableList<Any>
+    ) {
+        holder.bindBird(item)
+    }
 
-        fun bind(item: RemoteMovie) {
-            titleTextView.text = item.title
-            yearTextView.text = item.year.toString()
+    class BirdHolder(
+        binding: ItemBirdBinding,
+        onItemClick: (id: Long) -> Unit,
+        onItemLongClick: (position: Int) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private val nameTextView = binding.nameTextView
+        private val breedTextView = binding.breedTextView
+        private val avatarImageView = binding.avatarImageView
+        private val songTextView = binding.songTextView
+        private val alarmTextView = binding.alarmTextView
+        private val discountImageView3 = binding.discountImageView3
+
+        //инициализируем нажатия на каждый элемент списка!!!
+        private var currentId: Long? = null
+
+        init {
+            binding.root.setOnClickListener {
+                currentId?.let {
+                    onItemClick(it)
+                }
+            }
+            binding.root.setOnLongClickListener {
+                onItemLongClick(bindingAdapterPosition)
+                true
+            }
         }
 
+        fun bindBird(animalBird: Animal.Bird) {
+            currentId = animalBird.id
+            "Name: ${animalBird.name}".also { nameTextView.text = it }
+            "Breed: ${animalBird.breed}".also { breedTextView.text = it }
+            avatarImageView.load(animalBird.avatarLink) {
+                error(R.drawable.ic_404)
+                placeholder(R.drawable.ic_animal)
+                transformations(CircleCropTransformation())
+            }
+            "Sounds: ${animalBird.song}".also { songTextView.text = it }
+            "Alarm: ${animalBird.alarm}".also { alarmTextView.text = it }
+            discountImageView3.load(animalBird.discountLink) {
+                error(R.drawable.ic_404)
+                placeholder(R.drawable.ic_animal)
+            }
+        }
     }
 }
