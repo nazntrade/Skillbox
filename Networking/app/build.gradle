@@ -5,6 +5,9 @@ plugins {
     //id 'androidx.navigation.safeargs.kotlin'
     //нужно
     id 'androidx.navigation.safeargs'
+
+    //for @Parcelize
+    id 'kotlin-parcelize' //   NOT 'kotlin-android-extensions' -IT DEPRECATED
 }
 
 android {

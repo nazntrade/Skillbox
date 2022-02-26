@@ -9,7 +9,7 @@ import com.example.hw_networking.databinding.FragmentItemMovieListBinding
 import com.example.hw_networking.movies.RemoteMovie
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
-class MovieDelegateAdapter(private val onItemClick: (imdbID: String) -> Unit) :
+class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> Unit) :
     AbsListItemAdapterDelegate<RemoteMovie, RemoteMovie, MovieDelegateAdapter.MovieHolder>() {
 
     override fun isForViewType(
@@ -38,7 +38,7 @@ class MovieDelegateAdapter(private val onItemClick: (imdbID: String) -> Unit) :
 
     class MovieHolder(
         binding: FragmentItemMovieListBinding,
-        onItemClick: (imdbID: String) -> Unit
+        onItemClick: (itemMovie: RemoteMovie) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private val posterView = binding.posterImageView
@@ -49,10 +49,10 @@ class MovieDelegateAdapter(private val onItemClick: (imdbID: String) -> Unit) :
         private val typeView = binding.typeTextView
         private val imdbIDView = binding.imdbIDTextView
 
-        private var currentId: String? = null
+        private var itemMovie: RemoteMovie? = null
         init {
             binding.root.setOnClickListener {
-               currentId?.let {
+               itemMovie?.let {
                    onItemClick(it)
                }
             }

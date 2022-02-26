@@ -5,7 +5,7 @@ import com.example.hw_networking.movies.RemoteMovie
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 class MovieAdapter(
-    onItemClick: (imdbID: String) -> Unit
+    onItemClick: (itemMovie: RemoteMovie) -> Unit
 ) : AsyncListDifferDelegationAdapter<RemoteMovie>(MovieDiffUtilCallback()) {
 
     init {

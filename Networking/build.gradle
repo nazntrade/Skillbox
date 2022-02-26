@@ -18,6 +18,7 @@ buildscript {
         // in the individual module build.gradle files
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1'
     }
+
 }
 
 task clean(type: Delete) {

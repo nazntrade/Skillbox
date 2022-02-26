@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_networking.R
 import com.example.hw_networking.adapter.MovieAdapter
 import com.example.hw_networking.databinding.FragmentMainSearchMovieBinding
@@ -24,12 +27,24 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
     }
 
     private fun init() {
-        movieAdapter = MovieAdapter { imdbID -> navigation(imdbID) }
+        movieAdapter = MovieAdapter { itemMovie -> navigation(itemMovie) }
+        with(binding.movieListRecyclerView) {
+            adapter = movieAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.HORIZONTAL
+                )
+            )
+        }
 
     }
 
-    private fun navigation(imdbID: String) {
-        val action = MovieMainFragmentDirections.actionSearchMovieFragmentToDetailScreenFragment(imdbID)
+    private fun navigation(itemMovie: RemoteMovie) {
+        val action =
+            MovieMainFragmentDirections.actionSearchMovieFragmentToDetailScreenFragment(itemMovie)
         findNavController().navigate(action)
     }
 

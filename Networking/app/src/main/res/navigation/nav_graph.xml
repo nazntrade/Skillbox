@@ -20,7 +20,7 @@
         android:label="DetailScreenFragment"
         tools:layout="@layout/fragment_detail_screen">
         <argument
-            android:name="imdbID"
-            app:argType="string" />
+            android:name="itemMovie"
+            app:argType="com.example.hw_networking.movies.RemoteMovie" />
     </fragment>
 </navigation>
