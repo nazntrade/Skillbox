@@ -13,7 +13,7 @@ object Network {
 
     val flipperNetworkPlugin = NetworkFlipperPlugin()
 
-    val client = OkHttpClient.Builder()
+    private val client = OkHttpClient.Builder()
         .addNetworkInterceptor(
             CustomHeaderInterceptor("header1", "headerValue1")
         )

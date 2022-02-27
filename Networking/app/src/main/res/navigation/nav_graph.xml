@@ -21,6 +21,7 @@
         tools:layout="@layout/fragment_detail_screen">
         <argument
             android:name="itemMovie"
-            app:argType="com.example.hw_networking.movies.RemoteMovie" />
+            app:argType="com.example.hw_networking.movies.RemoteMovie"
+            />
     </fragment>
 </navigation>

@@ -9,8 +9,10 @@ import com.example.hw_networking.R
 import com.example.hw_networking.databinding.FragmentDetailScreenBinding
 
 class DetailScreenFragment : Fragment(R.layout.fragment_detail_screen) {
-    private val args = DetailScreenFragmentArgs by navArgs()
+
     private lateinit var binding: FragmentDetailScreenBinding
+    private val args: DetailScreenFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailScreenBinding.bind(view)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,6 +17,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
 
     private lateinit var binding: FragmentMainSearchMovieBinding
     private var movieAdapter: MovieAdapter? = null
+    val viewModel: MoviesViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,7 +25,13 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
 
         initDropDownMenu()
         init()
+        bindViewModel()
+    }
 
+    private fun bindViewModel(){
+
+
+        viewModel.movies.observe(viewLifecycleOwner) {movieAdapter?.items = it}
     }
 
     private fun init() {
