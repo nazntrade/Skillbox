@@ -17,7 +17,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
 
     private lateinit var binding: FragmentMainSearchMovieBinding
     private var movieAdapter: MovieAdapter? = null
-    val viewModel: MoviesViewModel by viewModels()
+    private val viewModel: MoviesViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +29,11 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
     }
 
     private fun bindViewModel(){
+        binding.searchButton.setOnClickListener {
+            val queryTitleText = binding.titleEditText.text.toString()
 
+            viewModel.search(queryTitleText)
+        }
 
         viewModel.movies.observe(viewLifecycleOwner) {movieAdapter?.items = it}
     }

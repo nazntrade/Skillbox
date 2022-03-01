@@ -19,6 +19,7 @@
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text=""
             android:layout_weight="1"
             android:textStyle="bold"
             android:inputType="none" />
@@ -31,6 +32,7 @@
         android:autofillHints=""
         android:hint="@string/hint_year"
         android:inputType="number"
+        android:text=""
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         app:layout_constraintBottom_toTopOf="@+id/titleEditText"
@@ -45,6 +47,7 @@
         android:layout_marginTop="5dp"
         android:autofillHints=""
         android:hint="@string/hint_title"
+        android:text=""
         android:inputType="text"
         android:minHeight="48dp"
         android:paddingStart="20dp"
@@ -55,12 +58,12 @@
 
     <ImageButton
         android:id="@+id/searchButton"
-        android:layout_width="42dp"
+        android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_margin="8dp"
         android:background="@drawable/search"
         android:contentDescription="@string/search_button_description"
         android:padding="8dp"
-        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/titleEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/titleEditText"
