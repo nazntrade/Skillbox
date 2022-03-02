@@ -48,6 +48,7 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
         private val countryView = binding.countryTextView
         private val typeView = binding.typeTextView
         private val imdbIDView = binding.imdbIDTextView
+        private val imdbRatingView = binding.imdbRatingTextView
 
         private var itemMovie: RemoteMovie? = null
         init {
@@ -69,6 +70,7 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
             countryView.text = item.country
             "type: ${item.type}".also { typeView.text = it }
             "ID: ${item.imdbID}".also { imdbIDView.text = it }
+            "Rating IMDb: ${item.imdbRating}".also { imdbRatingView.text = it }
         }
     }
 }

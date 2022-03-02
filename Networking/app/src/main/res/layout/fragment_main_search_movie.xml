@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/menu"
+        android:id="@+id/menuType"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:paddingEnd="20dp"
         app:layout_constraintBottom_toTopOf="@+id/titleEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/menu"
+        app:layout_constraintStart_toEndOf="@id/menuType"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -54,7 +54,7 @@
         android:paddingEnd="20dp"
         app:layout_constraintEnd_toStartOf="@id/searchButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu" />
+        app:layout_constraintTop_toBottomOf="@id/menuType" />
 
     <ImageButton
         android:id="@+id/searchButton"
@@ -79,6 +79,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchButton">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_height="50dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movieListRecyclerView"

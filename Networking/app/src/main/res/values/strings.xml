@@ -14,6 +14,7 @@
     <string name="sample_some_title">Sample Some Title</string>
     <string name="logoImdb">logoImdb</string>
     <string name="moviePoster">MoviePoster</string>
+    <string name="imdbRating">imdbRating</string>
     <string-array name="items_dropDown_menu">
         <item>TV-series</item>
         <item>Movie</item>
