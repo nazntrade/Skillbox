@@ -95,11 +95,25 @@
         android:id="@+id/imdbRatingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/imdbRating"
+        android:layout_marginStart="20dp"
         android:shadowColor="@color/gray"
+        android:text="@string/imdbRating"
         android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/typeTextView"
-        app:layout_constraintStart_toStartOf="@+id/typeTextView"
+        app:layout_constraintStart_toEndOf="@+id/runtimeTextView"
         app:layout_constraintTop_toTopOf="@+id/runtimeTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/genreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/gray"
+        android:layout_marginStart="20dp"
+        android:text="@string/genre"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toTopOf="@+id/imdbRatingTextView"
+        app:layout_constraintStart_toEndOf="@+id/yearTextView"
+        app:layout_constraintTop_toTopOf="@+id/yearTextView"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

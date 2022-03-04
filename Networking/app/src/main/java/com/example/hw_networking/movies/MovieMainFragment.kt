@@ -7,7 +7,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,33 +25,22 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
         binding = FragmentMainSearchMovieBinding.bind(view)
 
         initDropDownMenu()
-        init()
+        initList()
         bindViewModel()
     }
 
     private fun bindViewModel() {
         binding.searchButton.setOnClickListener {
             val queryTitleText = binding.titleEditText.text.toString()
-
-            viewModel.search(queryTitleText)
+            val queryYearText = binding.yearEditText.text.toString()
+            val queryTypeText = binding.autoCompleteTextView.toString() // Perhaps error
+            viewModel.search(queryTitleText, queryYearText, queryTypeText)
         }
-
         viewModel.movies.observe(viewLifecycleOwner) { movieAdapter?.items = it }
-        viewModel.isLoading.observe(viewLifecycleOwner, ::doWhenLoad)
+        viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileLoadMovies)
     }
 
-    private fun doWhenLoad(isLoading: Boolean) {
-        binding.titleEditText.isEnabled = isLoading.not()
-        binding.yearEditText.isEnabled = isLoading.not()
-        binding.menuType.isEnabled = isLoading.not()
-        binding.searchButton.isEnabled = isLoading.not()
-        binding.movieListRecyclerView.isVisible = isLoading.not()
-        if (isLoading) {
-            binding.progressBar.isGone = false
-        } else binding.progressBar.isGone
-    }
-
-    private fun init() {
+    private fun initList() {
         movieAdapter = MovieAdapter { itemMovie -> navigation(itemMovie) }
         with(binding.movieListRecyclerView) {
             adapter = movieAdapter
@@ -65,7 +53,6 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
                 )
             )
         }
-
     }
 
     private fun navigation(itemMovie: RemoteMovie) {
@@ -82,6 +69,17 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
             itemDropDownMenu
         )
         binding.autoCompleteTextView.setAdapter(adapterDropDownMenu)
+    }
+
+    private fun doWhileLoadMovies(isLoading: Boolean) {
+        binding.titleEditText.isEnabled = isLoading.not()
+        binding.yearEditText.isEnabled = isLoading.not()
+        binding.menuType.isEnabled = isLoading.not()
+        binding.searchButton.isEnabled = isLoading.not()
+        binding.movieListRecyclerView.isVisible = isLoading.not()
+        if (isLoading) {
+            binding.progressBar.isGone = false
+        } else binding.progressBar.isGone
     }
 
 }

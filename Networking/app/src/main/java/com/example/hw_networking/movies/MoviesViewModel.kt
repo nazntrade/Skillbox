@@ -18,11 +18,18 @@ class MoviesViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
-    fun search(queryTitleText: String) {
+    fun search(queryTitleText: String, queryYearText: String, queryTypeText: String) {
+        isLoadingLiveData.postValue(true)
+        currentCall =
+            repository.searchMovie(queryTitleText, queryYearText, queryTypeText) { movies ->
+                isLoadingLiveData.postValue(false)
+                moviesListLiveData.postValue(movies)
+                currentCall = null
+            }
+    }
 
-//        currentCall = repository.searchMovie(queryTitleText) { movies ->
-//            moviesListLiveData.postValue(movies)
-//        }
-
+    override fun onCleared() {
+        super.onCleared()
+        currentCall?.cancel()
     }
 }

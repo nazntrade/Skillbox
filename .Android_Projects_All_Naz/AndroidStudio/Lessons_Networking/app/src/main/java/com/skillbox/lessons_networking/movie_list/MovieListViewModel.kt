@@ -9,7 +9,7 @@ class MovieListViewModel : ViewModel() {
 
     private val repository = MovieRepository()
 
-    private var currentCall: Call? = null
+    private var currentCall: Call? = null    //3.3 in order to cancel all process when user stopped request
 
     private val movieListLiveData = MutableLiveData<List<RemoteMovie>>()
     private val isLoadingLiveData = MutableLiveData<Boolean>()
@@ -25,13 +25,12 @@ class MovieListViewModel : ViewModel() {
         currentCall = repository.searchMovie(text) { movies ->
             isLoadingLiveData.postValue(false)
             movieListLiveData.postValue(movies)
-            currentCall = null
+            currentCall = null   //3.3 in order to cancel all process when user stopped request
         }
     }
 
-    override fun onCleared() {
+    override fun onCleared() {   //3.3 in order to cancel all process when user stopped request
         super.onCleared()
         currentCall?.cancel()
     }
-
 }
