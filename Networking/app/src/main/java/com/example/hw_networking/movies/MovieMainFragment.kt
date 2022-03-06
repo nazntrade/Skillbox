@@ -33,11 +33,24 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
         binding.searchButton.setOnClickListener {
             val queryTitleText = binding.titleEditText.text.toString()
             val queryYearText = binding.yearEditText.text.toString()
-            val queryTypeText = binding.autoCompleteTextView.toString() // Perhaps error
+            val typeText = binding.autoCompleteTextView.text.toString()
+            val queryTypeText = if (typeText == "all") {
+                ""
+            } else typeText
             viewModel.search(queryTitleText, queryYearText, queryTypeText)
         }
         viewModel.movies.observe(viewLifecycleOwner) { movieAdapter?.items = it }
         viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileLoadMovies)
+    }
+
+    private fun initDropDownMenu() {
+        val itemDropDownMenu = resources.getStringArray(R.array.items_dropDown_menu)
+        val adapterDropDownMenu = ArrayAdapter(
+            requireContext(),
+            R.layout.fragment_item_drop_down_menu,
+            itemDropDownMenu
+        )
+        binding.autoCompleteTextView.setAdapter(adapterDropDownMenu)
     }
 
     private fun initList() {
@@ -61,25 +74,13 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
         findNavController().navigate(action)
     }
 
-    private fun initDropDownMenu() {
-        val itemDropDownMenu = resources.getStringArray(R.array.items_dropDown_menu)
-        val adapterDropDownMenu = ArrayAdapter(
-            requireContext(),
-            R.layout.fragment_item_drop_down_menu,
-            itemDropDownMenu
-        )
-        binding.autoCompleteTextView.setAdapter(adapterDropDownMenu)
-    }
-
     private fun doWhileLoadMovies(isLoading: Boolean) {
         binding.titleEditText.isEnabled = isLoading.not()
         binding.yearEditText.isEnabled = isLoading.not()
         binding.menuType.isEnabled = isLoading.not()
         binding.searchButton.isEnabled = isLoading.not()
         binding.movieListRecyclerView.isVisible = isLoading.not()
-        if (isLoading) {
-            binding.progressBar.isGone = false
-        } else binding.progressBar.isGone
+        binding.progressBar.isGone = isLoading.not()
     }
 
 }

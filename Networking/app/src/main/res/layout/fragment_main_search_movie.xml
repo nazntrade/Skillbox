@@ -10,18 +10,17 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText"
+        app:layout_constraintEnd_toStartOf="@+id/yearEditText"
         android:hint="@string/hint_menu"
-        app:layout_constraintEnd_toStartOf="@id/yearEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintStart_toStartOf="parent">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text=""
             android:layout_weight="1"
-            android:textStyle="bold"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -32,60 +31,59 @@
         android:autofillHints=""
         android:hint="@string/hint_year"
         android:inputType="number"
-        android:text=""
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/titleEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/menuType"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/menuType"
+        app:layout_constraintEnd_toStartOf="@+id/searchButton"
+        app:layout_constraintStart_toEndOf="@+id/menuType"
+        app:layout_constraintTop_toTopOf="@+id/menuType" />
 
     <EditText
         android:id="@+id/titleEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:autofillHints=""
         android:hint="@string/hint_title"
-        android:text=""
         android:inputType="text"
-        android:minHeight="48dp"
+        android:minHeight="50dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@id/searchButton"
+        android:paddingTop="20dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menuType" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/searchButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_margin="8dp"
         android:background="@drawable/search"
         android:contentDescription="@string/search_button_description"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/titleEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/yearEditText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleEditText"
-        app:layout_constraintTop_toBottomOf="@+id/yearEditText" />
+        app:layout_constraintStart_toEndOf="@+id/yearEditText"
+        app:layout_constraintTop_toTopOf="@+id/yearEditText" />
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/alien_poster"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton">
+        app:layout_constraintTop_toBottomOf="@+id/yearEditText">
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_height="50dp" />
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movieListRecyclerView"

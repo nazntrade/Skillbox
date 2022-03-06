@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="wrap_content">
 
 
@@ -13,20 +14,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="4dp"
+        android:padding="4dp"
         android:layout_height="100dp"
         tools:srcCompat="@tools:sample/avatars"
         android:contentDescription="@string/posterDescription" />
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:shadowColor="@color/gray"
-        android:textColor="@color/gray"
         android:layout_margin="4dp"
+        android:gravity="start"
+        android:shadowColor="@color/gray"
         android:text="@string/title"
+        android:textColor="@color/gray"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/yearTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/posterImageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,86 +37,33 @@
         android:id="@+id/yearTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:shadowColor="@color/gray"
-        android:textColor="@color/gray"
-        android:layout_margin="4dp"
         android:text="@string/year"
-        app:layout_constraintBottom_toTopOf="@+id/runtimeTextView"
-        app:layout_constraintStart_toEndOf="@+id/posterImageView"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
-
-    <TextView
-        android:id="@+id/runtimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="@string/runtime"
-        android:shadowColor="@color/gray"
-        android:textColor="@color/gray"
-        app:layout_constraintBottom_toTopOf="@+id/countryTextView"
-        app:layout_constraintStart_toEndOf="@+id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@+id/yearTextView" />
-
-    <TextView
-        android:id="@+id/countryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:shadowColor="@color/gray"
-        android:textColor="@color/gray"
-        android:text="@string/country"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@+id/runtimeTextView" />
 
     <TextView
         android:id="@+id/typeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/type"
         android:shadowColor="@color/gray"
+        android:text="@string/type"
+        android:layout_marginTop="4dp"
         android:textColor="@color/gray"
-        app:layout_constraintBottom_toBottomOf="@+id/countryTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/posterImageView"
-        app:layout_constraintTop_toTopOf="@+id/countryTextView" />
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/yearTextView" />
 
     <TextView
         android:id="@+id/imdbIDTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:shadowColor="@color/gray"
-        android:textColor="@color/gray"
-        android:layout_margin="4dp"
         android:text="@string/imdbID"
-        app:layout_constraintBottom_toBottomOf="@+id/typeTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/typeTextView" />
-
-    <TextView
-        android:id="@+id/imdbRatingTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:shadowColor="@color/gray"
-        android:text="@string/imdbRating"
         android:textColor="@color/gray"
-        app:layout_constraintBottom_toTopOf="@+id/typeTextView"
-        app:layout_constraintStart_toEndOf="@+id/runtimeTextView"
-        app:layout_constraintTop_toTopOf="@+id/runtimeTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/typeTextView" />
 
-    <TextView
-        android:id="@+id/genreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:shadowColor="@color/gray"
-        android:layout_marginStart="20dp"
-        android:text="@string/genre"
-        android:textColor="@color/gray"
-        app:layout_constraintBottom_toTopOf="@+id/imdbRatingTextView"
-        app:layout_constraintStart_toEndOf="@+id/yearTextView"
-        app:layout_constraintTop_toTopOf="@+id/yearTextView"
-        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

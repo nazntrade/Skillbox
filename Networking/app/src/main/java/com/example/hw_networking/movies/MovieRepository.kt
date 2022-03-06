@@ -18,7 +18,7 @@ class MovieRepository {
         callback: (List<RemoteMovie>) -> Unit
     ): Call {
         return Network.getSearchMovieCall(queryTitleText, queryYearText, queryTypeText).apply {
-            enqueue(object : Callback {
+           enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     callback(emptyList())
                     // Some message for user
@@ -50,11 +50,11 @@ class MovieRepository {
                     val title = movieJsonObject.getString("Title")
                     val type = movieJsonObject.getString("Type")
                     val year = movieJsonObject.getString("Year")
-                    val country = movieJsonObject.getString("Country")
-                    val runtime = movieJsonObject.getString("Runtime")
-                    val imdbRating = movieJsonObject.getString("imdbRating")
-                    val genre = movieJsonObject.getString("Genre")
-                    val plot = movieJsonObject.getString("Plot")
+//                    val country = movieJsonObject.getString("Country")
+//                    val runtime = movieJsonObject.getString("Runtime")
+//                    val imdbRating = movieJsonObject.getString("imdbRating")
+//                    val genre = movieJsonObject.getString("Genre")
+//                    val plot = movieJsonObject.getString("Plot")
 
                     RemoteMovie(
                         imdbID = imdbID,
@@ -62,11 +62,11 @@ class MovieRepository {
                         title = title,
                         type = type,
                         year = year,
-                        country = country,
-                        runtime = runtime,
-                        imdbRating = imdbRating,
-                        genre = genre,
-                        plot = plot
+//                        country = country,
+//                        runtime = runtime,
+//                        imdbRating = imdbRating,
+//                        genre = genre,
+//                        plot = plot
                     )
                 }
         } catch (e: JSONException) {

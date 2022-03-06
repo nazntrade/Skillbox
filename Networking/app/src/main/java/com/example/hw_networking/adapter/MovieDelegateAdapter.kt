@@ -44,12 +44,8 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
         private val posterView = binding.posterImageView
         private val titleView = binding.titleTextView
         private val yearView = binding.yearTextView
-        private val runtimeView = binding.runtimeTextView
-        private val countryView = binding.countryTextView
         private val typeView = binding.typeTextView
         private val imdbIDView = binding.imdbIDTextView
-        private val imdbRatingView = binding.imdbRatingTextView
-        private val genreView = binding.genreTextView
 
         private var itemMovie: RemoteMovie? = null
 
@@ -62,18 +58,15 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
         }
 
         fun bind(item: RemoteMovie) {
+            itemMovie = item
             posterView.load(item.poster) {
                 error(R.drawable.ic_404)
                 placeholder(R.drawable.loading)
             }
             titleView.text = item.title
-            "year: ${item.year}".also { yearView.text = it }
-            "runtime: ${item.runtime}".also { runtimeView.text = it }
-            countryView.text = item.country
-            "type: ${item.type}".also { typeView.text = it }
+            "Year: ${item.year}".also { yearView.text = it }
+            "Type: ${item.type}".also { typeView.text = it }
             "ID: ${item.imdbID}".also { imdbIDView.text = it }
-            "Rating IMDb: ${item.imdbRating}".also { imdbRatingView.text = it }
-            "Genre: ${item.genre}".also { genreView.text = it }
         }
     }
 }
