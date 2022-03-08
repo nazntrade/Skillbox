@@ -1,0 +1,37 @@
+AlertDialog.Builder(context)
+    .setTitle("Delete entry")
+    .setMessage("Are you sure you want to delete this entry?") 
+               // Specifying a listener allows you to take an action before dismissing the dialog.
+               // The dialog is automatically dismissed when a dialog button is clicked.
+    .setPositiveButton(android.R.string.yes,
+                    DialogInterface.OnClickListener { dialog, which ->
+                        // Continue with delete operation
+                    }) // A null listener allows the button to dismiss the dialog and take no further action.
+    .setNegativeButton(android.R.string.no, null)
+    .setIcon(android.R.drawable.ic_dialog_alert)
+    .show()
+
+
+
+My from HW17 about kitty 
+
+    private fun addNewKittyWithDialogWindow() {
+        val view = layoutInflater.inflate(R.layout.dialog_add_kitty, null)
+        val dialogNameTextView = view.findViewById<EditText>(R.id.dialogNameTextView)
+        val dialogBreedTextView = view.findViewById<EditText>(R.id.dialogBreedTextView)
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(view)
+        builder.setPositiveButton("Ok") { _, _ ->
+            val newAnimal = Animal.Cat(
+                name = dialogNameTextView.text.toString(),
+                breed = dialogBreedTextView.text.toString(),
+                avatarLink = photoKitty.random(),
+                id = (9999..112121).random().toLong()
+            )
+            animals = listOf(newAnimal) + animals
+            petShopAdapter?.items = animals
+            binding.petList.scrollToPosition(0)
+        }
+        builder.setNegativeButton("Cancel", null)
+        builder.show()
+    }

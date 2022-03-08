@@ -12,11 +12,15 @@ class MoviesViewModel : ViewModel() {
     private val moviesListLiveData = MutableLiveData<List<RemoteMovie>>()
     private val isLoadingLiveData = MutableLiveData<Boolean>()
 
+    val getErrorFromServer: String
+        get() = repository.error
+
     val movies: LiveData<List<RemoteMovie>>
         get() = moviesListLiveData
 
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
+
 
     fun search(queryTitleText: String, queryYearText: String, queryTypeText: String) {
         isLoadingLiveData.postValue(true)

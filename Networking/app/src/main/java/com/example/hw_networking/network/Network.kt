@@ -9,16 +9,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 object Network {
 
     private val client = OkHttpClient.Builder()
-//        .addNetworkInterceptor(
-//            //  1.6
-//            CustomHeaderInterceptor("apikey", API_KEY)
-//        )
-//        .addNetworkInterceptor(
-//            CustomHeaderInterceptor("header2", "headerValue2")
-//        )
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BODY)
-        })
+//        .addNetworkInterceptor(HttpUrl.Builder().addQueryParameter("apikey", API_KEY))
+        .addNetworkInterceptor(
+            // 1.6
+            CustomHeaderInterceptor("apikey", API_KEY)
+        )
+//        .addInterceptor(HttpLoggingInterceptor().apply {
+//            setLevel(HttpLoggingInterceptor.Level.BODY)
+//        })
 //        //  1.8
 //        .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperNetworkPlugin))
         .build()

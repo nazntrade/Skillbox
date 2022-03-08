@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">hw_networking</string>
     <string name="hint_menu">Type</string>
-    <string name="hint_year">Year</string>
-    <string name="hint_title">Title</string>
+    <string name="hint_year">Enter year here</string>
+    <string name="hint_title">Enter title here</string>
     <string name="search_button_description">search_button</string>
     <string name="posterDescription">poster</string>
     <string name="title">Title</string>
