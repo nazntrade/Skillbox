@@ -1,5 +1,7 @@
 package com.example.hw_networking.network
 
+import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
+import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import okhttp3.Call
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -8,17 +10,19 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object Network {
 
+    val flipperNetworkPlugin = NetworkFlipperPlugin()
+
     private val client = OkHttpClient.Builder()
-//        .addNetworkInterceptor(HttpUrl.Builder().addQueryParameter("apikey", API_KEY))
+//        // 1.6
         .addNetworkInterceptor(
-            // 1.6
-            CustomHeaderInterceptor("apikey", API_KEY)
+            CustomInterceptor("apikey", API_KEY)
         )
-//        .addInterceptor(HttpLoggingInterceptor().apply {
-//            setLevel(HttpLoggingInterceptor.Level.BODY)
-//        })
+//        //see in logcat query and response details
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BODY)
+        })
 //        //  1.8
-//        .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperNetworkPlugin))
+        .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperNetworkPlugin))
         .build()
 
     fun getSearchMovieCall(
@@ -30,7 +34,7 @@ object Network {
         val movieUrl = HttpUrl.Builder()
             .scheme("http")
             .host("www.omdbapi.com")
-            .addQueryParameter("apikey", API_KEY)
+//            .addQueryParameter("apikey", API_KEY)
             .addQueryParameter("s", queryTitleText)
             .addQueryParameter("y", queryYearText)
             .addQueryParameter("type", queryTypeText)

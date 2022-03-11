@@ -71,15 +71,15 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
 
     //Okhttp
-    implementation "com.squareup.okhttp3:okhttp:4.8.0"
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
     implementation "com.squareup.okhttp3:logging-interceptor:4.8.0"
 
     //Flipper
     //it doesn't working. brake down all project
-//    def flipperVersion = '0.43.0'
-//    debugImplementation "com.facebook.flipper:flipper:$flipperVersion"
-//    releaseImplementation "com.facebook.flipper:flipper-noop:$flipperVersion"
-//    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipperVersion"
-//    debugImplementation "com.facebook.soloader:soloader:0.9.0"
-//    releaseImplementation "com.github.theGlenn:flipper-android-no-op:0.3.0"
+    def flipperVersion = '0.138.0'
+    debugImplementation "com.facebook.flipper:flipper:$flipperVersion"
+    releaseImplementation "com.facebook.flipper:flipper-noop:$flipperVersion"
+    debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipperVersion"
+    debugImplementation "com.facebook.soloader:soloader:0.10.3"
+    releaseImplementation "com.github.theGlenn:flipper-android-no-op:0.3.0"
 }

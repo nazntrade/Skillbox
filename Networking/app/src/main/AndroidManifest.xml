@@ -9,6 +9,7 @@
         android:allowBackup="true"
         android:icon="@drawable/imdb_logo"
         android:label="ImdbSearch"
+        android:name=".network.App"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/imdb_logo"
         android:supportsRtl="true"
