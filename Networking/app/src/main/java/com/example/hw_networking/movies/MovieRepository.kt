@@ -48,7 +48,7 @@ class MovieRepository {
     ): List<RemoteMovie> {
         return try {
             val jsonObject = JSONObject(responseString)
-            val movieArray = jsonObject.getJSONArray("Search") // Perhaps error
+            val movieArray = jsonObject.getJSONArray("Search")
 
             (0 until movieArray.length()).map { index -> movieArray.getJSONObject(index) }
                 .map { movieJsonObject ->
