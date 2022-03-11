@@ -10,9 +10,4 @@ data class RemoteMovie(
     val title: String,
     val type: String,
     val year: String,
-//    val country: String,
-//    val runtime: String,
-//    val imdbRating: String,
-//    val genre: String,
-//    val plot: String
 ) : Parcelable

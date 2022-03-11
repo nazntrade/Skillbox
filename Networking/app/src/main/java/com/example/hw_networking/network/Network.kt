@@ -13,15 +13,12 @@ object Network {
     val flipperNetworkPlugin = NetworkFlipperPlugin()
 
     private val client = OkHttpClient.Builder()
-//        // 1.6
         .addNetworkInterceptor(
             CustomInterceptor("apikey", API_KEY)
         )
-//        //see in logcat query and response details
         .addInterceptor(HttpLoggingInterceptor().apply {
             setLevel(HttpLoggingInterceptor.Level.BODY)
         })
-//        //  1.8
         .addNetworkInterceptor(FlipperOkhttpInterceptor(flipperNetworkPlugin))
         .build()
 
@@ -34,7 +31,6 @@ object Network {
         val movieUrl = HttpUrl.Builder()
             .scheme("http")
             .host("www.omdbapi.com")
-//            .addQueryParameter("apikey", API_KEY)
             .addQueryParameter("s", queryTitleText)
             .addQueryParameter("y", queryYearText)
             .addQueryParameter("type", queryTypeText)
