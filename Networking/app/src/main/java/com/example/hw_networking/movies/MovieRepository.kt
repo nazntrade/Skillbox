@@ -19,7 +19,7 @@ class MovieRepository {
     ): Call {
         error = ""
         return Network.getSearchMovieCall(queryTitleText, queryYearText, queryTypeText).apply {
-            enqueue(object : Callback {
+            enqueue(object : Callback {  //enqueue ????????
                 override fun onFailure(call: Call, e: IOException) {
                     error = "IOException"
                     Log.e("Server", "IOException")
