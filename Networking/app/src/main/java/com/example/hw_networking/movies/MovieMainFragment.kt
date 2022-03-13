@@ -113,7 +113,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
             addItemDecoration(
                 DividerItemDecoration(
                     requireContext(),
-                    DividerItemDecoration.HORIZONTAL,
+                    DividerItemDecoration.VERTICAL
                 )
             )
         }
