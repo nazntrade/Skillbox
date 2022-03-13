@@ -15,10 +15,10 @@ class CustomInterceptor(
             .addQueryParameter(name, value)
             .build()
 
-        val requestBuilder = originalRequest.newBuilder()
+        val modifiedRequestBuilder = originalRequest.newBuilder()
             .url(modifiedHttpUrl)
 
-        val request = requestBuilder.build()
-        return chain.proceed(request)
+        val modifiedRequest = modifiedRequestBuilder.build()
+        return chain.proceed(modifiedRequest)
     }
 }

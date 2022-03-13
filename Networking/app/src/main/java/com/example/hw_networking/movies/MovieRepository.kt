@@ -1,7 +1,6 @@
 package com.example.hw_networking.movies
 
 import android.util.Log
-import androidx.fragment.app.DialogFragment
 import com.example.hw_networking.network.Network
 import okhttp3.Call
 import okhttp3.Callback
