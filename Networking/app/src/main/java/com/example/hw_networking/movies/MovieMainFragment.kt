@@ -44,6 +44,10 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
         viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileLoadMovies)
     }
 
+    private fun clearAdapter() {
+        movieAdapter?.items = emptyList()
+    }
+
     private fun errorProcessing() {
         if (viewModel.getErrorFromServer == "JSONException") {
             showDialog(
@@ -52,7 +56,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
                 "Ok",
                 null,
             )
-            movieAdapter?.items = emptyList()
+            clearAdapter()
         }
         if (viewModel.getErrorFromServer == "IOException") {
             showDialog(
@@ -63,7 +67,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
                     search()
                 }
             )
-            movieAdapter?.items = emptyList()
+            clearAdapter()
         }
         if (viewModel.getErrorFromServer == "FailureServerResponse") {
             showDialog(
@@ -74,7 +78,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
                     search()
                 }
             )
-            movieAdapter?.items = emptyList()
+            clearAdapter()
         }
     }
 
