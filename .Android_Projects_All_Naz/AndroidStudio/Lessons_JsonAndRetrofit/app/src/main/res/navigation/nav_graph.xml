@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.skillbox.lessons_jsonandretrofit.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_moshiFragment"
+            app:destination="@id/moshiFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_userSearchFragment"
+            app:destination="@id/userSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moshiFragment"
+        android:name="com.skillbox.lessons_jsonandretrofit.moshi.MoshiFragment"
+        android:label="MoshiFragment" />
+    <fragment
+        android:id="@+id/userSearchFragment"
+        android:name="com.skillbox.lessons_jsonandretrofit.retrofit.ui.UserSearchFragment"
+        android:label="UserSearchFragment"
+        tools:layout="@layout/fragment_user_search" />
+</navigation>
