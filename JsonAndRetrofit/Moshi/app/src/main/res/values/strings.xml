@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">hw_networking</string>
+    <string name="hint_menu">Type</string>
+    <string name="hint_year">Enter year here</string>
+    <string name="hint_title">Enter title here</string>
+    <string name="search_button_description">search_button</string>
+    <string name="posterDescription">poster</string>
+    <string name="title">Title</string>
+    <string name="year">year</string>
+    <string name="runtime">runtime</string>
+    <string name="country">country</string>
+    <string name="type">type</string>
+    <string name="imdbID">imdbID</string>
+    <string name="sample_some_title">Sample Some Title</string>
+    <string name="logoImdb">logoImdb</string>
+    <string name="moviePoster">MoviePoster</string>
+    <string name="imdbRating">imdbRating</string>
+    <string name="genre">Genre</string>
+    <string-array name="items_dropDown_menu">
+        <item>movie</item>
+        <item>series</item>
+        <item>episode</item>
+        <item>all</item>
+    </string-array>
+</resources>

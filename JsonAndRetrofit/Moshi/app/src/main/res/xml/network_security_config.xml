@@ -1,0 +1,9 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">www.omdbapi.com</domain>
+    </domain-config>
+</network-security-config>
+    <!--  Allows HTTP traffic only to www.omdbapi.com domain. All other domains will only be allowed via HTTPS.-->
+    <!--  https://appsec-labs.com/portal/understanding-the-android-cleartexttrafficpermitted-flag/  -->

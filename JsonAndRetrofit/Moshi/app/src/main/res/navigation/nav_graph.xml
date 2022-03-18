@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchMovieFragment">
+    <fragment
+        android:id="@+id/searchMovieFragment"
+        android:name="com.example.hw_networking.movies.MovieMainFragment"
+        android:label="SearchMovieFragment"
+        tools:layout="@layout/fragment_main_search_movie">
+        <action
+            android:id="@+id/action_searchMovieFragment_to_detailScreenFragment"
+            app:destination="@id/detailScreenFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailScreenFragment"
+        android:name="com.example.hw_networking.movies.DetailScreenFragment"
+        android:label="DetailScreenFragment"
+        tools:layout="@layout/fragment_detail_screen">
+        <argument
+            android:name="itemMovie"
+            app:argType="com.example.hw_networking.movies.RemoteMovie" />
+    </fragment>
+</navigation>

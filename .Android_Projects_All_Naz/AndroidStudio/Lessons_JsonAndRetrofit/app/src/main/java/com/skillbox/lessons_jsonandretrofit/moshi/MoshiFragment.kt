@@ -81,7 +81,6 @@ class MoshiFragment : Fragment(R.layout.fragment_moshi) {
         } catch (e: Exception) {
             textView.text = "parse error = ${e.message}"
         }
-
     }
 
     private fun convertMovieListJsonToInstance() {
@@ -100,7 +99,6 @@ class MoshiFragment : Fragment(R.layout.fragment_moshi) {
         } catch (e: Exception) {
             textView.text = "parse error = ${e.message}"
         }
-
     }
 
     private fun convertMovieWithScoreJsonToInstance() {
