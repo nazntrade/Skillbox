@@ -33,5 +33,4 @@ data class RemoteMovie(
 
     @Json(name = "Ratings")
     val rating: List<String>
-
 ) : Parcelable
