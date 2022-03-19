@@ -35,22 +35,19 @@ class MovieRepository {
                         val moshi = Moshi.Builder()
                             .build()
 
-                        val movieListType = Types.newParameterizedType(
-                            List::class.java,
-                            RemoteMovie::class.java
-                        )
-
-                        val adapter = moshi.adapter<List<RemoteMovie>>(movieListType).nonNull()
+                        val adapter = moshi.adapter(RemoteMovie::class.java)
 
                         try {
                             val movies = adapter.fromJson(responseString)
-                            Log.d("error", "movies = $movies")
+                            Log.d("error", "movie created: $movies")
+
                             if (movies != null) {
-                                callback(movies)
-                            } else Log.d("error", "movie null")
+                                callback(listOf(movies))
+                            } else Log.d("error", "sorry, the movie is empty")
+
                         } catch (e: Exception) {
-                            Log.e("error", "${e.message}")
-//                            error = "JSONException"
+                            Log.e("error", "catch: ${e.message}")
+                            error = "JSONException"
                             callback(emptyList())
                         }
 
@@ -63,19 +60,4 @@ class MovieRepository {
             })
         }
     }
-
-//    private fun doParseMovieResponse(
-//        responseString: String
-//    ): List<RemoteMovie> {
-//        return try {
-//            val jsonObject = JSONObject(responseString)
-//            val movieArray = jsonObject.getJSONArray("Search")
-//
-//
-////        } catch (e: JSONException) {
-////            error = "JSONException"
-////            Log.e("Server", "JSONException ${e.message}", e)
-////            emptyList()
-////        }
-//    }
 }

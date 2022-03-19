@@ -9,6 +9,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class RemoteMovie(
+
+    @Json(name = "imdbID")
     val imdbID: String,
 
     @Json(name = "Poster")
@@ -21,5 +23,15 @@ data class RemoteMovie(
     val type: String = "",
 
     @Json(name = "Year")
-    val year: Int,
+    val year: String,
+
+    @Json(name = "Plot")
+    val plot: String,
+
+    @Json(name = "Genre")
+    val genre: String,
+
+    @Json(name = "Ratings")
+    val rating: List<String>
+
 ) : Parcelable
