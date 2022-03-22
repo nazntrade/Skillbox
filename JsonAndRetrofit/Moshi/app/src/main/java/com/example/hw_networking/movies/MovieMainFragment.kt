@@ -3,6 +3,8 @@ package com.example.hw_networking.movies
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.view.isGone
@@ -12,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.hw_networking.R
 import com.example.hw_networking.adapter.MovieAdapter
 import com.example.hw_networking.databinding.FragmentMainSearchMovieBinding
@@ -45,6 +48,12 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
         viewModel.movies.observe(viewLifecycleOwner) {
             movieAdapter?.items = it
             errorProcessing()
+            binding.likeImageButton.load(R.drawable.like)
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.likeImageButton.isVisible = it.isNotEmpty()
+            }, 1500)
+            binding.yearEditText.isEnabled = false
+            binding.menuType.isEnabled = false
         }
         viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileLoadMovies)
     }
@@ -133,6 +142,7 @@ class MovieMainFragment : Fragment(R.layout.fragment_main_search_movie) {
         binding.yearEditText.isEnabled = isLoading.not()
         binding.menuType.isEnabled = isLoading.not()
         binding.searchButton.isEnabled = isLoading.not()
+        binding.likeImageButton.isVisible = isLoading.not()
         binding.movieListRecyclerView.isVisible = isLoading.not()
         binding.progressBar.isGone = isLoading.not()
     }

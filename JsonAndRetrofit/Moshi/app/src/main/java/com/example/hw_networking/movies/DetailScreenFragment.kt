@@ -21,7 +21,8 @@ class DetailScreenFragment : Fragment(R.layout.fragment_detail_screen) {
             placeholder(R.drawable.loading)
         }
         binding.titleDetailTextView.text = args.itemMovie.title
-        binding.yearDetailTextView.text = args.itemMovie.year
+        binding.yearDetailTextView.text = args.itemMovie.year.toString()
         binding.plotTextView.text = args.itemMovie.plot
+        binding.typeDetailTextView.text = args.itemMovie.type
     }
 }

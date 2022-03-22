@@ -1,6 +1,7 @@
 package com.example.hw_networking.movies
 
 import android.util.Log
+import com.example.hw_networking.adapter.JsonCustomAdapter
 import com.example.hw_networking.network.Network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -33,9 +34,10 @@ class MovieRepository {
                         val responseString = response.body?.string().orEmpty()
 
                         val moshi = Moshi.Builder()
+                            .add(JsonCustomAdapter())
                             .build()
 
-                        val adapter = moshi.adapter(RemoteMovie::class.java)
+                        val adapter = moshi.adapter(RemoteMovie::class.java).nonNull()
 
                         try {
                             val movies = adapter.fromJson(responseString)

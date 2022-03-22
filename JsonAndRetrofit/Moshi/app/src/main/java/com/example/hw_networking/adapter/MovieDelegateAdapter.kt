@@ -45,8 +45,9 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
         private val titleView = binding.titleTextView
         private val yearView = binding.yearTextView
         private val typeView = binding.typeTextView
-        private val rating = binding.ratingsTextView
+        private val scoresTextView = binding.scoresTextView
         private val genreView = binding.genreTextView
+        private val ratedTextView = binding.ratedTextView
 
         private var itemMovie: RemoteMovie? = null
 
@@ -67,7 +68,8 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
             titleView.text = item.title
             "Year: ${item.year}".also { yearView.text = it }
             "Type: ${item.type}".also { typeView.text = it }
-            "Rating: ${item.rating}".also { rating.text = it }
+            "Rated: ${item.rated}".also {ratedTextView.text = it}
+            "Ratings: ${item.ratings}".also { scoresTextView.text = it }
             "Genre: ${item.genre}".also { genreView.text = it }
         }
     }

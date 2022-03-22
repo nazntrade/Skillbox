@@ -146,7 +146,7 @@ class MoshiFragment : Fragment(R.layout.fragment_moshi) {
         val adapter = moshi.adapter(Movie::class.java).nonNull()
 
         try {
-            val movie = adapter.fromJson(simpleMovie)
+            val movie = adapter.fromJson(movieCustomAdapter)
             textView.text = movie.toString()
         } catch (e: Exception) {
             textView.text = "parse error = ${e.message}"
