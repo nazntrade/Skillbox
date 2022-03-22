@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/posterDetailImageView"
@@ -31,11 +31,24 @@
         app:layout_constraintTop_toBottomOf="@+id/posterDetailImageView"
         tools:text="@string/sample_some_title" />
 
+    <ImageButton
+        android:id="@+id/likeImageButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="end"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/like"
+        app:layout_constraintBottom_toTopOf="@id/plotTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/yearDetailTextView"
+        app:layout_constraintTop_toBottomOf="@id/titleDetailTextView" />
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleDetailTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/titleDetailTextView" />
 
     <TextView
         android:id="@+id/yearDetailTextView"
@@ -50,10 +63,10 @@
 
     <TextView
         android:id="@+id/typeDetailTextView"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/type"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yearDetailTextView" />
@@ -62,11 +75,11 @@
         android:id="@+id/plotTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@tools:sample/lorem/random"
-        android:padding="20dp"
+        android:padding="30dp"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeDetailTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/typeDetailTextView"
+        tools:text="@tools:sample/lorem/random" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

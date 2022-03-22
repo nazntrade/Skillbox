@@ -30,10 +30,6 @@ class JsonCustomAdapter {
         val ratings: List<Scores>
     )
 
-//    ratings = movieRatings.ratings.map { rating ->
-//        rating.source to rating.value
-//    }.toMap()
-
     @FromJson
     fun fromJson(customRemoteMovie: CustomRemoteMovie): RemoteMovie {
         return RemoteMovie(

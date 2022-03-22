@@ -24,5 +24,17 @@ class DetailScreenFragment : Fragment(R.layout.fragment_detail_screen) {
         binding.yearDetailTextView.text = args.itemMovie.year.toString()
         binding.plotTextView.text = args.itemMovie.plot
         binding.typeDetailTextView.text = args.itemMovie.type
+        likeIncreasesScore()
     }
+
+    private fun likeIncreasesScore(){
+        binding.likeImageButton.setOnClickListener {
+
+        }
+    }
+
+
+
+
+
 }
