@@ -4,6 +4,5 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">www.omdbapi.com</domain>
     </domain-config>
-</network-security-config>
-    <!--  Allows HTTP traffic only to www.omdbapi.com domain. All other domains will only be allowed via HTTPS.-->
+</network-security-config><!--  Allows HTTP traffic only to www.omdbapi.com domain. All other domains will only be allowed via HTTPS.-->
     <!--  https://appsec-labs.com/portal/understanding-the-android-cleartexttrafficpermitted-flag/  -->

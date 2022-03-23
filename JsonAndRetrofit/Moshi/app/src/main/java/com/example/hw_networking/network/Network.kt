@@ -26,7 +26,10 @@ object Network {
         val movieUrl = HttpUrl.Builder()
             .scheme("http")
             .host("www.omdbapi.com")
-            .addQueryParameter("t", queryTitleText)// s to t for this project. required in assignment
+            .addQueryParameter(
+                "t",
+                queryTitleText
+            )// s to t for this project. required in assignment
 //            .addQueryParameter("y", queryYearText)
 //            .addQueryParameter("type", queryTypeText)
             .build()

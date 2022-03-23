@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 enum class MovieAndTvRatings {
 
     @Json(name = "G")
-     General_Audience,
+    General_Audience,
 
     @Json(name = "PG")
     Parental_Guidance_Suggested,

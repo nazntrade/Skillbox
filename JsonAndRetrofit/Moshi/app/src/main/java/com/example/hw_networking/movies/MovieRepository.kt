@@ -4,8 +4,6 @@ import android.util.Log
 import com.example.hw_networking.adapter.JsonCustomAdapter
 import com.example.hw_networking.network.Network
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.adapter
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -21,7 +19,7 @@ class MovieRepository {
     ): Call {
         error = ""
         return Network.getSearchMovieCall(queryTitleText, queryYearText, queryTypeText).apply {
-            enqueue(object : Callback {  //enqueue ????????
+            enqueue(object : Callback {  ///enqueue ???///
                 override fun onFailure(call: Call, e: IOException) {
                     error = "IOException"
                     Log.e("Server", "IOException")
