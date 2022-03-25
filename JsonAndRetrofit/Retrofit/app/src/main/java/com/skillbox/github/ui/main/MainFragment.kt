@@ -18,5 +18,4 @@ class MainFragment: Fragment(R.layout.fragment_main) {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToRepositoryListFragment())
         }
     }
-
 }

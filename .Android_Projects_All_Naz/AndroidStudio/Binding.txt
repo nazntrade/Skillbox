@@ -1,5 +1,10 @@
 in gradle ...
 
+    buildFeatures {
+        viewBinding true
+    }
+
+
 
 for activity
 
