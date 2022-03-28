@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,17 +24,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:layout_marginStart="30dp"
-            android:textSize="30sp"
+            android:textSize="40sp"
             tools:text="@tools:sample/first_names" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/currentUserAllInfoTextView"
+        android:id="@+id/currentUserIdTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:padding="20dp"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/us_phones" />
+
+    <TextView
+        android:id="@+id/currentUserNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="20dp"
+        tools:text="@tools:sample/last_names" />
+
+    <TextView
+        android:id="@+id/currentUserLocationTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="20dp"
+        tools:text="@tools:sample/cities" />
 
 </LinearLayout>

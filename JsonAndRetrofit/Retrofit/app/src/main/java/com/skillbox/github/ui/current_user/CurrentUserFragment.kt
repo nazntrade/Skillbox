@@ -1,31 +1,52 @@
 package com.skillbox.github.ui.current_user
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
+import coil.load
 import com.skillbox.github.R
-import com.skillbox.github.ui.GitHubApi
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+import com.skillbox.github.databinding.FragmentCurrentUserBinding
+import retrofit2.Call
+import retrofit2.Response
 
 class CurrentUserFragment : Fragment(R.layout.fragment_current_user) {
 
+    private lateinit var binding: FragmentCurrentUserBinding
 
-    data class currentUser(
-        val id: Long,
-        val login: String,
-        val avatar_url: String
-    )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentCurrentUserBinding.bind(view)
 
-    private val okHttpClient = OkHttpClient.Builder()
-        .build()
+        getCurrentData()
+    }
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .client(okHttpClient)
-        .build()
+    private fun getCurrentData() {
+        val avatarUrlView = binding.currentUserAvatarImageView
+        val loginView = binding.currentUserLoginTextView
+        val idView = binding.currentUserIdTextView
+        val nameView = binding.currentUserNameTextView
+        val locationView = binding.currentUserLocationTextView
 
-    private val gitHubApi: GitHubApi
-        get() = retrofit.create()
+        Networking.gitHubUsersApi.getDataCurrentUser()
+            .enqueue(
+                object : retrofit2.Callback<CurrentUser> {
+                    override fun onResponse(
+                        call: Call<CurrentUser>,
+                        response: Response<CurrentUser>
+                    ) {
+                        if (response.isSuccessful) {
+                            avatarUrlView.load(response.body()?.avatar_url)
+                            loginView.text = response.body()?.login
+                            "id: ${response.body()?.id.toString()}".also { idView.text = it }
+                            "Name: ${response.body()?.name}".also { nameView.text = it }
+                            "Location: ${response.body()?.location}".also { locationView.text = it }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CurrentUser>, t: Throwable) {
+                        "Error. Something went wrong. $t".also { idView.text = it }
+                    }
+                }
+            )
+    }
 }
