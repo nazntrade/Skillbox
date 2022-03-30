@@ -22,7 +22,7 @@ class UserRepository {
                     call: Call<ServerItemsWrapper<RemoteUser>>,
                     response: Response<ServerItemsWrapper<RemoteUser>>
                 ) {
-                    if(response.isSuccessful) {
+                    if (response.isSuccessful) {
                         onComplete(response.body()?.items.orEmpty())
                     } else {
                         onError(RuntimeException("incorrect status code"))
