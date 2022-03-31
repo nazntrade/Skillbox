@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import coil.load
 import com.skillbox.github.R
+import com.skillbox.github.data.Networking
 import com.skillbox.github.databinding.FragmentCurrentUserBinding
 import retrofit2.Call
 import retrofit2.Response

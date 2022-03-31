@@ -8,7 +8,7 @@ import com.skillbox.github.databinding.FragmentItemRepositoriesBinding
 import com.skillbox.github.ui.repository_list.Repositories
 
 class GithubRepAdapterDelegate(
-    private var onItemClick: (id: Long) -> Unit
+    private var onItemClick: (itemRepo: Repositories) -> Unit
 ) :
     AbsListItemAdapterDelegate<Repositories, Repositories, GithubRepAdapterDelegate.GithubRepoHolder>() {
 
@@ -17,7 +17,7 @@ class GithubRepAdapterDelegate(
         items: MutableList<Repositories>,
         position: Int
     ): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): GithubRepoHolder {
@@ -40,22 +40,22 @@ class GithubRepAdapterDelegate(
 
     class GithubRepoHolder(
         binding: FragmentItemRepositoriesBinding,
-        onItemClick: (id: Long) -> Unit
+        onItemClick: (itemRepo: Repositories) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        val repoNameView = binding.repoNameTextView
+        private val repoNameView = binding.repoNameTextView
 
-        private var currentId: Long? = null
+        private var itemRepo: Repositories? = null
 
         init {
             binding.root.setOnClickListener {
-                currentId?.let { onItemClick(it) }
+                itemRepo?.let { onItemClick(it) }
             }
         }
 
-        fun bindRepo(repo: Repositories) {
-            currentId = repo.id
-            repoNameView.text = repo.name
+        fun bindRepo(itemRepo: Repositories) {
+            this.itemRepo = itemRepo
+            repoNameView.text = itemRepo.name
         }
     }
 }

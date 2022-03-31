@@ -1,3 +1,8 @@
 package com.skillbox.github.data
 
-data class ServerItemsWrapper()
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class ServerItemsWrapper<T>( /////??????????????
+    val items: List<T>
+)

@@ -1,4 +1,4 @@
-package com.skillbox.lessons_jsonandretrofit.utils
+package com.skillbox.github.utils
 
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment

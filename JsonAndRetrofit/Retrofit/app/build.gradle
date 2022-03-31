@@ -1,8 +1,19 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+
+// add Nazentsev
+//как в уроке это использовать нельзя. лезет ошибка сборки нового класса
+//id 'androidx.navigation.safeargs.kotlin'
+//нужно
+    id 'androidx.navigation.safeargs'
+
+//for @Parcelize
+//    id 'kotlin-parcelize' //   NOT 'kotlin-android-extensions' -IT DEPRECATED
+//    именно  в этом проекте id 'kotlin-parcelize' нельзя, тк тут в е построено на 'kotlin-android-extensions' а они не совместимы
+}
 
 android {
     compileSdkVersion 29
@@ -83,11 +94,10 @@ dependencies {
 
     //Retrofit
 
-    def retrofitVersion = '2.9.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 
-    implementation "com.squareup.okhttp3:logging-interceptor:4.8.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6"
 
     //AppAuth
     implementation 'net.openid:appauth:0.7.1'
