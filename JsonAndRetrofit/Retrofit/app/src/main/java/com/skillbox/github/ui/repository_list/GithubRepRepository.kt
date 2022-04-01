@@ -14,19 +14,23 @@ class GithubRepRepository {
         onError: (Throwable) -> Unit
     ) {
         Networking.gitHubRepApi.getOpenRepositories().enqueue(
-            object : Callback<ServerItemsWrapper<Repositories>> {
+            object : Callback<List<Repositories>> {
                 override fun onResponse(
-                    call: Call<ServerItemsWrapper<Repositories>>,
-                    response: Response<ServerItemsWrapper<Repositories>>
+                    call: Call<List<Repositories>>,
+                    response: Response<List<Repositories>>
                 ) {
                     Log.d("aaaa", "onResponseStart")
 
                     if (response.isSuccessful) {
-                        onComplete(response.body()?.items.orEmpty())
+                        Log.d("aaaa", "response is Successful")
+
+                        onComplete(response.body().orEmpty())
+
+                        Log.d("aaaa", "${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<ServerItemsWrapper<Repositories>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Repositories>>, t: Throwable) {
                     Log.d("aaaa", "onFailure")
                     onError(t)
                 }

@@ -5,6 +5,5 @@ import retrofit2.http.GET
 
 interface GitHubUsersApi {
     @GET("user")
-    fun getDataCurrentUser(
-    ): Call<CurrentUser>
+    fun getDataCurrentUser(): Call<CurrentUser>
 }

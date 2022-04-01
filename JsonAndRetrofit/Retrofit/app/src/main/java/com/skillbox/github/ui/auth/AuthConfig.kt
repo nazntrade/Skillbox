@@ -1,4 +1,4 @@
-package com.skillbox.github.data
+package com.skillbox.github.ui.auth
 
 import net.openid.appauth.ResponseTypeValues
 

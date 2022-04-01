@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/githubRepoListView"
         android:layout_width="match_parent"
-        android:padding="10dp"
-        tools:itemCount="10"
-        tools:listitem="@layout/fragment_item_repositories"
-        android:layout_height="wrap_content"/>
+        android:backgroundTint="@color/dark"
+        android:background="@color/darkGray"
+        android:layout_height="match_parent"
+        tools:itemCount="3"
+        tools:listitem="@layout/fragment_item_repositories" />
 
 </LinearLayout>

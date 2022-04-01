@@ -1,6 +1,6 @@
 package com.skillbox.github.data
 
-import com.skillbox.github.ui.current_user.AuthorisationCustomInterceptor
+import com.skillbox.github.ui.auth.AuthorisationCustomInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

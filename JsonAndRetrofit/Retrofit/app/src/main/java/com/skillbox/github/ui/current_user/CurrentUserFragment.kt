@@ -36,6 +36,7 @@ class CurrentUserFragment : Fragment(R.layout.fragment_current_user) {
                         response: Response<CurrentUser>
                     ) {
                         if (response.isSuccessful) {
+                            response.body()
                             avatarUrlView.load(response.body()?.avatar_url)
                             loginView.text = response.body()?.login
                             "id: ${response.body()?.id.toString()}".also { idView.text = it }

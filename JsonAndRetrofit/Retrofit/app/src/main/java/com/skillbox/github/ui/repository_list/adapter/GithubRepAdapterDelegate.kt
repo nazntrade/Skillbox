@@ -3,7 +3,9 @@ package com.skillbox.github.ui.repository_list.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
+import com.skillbox.github.R
 import com.skillbox.github.databinding.FragmentItemRepositoriesBinding
 import com.skillbox.github.ui.repository_list.Repositories
 
@@ -41,21 +43,25 @@ class GithubRepAdapterDelegate(
     class GithubRepoHolder(
         binding: FragmentItemRepositoriesBinding,
         onItemClick: (itemRepo: Repositories) -> Unit
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         private val repoNameView = binding.repoNameTextView
+        private val iconForList = binding.iconForList
 
         private var itemRepo: Repositories? = null
-
         init {
             binding.root.setOnClickListener {
                 itemRepo?.let { onItemClick(it) }
             }
         }
 
-        fun bindRepo(itemRepo: Repositories) {
-            this.itemRepo = itemRepo
-            repoNameView.text = itemRepo.name
+        fun bindRepo(item: Repositories) {
+            itemRepo = item
+            "Repo:  ${item.name}".also { repoNameView.text = it }
+            iconForList.load(item.owner.avatar_url){
+                error(R.drawable.ic_404)
+                placeholder(R.drawable.loading)
+            }
         }
     }
 }

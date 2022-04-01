@@ -1,4 +1,4 @@
-package com.skillbox.github.data
+package com.skillbox.github.ui.auth
 
 import android.net.Uri
 import net.openid.appauth.AuthorizationRequest

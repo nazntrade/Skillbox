@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:background="@color/dark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/white"
             android:layout_marginStart="30dp"
-            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:textSize="30sp"
             tools:text="@tools:sample/first_names" />
 
     </LinearLayout>
@@ -36,18 +36,18 @@
         android:id="@+id/repoDetailIdTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:padding="5dp"
         tools:text="@tools:sample/us_phones" />
 
     <TextView
         android:id="@+id/repoDetailNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="30sp"
         android:padding="5dp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         tools:text="@tools:sample/last_names" />
 
 </LinearLayout>

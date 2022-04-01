@@ -2,9 +2,11 @@ package com.skillbox.github.ui.repository_list
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.github.R
 import com.skillbox.github.databinding.FragmentRepositoryListBinding
@@ -14,7 +16,7 @@ import com.skillbox.github.utils.autoCleared
 class GithubRepMainFragment : Fragment(R.layout.fragment_repository_list) {
 
     private lateinit var binding: FragmentRepositoryListBinding
-    private var githubRepAdapter: GithubRepAdapter? = null //by autoCleared()  // ?????autoCleared
+    private var githubRepAdapter: GithubRepAdapter? = null /*by autoCleared()*/  // ?????autoCleared
     private val viewModel: GithubRepViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,19 +32,23 @@ class GithubRepMainFragment : Fragment(R.layout.fragment_repository_list) {
         viewModel.getRepoListFromViewModel()
     }
 
-    private fun bindViewModel() {
-        viewModel.repoList.observe(viewLifecycleOwner) { githubRepAdapter?.items = it }
-    }
-
     private fun initList() {
-        githubRepAdapter = GithubRepAdapter { itemRepo ->
-            navigate(itemRepo)
-        }
+        githubRepAdapter = GithubRepAdapter { itemRepo -> navigate(itemRepo) }
         with(binding.githubRepoListView) {
             adapter = githubRepAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
         }
+    }
+
+    private fun bindViewModel() {
+        viewModel.repoList.observe(viewLifecycleOwner) { githubRepAdapter?.items = it }
     }
 
     private fun navigate(itemRepo: Repositories) {

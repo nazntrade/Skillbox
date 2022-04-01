@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skillbox.github.R
-import com.skillbox.github.data.AuthRepository
+import com.skillbox.github.ui.auth.AuthRepository
 import com.skillbox.github.utils.SingleLiveEvent
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationService
