@@ -1,6 +1,5 @@
 package com.skillbox.github.ui.repository_list
 
-import com.skillbox.github.data.ServerItemsWrapper
 import retrofit2.Call
 import retrofit2.http.GET
 

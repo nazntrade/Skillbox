@@ -2,7 +2,7 @@ package com.skillbox.github.ui.repository_list
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +16,7 @@ import com.skillbox.github.utils.autoCleared
 class GithubRepMainFragment : Fragment(R.layout.fragment_repository_list) {
 
     private lateinit var binding: FragmentRepositoryListBinding
-    private var githubRepAdapter: GithubRepAdapter? = null /*by autoCleared()*/  // ?????autoCleared
+    private var githubRepAdapter: GithubRepAdapter by autoCleared()  // ?????autoCleared
     private val viewModel: GithubRepViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +48,12 @@ class GithubRepMainFragment : Fragment(R.layout.fragment_repository_list) {
     }
 
     private fun bindViewModel() {
-        viewModel.repoList.observe(viewLifecycleOwner) { githubRepAdapter?.items = it }
+        viewModel.repoList.observe(viewLifecycleOwner) { githubRepAdapter.items = it }
+        viewModel.isLoading.observe(viewLifecycleOwner, :: doWhileLoad)
+    }
+
+    private fun doWhileLoad(isLoading: Boolean) {
+        binding.progressBar.isGone = !isLoading
     }
 
     private fun navigate(itemRepo: Repositories) {

@@ -14,7 +14,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding = view?.let { FragmentDetailBinding.bind(it) }!!
+        binding = FragmentDetailBinding.bind(requireView())
+
         "id: ${args.itemRepo.id}".also { binding.repoDetailIdTextView.text = it }
         "Repository: ${args.itemRepo.name}".also { binding.repoDetailNameTextView.text = it }
         "Owner: ${args.itemRepo.owner.login}".also {
