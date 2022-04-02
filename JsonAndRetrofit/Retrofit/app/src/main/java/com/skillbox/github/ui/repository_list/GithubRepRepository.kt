@@ -11,7 +11,7 @@ class GithubRepRepository {
         onComplete: (List<Repositories>) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        Networking.gitHubRepApi.getOpenRepositories().enqueue(
+        Networking.gitHubApi.getOpenRepositories().enqueue(
             object : Callback<List<Repositories>> {
                 override fun onResponse(
                     call: Call<List<Repositories>>,

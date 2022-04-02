@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 data class RepoOwner(
     @Json(name = "login")
-    val login: String?, //owner's //wrapped on owner
+    val login: String, //owner's //wrapped on owner
     @Json(name = "avatar_url")
     val avatar_url: String?  //owner's //wrapped on owner
 ): Parcelable

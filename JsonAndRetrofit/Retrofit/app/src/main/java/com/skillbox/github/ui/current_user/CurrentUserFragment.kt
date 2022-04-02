@@ -28,7 +28,7 @@ class CurrentUserFragment : Fragment(R.layout.fragment_current_user) {
         val nameView = binding.currentUserNameTextView
         val locationView = binding.currentUserLocationTextView
 
-        Networking.gitHubUsersApi.getDataCurrentUser()
+        Networking.gitHubApi.getDataCurrentUser()
             .enqueue(
                 object : retrofit2.Callback<CurrentUser> {
                     override fun onResponse(
