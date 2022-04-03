@@ -49,7 +49,7 @@ class GithubRepMainFragment : Fragment(R.layout.fragment_repository_list) {
 
     private fun bindViewModel() {
         viewModel.repoList.observe(viewLifecycleOwner) { githubRepAdapter.items = it }
-        viewModel.isLoading.observe(viewLifecycleOwner, :: doWhileLoad)
+        viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileLoad)
     }
 
     private fun doWhileLoad(isLoading: Boolean) {

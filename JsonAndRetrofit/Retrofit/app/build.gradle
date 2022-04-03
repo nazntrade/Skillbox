@@ -12,7 +12,7 @@ plugins {
 
 //for @Parcelize
 //    id 'kotlin-parcelize' //   NOT 'kotlin-android-extensions' -IT DEPRECATED
-//    именно  в этом проекте id 'kotlin-parcelize' нельзя, тк тут в е построено на 'kotlin-android-extensions' а они не совместимы
+//    именно  в этом проекте id 'kotlin-parcelize' нельзя, тк тут вcе построено на 'kotlin-android-extensions' а они не совместимы
 }
 
 android {

@@ -49,6 +49,7 @@ class GithubRepAdapterDelegate(
         private val iconForList = binding.iconForList
 
         private var itemRepo: Repositories? = null
+
         init {
             binding.root.setOnClickListener {
                 itemRepo?.let { onItemClick(it) }
@@ -58,7 +59,7 @@ class GithubRepAdapterDelegate(
         fun bindRepo(item: Repositories) {
             itemRepo = item
             "Repo:  ${item.name}".also { repoNameView.text = it }
-            iconForList.load(item.owner.avatar_url){
+            iconForList.load(item.owner.avatar_url) {
                 error(R.drawable.ic_404)
                 placeholder(R.drawable.loading)
             }

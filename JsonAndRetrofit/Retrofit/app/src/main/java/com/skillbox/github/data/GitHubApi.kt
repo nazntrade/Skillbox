@@ -3,7 +3,6 @@ package com.skillbox.github.data
 import com.skillbox.github.ui.current_user.CurrentUser
 import com.skillbox.github.ui.repository_list.Repositories
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface GitHubApi {
@@ -12,7 +11,7 @@ interface GitHubApi {
     fun getDataCurrentUser(): Call<CurrentUser>
 
     @GET("repositories")
-    fun getOpenRepositories(): Call<List<Repositories>> ////??????
+    fun getOpenRepositories(): Call<List<Repositories>>
 
     @GET("user/starred/{owner}/{repo}")
     fun checkStar(
@@ -37,6 +36,4 @@ interface GitHubApi {
         @Path("username") username: String
     ): Call<List<Repositories>>
 
-//: Call<ServerItemsWrapper<RemoteUser>>
-// many objects are wrapped on owner
 }

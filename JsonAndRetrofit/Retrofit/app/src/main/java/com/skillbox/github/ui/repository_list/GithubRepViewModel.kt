@@ -23,7 +23,7 @@ class GithubRepViewModel : ViewModel() {
                 isLoadingLiveData.postValue(false)
                 repoListLiveData.postValue(repoList)
             },
-            onError = { throwable ->
+            onError = {
                 isLoadingLiveData.postValue(false)
                 repoListLiveData.postValue(emptyList())
             }

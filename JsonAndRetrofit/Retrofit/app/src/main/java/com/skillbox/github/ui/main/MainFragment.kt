@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.skillbox.github.R
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment: Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

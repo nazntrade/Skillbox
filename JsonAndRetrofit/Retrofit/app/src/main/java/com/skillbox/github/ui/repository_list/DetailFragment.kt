@@ -16,7 +16,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var binding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
-    var haveStar: Boolean = false
+    private var haveStar: Boolean = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -63,7 +63,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 )
             }
         }
-        checkStar(owner, repo)
     }
 
     private fun checkStar(owner: String, repo: String) {
@@ -102,6 +101,5 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun toastErrors(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-
     }
 }
