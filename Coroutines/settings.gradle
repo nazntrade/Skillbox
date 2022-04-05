@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "hw_Github_coroutines"
+rootProject.name = "hw_Github_Coroutines"
