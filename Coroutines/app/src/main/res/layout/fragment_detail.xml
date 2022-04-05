@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/repoDetailOwnerAvatarImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/current_avatar_contentDescription"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/repoDetailOwnerLoginTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            tools:text="@tools:sample/first_names" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/repoDetailIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        tools:text="@tools:sample/us_phones" />
+
+    <TextView
+        android:id="@+id/repoDetailNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        tools:text="@tools:sample/last_names" />
+
+    <ImageView
+        android:id="@+id/starImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/star_empty"
+        android:contentDescription="@string/descriptionStarImage" />
+
+</LinearLayout>

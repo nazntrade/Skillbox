@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Github</string>
+    <string name="main_profile">My profile GITHUB</string>
+    <string name="main_repositories">List of repositories</string>
+    <string name="auth_login">Sign in</string>
+    <string name="auth_canceled">Authentication failed</string>
+    <string name="current_avatar_contentDescription">this is avatar</string>
+    <string name="descriptionStarImage">image_star</string>
+</resources>
