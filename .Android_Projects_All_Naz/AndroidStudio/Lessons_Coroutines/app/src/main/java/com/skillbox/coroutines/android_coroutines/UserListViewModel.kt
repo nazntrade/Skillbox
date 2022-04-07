@@ -32,8 +32,6 @@ class UserListViewModel : ViewModel() {
             } finally {
                 isLoadingLiveData.postValue(false)
             }
-
         }
     }
-
 }

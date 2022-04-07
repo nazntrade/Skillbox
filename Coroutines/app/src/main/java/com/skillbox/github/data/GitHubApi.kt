@@ -11,7 +11,7 @@ interface GitHubApi {
     fun getDataCurrentUser(): Call<CurrentUser>
 
     @GET("repositories")
-    fun getOpenRepositories(): Call<List<Repositories>>
+    suspend fun getOpenRepositories(): Call<List<Repositories>>
 
     @GET("user/starred/{owner}/{repo}")
     fun checkStar(
