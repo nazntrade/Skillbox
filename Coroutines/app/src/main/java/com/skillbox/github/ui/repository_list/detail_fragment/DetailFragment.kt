@@ -18,10 +18,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private lateinit var binding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
-
     private var haveStar = false
-    private var error = ""
-    private var onFailure = false
+    private var someMessage = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,37 +34,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun giveOrTakeAwayStar(owner: String, repo: String) {
         binding.starImageView.setOnClickListener {
-            if (!haveStar) {
+            haveStar = if (!haveStar) {
                 viewModel.giveStarViewModel(owner, repo)
-//                observeHaveStar()
-                binding.starImageView.load(R.drawable.star_full)
-//                observeOnFailure()
+                drawFullStar()
+                true
             } else {
                 viewModel.takeAwayStarViewModel(owner, repo)
-//                observeHaveStar()
-                binding.starImageView.load(R.drawable.star_empty)
-//                observeOnFailure()
+                drawEmptyStar()
+                false
             }
         }
     }
-
-//    private fun observeHaveStar() {
-//        viewModel.haveStarFromViewModel.observe(viewLifecycleOwner) {
-//            haveStar = it
-//        }
-//    }
-
-//    private fun observeOnFailure() {
-//        viewModel.onFailureFromViewModel.observe(viewLifecycleOwner) { it ->
-//            onFailure = it
-//            if (onFailure) {
-//                viewModel.errorFromViewModel.observe(viewLifecycleOwner) {
-//                    error = it
-//                }
-//                toastErrors(error)
-//            }
-//        }
-//    }
 
     private fun checkStar(owner: String, repo: String) {
         coroutineScope.launch {
@@ -74,13 +52,26 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             viewModel.haveStarFromViewModel.observe(viewLifecycleOwner) {
                 haveStar = it
                 if (haveStar) {
-                    binding.starImageView.load(R.drawable.star_full)
+                    drawFullStar()
                 } else {
-                    binding.starImageView.load(R.drawable.star_empty)
+                    drawEmptyStar()
+                }
+            }
+            viewModel.messageFromViewModel.observe(viewLifecycleOwner) {
+                someMessage = it
+                if (someMessage.isNotEmpty()) {
+                    toastMessage(someMessage)
                 }
             }
         }
-//        observeOnFailure()
+    }
+
+    private fun drawFullStar() {
+        binding.starImageView.load(R.drawable.star_full)
+    }
+
+    private fun drawEmptyStar() {
+        binding.starImageView.load(R.drawable.star_empty)
     }
 
     private fun showInfoCurrentRepo() {
@@ -95,7 +86,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-    private fun toastErrors(text: String) {
+    private fun toastMessage(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
     }
 }

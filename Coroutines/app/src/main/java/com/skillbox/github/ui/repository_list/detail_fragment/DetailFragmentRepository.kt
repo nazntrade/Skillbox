@@ -6,79 +6,47 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.resumeWithException
 import kotlin.properties.Delegates
 
 class DetailFragmentRepository {
 
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        Log.e("ErrorCancelFragment", "error from CoroutineExceptionHandler", throwable)
-    }
+    var errorFromRepository = ""
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO + errorHandler)
-
-
-    var haveStarFromRepository by Delegates.notNull<Boolean>()
-//    var errorFromRepository = ""
-//    var onFailureFromRepository = false
-
-    fun giveStarRepository(owner: String, repo: String) {
-        Networking.gitHubApi.giveStar(owner, repo).enqueue(
-            object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-//                        haveStarFromRepository = true
-                    }
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-//                    onFailureFromRepository = true
-//                    errorFromRepository = "Method 'give star' was failure: $t"
-                }
-            }
-        )
-    }
-
-    fun takeAwayStarRepository(owner: String, repo: String) {
-        Networking.gitHubApi.takeAwayStar(owner, repo).enqueue(
-            object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-//                        haveStarFromRepository = false
-                    }
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-//                    onFailureFromRepository = true
-//                    errorFromRepository = "Method 'take away star' was failure: $t"
-                }
-            }
-        )
-    }
-
-    suspend fun checkStarRepository(owner: String, repo: String): Boolean {
-        scope.launch {
-            suspendCancellableCoroutine<Boolean> { continuation ->
-                continuation.invokeOnCancellation {
-                    Networking.gitHubApi.checkStar(owner, repo).enqueue(
-                        object : Callback<Boolean> {
-                            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                                if (response.isSuccessful)
-                                    if (response.code() == 204) {
-                                        haveStarFromRepository = true
-                                        Log.d("aaaa", "response comme back $haveStarFromRepository")
-
-                                    }
-                            }
-                            override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                                Log.d("aaaa", "onFailure $t")
-                            }
-                        }
-                    )
-                    Log.d("aaaa", "end coroutines")
-                }
-            }
+    suspend fun giveStarRepository(owner: String, repo: String) {
+        withContext(Dispatchers.IO) {
+            Networking.gitHubApi.giveStar(owner, repo)
         }
-        Log.d("aaaa", "return $haveStarFromRepository")
-        return haveStarFromRepository
+    }
+
+    suspend fun takeAwayStarRepository(owner: String, repo: String) {
+        withContext(Dispatchers.IO) {
+            Networking.gitHubApi.takeAwayStar(owner, repo)
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    suspend fun checkStarRepository(owner: String, repo: String): Boolean {
+        suspendCancellableCoroutine<Boolean> { continuation ->
+            Networking.gitHubApi.checkStar(owner, repo).enqueue(
+                object : Callback<Boolean> {
+                    override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                        if (response.isSuccessful) {
+                            continuation.resume(response.code() == 204, onCancellation = null)
+                        } else {
+                            continuation.resumeWithException(RuntimeException("incorrect status code"))
+                            errorFromRepository = "incorrect response status code from server"
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                        continuation.resumeWithException(t)
+                        Log.d("checkStarRepository", "onFailure $t")
+                        errorFromRepository = "server response is failure $t"
+                    }
+                }
+            )
+        }
+        return true
     }
 }

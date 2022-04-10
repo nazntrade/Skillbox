@@ -1,6 +1,5 @@
 package com.skillbox.github.ui.repository_list.detail_fragment
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,41 +14,39 @@ class DetailFragmentViewModel : ViewModel() {
     val haveStarFromViewModel: LiveData<Boolean>
         get() = haveStarLiveData
 
-    private val errorLiveData = MutableLiveData<String>()
-    val errorFromViewModel: LiveData<String>
-        get() = errorLiveData
-
-    private val onFailureLiveData = MutableLiveData<Boolean>()
-    val onFailureFromViewModel: LiveData<Boolean>
-        get() = onFailureLiveData
+    private val messageLiveData = MutableLiveData<String>()
+    val messageFromViewModel: LiveData<String>
+        get() = messageLiveData
 
     fun giveStarViewModel(owner: String, repo: String) {
-        repository.giveStarRepository(owner, repo)
-//        updateAllLifeData()
-    }
-
-    fun takeAwayStarViewModel(owner: String, repo: String) {
-        repository.takeAwayStarRepository(owner, repo)
-//        updateAllLifeData()
-    }
-
-    fun checkStarViewModel(owner: String, repo: String){
         viewModelScope.launch {
             try {
-                val haveStar = repository.checkStarRepository(owner, repo)
-                haveStarLiveData.postValue(haveStar)
-                Log.d("aaaa","${repository.haveStarFromRepository}")
-
+                repository.giveStarRepository(owner, repo)
             } catch (t: Throwable) {
-//                errorLiveData.postValue(repository.errorFromRepository)
-            }finally {
+                messageLiveData.postValue("You gave a star.")
             }
         }
     }
 
-//    private fun updateAllLifeData() {
-//        haveStarLiveData.postValue(repository.haveStarFromRepository)
-////        errorLiveData.postValue(repository.errorFromRepository)
-////        onFailureLiveData.postValue(repository.onFailureFromRepository)
-//    }
+    fun takeAwayStarViewModel(owner: String, repo: String) {
+        viewModelScope.launch {
+            try {
+                repository.takeAwayStarRepository(owner, repo)
+            } catch (t: Throwable) {
+                messageLiveData.postValue("You took a star away.")
+            }
+        }
+    }
+
+    fun checkStarViewModel(owner: String, repo: String) {
+        viewModelScope.launch {
+            try {
+                val haveStar = repository.checkStarRepository(owner, repo)
+                haveStarLiveData.postValue(haveStar)
+                messageLiveData.postValue(repository.errorFromRepository)
+            } catch (t: Throwable) {
+                messageLiveData.postValue("You haven't given this repository a star yet.")
+            }
+        }
+    }
 }

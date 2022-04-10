@@ -20,16 +20,16 @@ interface GitHubApi {
     ): Call<Boolean>
 
     @PUT("user/starred/{owner}/{repo}")
-    fun giveStar(
+    suspend fun giveStar(
         @Path("owner") owner: String,
         @Path("repo") repo: String
-    ): Call<String>
+    ): Boolean
 
     @DELETE("user/starred/{owner}/{repo}")
-    fun takeAwayStar(
+    suspend fun takeAwayStar(
         @Path("owner") owner: String,
         @Path("repo") repo: String
-    ): Call<String>
+    ): Boolean
 
     @GET("users/{username}/starred")
     fun getStaredRepositories(
