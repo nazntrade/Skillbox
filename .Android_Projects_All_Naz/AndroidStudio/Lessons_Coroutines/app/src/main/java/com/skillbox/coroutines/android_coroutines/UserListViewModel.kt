@@ -29,6 +29,7 @@ class UserListViewModel : ViewModel() {
                 userListLiveData.postValue(users)
             } catch (t: Throwable) {
                 userListLiveData.postValue(emptyList())
+
             } finally {
                 isLoadingLiveData.postValue(false)
             }

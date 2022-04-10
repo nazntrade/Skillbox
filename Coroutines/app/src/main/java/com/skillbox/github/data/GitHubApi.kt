@@ -11,13 +11,13 @@ interface GitHubApi {
     fun getDataCurrentUser(): Call<CurrentUser>
 
     @GET("repositories")
-    suspend fun getOpenRepositories(): Call<List<Repositories>>
+    fun getOpenRepositories(): Call<List<Repositories>>
 
     @GET("user/starred/{owner}/{repo}")
     fun checkStar(
         @Path("owner") owner: String,
         @Path("repo") repo: String
-    ): Call<String>
+    ): Call<Boolean>
 
     @PUT("user/starred/{owner}/{repo}")
     fun giveStar(

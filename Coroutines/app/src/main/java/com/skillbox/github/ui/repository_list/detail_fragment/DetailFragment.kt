@@ -8,12 +8,16 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.skillbox.github.R
 import com.skillbox.github.databinding.FragmentDetailBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val viewModel: DetailFragmentViewModel by viewModels()
     private lateinit var binding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     private var haveStar = false
     private var error = ""
@@ -34,47 +38,49 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.starImageView.setOnClickListener {
             if (!haveStar) {
                 viewModel.giveStarViewModel(owner, repo)
-                observeHaveStar()
+//                observeHaveStar()
                 binding.starImageView.load(R.drawable.star_full)
-                observeOnFailure()
+//                observeOnFailure()
             } else {
                 viewModel.takeAwayStarViewModel(owner, repo)
-                observeHaveStar()
+//                observeHaveStar()
                 binding.starImageView.load(R.drawable.star_empty)
-                observeOnFailure()
+//                observeOnFailure()
             }
         }
     }
 
-    private fun observeHaveStar() {
-        viewModel.haveStarFromViewModel.observe(viewLifecycleOwner) {
-            haveStar = it
-        }
-    }
+//    private fun observeHaveStar() {
+//        viewModel.haveStarFromViewModel.observe(viewLifecycleOwner) {
+//            haveStar = it
+//        }
+//    }
 
-    private fun observeOnFailure() {
-        viewModel.onFailureFromViewModel.observe(viewLifecycleOwner) { it ->
-            onFailure = it
-            if (onFailure) {
-                viewModel.errorFromViewModel.observe(viewLifecycleOwner) {
-                    error = it
-                }
-                toastErrors(error)
-            }
-        }
-    }
+//    private fun observeOnFailure() {
+//        viewModel.onFailureFromViewModel.observe(viewLifecycleOwner) { it ->
+//            onFailure = it
+//            if (onFailure) {
+//                viewModel.errorFromViewModel.observe(viewLifecycleOwner) {
+//                    error = it
+//                }
+//                toastErrors(error)
+//            }
+//        }
+//    }
 
     private fun checkStar(owner: String, repo: String) {
-        viewModel.checkStarViewModel(owner, repo)
-        viewModel.haveStarFromViewModel.observe(viewLifecycleOwner) {
-            haveStar = it
-            if (haveStar) {
-                binding.starImageView.load(R.drawable.star_full)
-            } else {
-                binding.starImageView.load(R.drawable.star_empty)
+        coroutineScope.launch {
+            viewModel.checkStarViewModel(owner, repo)
+            viewModel.haveStarFromViewModel.observe(viewLifecycleOwner) {
+                haveStar = it
+                if (haveStar) {
+                    binding.starImageView.load(R.drawable.star_full)
+                } else {
+                    binding.starImageView.load(R.drawable.star_empty)
+                }
             }
         }
-        observeOnFailure()
+//        observeOnFailure()
     }
 
     private fun showInfoCurrentRepo() {

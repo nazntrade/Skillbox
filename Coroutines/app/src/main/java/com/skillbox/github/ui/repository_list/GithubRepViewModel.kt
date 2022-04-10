@@ -43,7 +43,7 @@ class GithubRepViewModel : ViewModel() {
         }
     }
 
-    //this only for practice. in all other cases use viewModelScope. she cancels everything
+    //this only for practice. in all other cases use standard 'viewModelScope'. it will cancel everything
     // yield() + override fun onCleared() {} = will cancel coroutines
     override fun onCleared() {
         super.onCleared()

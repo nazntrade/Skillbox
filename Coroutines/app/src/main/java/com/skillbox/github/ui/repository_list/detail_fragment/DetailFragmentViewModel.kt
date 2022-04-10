@@ -1,9 +1,11 @@
 package com.skillbox.github.ui.repository_list.detail_fragment
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.delay
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class DetailFragmentViewModel : ViewModel() {
 
@@ -23,22 +25,31 @@ class DetailFragmentViewModel : ViewModel() {
 
     fun giveStarViewModel(owner: String, repo: String) {
         repository.giveStarRepository(owner, repo)
-        updateLifeDates()
+//        updateAllLifeData()
     }
 
     fun takeAwayStarViewModel(owner: String, repo: String) {
         repository.takeAwayStarRepository(owner, repo)
-        updateLifeDates()
+//        updateAllLifeData()
     }
 
-    fun checkStarViewModel(owner: String, repo: String) {
-        repository.checkStarRepository(owner, repo)
-        updateLifeDates()
+    fun checkStarViewModel(owner: String, repo: String){
+        viewModelScope.launch {
+            try {
+                val haveStar = repository.checkStarRepository(owner, repo)
+                haveStarLiveData.postValue(haveStar)
+                Log.d("aaaa","${repository.haveStarFromRepository}")
+
+            } catch (t: Throwable) {
+//                errorLiveData.postValue(repository.errorFromRepository)
+            }finally {
+            }
+        }
     }
 
-    private fun updateLifeDates() {
-        haveStarLiveData.postValue(repository.haveStarFromRepository)
-        errorLiveData.postValue(repository.errorFromRepository)
-        onFailureLiveData.postValue(repository.onFailureFromRepository)
-    }
+//    private fun updateAllLifeData() {
+//        haveStarLiveData.postValue(repository.haveStarFromRepository)
+////        errorLiveData.postValue(repository.errorFromRepository)
+////        onFailureLiveData.postValue(repository.onFailureFromRepository)
+//    }
 }
