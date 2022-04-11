@@ -6,4 +6,6 @@
     <string name="auth_canceled">Authentication failed</string>
     <string name="current_avatar_contentDescription">this is avatar</string>
     <string name="descriptionStarImage">image_star</string>
+    <string name="avatar_follower">avatar follower</string>
+    <string name="followers">Followers:</string>
 </resources>

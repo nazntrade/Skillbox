@@ -1,6 +1,7 @@
 package com.skillbox.github.data
 
 import com.skillbox.github.ui.current_user.CurrentUser
+import com.skillbox.github.ui.current_user.UserFollowing
 import com.skillbox.github.ui.repository_list.Repositories
 import retrofit2.Call
 import retrofit2.http.*
@@ -8,7 +9,10 @@ import retrofit2.http.*
 interface GitHubApi {
 
     @GET("user")
-    fun getDataCurrentUser(): Call<CurrentUser>
+    suspend fun getDataCurrentUser(): CurrentUser
+
+    @GET("user/following")
+    suspend fun getFollowing(): List<UserFollowing>
 
     @GET("repositories")
     fun getOpenRepositories(): Call<List<Repositories>>
@@ -23,17 +27,11 @@ interface GitHubApi {
     suspend fun giveStar(
         @Path("owner") owner: String,
         @Path("repo") repo: String
-    ): Boolean
+    )
 
     @DELETE("user/starred/{owner}/{repo}")
     suspend fun takeAwayStar(
         @Path("owner") owner: String,
         @Path("repo") repo: String
-    ): Boolean
-
-    @GET("users/{username}/starred")
-    fun getStaredRepositories(
-        @Path("username") username: String
-    ): Call<List<Repositories>>
-
+    )
 }

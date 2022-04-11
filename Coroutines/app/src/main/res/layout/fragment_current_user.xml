@@ -24,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/white"
             android:layout_marginStart="30dp"
+            android:textColor="@color/white"
             android:textSize="40sp"
             tools:text="@tools:sample/first_names" />
 
@@ -35,27 +35,46 @@
         android:id="@+id/currentUserIdTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:padding="20dp"
         tools:text="@tools:sample/us_phones" />
 
     <TextView
         android:id="@+id/currentUserNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:padding="20dp"
         tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/currentUserLocationTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:padding="20dp"
         tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColor="@color/colorAccent"
+
+        android:textSize="20sp"
+        android:text="@string/followers"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/followersListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:itemCount="3"
+        tools:listitem="@layout/fragment_item_followers"/>
 
 </LinearLayout>

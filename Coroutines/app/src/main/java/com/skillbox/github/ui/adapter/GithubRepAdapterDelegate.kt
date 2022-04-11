@@ -1,4 +1,4 @@
-package com.skillbox.github.ui.repository_list.adapter
+package com.skillbox.github.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

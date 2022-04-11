@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/currentUserFragment"
         tools:layout="@layout/fragment_current_user"
-        android:name="com.skillbox.github.ui.current_user.CurrentUserFragment"
+        android:name="com.skillbox.github.ui.current_user.CurrentUserAndFollowersFragment"
         android:label="CurrentUserFragment" />
     <fragment
         android:id="@+id/repositoryListFragment"

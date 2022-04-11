@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.github.R
 import com.skillbox.github.databinding.FragmentRepositoryListBinding
-import com.skillbox.github.ui.repository_list.adapter.GithubRepAdapter
+import com.skillbox.github.ui.adapter.GithubRepAdapter
 import com.skillbox.github.utils.autoCleared
 
 class GithubRepMainFragment : Fragment(R.layout.fragment_repository_list) {

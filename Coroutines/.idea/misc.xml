@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SkillBox/android_basic/Coroutines/app/src/main/res/layout/fragment_current_user.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/SkillBox/android_basic/Coroutines/app/src/main/res/layout/fragment_item_followers.xml" value="0.19166666666666668" />
+        <entry key="..\:/Android/SkillBox/android_basic/Coroutines/app/src/main/res/layout/fragment_item_repositories.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android/SkillBox/android_basic/Coroutines/app/src/main/res/layout/fragment_repository_list.xml" value="0.20833333333333334" />
         <entry key="..\:/Android/SkillBox/android_basic/JsonAndRetrofit/Retrofit/app/src/main/res/drawable/star.xml" value="0.1" />
         <entry key="..\:/Android/SkillBox/android_basic/JsonAndRetrofit/Retrofit/app/src/main/res/drawable/starEmpty.xml" value="0.1" />
         <entry key="..\:/Android/SkillBox/android_basic/JsonAndRetrofit/Retrofit/app/src/main/res/drawable/star_empty.xml" value="0.1655" />
