@@ -23,6 +23,6 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:layout_marginStart="30dp"
-        tools:text="@tools:sample/first_names"/>
+        tools:text="@tools:sample/first_names" />
 
 </LinearLayout>
