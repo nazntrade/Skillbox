@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 
-// add Nazentsev
+// add My
 //как в уроке это использовать нельзя. лезет ошибка сборки нового класса
 //id 'androidx.navigation.safeargs.kotlin'
 //нужно
@@ -51,7 +51,7 @@ android {
     androidExtensions {
         experimental = true
     }
-    //new Nazentsev
+    //new my
     buildFeatures {
         viewBinding true
     }
@@ -87,7 +87,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
 
     //Moshi
-
     implementation "com.squareup.moshi:moshi:1.13.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"

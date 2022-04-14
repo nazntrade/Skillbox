@@ -36,7 +36,7 @@ class CurrentUserAndFollowersFragment : Fragment(R.layout.fragment_current_user)
             addItemDecoration(
                 DividerItemDecoration(
                     requireContext(),
-                    DividerItemDecoration.VERTICAL
+                    DividerItemDecoration.HORIZONTAL
                 )
             )
         }
