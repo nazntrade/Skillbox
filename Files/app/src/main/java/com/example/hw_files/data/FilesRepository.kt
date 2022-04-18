@@ -10,7 +10,6 @@ import java.util.*
 class FilesRepository(
 
 ) {
-
     //https://gitlab.skillbox.ru/learning_materials/android_basic/-/raw/master/README.md
     suspend fun downloadFile(link: String, requireContext: Context) {
         withContext(Dispatchers.IO) {
@@ -30,7 +29,7 @@ class FilesRepository(
         }
     }
 
-    private fun getFileName(url: String): String {
+    fun getFileName(url: String): String {
         require(url.isNotEmpty()) { "Url can not be empty" }
         val fileName: String?
         val i = url.lastIndexOf('/')

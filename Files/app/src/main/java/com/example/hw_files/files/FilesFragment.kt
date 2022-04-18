@@ -2,6 +2,8 @@ package com.example.hw_files.files
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.hw_files.R
@@ -23,5 +25,15 @@ class FilesFragment : Fragment(R.layout.fragment_file) {
         binding.downloadButton.setOnClickListener {
             viewModel.downloadFile(binding.editTextField.text.toString(), requireContext())
         }
+        viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileDownload)
+        viewModel.messageName.observe(viewLifecycleOwner) {
+            Toast.makeText(context, "File: $it has been downloaded", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun doWhileDownload(isLoading: Boolean) {
+        binding.editTextField.isEnabled = isLoading.not()
+        binding.downloadButton.isEnabled = isLoading.not()
+        binding.progressBar.isGone = isLoading.not()
     }
 }
