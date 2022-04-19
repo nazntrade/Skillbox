@@ -7,24 +7,39 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.*
 
-class FilesRepository(
+class FilesRepository {
 
-) {
+    var fileExists = false
+
     //https://gitlab.skillbox.ru/learning_materials/android_basic/-/raw/master/README.md
     suspend fun downloadFile(link: String, requireContext: Context) {
         withContext(Dispatchers.IO) {
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
             val createdAt = Date()
             val timestamp = createdAt.time
-            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
             val myNewFolder = requireContext.getExternalFilesDir("myNewFolder")
-            val myNewFile = File(myNewFolder, "${timestamp}_${getFileName(link)}")
-            myNewFile.outputStream().use { fileOutputStream ->
-                Networking.api
-                    .getFile(link)
-                    .byteStream()
-                    .use { inputStream ->
-                        inputStream.copyTo(fileOutputStream)
+            val myNewFileName = "${timestamp}_${getFileName(link)}"
+            val myNewFile = File(myNewFolder, myNewFileName)
+            val sharedPreferences =
+                requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            if (sharedPreferences.contains(link)) {
+                fileExists = true
+            } else {
+                try {
+                    myNewFile.outputStream().use { fileOutputStream ->
+                        Networking.api
+                            .getFile(link)
+                            .byteStream()
+                            .use { inputStream ->
+                                inputStream.copyTo(fileOutputStream)
+                            }
                     }
+                    sharedPreferences.edit()
+                        .putString(link, myNewFileName)
+                        .apply()
+                } catch (t: Throwable) {
+                    myNewFile.delete()
+                }
             }
         }
     }
@@ -39,5 +54,9 @@ class FilesRepository(
         } else {
             throw IllegalArgumentException("Url is not valid, url: $url") //or change on more smart
         }
+    }
+
+    companion object {
+        private const val SHARED_PREFS_NAME = "skillbox_shared_pref"
     }
 }

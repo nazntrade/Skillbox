@@ -2,7 +2,6 @@ package com.skillbox.data
 
 import android.content.Context
 import androidx.datastore.DataStore
-import androidx.datastore.createDataStore
 import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.datastore.preferences.edit

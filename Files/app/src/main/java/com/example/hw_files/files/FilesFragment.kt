@@ -19,16 +19,23 @@ class FilesFragment : Fragment(R.layout.fragment_file) {
         binding = FragmentFileBinding.bind(view)
 
         downloadFile()
+        bindViewModel()
     }
 
     private fun downloadFile() {
         binding.downloadButton.setOnClickListener {
             viewModel.downloadFile(binding.editTextField.text.toString(), requireContext())
         }
+    }
+
+    private fun bindViewModel() {
         viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileDownload)
         viewModel.messageName.observe(viewLifecycleOwner) {
             Toast.makeText(context, "File: $it has been downloaded", Toast.LENGTH_LONG).show()
         }
+//        viewModel.fileExists.observe(viewLifecycleOwner) {
+//            Toast.makeText(context, "File already exists", Toast.LENGTH_LONG).show()
+//        }
     }
 
     private fun doWhileDownload(isLoading: Boolean) {

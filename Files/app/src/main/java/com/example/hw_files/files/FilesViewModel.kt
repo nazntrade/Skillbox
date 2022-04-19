@@ -20,12 +20,18 @@ class FilesViewModel : ViewModel() {
     val messageName: LiveData<String>
         get() = messageNameLiveData
 
+    private val fileExistsLiveData = MutableLiveData<Boolean>()
+    val fileExists: LiveData<Boolean>
+        get() = fileExistsLiveData
+
     fun downloadFile(link: String, requireContext: Context) {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
             try {
                 repository.downloadFile(link, requireContext)
-                messageNameLiveData.postValue(repository.getFileName(link))
+                    //херня с уведомлениями
+                messageNameLiveData.postValue(repository.getFileName(link))// тут не верно. не нужно выводить сообщ, есля я ничего не делал
+                fileExistsLiveData.postValue(repository.fileExists)
             } catch (t: Throwable) {
 
             } finally {
