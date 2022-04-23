@@ -1,6 +1,7 @@
 package com.example.hw_files.files
 
 import android.content.Context
+import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,26 +17,30 @@ class FilesViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
-    private val messageNameLiveData = MutableLiveData<String>()
-    val messageName: LiveData<String>
-        get() = messageNameLiveData
+    private val fileExistsOrDownloadedLiveData = MutableLiveData<String>()
+    val fileExistsOrDownloaded: LiveData<String>
+        get() = fileExistsOrDownloadedLiveData
 
-    private val fileExistsLiveData = MutableLiveData<Boolean>()
-    val fileExists: LiveData<Boolean>
-        get() = fileExistsLiveData
+    fun downloadAssetsFiles(requireContext: Context, resources: Resources){
+        viewModelScope.launch {
+            try {
+                repository.downloadAssetsFiles(requireContext, resources)
+            }catch (t: Throwable) {
+
+            }
+        }
+    }
 
     fun downloadFile(link: String, requireContext: Context) {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
             try {
                 repository.downloadFile(link, requireContext)
-                    //херня с уведомлениями
-                messageNameLiveData.postValue(repository.getFileName(link))// тут не верно. не нужно выводить сообщ, есля я ничего не делал
-                fileExistsLiveData.postValue(repository.fileExists)
             } catch (t: Throwable) {
 
             } finally {
                 isLoadingLiveData.postValue(false)
+                fileExistsOrDownloadedLiveData.postValue(repository.fileExistsOrDownloaded)
             }
         }
     }
