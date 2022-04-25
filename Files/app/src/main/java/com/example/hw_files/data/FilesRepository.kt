@@ -14,19 +14,29 @@ class FilesRepository {
 
     var fileExistsOrDownloaded = ""
     private lateinit var myNewFile: File
+    private lateinit var sharedPreferences: SharedPreferences
 
     suspend fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
         withContext(Dispatchers.IO) {
             kotlin.runCatching {
-                Log.d("startApp: ", "first time")
+                if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
+                sharedPreferences =
+                    requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
                 try {
-                    val assetsLinks = resources.assets.open("AutoDownloadLink.txt")
-                        .bufferedReader()
-                        .use {
-                            it.readLines()
-                        }
+                    val firstRun = sharedPreferences.getBoolean("firstRun", true)
+                    if (firstRun) {
+                        Log.d("startApp: ", "first time")
+                        val assetsLinks = resources.assets.open("AutoDownloadLink.txt")
+                            .bufferedReader()
+                            .use {
+                                it.readLines()
+                            }
 
-                    assetsLinks.map { link -> downloadFile(link, requireContext) }
+                        assetsLinks.map { link -> downloadFile(link, requireContext) }
+                        sharedPreferences.edit()
+                            .putBoolean("firstRun", false)
+                            .apply()
+                    }
                 } catch (t: Throwable) {
 
                 }
@@ -36,8 +46,6 @@ class FilesRepository {
 
     //https://gitlab.skillbox.ru/learning_materials/android_basic/-/raw/master/README.md
     suspend fun downloadFile(link: String, requireContext: Context) {
-        val sharedPreferences: SharedPreferences =
-            requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         withContext(Dispatchers.IO) {
             if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
             val createdAt = Date()

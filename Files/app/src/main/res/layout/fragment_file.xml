@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="@string/enter_something"/>
+        android:hint="@string/enter_something" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:text="@string/download"/>
+        android:text="@string/download" />
 
     <Button
         android:id="@+id/soundButton"
@@ -31,6 +31,6 @@
         android:layout_margin="20dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/play_sound"/>
+        android:text="@string/play_sound" />
 
 </LinearLayout>

@@ -21,11 +21,11 @@ class FilesViewModel : ViewModel() {
     val fileExistsOrDownloaded: LiveData<String>
         get() = fileExistsOrDownloadedLiveData
 
-    fun downloadAssetsFiles(requireContext: Context, resources: Resources){
+    fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
         viewModelScope.launch {
             try {
                 repository.downloadAssetsFiles(requireContext, resources)
-            }catch (t: Throwable) {
+            } catch (t: Throwable) {
 
             }
         }

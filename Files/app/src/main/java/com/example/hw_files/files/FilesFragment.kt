@@ -1,5 +1,6 @@
 package com.example.hw_files.files
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -21,6 +22,13 @@ class FilesFragment : Fragment(R.layout.fragment_file) {
         downloadFile()
         bindViewModel()
         downloadAssetsFiles()
+        playSounds()
+    }
+
+    private fun playSounds() {
+        binding.soundButton.setOnClickListener {
+            MediaPlayer.create(requireContext(), R.raw.wagner).start()
+        }
     }
 
     private fun downloadAssetsFiles() {
@@ -29,7 +37,9 @@ class FilesFragment : Fragment(R.layout.fragment_file) {
 
     private fun downloadFile() {
         binding.downloadButton.setOnClickListener {
-            viewModel.downloadFile(binding.editTextField.text.toString(), requireContext())
+            if (binding.editTextField.text.isNotEmpty()) {
+                viewModel.downloadFile(binding.editTextField.text.toString(), requireContext())
+            }
         }
     }
 
@@ -37,6 +47,7 @@ class FilesFragment : Fragment(R.layout.fragment_file) {
         viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileDownload)
         viewModel.fileExistsOrDownloaded.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            MediaPlayer.create(requireContext(), R.raw.retro_game_notification).start()
         }
     }
 

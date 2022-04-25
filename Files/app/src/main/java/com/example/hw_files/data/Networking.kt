@@ -20,5 +20,5 @@ object Networking {
         .build()
 
     val api: Api
-    get() = retrofit.create()
+        get() = retrofit.create()
 }

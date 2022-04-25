@@ -3,10 +3,10 @@ package com.example.hw_files
 import android.app.Application
 import android.os.StrictMode
 
-class TestApplication: Application() {
+class TestApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(
                 StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()
