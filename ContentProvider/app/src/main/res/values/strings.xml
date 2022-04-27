@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">hw_ContentProvider</string>
+    <string name="contacts">Contacts</string>
+    <string name="button_add_person_description">button add person description</string>
+    <string name="first_name">First name</string>
+    <string name="second_name">Second Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
+    <string name="add">add</string>
+    <string name="add_new_contact">Add new contact</string>
+</resources>

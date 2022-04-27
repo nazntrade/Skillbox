@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        tools:layout="@layout/fragment_main"
+        android:name="com.example.hw_contentprovider.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_contactsFragment"
+            app:destination="@id/contactsListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_contactsListFragment"
+            app:destination="@id/contactsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newContactFragment"
+        tools:layout="@layout/fragment_new_contact"
+        android:name="com.example.hw_contentprovider.contacts.NewContactFragment"
+        android:label="NewContactFragment" >
+        <action
+            android:id="@+id/action_newContactFragment_to_contactsFragment"
+            app:destination="@id/contactsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailContactInfoFragment"
+        tools:layout="@layout/fragment_detail_info"
+        android:name="com.example.hw_contentprovider.contacts.detail.DetailContactInfoFragment"
+        android:label="DetailContactInfoFragment" />
+    <fragment
+        android:id="@+id/contactsListFragment"
+        tools:layout="@layout/fragment_contacts_list"
+        android:name="com.example.hw_contentprovider.contacts.ContactsListFragment"
+        android:label="ContactsListFragment" >
+        <action
+            android:id="@+id/action_contactsListFragment_to_newContactFragment"
+            app:destination="@id/newContactFragment" />
+        <action
+            android:id="@+id/action_contactsListFragment_to_detailContactInfoFragment"
+            app:destination="@id/detailContactInfoFragment" />
+    </fragment>
+</navigation>
