@@ -3,10 +3,8 @@ package com.example.hw_contentprovider.contacts.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hw_contentprovider.R
 import com.example.hw_contentprovider.contacts.data.Contact
 import com.example.hw_contentprovider.databinding.FragmentItemContactBinding
-import com.example.hw_contentprovider.utils.inflate
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 
 class ContactAdapterDelegate(
@@ -51,5 +49,4 @@ class ContactAdapterDelegate(
             contactName.text = contact.firstName
         }
     }
-
 }
