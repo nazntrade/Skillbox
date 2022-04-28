@@ -6,11 +6,69 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/avatarImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/UserPhotoImageView"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/contact_scheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/avajpg" />
+        android:contentDescription="@string/detail_image_description" />
+
+    <TextView
+        android:id="@+id/detailFirstNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/UserPhotoImageView"
+        app:layout_constraintTop_toBottomOf="@+id/UserPhotoImageView"
+        tools:text="@tools:sample/first_names" />
+
+    <TextView
+        android:id="@+id/detailSecondNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/detailFirstNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailFirstNameTextView"
+        tools:text="@tools:sample/last_names" />
+
+    <TextView
+        android:id="@+id/detailPhonesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/detailSecondNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailSecondNameTextView"
+        tools:text="@tools:sample/us_phones" />
+
+    <TextView
+        android:id="@+id/detailEmailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/detailPhonesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailPhonesTextView"
+        tools:text="asdfasd@gmail.com" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/delete_contact_button"
+        app:layout_constraintEnd_toEndOf="@+id/UserPhotoImageView"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/UserPhotoImageView"
+        app:layout_constraintTop_toBottomOf="@+id/detailEmailTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,4 @@
+package com.example.hw_contentprovider.utils
 import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,16 +9,6 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-
-
-
-fun Fragment.toast(text: String) {
-    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-}
-
-fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
-    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
-}
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -38,3 +29,5 @@ fun Context.hideKeyboardFrom(view: View) {
 fun <T: Fragment> T.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
+
+

@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/newContactFragment"
         tools:layout="@layout/fragment_new_contact"
-        android:name="com.example.hw_contentprovider.contacts.NewContactFragment"
+        android:name="com.example.hw_contentprovider.contacts.new_contact.NewContactFragment"
         android:label="NewContactFragment" >
         <action
             android:id="@+id/action_newContactFragment_to_contactsFragment"
@@ -29,8 +29,12 @@
     <fragment
         android:id="@+id/detailContactInfoFragment"
         tools:layout="@layout/fragment_detail_info"
-        android:name="com.example.hw_contentprovider.contacts.detail.DetailContactInfoFragment"
-        android:label="DetailContactInfoFragment" />
+        android:name="com.example.hw_contentprovider.contacts.detailInfo.DetailContactInfoFragment"
+        android:label="DetailContactInfoFragment" >
+        <argument
+            android:name="currentContact"
+            app:argType="com.example.hw_contentprovider.contacts.data.Contact" />
+    </fragment>
     <fragment
         android:id="@+id/contactsListFragment"
         tools:layout="@layout/fragment_contacts_list"

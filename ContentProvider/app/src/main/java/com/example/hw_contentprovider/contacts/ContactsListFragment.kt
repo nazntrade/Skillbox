@@ -10,6 +10,8 @@ import com.example.hw_contentprovider.databinding.FragmentContactsListBinding
 class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
 
     lateinit var binding: FragmentContactsListBinding
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentContactsListBinding.bind(view)

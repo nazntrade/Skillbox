@@ -1,5 +1,8 @@
 implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 
+    private var githubRepAdapter: GithubRepAdapter by autoCleared()  // ?????autoCleared
+
+
     private fun initList() {
         petShopAdapter = PetShopAdapter(
             { id -> navigate(id) },

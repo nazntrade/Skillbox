@@ -1,4 +1,4 @@
-package com.example.hw_contentprovider.contacts
+package com.example.hw_contentprovider.contacts.new_contact
 
 import android.os.Bundle
 import android.view.View
