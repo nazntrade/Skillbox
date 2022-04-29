@@ -1,0 +1,31 @@
+    //Permissions
+// https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
+    implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
+
+
+    private fun getPermissionAndLoadContactList() {
+        Handler(Looper.getMainLooper()).post {
+            constructPermissionsRequest(
+                Manifest.permission.READ_CONTACTS,
+                onShowRationale = ::onContactPermissionShowRationale,
+                onPermissionDenied = ::onContactPermissionDenied,
+                onNeverAskAgain = ::onContactPermissionNeverAskAgain,
+                requiresPermission = { viewModel.loadList() }
+            )
+                .launch()
+        }
+    }
+
+///////////////////////////////////////////////////////////////////////////////////
+
+    private fun onContactPermissionDenied() {
+        toast(R.string.contact_add_permission_denied)
+    }
+
+    private fun onContactPermissionShowRationale(request: PermissionRequest) {
+        request.proceed()
+    }
+
+    private fun onContactPermissionNeverAskAgain() {
+        toast(R.string.contact_add_permission_never_ask_again)
+    }

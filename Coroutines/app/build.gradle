@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
+    id 'kotlin-kapt' //for moshi
 
 // add My
 //как в уроке это использовать нельзя. лезет ошибка сборки нового класса

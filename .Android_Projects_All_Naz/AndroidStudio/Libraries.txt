@@ -15,6 +15,10 @@ Date and Time
 
 PermissionsDispatcher 
    https://github.com/permissions-dispatcher/PermissionsDispatcher
+    //Permissions
+// https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
+    implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
+
 
 
 //Adapterdelegate

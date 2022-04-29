@@ -10,4 +10,8 @@
     <string name="add_new_contact">Add new contact</string>
     <string name="delete_contact_button">Delete contact</string>
     <string name="detail_image_description">user\'s photo</string>
+    <string name="contact_add_permission_denied">Contact record access denied</string>
+    <string name="contact_add_permission_never_ask_again">Allow access to read contacts in the app settings</string>
+    <string name="toolBarContacts">Contacts</string>
+
 </resources>

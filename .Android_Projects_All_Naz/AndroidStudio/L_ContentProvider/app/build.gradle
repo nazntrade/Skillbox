@@ -71,6 +71,11 @@ dependencies {
 
     //Permissions
     implementation "org.permissionsdispatcher:permissionsdispatcher-ktx:1.0.1"
+    //у меня это не работало. зато заработало это...
+    //Permissions
+// https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
+//    implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
+
 
     //Datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"

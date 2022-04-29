@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
 
     //for @Parcelize
     id 'kotlin-parcelize'
@@ -52,4 +53,21 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.hannesdorfmann:adapterdelegates4:4.3.2'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1-native-mt"
+
+    //Permissions
+// https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
+    implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
+
+    //Datastore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //Moshi
+    implementation "com.squareup.moshi:moshi:1.13.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
+
+
 }
