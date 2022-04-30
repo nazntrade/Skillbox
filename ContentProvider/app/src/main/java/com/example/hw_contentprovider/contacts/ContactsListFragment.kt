@@ -7,7 +7,9 @@ import android.os.Looper
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_contentprovider.R
 import com.example.hw_contentprovider.contacts.adapter.ContactListAdapter
 import com.example.hw_contentprovider.contacts.data.Contact
@@ -48,7 +50,7 @@ class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
     }
 
     private fun bindViewModel() {
-
+        viewModel.contactListLiveData.observe(viewLifecycleOwner) {contactListAdapter.items = it}
     }
 
     private fun initToolBar() {
@@ -59,6 +61,7 @@ class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
         contactListAdapter = ContactListAdapter { contact: Contact -> navigate(contact) }
         with(binding.contactListRecyclerView) {
             adapter = contactListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
     }

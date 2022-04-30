@@ -34,7 +34,7 @@ class ContactAdapterDelegate(
         onContactClick: (contact: Contact) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private val contactName = binding.contactNameTextView
+        private val contactNameView = binding.contactNameTextView
 
         private var currentContact: Contact? = null
 
@@ -46,7 +46,7 @@ class ContactAdapterDelegate(
 
         fun bind(contact: Contact) {
             currentContact = contact
-            contactName.text = contact.firstName
+            contactNameView.text = contact.name
         }
     }
 }

@@ -58,7 +58,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1-native-mt"
 
     //Permissions
-// https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
+    // https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
     implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
 
     //Datastore

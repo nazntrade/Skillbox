@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.hw_contentprovider.R
 import com.example.hw_contentprovider.databinding.FragmentDetailInfoBinding
-import com.example.hw_contentprovider.databinding.FragmentItemContactBinding
 
 class DetailContactInfoFragment : Fragment(R.layout.fragment_detail_info) {
 
@@ -17,10 +16,8 @@ class DetailContactInfoFragment : Fragment(R.layout.fragment_detail_info) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailInfoBinding.bind(requireView())
 
-        binding.detailFirstNameTextView.text = args.currentContact.firstName
-        binding.detailSecondNameTextView.text = args.currentContact.secondName
+        binding.detailNameTextView.text = args.currentContact.name
         binding.detailPhonesTextView.text = args.currentContact.phones.joinToString("\n")
-        binding.detailEmailTextView.text = args.currentContact.email
+        binding.detailEmailTextView.text = args.currentContact.email.joinToString  ("\n")
     }
-
 }
