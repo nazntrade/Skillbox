@@ -1,14 +1,32 @@
 package com.example.hw_contentprovider.contacts.data
 
+import android.content.ContentProviderOperation
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
+import androidx.navigation.fragment.findNavController
+import com.example.hw_contentprovider.contacts.detailInfo.DetailContactInfoFragmentArgs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ContactsListRepository(
+class ContactsRepository(
     private val context: Context
 ) {
+
+    suspend fun deleteContact(args: DetailContactInfoFragmentArgs) {
+        withContext(Dispatchers.IO){
+            val ops = ArrayList<ContentProviderOperation>()
+            ops.add(
+                ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI)
+                    .withSelection(
+                        ContactsContract.RawContacts._ID + "=?",
+                        arrayOf(java.lang.String.valueOf(args.currentContact.id))
+                    )
+                    .build()
+            )
+            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
+        }
+    }
 
     suspend fun getAllContacts(): List<Contact> = withContext(Dispatchers.IO) {
         context.contentResolver.query(

@@ -1,4 +1,4 @@
-package com.example.hw_contentprovider.contacts
+package com.example.hw_contentprovider.contacts.contactsList
 
 import android.Manifest
 import android.os.Bundle

@@ -19,7 +19,7 @@ class NewContactFragment : Fragment(R.layout.fragment_new_contact) {
 
     private fun navigateToContacts() {
         binding.addButton.setOnClickListener {
-            findNavController().navigate(NewContactFragmentDirections.actionNewContactFragmentToContactsFragment())
+
         }
     }
 }

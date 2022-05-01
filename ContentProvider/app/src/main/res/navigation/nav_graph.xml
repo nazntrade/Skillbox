@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/contactsListFragment"
         tools:layout="@layout/fragment_contacts_list"
-        android:name="com.example.hw_contentprovider.contacts.ContactsListFragment"
+        android:name="com.example.hw_contentprovider.contacts.contactsList.ContactsListFragment"
         android:label="ContactsListFragment" >
         <action
             android:id="@+id/action_contactsListFragment_to_newContactFragment"
