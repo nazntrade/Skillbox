@@ -40,7 +40,7 @@
         tools:text="@tools:sample/us_phones" />
 
     <TextView
-        android:id="@+id/detailEmailTextView"
+        android:id="@+id/detail_emails_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -52,7 +52,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -61,5 +61,5 @@
         app:layout_constraintEnd_toEndOf="@+id/UserPhotoImageView"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="@+id/UserPhotoImageView"
-        app:layout_constraintTop_toBottomOf="@+id/detailEmailTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_emails_text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,5 +8,5 @@ data class Contact(
     val id: Long,
     val name: String,
     val phones: List<String>,
-    val email: List<String>
+    val emails: List<String>
 ) : Parcelable

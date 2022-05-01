@@ -7,7 +7,6 @@ import android.os.Looper
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_contentprovider.R
@@ -82,7 +81,7 @@ class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
     }
 
     private fun onContactPermissionDenied() {
-        toast(R.string.contact_add_permission_denied)
+        toast(R.string.contact_permission_denied)
     }
 
     private fun onContactPermissionShowRationale(request: PermissionRequest) {
@@ -90,7 +89,7 @@ class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
     }
 
     private fun onContactPermissionNeverAskAgain() {
-        toast(R.string.contact_add_permission_never_ask_again)
+        toast(R.string.contact_permission_never_ask_again)
     }
 
 }

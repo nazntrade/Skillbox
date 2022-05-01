@@ -21,11 +21,7 @@
         android:id="@+id/newContactFragment"
         tools:layout="@layout/fragment_new_contact"
         android:name="com.example.hw_contentprovider.contacts.new_contact.NewContactFragment"
-        android:label="NewContactFragment" >
-        <action
-            android:id="@+id/action_newContactFragment_to_contactsFragment"
-            app:destination="@id/contactsListFragment" />
-    </fragment>
+        android:label="NewContactFragment" />
     <fragment
         android:id="@+id/detailContactInfoFragment"
         tools:layout="@layout/fragment_detail_info"
