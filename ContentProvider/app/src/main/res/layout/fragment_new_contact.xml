@@ -9,47 +9,57 @@
     <ImageView
         android:id="@+id/AvatarImageView"
         android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:src="@drawable/contact" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="@string/add_new_contact"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="30sp"
-        android:layout_height="wrap_content"/>
+        android:text="@string/add_new_contact"
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/addFirstNameEditText"
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:hint="@string/first_name" />
+
     <EditText
         android:id="@+id/addSecondNameEditText"
         android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:hint="@string/second_name" />
+
     <EditText
         android:id="@+id/addPhoneEditText"
         android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
+        android:inputType="phone"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:hint="@string/phone_number" />
+
     <EditText
         android:id="@+id/addEmailEditText"
         android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
+        android:inputType="textEmailAddress"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:hint="@string/email" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/fields_required_to_be_filled_in"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/add"
-        android:layout_height="wrap_content"/>
+        android:text="@string/add" />
 
 </LinearLayout>

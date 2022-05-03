@@ -1,4 +1,8 @@
     //Permissions
+//Manifest
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+
 // https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
     implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
 

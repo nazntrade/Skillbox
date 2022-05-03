@@ -2,9 +2,9 @@
     <string name="app_name">hw_ContentProvider</string>
     <string name="contacts">Contacts</string>
     <string name="button_add_person_description">button add person description</string>
-    <string name="first_name">First name</string>
+    <string name="first_name">First name*</string>
     <string name="second_name">Second Name</string>
-    <string name="phone_number">Phone number</string>
+    <string name="phone_number">Phone number*</string>
     <string name="email">Email</string>
     <string name="add">add</string>
     <string name="add_new_contact">Add new contact</string>
@@ -13,5 +13,8 @@
     <string name="contact_permission_denied">Contact access denied</string>
     <string name="contact_permission_never_ask_again">Allow access to contacts in the app settings</string>
     <string name="toolBarContacts">Contacts</string>
+    <string name="fields_required_to_be_filled_in">* - Fields required to be filled in.</string>
+    <string name="the_form_was_filled_out_incorrectly">The form was filled out incorrectly.</string>
+    <string name="contact_add_save_error">Error adding contact.</string>
 
 </resources>
