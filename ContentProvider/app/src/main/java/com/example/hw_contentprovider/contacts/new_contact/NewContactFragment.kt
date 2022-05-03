@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.navigateUp
 import com.example.hw_contentprovider.R
 import com.example.hw_contentprovider.databinding.FragmentNewContactBinding
+import com.example.hw_contentprovider.utils.hideKeyboardAndClearFocus
 import com.example.hw_contentprovider.utils.toast
 import permissions.dispatcher.PermissionRequest
 import permissions.dispatcher.ktx.constructPermissionsRequest
@@ -59,11 +60,10 @@ class NewContactFragment : Fragment(R.layout.fragment_new_contact) {
         toast(R.string.contact_permission_never_ask_again)
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        if(isRemoving) {
-//            requireActivity().hideKeyboardAndClearFocus()
-//        }
-//    }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        if(isRemoving) {
+            requireActivity().hideKeyboardAndClearFocus()
+        }
+    }
 }

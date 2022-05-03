@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         tools:layout="@layout/fragment_main"
-        android:name="com.example.hw_contentprovider.MainFragment"
+        android:name="com.example.hw_contentprovider.common.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_contactsFragment"
