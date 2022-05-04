@@ -40,23 +40,40 @@ class SkillboxContentProvider: ContentProvider() {
         sortOrder: String?
     ): Cursor? {
         return when(uriMatcher.match(uri)) {
-            TYPE_USERS -> getAllUsersCursor()
+//            TYPE_USERS -> getAllUsersCursor()
+            TYPE_COURSES -> getAllCoursesCursor()
+//            TYPE_USER_ID -> getUser()
+            TYPE_COURSE_ID -> getCourse()  //t14.18  Continue ...
             else -> null
         }
     }
 
-    private fun getAllUsersCursor(): Cursor {
-        val allUsers = userPrefs.all.mapNotNull {
-            val userJsonString = it.value as String
-            userAdapter.fromJson(userJsonString)
+//    private fun getAllUsersCursor(): Cursor {
+//        val allUsers = userPrefs.all.mapNotNull {
+//            val userJsonString = it.value as String
+//            userAdapter.fromJson(userJsonString)
+//        }
+//
+//        val cursor = MatrixCursor(arrayOf(COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_AGE))
+//        allUsers.forEach {
+//            cursor.newRow()
+//                .add(it.id)
+//                .add(it.name)
+//                .add(it.age)
+//        }
+//        return cursor
+//    }
+    private fun getAllCoursesCursor(): Cursor {
+        val allCourses = coursesPrefs.all.mapNotNull {
+            val courseJsonString = it.value as String
+            courseAdapter.fromJson(courseJsonString)
         }
 
-        val cursor = MatrixCursor(arrayOf(COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_AGE))
-        allUsers.forEach {
+        val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
+        allCourses.forEach {
             cursor.newRow()
                 .add(it.id)
-                .add(it.name)
-                .add(it.age)
+                .add(it.title)
         }
         return cursor
     }
@@ -69,6 +86,7 @@ class SkillboxContentProvider: ContentProvider() {
         values ?: return null
         return when(uriMatcher.match(uri)) {
             TYPE_USERS -> saveUser(values)
+            TYPE_COURSES -> saveCourse(values)
             else -> null
         }
     }
@@ -87,6 +105,8 @@ class SkillboxContentProvider: ContentProvider() {
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
         return when(uriMatcher.match(uri)) {
             TYPE_USER_ID -> deleteUser(uri)
+            TYPE_COURSE_ID -> deleteCourse(uri)
+            TYPE_COURSES -> deleteAllCourses(uri)
             else -> 0
         }
     }
@@ -112,6 +132,7 @@ class SkillboxContentProvider: ContentProvider() {
         values ?: return 0
         return when(uriMatcher.match(uri)) {
             TYPE_USER_ID -> updateUser(uri, values)
+            TYPE_COURSE_ID -> updateCourse(uri, values)
             else -> 0
         }
     }
@@ -139,5 +160,8 @@ class SkillboxContentProvider: ContentProvider() {
         private const val COLUMN_USER_ID = "id"
         private const val COLUMN_USER_NAME = "name"
         private const val COLUMN_USER_AGE = "age"
+
+        private const val COLUMN_COURSE_ID = "id"
+        private const val COLUMN_COURSE_TITLE = "name"
     }
 }
