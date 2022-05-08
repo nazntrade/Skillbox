@@ -43,7 +43,7 @@ class SkillboxContentProvider: ContentProvider() {
 //            TYPE_USERS -> getAllUsersCursor()
             TYPE_COURSES -> getAllCoursesCursor()
 //            TYPE_USER_ID -> getUser()
-            TYPE_COURSE_ID -> getCourse()  //t14.18  Continue ...
+            TYPE_COURSE_ID -> getCourseById()  //t14.18  Continue ...
             else -> null
         }
     }
@@ -76,6 +76,11 @@ class SkillboxContentProvider: ContentProvider() {
                 .add(it.title)
         }
         return cursor
+    }
+
+    private fun getCourseById(uri: Uri): Int {
+        val userId = uri.lastPathSegment?.toLongOrNull()?.toString() ?: return 0
+        val courseById =
     }
 
     override fun getType(uri: Uri): String? {
