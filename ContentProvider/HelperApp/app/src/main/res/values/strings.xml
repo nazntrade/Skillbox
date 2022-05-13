@@ -2,7 +2,7 @@
     <string name="app_name">ClientContProvider</string>
     <string name="courses">courses beckerBox</string>
     <string name="button_add_person_description">button add person description</string>
-    <string name="first_name">First name*</string>
+    <string name="title">Title*</string>
     <string name="second_name">Second Name</string>
     <string name="phone_number">Phone number*</string>
     <string name="email">Email</string>

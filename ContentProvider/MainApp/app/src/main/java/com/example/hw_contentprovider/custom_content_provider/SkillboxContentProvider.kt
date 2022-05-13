@@ -223,6 +223,6 @@ class SkillboxContentProvider : ContentProvider() {
         private const val COLUMN_USER_AGE = "age"
 
         private const val COLUMN_COURSE_ID = "id"
-        private const val COLUMN_COURSE_TITLE = "name"
+        private const val COLUMN_COURSE_TITLE = "title"
     }
 }

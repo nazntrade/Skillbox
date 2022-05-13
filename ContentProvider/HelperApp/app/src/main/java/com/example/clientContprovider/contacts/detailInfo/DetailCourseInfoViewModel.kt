@@ -16,7 +16,7 @@ class DetailCourseInfoViewModel(application: Application) : AndroidViewModel(app
     val deleteSuccessLiveData: LiveData<Unit>
         get() = deleteSuccessLiveEvent
 
-    fun deleteCourseViewModel(args: DetailContactInfoFragmentArgs) {
+    fun deleteCourseViewModel(args: DetailCourseInfoFragmentArgs) {
         viewModelScope.launch {
             try {
                 repository.deleteCourse(args)

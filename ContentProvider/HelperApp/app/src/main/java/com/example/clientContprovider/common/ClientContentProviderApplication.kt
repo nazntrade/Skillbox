@@ -4,7 +4,7 @@ import android.app.Application
 import android.os.StrictMode
 import com.example.clientContprovider.BuildConfig
 
-class ContentProviderApplication : Application() {
+class ClientContentProviderApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

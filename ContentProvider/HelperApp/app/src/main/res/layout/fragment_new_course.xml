@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="@string/first_name" />
+        android:hint="@string/title" />
 
     <TextView
         android:layout_width="wrap_content"

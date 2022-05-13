@@ -21,7 +21,7 @@ class DetailCourseInfoFragment : Fragment(R.layout.fragment_detail_info) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailInfoBinding.bind(requireView())
 
-        binding.detailNameTextView.text = args.currentContact.title
+        binding.detailNameTextView.text = args.currentCourse.title
 
         bindViewModel()
     }
