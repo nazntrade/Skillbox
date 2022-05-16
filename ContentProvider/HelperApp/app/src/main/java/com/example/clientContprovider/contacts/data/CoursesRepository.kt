@@ -1,6 +1,7 @@
 package com.example.clientContprovider.contacts.data
 
 import android.content.ContentProviderOperation
+import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -47,7 +48,6 @@ class CoursesRepository(
         return list
     }
 
-
     suspend fun saveCourse(title: String) {
         withContext(Dispatchers.IO) {
             if (title.isBlank()) {
@@ -64,42 +64,11 @@ class CoursesRepository(
         }
     }
 
-//    private fun saveRowCourse(): Long {
-//        val uri = context.contentResolver.insert(
-//            COURSE_URI,
-//            ContentValues()
-//        )
-//        Log.d("saveRawCourse", "uri = $uri")
-//        return uri?.lastPathSegment?.toLongOrNull() ?: error("cannot save raw course")
-//    }
-//
-//    private fun saveCourse(courseId: Long, title: String) {
-//        val contentValues = ContentValues().apply {
-//            put(ContactsContract.Data.RAW_CONTACT_ID, courseId)
-//            put(
-//                ContactsContract.Data.MIMETYPE,
-//                ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
-//            )
-//            put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-//                title
-//            )
-//        }
-//        context.contentResolver.insert(ContactsContract.Data.CONTENT_URI, contentValues)
-//    }
-
     suspend fun deleteCourse(args: DetailCourseInfoFragmentArgs) {
-//        withContext(Dispatchers.IO) {
-//            val ops = ArrayList<ContentProviderOperation>()
-//            ops.add(
-//                ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI)
-//                    .withSelection(
-//                        ContactsContract.RawContacts._ID + "=?",
-//                        arrayOf(java.lang.String.valueOf(args.currentContact.id))
-//                    )
-//                    .build()
-//            )
-//            context.contentResolver.applyBatch(ContactsContract.AUTHORITY, ops)
-//        }
+        withContext(Dispatchers.IO) {
+            val uri = ContentUris.withAppendedId(COURSE_URI, args.currentCourse.id)
+            val cnt = context.contentResolver.delete(uri, null, null)
+            Log.d("deleteCourse", "delete, count = $cnt")
+        }
     }
-
 }
