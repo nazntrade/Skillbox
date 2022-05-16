@@ -26,6 +26,7 @@
         <provider
             android:authorities="${applicationId}.provider"
             android:exported="true"
+            android:grantUriPermissions="true"
             android:name=".custom_content_provider.SkillboxContentProvider" />
 
         <provider

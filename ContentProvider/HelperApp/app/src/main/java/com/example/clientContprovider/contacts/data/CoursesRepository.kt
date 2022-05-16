@@ -16,7 +16,7 @@ class CoursesRepository(
 ) {
 
     private val COURSE_URI: Uri = Uri
-        .parse("com.example.hw_contentprovider.provider/courses")
+        .parse("content://com.example.hw_contentprovider.provider/courses")
     private val COLUMN_COURSE_ID = "id"
     private val COLUMN_COURSE_TITLE = "title"
 
@@ -50,15 +50,17 @@ class CoursesRepository(
 
     suspend fun saveCourse(title: String) {
         withContext(Dispatchers.IO) {
-            if (title.isBlank()
-            ) {
+            if (title.isBlank()) {
                 throw IncorrectFormException()
+            } else {
+                val id = (1 .. 999999999).random()
+                val cv = ContentValues().apply {
+                    put(COLUMN_COURSE_ID, id)
+                    put(COLUMN_COURSE_TITLE, title)
+                }
+                val newUri = context.contentResolver.insert(COURSE_URI, cv)
+                Log.d("saveCourse", "insert, result Uri : " + newUri.toString())
             }
-            val cv = ContentValues()
-            val id = (1 .. 999999999).random()
-            cv.put(COLUMN_COURSE_ID, id)
-            cv.put(COLUMN_COURSE_TITLE, title)
-            context.contentResolver.insert(COURSE_URI, cv)
         }
     }
 
