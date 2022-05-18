@@ -2,6 +2,7 @@ package com.example.clientContprovider.contacts.courseList
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,10 +28,32 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
         initList()
         initToolBar()
         bindViewModel()
+        deleteAll()
+    }
+
+    private fun deleteAll() {
+        binding.deleteAllCourseButton.setOnClickListener {
+            context?.let {
+                AlertDialog.Builder(it)
+                    .setTitle("Delete all")
+                    .setMessage("Are you sure you want to delete all courses?")
+                    .setPositiveButton(
+                        android.R.string.yes
+                    ) { _, _ ->
+                        viewModel.deleteAllCourses()
+                    }
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show()
+            }
+        }
     }
 
     private fun bindViewModel() {
-        viewModel.courseListLiveData.observe(viewLifecycleOwner) {courseListAdapter.items = it}
+        viewModel.courseListLiveData.observe(viewLifecycleOwner) { courseListAdapter.items = it }
+        viewModel.deleteSuccessLiveData.observe(viewLifecycleOwner) {
+            courseListAdapter.items = emptyList()
+        }
     }
 
     private fun initToolBar() {
@@ -48,7 +71,9 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
 
     private fun navigate(course: Course) {
         val action =
-            CourseListFragmentDirections.actionContactsListFragmentToDetailContactInfoFragment(course)
+            CourseListFragmentDirections.actionContactsListFragmentToDetailContactInfoFragment(
+                course
+            )
         findNavController().navigate(action)
     }
 

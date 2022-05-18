@@ -18,7 +18,9 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
-        tools:itemCount="9"
+        app:layout_constraintVertical_bias="1.0"
+        tools:itemCount="20"
+        tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/fragment_item_contact" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,6 +40,8 @@
         android:text="@string/delete_all"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/dark_red"
         android:contentDescription="@string/button_add_person_description"
         android:tooltipText="deleteAll"
         app:layout_constraintBottom_toBottomOf="parent"

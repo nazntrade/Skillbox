@@ -166,13 +166,8 @@ class SkillboxContentProvider : ContentProvider() {
 
     //New!
     private fun deleteAllCourses(): Int {
-        val allCourses = coursesPrefs.all.toString()
-        return if (coursesPrefs.contains(allCourses)) {
-            coursesPrefs.edit()
-                .remove(allCourses)
-                .commit()
-            1
-        } else 0
+        coursesPrefs.edit().clear().commit()
+        return 1
     }
 
     override fun update(

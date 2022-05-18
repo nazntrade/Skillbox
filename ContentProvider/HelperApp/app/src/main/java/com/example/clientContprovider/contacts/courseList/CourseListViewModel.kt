@@ -7,23 +7,38 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.contacts.data.CoursesRepository
+import com.example.clientContprovider.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class CourseListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val contactsListRepository = CoursesRepository(application)
+    private val coursesRepository = CoursesRepository(application)
 
-    private val contactsListMutableLiveData = MutableLiveData<List<Course>>()
+    private val courseListMutableLiveData = MutableLiveData<List<Course>>()
     val courseListLiveData: LiveData<List<Course>>
-        get() = contactsListMutableLiveData
+        get() = courseListMutableLiveData
+
+    private val deleteSuccessLiveEvent = SingleLiveEvent<Unit>()
+    val deleteSuccessLiveData: LiveData<Unit>
+        get() = deleteSuccessLiveEvent
 
 
-    fun loadList(){
+    fun loadList() {
         viewModelScope.launch {
             try {
-                contactsListMutableLiveData.postValue(contactsListRepository.getAllCourses())
-            }catch (t: Throwable) {
-                contactsListMutableLiveData.postValue(emptyList())
+                courseListMutableLiveData.postValue(coursesRepository.getAllCourses())
+            } catch (t: Throwable) {
+                courseListMutableLiveData.postValue(emptyList())
+            }
+        }
+    }
+
+    fun deleteAllCourses() {
+        viewModelScope.launch {
+            try {
+                coursesRepository.deleteAllCourse()
+                deleteSuccessLiveEvent.postValue(Unit)
+            } catch (t: Throwable) {
             }
         }
     }

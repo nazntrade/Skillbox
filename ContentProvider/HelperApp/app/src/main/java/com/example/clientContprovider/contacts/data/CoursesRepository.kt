@@ -1,12 +1,11 @@
 package com.example.clientContprovider.contacts.data
 
-import android.content.ContentProviderOperation
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import android.provider.ContactsContract
+import android.os.Build
 import android.util.Log
 import com.example.clientContprovider.contacts.detailInfo.DetailCourseInfoFragmentArgs
 import kotlinx.coroutines.Dispatchers
@@ -53,7 +52,7 @@ class CoursesRepository(
             if (title.isBlank()) {
                 throw IncorrectFormException()
             } else {
-                val id = (1 .. 999999999).random()
+                val id = (1..999999999).random()
                 val cv = ContentValues().apply {
                     put(COLUMN_COURSE_ID, id)
                     put(COLUMN_COURSE_TITLE, title)
@@ -67,8 +66,13 @@ class CoursesRepository(
     suspend fun deleteCourse(args: DetailCourseInfoFragmentArgs) {
         withContext(Dispatchers.IO) {
             val uri = ContentUris.withAppendedId(COURSE_URI, args.currentCourse.id)
-            val cnt = context.contentResolver.delete(uri, null, null)
-            Log.d("deleteCourse", "delete, count = $cnt")
+            context.contentResolver.delete(uri, null, null)
+        }
+    }
+
+    suspend fun deleteAllCourse() {
+        withContext(Dispatchers.IO) {
+            context.contentResolver.delete(COURSE_URI, null, null)
         }
     }
 }
