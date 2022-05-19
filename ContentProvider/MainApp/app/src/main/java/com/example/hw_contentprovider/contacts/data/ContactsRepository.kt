@@ -47,7 +47,8 @@ class ContactsRepository(
                 ContactsContract.Data.MIMETYPE,
                 ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE
             )
-            put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+            put(
+                ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
                 "$firstName $secondName"
             )
         }

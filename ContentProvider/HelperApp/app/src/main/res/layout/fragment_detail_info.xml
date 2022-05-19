@@ -19,6 +19,17 @@
         tools:text="@tools:sample/first_names" />
 
     <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/edit"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+
+    <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

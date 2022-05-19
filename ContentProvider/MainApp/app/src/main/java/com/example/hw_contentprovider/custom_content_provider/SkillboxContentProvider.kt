@@ -8,6 +8,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import android.util.Log
 import com.example.hw_contentprovider.BuildConfig
 import com.squareup.moshi.Moshi
 
@@ -27,6 +28,7 @@ class SkillboxContentProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
+        Log.d("onCreateApplication", "Start SkillboxContentProvider on ${Thread.currentThread()}")
         userPrefs = context!!.getSharedPreferences("user_shared_prefs", Context.MODE_PRIVATE)
         coursesPrefs = context!!.getSharedPreferences("course_shared_prefs", Context.MODE_PRIVATE)
         return true
@@ -80,7 +82,7 @@ class SkillboxContentProvider : ContentProvider() {
         return cursor
     }
 
-    //New!
+    //New! ///////////////////////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!
     private fun getCourseById(uri: Uri): Cursor {
         val courseId = uri.lastPathSegment?.toLongOrNull()?.toString()
         val courseJsonString = coursesPrefs.all.entries.first { entry ->

@@ -2,6 +2,7 @@ package com.example.clientContprovider.contacts.courseList
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -54,6 +55,9 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
         viewModel.deleteSuccessLiveData.observe(viewLifecycleOwner) {
             courseListAdapter.items = emptyList()
         }
+//        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+//            Toast.makeText(context, it, Toast.LENGTH_LONG ).show()
+//        }
     }
 
     private fun initToolBar() {

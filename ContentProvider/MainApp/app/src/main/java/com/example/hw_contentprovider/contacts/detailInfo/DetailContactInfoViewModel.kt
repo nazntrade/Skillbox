@@ -21,7 +21,8 @@ class DetailContactInfoViewModel(application: Application) : AndroidViewModel(ap
             try {
                 repository.deleteContact(args)
                 deleteSuccessLiveEvent.postValue(Unit)
-            }catch (t: Throwable){}
+            } catch (t: Throwable) {
+            }
         }
     }
 }

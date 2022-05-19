@@ -15,11 +15,6 @@ class CoursesRepository(
     private val context: Context
 ) {
 
-    private val COURSE_URI: Uri = Uri
-        .parse("content://com.example.hw_contentprovider.provider/courses")
-    private val COLUMN_COURSE_ID = "id"
-    private val COLUMN_COURSE_TITLE = "title"
-
     suspend fun getAllCourses(): List<Course> = withContext(Dispatchers.IO) {
         context.contentResolver.query(
             COURSE_URI,
@@ -74,5 +69,25 @@ class CoursesRepository(
         withContext(Dispatchers.IO) {
             context.contentResolver.delete(COURSE_URI, null, null)
         }
+    }
+
+    suspend fun editCourse(editedCourse: Course): String {
+        val newTitle = editedCourse.title
+        withContext(Dispatchers.IO) {
+            val cv = ContentValues().apply {
+                put(COLUMN_COURSE_ID, editedCourse.id)
+                put(COLUMN_COURSE_TITLE, newTitle)
+            }
+            val uri = ContentUris.withAppendedId(COURSE_URI, editedCourse.id)
+            context.contentResolver.update(uri, cv, null, null)
+        }
+        return newTitle
+    }
+
+    companion object {
+        private val COURSE_URI =
+            Uri.parse("content://com.example.hw_contentprovider.provider/courses")
+        private const val COLUMN_COURSE_ID = "id"
+        private const val COLUMN_COURSE_TITLE = "title"
     }
 }

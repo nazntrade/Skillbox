@@ -49,7 +49,7 @@ class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
     }
 
     private fun bindViewModel() {
-        viewModel.contactListLiveData.observe(viewLifecycleOwner) {contactListAdapter.items = it}
+        viewModel.contactListLiveData.observe(viewLifecycleOwner) { contactListAdapter.items = it }
     }
 
     private fun initToolBar() {

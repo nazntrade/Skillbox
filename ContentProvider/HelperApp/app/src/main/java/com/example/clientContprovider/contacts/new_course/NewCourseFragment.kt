@@ -31,7 +31,7 @@ class NewCourseFragment : Fragment(R.layout.fragment_new_course) {
         viewModel.saveSuccessViewModel.observe(viewLifecycleOwner) { findNavController().popBackStack() }
         viewModel.saveErrorViewModel.observe(viewLifecycleOwner) { toast(it) }
     }
-
+/////////////////////////////////////////////////////////////////////////////////////
     override fun onDestroy() {
         super.onDestroy()
         if (isRemoving) {

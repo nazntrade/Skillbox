@@ -9,6 +9,8 @@ import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.contacts.data.CoursesRepository
 import com.example.clientContprovider.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
+import java.lang.Error
+import java.lang.RuntimeException
 
 class CourseListViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,6 +24,9 @@ class CourseListViewModel(application: Application) : AndroidViewModel(applicati
     val deleteSuccessLiveData: LiveData<Unit>
         get() = deleteSuccessLiveEvent
 
+//    private val errorLiveEvent = SingleLiveEvent<String>()
+//    val errorLiveData: LiveData<String>
+//        get() = errorLiveEvent
 
     fun loadList() {
         viewModelScope.launch {

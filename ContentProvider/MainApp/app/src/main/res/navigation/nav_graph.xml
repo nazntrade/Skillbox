@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         tools:layout="@layout/fragment_main"
         android:name="com.example.hw_contentprovider.common.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_contactsFragment"
             app:destination="@id/contactsListFragment" />
@@ -26,7 +26,7 @@
         android:id="@+id/detailContactInfoFragment"
         tools:layout="@layout/fragment_detail_info"
         android:name="com.example.hw_contentprovider.contacts.detailInfo.DetailContactInfoFragment"
-        android:label="DetailContactInfoFragment" >
+        android:label="DetailContactInfoFragment">
         <argument
             android:name="currentContact"
             app:argType="com.example.hw_contentprovider.contacts.data.Contact" />
@@ -35,7 +35,7 @@
         android:id="@+id/contactsListFragment"
         tools:layout="@layout/fragment_contacts_list"
         android:name="com.example.hw_contentprovider.contacts.contactsList.ContactsListFragment"
-        android:label="ContactsListFragment" >
+        android:label="ContactsListFragment">
         <action
             android:id="@+id/action_contactsListFragment_to_newContactFragment"
             app:destination="@id/newContactFragment" />

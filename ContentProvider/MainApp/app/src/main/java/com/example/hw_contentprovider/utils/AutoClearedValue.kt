@@ -1,4 +1,5 @@
 package com.example.hw_contentprovider.utils
+
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver

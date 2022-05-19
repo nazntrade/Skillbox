@@ -17,5 +17,6 @@
     <string name="the_form_was_filled_out_incorrectly">The form was filled out incorrectly.</string>
     <string name="contact_add_save_error">Error adding contact.</string>
     <string name="delete_all">delete all</string>
+    <string name="edit">edit</string>
 
 </resources>

@@ -35,11 +35,10 @@ class NewCourseViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun showError(t: Throwable) {
         saveErrorLiveEvent.postValue(
-            when(t) {
+            when (t) {
                 is IncorrectFormException -> R.string.the_form_was_filled_out_incorrectly
                 else -> R.string.contact_add_save_error
             }
         )
     }
-
 }

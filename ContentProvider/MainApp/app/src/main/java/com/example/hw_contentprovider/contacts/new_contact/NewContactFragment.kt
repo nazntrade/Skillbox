@@ -62,7 +62,7 @@ class NewContactFragment : Fragment(R.layout.fragment_new_contact) {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(isRemoving) {
+        if (isRemoving) {
             requireActivity().hideKeyboardAndClearFocus()
         }
     }

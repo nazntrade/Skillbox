@@ -18,11 +18,11 @@ class ContactsListViewModel(application: Application) : AndroidViewModel(applica
         get() = contactsListMutableLiveData
 
 
-    fun loadList(){
+    fun loadList() {
         viewModelScope.launch {
             try {
                 contactsListMutableLiveData.postValue(contactsListRepository.getAllContacts())
-            }catch (t: Throwable) {
+            } catch (t: Throwable) {
                 contactsListMutableLiveData.postValue(emptyList())
             }
         }

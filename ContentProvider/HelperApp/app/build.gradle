@@ -59,7 +59,7 @@ dependencies {
 
     //Permissions
     // https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
-    implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
+    implementation("com.github.permissions-dispatcher:ktx:1.1.4")
 
     //Datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
