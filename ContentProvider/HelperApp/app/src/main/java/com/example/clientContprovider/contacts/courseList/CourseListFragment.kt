@@ -13,6 +13,7 @@ import com.example.clientContprovider.contacts.adapter.CourseListAdapter
 import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.databinding.FragmentContactsListBinding
 import com.example.clientContprovider.utils.autoCleared
+import java.util.concurrent.CancellationException
 
 class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
 
@@ -24,12 +25,24 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentContactsListBinding.bind(view)
 
-        viewModel.loadList()
+        loadList()
         navigateToAddNewCourse()
         initList()
         initToolBar()
         bindViewModel()
         deleteAll()
+    }
+
+    private fun loadList() {
+        try {
+            viewModel.loadList()
+        }catch (e: Throwable){
+            Toast.makeText(
+                context?.applicationContext,
+                "$e",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun deleteAll() {

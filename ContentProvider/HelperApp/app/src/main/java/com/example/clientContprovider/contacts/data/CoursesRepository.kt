@@ -7,9 +7,12 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import com.example.clientContprovider.contacts.detailInfo.DetailCourseInfoFragmentArgs
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Error
 
 class CoursesRepository(
     private val context: Context
