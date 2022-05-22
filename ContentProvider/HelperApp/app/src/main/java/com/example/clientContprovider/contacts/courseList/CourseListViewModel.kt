@@ -1,16 +1,17 @@
 package com.example.clientContprovider.contacts.courseList
 
 import android.app.Application
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.contacts.data.CoursesRepository
 import com.example.clientContprovider.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
+import java.text.ParseException
 
 
 class CourseListViewModel(application: Application) : AndroidViewModel(application) {
@@ -34,9 +35,7 @@ class CourseListViewModel(application: Application) : AndroidViewModel(applicati
             try {
                 courseListMutableLiveData.postValue(coursesRepository.getAllCourses())
                 errorLiveEvent.postValue(IllegalStateException().message)
-//                Log.e("error6", "${().message}")
-
-            } catch (t: Throwable) {
+            } catch (t: IllegalStateException) {
                 courseListMutableLiveData.postValue(emptyList())
             }
         }

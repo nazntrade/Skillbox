@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.core.app.ApplicationProvider
 import com.example.clientContprovider.R
 import com.example.clientContprovider.contacts.adapter.CourseListAdapter
 import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.databinding.FragmentContactsListBinding
 import com.example.clientContprovider.utils.autoCleared
 import java.lang.IllegalStateException
+import java.text.ParseException
 import java.util.concurrent.CancellationException
 
 class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
@@ -36,7 +38,18 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
     }
 
     private fun loadList() {
-        viewModel.loadList()
+//        try {
+            viewModel.loadList()
+
+//        } catch (e: ParseException) {
+//            Toast.makeText(
+//                context,
+//                "Please key in the correct input",
+//                Toast.LENGTH_LONG
+//            ).show()
+//
+//            e.printStackTrace()
+//        }
     }
 
     private fun deleteAll() {
@@ -62,9 +75,9 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
         viewModel.deleteSuccessLiveData.observe(viewLifecycleOwner) {
             courseListAdapter.items = emptyList()
         }
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Toast.makeText(context, it, Toast.LENGTH_LONG ).show()
-        }
+//        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+//            Toast.makeText(context, it, Toast.LENGTH_LONG ).show()
+//        }
     }
 
     private fun initToolBar() {
