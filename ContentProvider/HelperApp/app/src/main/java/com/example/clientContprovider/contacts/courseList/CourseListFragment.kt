@@ -1,6 +1,7 @@
 package com.example.clientContprovider.contacts.courseList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,6 +14,7 @@ import com.example.clientContprovider.contacts.adapter.CourseListAdapter
 import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.databinding.FragmentContactsListBinding
 import com.example.clientContprovider.utils.autoCleared
+import java.lang.IllegalStateException
 import java.util.concurrent.CancellationException
 
 class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
@@ -34,15 +36,7 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
     }
 
     private fun loadList() {
-        try {
-            viewModel.loadList()
-        }catch (e: Throwable){
-            Toast.makeText(
-                context?.applicationContext,
-                "$e",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+        viewModel.loadList()
     }
 
     private fun deleteAll() {
@@ -68,9 +62,9 @@ class CourseListFragment : Fragment(R.layout.fragment_contacts_list) {
         viewModel.deleteSuccessLiveData.observe(viewLifecycleOwner) {
             courseListAdapter.items = emptyList()
         }
-//        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-//            Toast.makeText(context, it, Toast.LENGTH_LONG ).show()
-//        }
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(context, it, Toast.LENGTH_LONG ).show()
+        }
     }
 
     private fun initToolBar() {

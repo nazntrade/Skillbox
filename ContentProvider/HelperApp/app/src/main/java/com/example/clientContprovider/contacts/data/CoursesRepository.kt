@@ -13,6 +13,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Error
+import java.lang.IllegalStateException
 
 class CoursesRepository(
     private val context: Context
