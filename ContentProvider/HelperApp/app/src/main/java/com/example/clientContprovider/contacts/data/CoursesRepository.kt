@@ -5,19 +5,16 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import com.example.clientContprovider.contacts.detailInfo.DetailCourseInfoFragmentArgs
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Error
-import java.lang.IllegalStateException
 
 class CoursesRepository(
     private val context: Context
 ) {
+
+    var errorMessage: String = ""
 
     suspend fun getAllCourses(): List<Course> = withContext(Dispatchers.IO) {
         context.contentResolver.query(
@@ -26,9 +23,14 @@ class CoursesRepository(
             null,
             null,
             null
-        )?.use {
-            getCoursesFromCursor(it)
-        }.orEmpty()
+        ).use {
+            if (it != null) {
+                getCoursesFromCursor(it)
+            } else {
+                errorMessage = "Failed to find provider"
+                emptyList()
+            }
+        }
     }
 
     private fun getCoursesFromCursor(cursor: Cursor): List<Course> {
