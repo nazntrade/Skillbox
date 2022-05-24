@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SkillBox/android_basic/ContentProvider/MainApp/app/src/main/res/layout/fragment_share_file.xml" value="0.20833333333333334" />
         <entry key="..\:/Android/SkillBox/android_basic/ContentProvider/app/src/main/res/drawable/add_person.xml" value="0.1185" />
         <entry key="..\:/Android/SkillBox/android_basic/ContentProvider/app/src/main/res/layout/activity_main.xml" value="0.20833333333333334" />
         <entry key="..\:/Android/SkillBox/android_basic/ContentProvider/app/src/main/res/layout/fragment_contacts.xml" value="0.17135416666666667" />

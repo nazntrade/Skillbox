@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_contactsListFragment"
             app:destination="@id/contactsListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_filesShareFragment"
+            app:destination="@id/filesSareFragment" />
     </fragment>
     <fragment
         android:id="@+id/newContactFragment"
@@ -43,4 +46,9 @@
             android:id="@+id/action_contactsListFragment_to_detailContactInfoFragment"
             app:destination="@id/detailContactInfoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/filesSareFragment"
+        tools:layout="@layout/fragment_share_file"
+        android:name="com.example.hw_contentprovider.sharing.files.FilesShareFragment"
+        android:label="FilesShareFragment" />
 </navigation>

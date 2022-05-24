@@ -19,7 +19,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         binding.shareFilesButton.setOnClickListener {
-
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToFilesShareFragment())
         }
     }
 }

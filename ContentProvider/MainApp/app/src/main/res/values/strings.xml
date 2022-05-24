@@ -16,5 +16,8 @@
     <string name="fields_required_to_be_filled_in">* - Fields required to be filled in.</string>
     <string name="the_form_was_filled_out_incorrectly">The form was filled out incorrectly.</string>
     <string name="contact_add_save_error">Error adding contact.</string>
+    <string name="input_some_link">input some link</string>
+    <string name="download">download</string>
+    <string name="share">share</string>
 
 </resources>
