@@ -19,6 +19,7 @@ class FilesShareFragment : Fragment(R.layout.fragment_share_file) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentShareFileBinding.bind(view)
 
+        binding.shareButton.isEnabled = false
         downloadFile()
         bindViewModel()
         downloadAssetsFiles()
@@ -48,6 +49,7 @@ class FilesShareFragment : Fragment(R.layout.fragment_share_file) {
         viewModel.fileExistsOrDownloaded.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             MediaPlayer.create(requireContext(), R.raw.retro_game_notification).start()
+            binding.shareButton.isEnabled = true
         }
     }
 

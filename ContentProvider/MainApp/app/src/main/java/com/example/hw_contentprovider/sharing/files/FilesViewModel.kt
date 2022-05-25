@@ -1,17 +1,15 @@
 package com.example.hw_contentprovider.sharing.files
 
+import android.app.Application
 import android.content.Context
 import android.content.res.Resources
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.hw_contentprovider.sharing.data.FilesRepository
 import kotlinx.coroutines.launch
 
-class FilesViewModel : ViewModel() {
+class FilesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = FilesRepository()
+    private val repository = FilesRepository(application)
 
     private val isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>

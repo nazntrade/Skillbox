@@ -1,16 +1,19 @@
 package com.example.hw_contentprovider.sharing.data
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Environment
 import android.util.Log
+import androidx.core.content.FileProvider
+import com.example.hw_contentprovider.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.*
 
-class FilesRepository {
+class FilesRepository(private val context: Context) {
 
     var fileExistsOrDownloaded = ""
     private lateinit var myNewFile: File
@@ -18,7 +21,23 @@ class FilesRepository {
 
     suspend fun shareFiles() {
         withContext(Dispatchers.IO) {
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
+            if (myNewFile.exists().not()) return@withContext
 
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${BuildConfig.APPLICATION_ID}.file_provider",
+                myNewFile
+            )
+
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_STREAM, uri)
+                type = context.contentResolver.getType(uri)
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            }
+
+            val shareIntent = Intent.createChooser(intent, null)
+            context.startActivity(shareIntent)
         }
     }
 
