@@ -21,7 +21,7 @@ class FilesShareFragment : Fragment(R.layout.fragment_share_file) {
 
         downloadFile()
         bindViewModel()
-//        downloadAssetsFiles() // don't use in this project
+        downloadAssetsFiles()
         shareFiles()
     }
 
@@ -31,10 +31,9 @@ class FilesShareFragment : Fragment(R.layout.fragment_share_file) {
         }
     }
 
-// don't use in this project
-//    private fun downloadAssetsFiles() {
-//        viewModel.downloadAssetsFiles(requireContext(), resources)
-//    }
+    private fun downloadAssetsFiles() {
+        viewModel.downloadAssetsFiles(requireContext(), resources)
+    }
 
     private fun downloadFile() {
         binding.downloadButton.setOnClickListener {

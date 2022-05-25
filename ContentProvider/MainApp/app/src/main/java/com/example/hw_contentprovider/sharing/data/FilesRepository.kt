@@ -22,8 +22,36 @@ class FilesRepository {
         }
     }
 
-    //https://gitlab.skillbox.ru/learning_materials/android_basic/-/raw/master/README.md
-    //https://variety.com/wp-content/uploads/2016/06/silicon-valley-season-3.jpg?w=681&h=383&crop=1&resize=450%2C253
+    suspend fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
+        withContext(Dispatchers.IO) {
+            kotlin.runCatching {
+                if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
+                sharedPreferences =
+                    requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+                try {
+                    val firstRun = sharedPreferences.getBoolean("firstRun", true)
+                    if (firstRun) {
+                        Log.d("startApp: ", "first time")
+                        val assetsLinks = resources.assets.open("AutoDownloadLink.txt")
+                            .bufferedReader()
+                            .use {
+                                it.readLines()
+                            }
+
+                        assetsLinks.map { link -> downloadFile(link, requireContext) }
+                        sharedPreferences.edit()
+                            .putBoolean("firstRun", false)
+                            .apply()
+                    }
+                } catch (t: Throwable) {
+
+                }
+            }
+        }
+    }
+
+    // Link for example
+    //https://assets.entrepreneur.com/slideshow/20160628202933-image02.jpeg
     suspend fun downloadFile(link: String, requireContext: Context) {
         withContext(Dispatchers.IO) {
             if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
@@ -68,35 +96,6 @@ class FilesRepository {
             throw IllegalArgumentException("Url is not valid, url: $url") //or change on more smart
         }
     }
-
-// don't use in this project
-//    suspend fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
-//        withContext(Dispatchers.IO) {
-//            kotlin.runCatching {
-//                if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
-//                sharedPreferences =
-//                    requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-//                try {
-//                    val firstRun = sharedPreferences.getBoolean("firstRun", true)
-//                    if (firstRun) {
-//                        Log.d("startApp: ", "first time")
-//                        val assetsLinks = resources.assets.open("AutoDownloadLink.txt")
-//                            .bufferedReader()
-//                            .use {
-//                                it.readLines()
-//                            }
-//
-//                        assetsLinks.map { link -> downloadFile(link, requireContext) }
-//                        sharedPreferences.edit()
-//                            .putBoolean("firstRun", false)
-//                            .apply()
-//                    }
-//                } catch (t: Throwable) {
-//
-//                }
-//            }
-//        }
-//    }
 
     companion object {
         private const val SHARED_PREFS_NAME = "skillbox_shared_pref"

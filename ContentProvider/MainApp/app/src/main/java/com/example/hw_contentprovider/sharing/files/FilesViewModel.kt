@@ -26,21 +26,18 @@ class FilesViewModel : ViewModel() {
             try {
                 repository.shareFiles()
             }catch (t: Throwable) {
-
             }
         }
     }
 
-// don't use in this project
-//    fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
-//        viewModelScope.launch {
-//            try {
-//                repository.downloadAssetsFiles(requireContext, resources)
-//            } catch (t: Throwable) {
-//
-//            }
-//        }
-//    }
+    fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
+        viewModelScope.launch {
+            try {
+                repository.downloadAssetsFiles(requireContext, resources)
+            } catch (t: Throwable) {
+            }
+        }
+    }
 
     fun downloadFile(link: String, requireContext: Context) {
         isLoadingLiveData.postValue(true)
