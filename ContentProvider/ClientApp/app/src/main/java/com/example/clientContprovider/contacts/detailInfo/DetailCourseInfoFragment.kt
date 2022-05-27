@@ -3,7 +3,6 @@ package com.example.clientContprovider.contacts.detailInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.clientContprovider.R
 import com.example.clientContprovider.contacts.data.Course
 import com.example.clientContprovider.databinding.FragmentDetailInfoBinding
-import com.example.clientContprovider.utils.toast
 import kotlin.getValue
 
 class DetailCourseInfoFragment : Fragment(R.layout.fragment_detail_info) {
@@ -42,9 +40,6 @@ class DetailCourseInfoFragment : Fragment(R.layout.fragment_detail_info) {
         viewModel.updateSuccessLiveData.observe(viewLifecycleOwner) {
             showTitle(it)
         }
-//        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-//            Toast.makeText(context, it, Toast.LENGTH_LONG ).show()
-//        }
     }
 
     private fun editCourse(args: DetailCourseInfoFragmentArgs) {

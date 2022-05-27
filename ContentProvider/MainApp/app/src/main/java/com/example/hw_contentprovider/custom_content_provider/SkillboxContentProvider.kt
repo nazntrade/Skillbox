@@ -119,7 +119,7 @@ class SkillboxContentProvider : ContentProvider() {
         val user = User(id, name, age)
         userPrefs.edit()
             .putString(id.toString(), userAdapter.toJson(user))
-            .commit()
+            .apply()
         return Uri.parse("content://$AUTHORITIES/$PATH_USERS/$id")
     }
 
@@ -130,7 +130,7 @@ class SkillboxContentProvider : ContentProvider() {
         val course = Course(id, title)
         coursesPrefs.edit()
             .putString(id.toString(), courseAdapter.toJson(course))
-            .commit()
+            .apply()
         return Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
     }
 
@@ -148,7 +148,7 @@ class SkillboxContentProvider : ContentProvider() {
         return if (userPrefs.contains(userId)) {
             userPrefs.edit()
                 .remove(userId)
-                .commit()
+                .apply()
             1
         } else {
             0
@@ -161,14 +161,16 @@ class SkillboxContentProvider : ContentProvider() {
         return if (coursesPrefs.contains(courseId)) {
             coursesPrefs.edit()
                 .remove(courseId)
-                .commit()
+                .apply()
             1
         } else 0
     }
 
     //New!
     private fun deleteAllCourses(): Int {
-        coursesPrefs.edit().clear().commit()
+        coursesPrefs.edit()
+            .clear()
+            .apply()
         return 1
     }
 

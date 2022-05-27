@@ -2,6 +2,7 @@ package com.example.hw_contentprovider.sharing.files
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import androidx.lifecycle.*
 import com.example.hw_contentprovider.sharing.data.FilesRepository
@@ -19,20 +20,16 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     val fileExistsOrDownloaded: LiveData<String>
         get() = fileExistsOrDownloadedLiveData
 
-    fun shareFiles() {
-        viewModelScope.launch {
-            try {
-                repository.shareFiles()
-            }catch (t: Throwable) {
-            }
-        }
-    }
+    private val shareIntentLiveData = MutableLiveData<Intent>()
+    val shareIntent: LiveData<Intent>
+        get() = shareIntentLiveData
 
     fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
         viewModelScope.launch {
             try {
                 repository.downloadAssetsFiles(requireContext, resources)
             } catch (t: Throwable) {
+
             }
         }
     }
@@ -47,6 +44,18 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
             } finally {
                 isLoadingLiveData.postValue(false)
                 fileExistsOrDownloadedLiveData.postValue(repository.fileExistsOrDownloaded)
+            }
+        }
+    }
+
+    fun shareFiles() {
+        viewModelScope.launch {
+            try {
+                repository.shareFiles()
+            } catch (t: Throwable) {
+
+            } finally {
+                shareIntentLiveData.postValue(repository.shareIntent)
             }
         }
     }

@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import com.example.hw_contentprovider.R
 import com.example.hw_contentprovider.databinding.FragmentNewContactBinding
 import com.example.hw_contentprovider.utils.hideKeyboardAndClearFocus
@@ -16,7 +15,7 @@ import permissions.dispatcher.ktx.constructPermissionsRequest
 
 class NewContactFragment : Fragment(R.layout.fragment_new_contact) {
 
-    lateinit var binding: FragmentNewContactBinding
+    private lateinit var binding: FragmentNewContactBinding
     private val viewModel: NewContactViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

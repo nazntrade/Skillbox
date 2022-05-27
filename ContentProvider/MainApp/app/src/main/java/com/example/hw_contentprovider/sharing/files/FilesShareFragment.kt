@@ -20,16 +20,10 @@ class FilesShareFragment : Fragment(R.layout.fragment_share_file) {
         binding = FragmentShareFileBinding.bind(view)
 
         binding.shareButton.isEnabled = false
-        downloadFile()
-        bindViewModel()
         downloadAssetsFiles()
+        downloadFile()
         shareFiles()
-    }
-
-    private fun shareFiles() {
-        binding.shareButton.setOnClickListener {
-            viewModel.shareFiles()
-        }
+        bindViewModel()
     }
 
     private fun downloadAssetsFiles() {
@@ -44,12 +38,21 @@ class FilesShareFragment : Fragment(R.layout.fragment_share_file) {
         }
     }
 
+    private fun shareFiles() {
+        binding.shareButton.setOnClickListener {
+            viewModel.shareFiles()
+        }
+    }
+
     private fun bindViewModel() {
         viewModel.isLoading.observe(viewLifecycleOwner, ::doWhileDownload)
         viewModel.fileExistsOrDownloaded.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             MediaPlayer.create(requireContext(), R.raw.retro_game_notification).start()
             binding.shareButton.isEnabled = true
+        }
+        viewModel.shareIntent.observe(viewLifecycleOwner) {
+            startActivity(it)
         }
     }
 

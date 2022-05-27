@@ -21,17 +21,12 @@ class DetailCourseInfoViewModel(application: Application) : AndroidViewModel(app
     val updateSuccessLiveData: LiveData<String>
         get() = updateSuccessLiveEvent
 
-//    private val errorLiveEvent = SingleLiveEvent<String>()
-//    val errorLiveData: LiveData<String>
-//        get() = errorLiveEvent
-
     fun deleteCourseViewModel(args: DetailCourseInfoFragmentArgs) {
         viewModelScope.launch {
             try {
                 repository.deleteCourse(args)
                 deleteSuccessLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
-//                errorLiveEvent.postValue(t.toString())
             }
         }
     }
@@ -42,7 +37,6 @@ class DetailCourseInfoViewModel(application: Application) : AndroidViewModel(app
                 repository.editCourse(editedCourse)
                 updateSuccessLiveEvent.postValue(editedCourse.title)
             } catch (t: Throwable) {
-//                errorLiveEvent.postValue(t.toString())
             }
         }
     }

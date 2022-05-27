@@ -18,28 +18,7 @@ class FilesRepository(private val context: Context) {
     var fileExistsOrDownloaded = ""
     private lateinit var myNewFile: File
     private lateinit var sharedPreferences: SharedPreferences
-
-    suspend fun shareFiles() {
-        withContext(Dispatchers.IO) {
-            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
-            if (myNewFile.exists().not()) return@withContext
-
-            val uri = FileProvider.getUriForFile(
-                context,
-                "${BuildConfig.APPLICATION_ID}.file_provider",
-                myNewFile
-            )
-
-            val intent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_STREAM, uri)
-                type = context.contentResolver.getType(uri)
-                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-            }
-
-            val shareIntent = Intent.createChooser(intent, null)
-            context.startActivity(shareIntent)
-        }
-    }
+    var shareIntent: Intent? = null
 
     suspend fun downloadAssetsFiles(requireContext: Context, resources: Resources) {
         withContext(Dispatchers.IO) {
@@ -63,7 +42,6 @@ class FilesRepository(private val context: Context) {
                             .apply()
                     }
                 } catch (t: Throwable) {
-
                 }
             }
         }
@@ -113,6 +91,28 @@ class FilesRepository(private val context: Context) {
             fileName
         } else {
             throw IllegalArgumentException("Url is not valid, url: $url") //or change on more smart
+        }
+    }
+
+    suspend fun shareFiles() {
+        withContext(Dispatchers.IO) {
+
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
+            if (myNewFile.exists().not()) return@withContext
+
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${BuildConfig.APPLICATION_ID}.file_provider",
+                myNewFile
+            )
+
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_STREAM, uri)
+                type = context.contentResolver.getType(uri)
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            }
+
+            shareIntent = Intent.createChooser(intent, null)
         }
     }
 

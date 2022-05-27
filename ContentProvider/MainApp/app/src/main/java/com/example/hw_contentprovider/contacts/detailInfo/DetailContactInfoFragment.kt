@@ -16,7 +16,6 @@ import permissions.dispatcher.PermissionRequest
 import permissions.dispatcher.ktx.constructPermissionsRequest
 import kotlin.getValue
 
-
 class DetailContactInfoFragment : Fragment(R.layout.fragment_detail_info) {
 
     private val viewModel by viewModels<DetailContactInfoViewModel>()
