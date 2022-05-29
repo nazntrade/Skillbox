@@ -40,7 +40,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files" />
         </provider>
-
     </application>
-
 </manifest>

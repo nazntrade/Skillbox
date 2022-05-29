@@ -5,7 +5,6 @@ import android.os.StrictMode
 import com.example.clientContprovider.BuildConfig
 
 class ClientContentProviderApplication : Application() {
-
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
@@ -20,5 +19,3 @@ class ClientContentProviderApplication : Application() {
         }
     }
 }
-
-
