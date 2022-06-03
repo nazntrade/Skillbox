@@ -91,5 +91,4 @@ class ContactsListFragment : Fragment(R.layout.fragment_contacts_list) {
     private fun onContactPermissionNeverAskAgain() {
         toast(R.string.contact_permission_never_ask_again)
     }
-
 }
