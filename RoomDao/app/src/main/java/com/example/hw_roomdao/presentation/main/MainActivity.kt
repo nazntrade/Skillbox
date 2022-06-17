@@ -1,7 +1,8 @@
-package com.example.hw_roomdao
+package com.example.hw_roomdao.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.hw_roomdao.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
