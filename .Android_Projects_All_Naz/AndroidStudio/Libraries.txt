@@ -19,8 +19,6 @@ PermissionsDispatcher
 // https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
     implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
 
-
-
 //Adapterdelegate
     implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 
