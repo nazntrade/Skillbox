@@ -12,7 +12,7 @@
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contactListRecyclerView"
+        android:id="@+id/chatListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
         tools:listitem="@layout/item_chat_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addNewContactButton"
+        android:id="@+id/addNewChatButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="50dp"
