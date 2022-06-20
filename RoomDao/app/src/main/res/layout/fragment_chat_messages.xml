@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toTopOf="@id/messageEditText"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
         tools:itemCount="4"
-        tools:listitem="@layout/item_chat_list" />
+        tools:listitem="@layout/fragment_item_chat" />
 
     <EditText
         android:id="@+id/messageEditText"

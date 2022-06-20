@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">hw_roomdao</string>
     <string name="toolbar_chat_list_item">Chats</string>
+    <string name="toolbar_contact_list_item">Contacts</string>
 </resources>
