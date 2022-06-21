@@ -12,18 +12,20 @@ import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 class ChatsAdapterDelegate(
     private val onChatClick: (Chat) -> Unit,
     private val onDeleteChat: (Chat) -> Unit
-): AbsListItemAdapterDelegate<Chat, Chat, ChatsAdapterDelegate.Holder>() {
+) : AbsListItemAdapterDelegate<Chat, Chat, ChatsAdapterDelegate.Holder>() {
 
     override fun isForViewType(item: Chat, items: MutableList<Chat>, position: Int): Boolean {
         return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(FragmentItemChatBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ), onChatClick, onDeleteChat)
+        return Holder(
+            FragmentItemChatBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), onChatClick, onDeleteChat
+        )
     }
 
     override fun onBindViewHolder(item: Chat, holder: Holder, payloads: MutableList<Any>) {

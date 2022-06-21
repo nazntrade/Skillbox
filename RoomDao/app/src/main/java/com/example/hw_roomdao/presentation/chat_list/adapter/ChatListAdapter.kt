@@ -7,7 +7,7 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 class ChatListAdapter(
     onUserClick: (Chat) -> Unit,
     onDeleteUser: (Chat) -> Unit
-): AsyncListDifferDelegationAdapter<Chat>(UserDiffUtilCallback()) {
+) : AsyncListDifferDelegationAdapter<Chat>(UserDiffUtilCallback()) {
 
     init {
         delegatesManager.addDelegate(ChatsAdapterDelegate(onUserClick, onDeleteUser))

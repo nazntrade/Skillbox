@@ -3,10 +3,11 @@ package com.example.hw_roomdao.presentation.chat_list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.hw_roomdao.R
 import com.example.hw_roomdao.databinding.FragmentChatListBinding
 
-class ChatListFragment: Fragment(R.layout.fragment_chat_list) {
+class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
 
     private lateinit var binding: FragmentChatListBinding
 
@@ -15,11 +16,16 @@ class ChatListFragment: Fragment(R.layout.fragment_chat_list) {
         binding = FragmentChatListBinding.bind(view)
 
         initToolBar()
-
+        addNewChat()
     }
 
     private fun initToolBar() {
         binding.appBar.toolBar.title = getString(R.string.toolbar_chat_list_item)
     }
 
+    private fun addNewChat() {
+        binding.addNewChatButton.setOnClickListener {
+            findNavController().navigate(ChatListFragmentDirections.actionChatListFragmentToContactListFragment())
+        }
+    }
 }

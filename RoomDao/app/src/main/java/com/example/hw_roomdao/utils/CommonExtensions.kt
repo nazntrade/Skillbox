@@ -1,4 +1,5 @@
 package com.example.hw_roomdao.utils
+
 import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
@@ -26,7 +27,7 @@ fun Context.hideKeyboardFrom(view: View) {
         .hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun <T: Fragment> T.toast(@StringRes message: Int) {
+fun <T : Fragment> T.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 

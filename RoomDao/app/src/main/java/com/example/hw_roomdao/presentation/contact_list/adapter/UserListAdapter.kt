@@ -7,7 +7,7 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 class UserListAdapter(
     onUserClick: (User) -> Unit,
     onDeleteUser: (User) -> Unit
-): AsyncListDifferDelegationAdapter<User>(UserDiffUtilCallback()) {
+) : AsyncListDifferDelegationAdapter<User>(UserDiffUtilCallback()) {
 
     init {
         delegatesManager.addDelegate(UserAdapterDelegate(onUserClick, onDeleteUser))

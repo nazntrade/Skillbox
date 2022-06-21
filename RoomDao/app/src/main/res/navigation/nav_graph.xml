@@ -9,7 +9,7 @@
         android:id="@+id/chatListFragment"
         android:name="com.example.hw_roomdao.presentation.chat_list.ChatListFragment"
         tools:layout="@layout/fragment_chat_list"
-        android:label="ChatListFragment" >
+        android:label="ChatListFragment">
         <action
             android:id="@+id/action_chatListFragment_to_contactListFragment"
             app:destination="@id/contactListFragment" />

@@ -31,7 +31,6 @@
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/messagesListRecyclerView"
-        app:layout_constraintEnd_toEndOf=""
         />
 
     <ImageButton

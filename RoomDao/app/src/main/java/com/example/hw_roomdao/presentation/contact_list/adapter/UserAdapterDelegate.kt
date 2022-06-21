@@ -12,7 +12,7 @@ import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 class UserAdapterDelegate(
     private val onUserClick: (User) -> Unit,
     private val onDeleteUser: (User) -> Unit
-): AbsListItemAdapterDelegate<User, User, UserAdapterDelegate.Holder>() {
+) : AbsListItemAdapterDelegate<User, User, UserAdapterDelegate.Holder>() {
 
     override fun isForViewType(item: User, items: MutableList<User>, position: Int): Boolean {
         return true
@@ -21,10 +21,11 @@ class UserAdapterDelegate(
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
         return Holder(
             FragmentItemUserBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ), onUserClick, onDeleteUser)
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), onUserClick, onDeleteUser
+        )
     }
 
     override fun onBindViewHolder(item: User, holder: Holder, payloads: MutableList<Any>) {
@@ -52,7 +53,7 @@ class UserAdapterDelegate(
             currentUser = user
             nameTextView.text = "${user.firstName} ${user.lastName}"
             emailTextView.text = user.email
-            avatarImageView.load(R.drawable.smiling_face_emoji)
+            avatarImageView.load(user.avatar)
         }
     }
 }
