@@ -6,15 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.hw_roomdao.data.ContactListRepository
-import com.example.hw_roomdao.data.db.models.User
+import com.example.hw_roomdao.data.db.models.Contact
 import kotlinx.coroutines.launch
 
 class ContactListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val contactsListRepository = ContactListRepository(application)
 
-    private val contactsListMutableLiveData = MutableLiveData<List<User>>()
-    val contactListLiveData: LiveData<List<User>>
+    private val contactsListMutableLiveData = MutableLiveData<List<Contact>>()
+    val contactListLiveData: LiveData<List<Contact>>
         get() = contactsListMutableLiveData
 
 
@@ -27,5 +27,17 @@ class ContactListViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
     }
+
+    fun removeUser(contact: Contact) {
+        viewModelScope.launch {
+//            try {
+//                userRepository.removeUser(user.id)
+//                loadList()
+//            } catch (t: Throwable) {
+//                Timber.e(t)
+//            }
+        }
+    }
+
 
 }

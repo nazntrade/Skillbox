@@ -1,10 +1,8 @@
 package com.example.hw_roomdao.data
 
-import android.app.Application
 import android.content.Context
-import android.provider.ContactsContract
 import com.example.hw_roomdao.R
-import com.example.hw_roomdao.data.db.models.User
+import com.example.hw_roomdao.data.db.models.Contact
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -12,9 +10,9 @@ class ContactListRepository(
     private val context: Context
 ) {
 
-    suspend fun getAllContacts(): List<User> = withContext(Dispatchers.IO) {
+    suspend fun getAllContacts(): List<Contact> = withContext(Dispatchers.IO) {
         listOf(
-            User(
+            Contact(
                 123412341234,
                 "Andrew",
                 "Becker",
@@ -22,7 +20,7 @@ class ContactListRepository(
                 "${R.drawable.smiling_face_emoji}",
                 32
             ),
-            User(
+            Contact(
                 12341277341834,
                 "Andrew",
                 "Wiecker",

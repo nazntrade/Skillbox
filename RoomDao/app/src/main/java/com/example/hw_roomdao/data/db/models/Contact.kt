@@ -1,6 +1,6 @@
 package com.example.hw_roomdao.data.db.models
 
-data class User(
+data class Contact(
     val id: Long,
     val firstName: String,
     val lastName: String,
