@@ -17,7 +17,7 @@ class ContactListRepository(
                 "Andrew",
                 "Becker",
                 "asdf@ads.com",
-                "${R.drawable.smiling_face_emoji}",
+                R.drawable.smiling_face_emoji,
                 32
             ),
             Contact(
@@ -25,7 +25,7 @@ class ContactListRepository(
                 "Andrew",
                 "Wiecker",
                 "asttttdf@ads.com",
-                "${R.drawable.smiling_face_emoji}",
+                R.drawable.smiling_face_emoji,
                 32
             ),
         )

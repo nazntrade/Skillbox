@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    //for @Parcelize
+    id 'kotlin-parcelize'
+
 }
 apply plugin: 'kotlin-android'
 

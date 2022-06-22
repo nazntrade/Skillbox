@@ -55,6 +55,10 @@ PermissionsDispatcher
        }
     }
 
+    //for @Parcelize
+    id 'kotlin-parcelize'
+
+
 
 //Networking
     implementation 'com.google.code.gson:gson:2.8.6'

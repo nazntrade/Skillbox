@@ -47,9 +47,8 @@ class ContactListFragment : Fragment(R.layout.fragment_users) {
         }
     }
 
-    private fun navigate(contact: Contact) {
-        val direction = ContactListFragmentDirections.actionContactListFragmentToChatListFragment2(contact.id)
+    private fun navigate(selectedContact: Contact) {
+        val direction = ContactListFragmentDirections.actionContactListFragmentToChatListFragment(selectedContact)
         findNavController().navigate(direction)
     }
-
 }

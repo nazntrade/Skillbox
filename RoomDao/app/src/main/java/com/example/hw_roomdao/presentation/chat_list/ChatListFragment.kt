@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.hw_roomdao.R
 import com.example.hw_roomdao.databinding.FragmentChatListBinding
+
+//контакт передал из списка контактов. Теперь нужно тут написать 1-адаптерЧатов, 2-добавление к общему списку нового чата
 
 class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
 
     private lateinit var binding: FragmentChatListBinding
+    private val selectedContactFromContactList: ChatListFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
