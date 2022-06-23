@@ -28,6 +28,10 @@ class ContactListViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    fun addContactToChatList(selectedContact: Contact) {
+
+    }
+
     fun removeUser(contact: Contact) {
         viewModelScope.launch {
 //            try {

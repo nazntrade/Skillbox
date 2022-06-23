@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_chatListFragment_to_contactListFragment"
             app:destination="@id/contactListFragment" />
-        <argument
-            android:name="selectedContact"
-            app:argType="com.example.hw_roomdao.data.db.models.Contact" />
     </fragment>
     <fragment
         android:id="@+id/contactListFragment"

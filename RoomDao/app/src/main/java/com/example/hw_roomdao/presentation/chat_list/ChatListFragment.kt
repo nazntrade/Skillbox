@@ -13,7 +13,6 @@ import com.example.hw_roomdao.databinding.FragmentChatListBinding
 class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
 
     private lateinit var binding: FragmentChatListBinding
-    private val selectedContactFromContactList: ChatListFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

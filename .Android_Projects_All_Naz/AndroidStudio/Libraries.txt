@@ -95,4 +95,15 @@ PermissionsDispatcher
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
 
+    //RoomDao
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+       and you need to add :     
+       //for kapt
+       id 'kotlin-kapt'   to plugins
+
+
+
 

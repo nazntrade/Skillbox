@@ -31,7 +31,7 @@ class ContactListFragment : Fragment(R.layout.fragment_users) {
     }
 
     private fun bindViewModel() {
-        viewModel.contactListLiveData.observe(viewLifecycleOwner) {contactListAdapter.items = it}
+        viewModel.contactListLiveData.observe(viewLifecycleOwner) { contactListAdapter.items = it }
     }
 
     private fun initToolBar() {
@@ -39,7 +39,8 @@ class ContactListFragment : Fragment(R.layout.fragment_users) {
     }
 
     private fun initList() {
-        contactListAdapter = ContactListAdapter(::navigate, viewModel::removeUser)
+        contactListAdapter =
+            ContactListAdapter(::addContactToChatListAndNavigateBack, viewModel::removeUser)
         with(binding.userList) {
             adapter = contactListAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -47,8 +48,8 @@ class ContactListFragment : Fragment(R.layout.fragment_users) {
         }
     }
 
-    private fun navigate(selectedContact: Contact) {
-        val direction = ContactListFragmentDirections.actionContactListFragmentToChatListFragment(selectedContact)
-        findNavController().navigate(direction)
+    private fun addContactToChatListAndNavigateBack(selectedContact: Contact) {
+        viewModel.addContactToChatList(selectedContact)
+        findNavController().popBackStack()
     }
 }
