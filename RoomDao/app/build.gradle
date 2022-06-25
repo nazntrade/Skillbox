@@ -58,6 +58,22 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0-rc02'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
+    def lifecycleVersion = '2.5.0-rc02'
+
+    //ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation 'androidx.fragment:fragment-ktx:1.5.0-rc01'
+
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+
+    def coroutinesVersion = '1.6.3'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3'
+
+
     //RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.hannesdorfmann:adapterdelegates4:4.3.2'
@@ -70,6 +86,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
 
 }
