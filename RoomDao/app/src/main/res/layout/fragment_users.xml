@@ -26,4 +26,16 @@
         tools:itemCount="5"
         tools:listitem="@layout/fragment_item_user" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewContactButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="50dp"
+        android:contentDescription="someText"
+        android:src="@drawable/ic_add_contact"
+        android:tooltipText="add contact"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

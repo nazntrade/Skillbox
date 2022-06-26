@@ -16,7 +16,7 @@ class ContactListRepository(
 
     suspend fun saveContact(contact: Contact) {
         if(isContactValid(contact).not()) throw IncorrectFormException()
-//        contactDao.insertContact(listOf(contact))
+        contactDao.insertContacts(listOf(contact))
     }
 
     suspend fun updateContact(contact: Contact) {

@@ -2,4 +2,12 @@
     <string name="app_name">hw_roomdao</string>
     <string name="toolbar_chat_list_item">Chats</string>
     <string name="toolbar_contact_list_item">Contacts</string>
+
+    <string name="user_add_title">Add new user</string>
+    <string name="user_add_hint_first_name">First name</string>
+    <string name="user_add_hint_last_name">Last name</string>
+    <string name="user_add_hint_email">Email</string>
+    <string name="user_add_hint_avatar">Avatar</string>
+    <string name="user_add_button_save">Save</string>
+
 </resources>
