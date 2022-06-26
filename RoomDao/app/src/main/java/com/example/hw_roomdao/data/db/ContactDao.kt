@@ -8,15 +8,15 @@ import com.example.hw_roomdao.data.db.models.ContactContract
 @Dao
 interface ContactDao {
 
-     fun insertContact(contact: Contact)
+    suspend fun insertContact(contact: Contact)
 
-     fun updateContact(contact: Contact)
+    suspend fun updateContact(contact: Contact)
 
-     fun removeContact(contactId: Long)
+    suspend fun removeContact(contactId: Long)
 
-     fun getContactById(contactId: Long): Contact?
+    suspend fun getContactById(contactId: Long): Contact?
 
     @Query("SELECT * FROM ${ContactContract.TABLE_NAME}")
-    fun getAllContacts(): List<Contact>
+    suspend fun getAllContacts(): List<Contact>
 
 }

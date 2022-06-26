@@ -2,7 +2,8 @@ package com.example.hw_roomdao.data.db
 
 import android.content.Context
 import androidx.room.Room
-//разобраться еще раз, как и зачем я все это сделал !
+
+//разобраться еще раз, как и зачем я все это сделал !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 object Database {
 
     lateinit var instance: SkillboxDatabase
