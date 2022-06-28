@@ -16,5 +16,5 @@ data class Contact(
     @ColumnInfo(name = ContactContract.Columns.EMAIL)
     val email: String,
     @ColumnInfo(name = ContactContract.Columns.AVATAR)
-    val avatar: Int
+    val avatar: String?
 )

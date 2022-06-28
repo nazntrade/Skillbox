@@ -9,5 +9,8 @@
     <string name="user_add_hint_email">Email</string>
     <string name="user_add_hint_avatar">Avatar</string>
     <string name="user_add_button_save">Save</string>
+    <string name="user_add_error_incorrect_format">Incorrect form</string>
+    <string name="user_add_error_default">User save error</string>
+
 
 </resources>

@@ -14,6 +14,7 @@ object Database {
             context,
             SkillboxDatabase::class.java,
             SkillboxDatabase.DB_NAME
-        ).build()
+        )
+            .build()
     }
 }

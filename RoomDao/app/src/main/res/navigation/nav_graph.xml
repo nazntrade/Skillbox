@@ -25,5 +25,17 @@
         <action
             android:id="@+id/action_contactListFragment_to_chatListFragment2"
             app:destination="@id/chatListFragment" />
+        <action
+            android:id="@+id/action_contactListFragment_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addContactFragment"
+        tools:layout="@layout/fragment_contact_add"
+        android:name="com.example.hw_roomdao.presentation.contact_add.AddContactFragment"
+        android:label="AddContactFragment" >
+        <argument android:name="id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

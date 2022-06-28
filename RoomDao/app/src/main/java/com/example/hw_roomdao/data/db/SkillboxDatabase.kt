@@ -17,9 +17,9 @@ import com.example.hw_roomdao.data.db.models.Messages
 )
 abstract class SkillboxDatabase : RoomDatabase() {
 
-    abstract fun contactDao(): ContactDao
     abstract fun chatDao(): ChatDao
-    abstract fun messageDao(): MessageDao
+    abstract fun contactDao(): ContactDao
+//    abstract fun messageDao(): MessageDao
 
     companion object {
         const val DB_VERSION = 1

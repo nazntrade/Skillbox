@@ -27,7 +27,7 @@ class ContactListFragment : Fragment(R.layout.fragment_users) {
         initList()
         bindViewModel()
         viewModel.loadList()
-
+        addNewContact()
     }
 
     private fun bindViewModel() {
@@ -51,5 +51,11 @@ class ContactListFragment : Fragment(R.layout.fragment_users) {
     private fun addContactToChatListAndNavigateBack(selectedContact: Contact) {
         viewModel.addContactToChatList(selectedContact)
         findNavController().popBackStack()
+    }
+
+    private fun addNewContact() {
+        binding.addNewContactButton.setOnClickListener {
+            findNavController().navigate(ContactListFragmentDirections.actionContactListFragmentToAddContactFragment())
+        }
     }
 }
