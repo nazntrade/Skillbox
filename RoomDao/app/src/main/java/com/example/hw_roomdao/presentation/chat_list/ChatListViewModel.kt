@@ -21,6 +21,7 @@ class ChatListViewModel : ViewModel() {
     fun loadList() {
         viewModelScope.launch {
             try {
+
                 chatListMutableLiveData.postValue(chatListRepository.getAllChats())
             } catch (t: Throwable) {
                 Timber.e(t, "user list error")

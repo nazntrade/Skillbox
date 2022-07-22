@@ -36,12 +36,12 @@ class ChatListFragment : Fragment(R.layout.fragment_chat_list) {
 
     private fun initList() {
         chatListAdapter = ChatListAdapter(::navigateToMessagesInChat, chatListViewModel::removeChat)
-        with(chatList) {
+        with(binding.chatListRecyclerView) {
             adapter = chatListAdapter
             setHasFixedSize(true)
         }
     }
-    
+
     private fun bindViewModel() {
         chatListViewModel.chatsLiveData.observe(viewLifecycleOwner) { chatListAdapter.items = it }
     }

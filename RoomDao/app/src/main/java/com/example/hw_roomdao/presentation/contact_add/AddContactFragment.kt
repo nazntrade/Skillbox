@@ -39,7 +39,11 @@ class AddContactFragment: Fragment(R.layout.fragment_contact_add) {
 
     private fun bindViewModel() {
         binding.saveButton.setOnClickListener { saveUser() }
-        viewModel.existingContactLiveData.observe(viewLifecycleOwner) { setExistingUserInfo(it) }
+        viewModel.existingContactLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                setExistingUserInfo(it)
+            }
+        }
         viewModel.saveErrorLiveData.observe(viewLifecycleOwner) { toast(it) }
         viewModel.saveSuccessLiveData.observe(viewLifecycleOwner) { findNavController().popBackStack() }
     }

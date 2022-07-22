@@ -9,7 +9,6 @@ import com.example.hw_roomdao.data.db.models.ChatContract
 
 @Dao
 interface ChatDao {
-
     @Insert
     fun insertChat(chat: Chat)
 

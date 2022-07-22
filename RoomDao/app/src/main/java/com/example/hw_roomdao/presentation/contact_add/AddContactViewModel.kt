@@ -20,7 +20,7 @@ class AddContactViewModel : ViewModel() {
     private val saveErrorLiveEvent = SingleLiveEvent<Int>()
     private val existingContactMutableLiveData = MutableLiveData<Contact>()
 
-    val existingContactLiveData: LiveData<Contact>
+    val existingContactLiveData: LiveData<Contact?>
         get() = existingContactMutableLiveData
 
     val saveSuccessLiveData: LiveData<Unit>
@@ -33,7 +33,7 @@ class AddContactViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val user = contactRepository.getContactById(id)
-                if (user != null) existingContactMutableLiveData.postValue(user)
+                existingContactMutableLiveData.postValue(user)
             } catch (t: Throwable) {
                 Timber.e(t)
             }

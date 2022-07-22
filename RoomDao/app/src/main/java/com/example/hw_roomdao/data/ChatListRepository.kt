@@ -28,8 +28,9 @@ class ChatListRepository {
 //    }
 
     suspend fun getAllChats(): List<Chat> {
-
-        return chatDao.getAllChats()
+       return withContext(Dispatchers.IO) {
+           chatDao.getAllChats()
+        }
     }
 
 }
