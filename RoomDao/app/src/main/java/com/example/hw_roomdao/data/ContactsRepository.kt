@@ -48,4 +48,8 @@ class ContactListRepository {
                 contact.lastName.isNotBlank() &&
                 Patterns.EMAIL_ADDRESS.matcher(contact.email).matches()
     }
+
+    suspend fun createChatWithSelectedContact(selectedContact: Contact) {
+
+    }
 }
