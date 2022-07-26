@@ -7,7 +7,7 @@ import com.example.hw_roomdao.data.db.models.Contact
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ContactListRepository {
+class ContactsRepository {
 
     private val contactDao = Database.instance.contactDao()
 
@@ -27,7 +27,7 @@ class ContactListRepository {
 
     suspend fun removeContact(contactId: Long) {
         return withContext(Dispatchers.IO) {
-            //contactDao.removeContactById(contactId)
+            contactDao.removeContactById(contactId)
         }
     }
 

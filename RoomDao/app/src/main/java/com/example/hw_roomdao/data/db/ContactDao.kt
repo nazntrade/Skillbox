@@ -20,6 +20,10 @@ interface ContactDao {
     @Delete
     fun removeContact(contact: Contact)
 
+    @Query("DELETE FROM ${ContactContract.TABLE_NAME} WHERE ${ContactContract.Columns.ID} = :userId")
+    fun removeContactById(userId: Long)
+
+
     @Query("SELECT * FROM ${ContactContract.TABLE_NAME} WHERE ${ContactContract.Columns.ID} = :contactId")
     fun getContactById(contactId: Long): Contact
 

@@ -1,15 +1,14 @@
 package com.example.hw_roomdao.presentation.contact_list
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.example.hw_roomdao.data.ContactListRepository
+import com.example.hw_roomdao.data.ContactsRepository
 import com.example.hw_roomdao.data.db.models.Contact
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ContactListViewModel() : ViewModel() {
 
-    private val contactsListRepository = ContactListRepository()
+    private val contactsListRepository = ContactsRepository()
 
     private val contactsListMutableLiveData = MutableLiveData<List<Contact>>()
     val contactListLiveData: LiveData<List<Contact>>
@@ -28,7 +27,14 @@ class ContactListViewModel() : ViewModel() {
     }
 
     fun addContactToChatList(selectedContact: Contact) {
+        viewModelScope.launch {
+            try {
 
+            } catch (t: Throwable) {
+                Timber.e(t, "user list error")
+                contactsListMutableLiveData.postValue(emptyList())
+            }
+        }
     }
 
     fun removeUser(contact: Contact) {
@@ -41,6 +47,5 @@ class ContactListViewModel() : ViewModel() {
             }
         }
     }
-
 
 }

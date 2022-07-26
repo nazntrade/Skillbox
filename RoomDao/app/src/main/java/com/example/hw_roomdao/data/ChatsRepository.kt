@@ -7,7 +7,7 @@ import com.example.hw_roomdao.data.db.models.Contact
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ChatListRepository {
+class ChatsRepository {
 
     private val chatDao = Database.instance.chatDao()
 

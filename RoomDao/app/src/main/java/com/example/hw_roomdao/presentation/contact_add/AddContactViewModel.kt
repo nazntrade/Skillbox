@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hw_roomdao.R
-import com.example.hw_roomdao.data.ContactListRepository
+import com.example.hw_roomdao.data.ContactsRepository
 import com.example.hw_roomdao.data.IncorrectFormException
 import com.example.hw_roomdao.data.db.models.Contact
 import com.example.hw_roomdao.utils.SingleLiveEvent
@@ -14,7 +14,7 @@ import timber.log.Timber
 
 class AddContactViewModel : ViewModel() {
 
-    private val contactRepository = ContactListRepository()
+    private val contactRepository = ContactsRepository()
 
     private val saveSuccessLiveEvent = SingleLiveEvent<Unit>()
     private val saveErrorLiveEvent = SingleLiveEvent<Int>()
@@ -47,7 +47,6 @@ class AddContactViewModel : ViewModel() {
         email: String,
         avatar: String?
     ) {
-
         val contact = Contact(
             id = id,
             firstName = firstName,

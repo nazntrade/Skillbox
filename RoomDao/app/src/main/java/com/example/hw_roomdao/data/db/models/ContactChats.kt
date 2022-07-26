@@ -9,8 +9,10 @@ data class ContactChats(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ContactChatsContract.Columns.ID)
     val id: Long,
+
     @ColumnInfo(name = ContactChatsContract.Columns.CONTACT_ID)
     val contactId: Long,
+
     @ColumnInfo(name = ContactChatsContract.Columns.CHAT_ID)
     val chatId: Long
 )

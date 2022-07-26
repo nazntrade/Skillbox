@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hw_roomdao.data.ChatListRepository
+import com.example.hw_roomdao.data.ChatsRepository
 import com.example.hw_roomdao.data.db.models.Chat
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ChatListViewModel : ViewModel() {
 
-    private val chatListRepository = ChatListRepository()
+    private val chatsRepository = ChatsRepository()
 
     private val chatListMutableLiveData = MutableLiveData<List<Chat>>()
 
@@ -22,7 +22,7 @@ class ChatListViewModel : ViewModel() {
         viewModelScope.launch {
             try {
 
-                chatListMutableLiveData.postValue(chatListRepository.getAllChats())
+                chatListMutableLiveData.postValue(chatsRepository.getAllChats())
             } catch (t: Throwable) {
                 Timber.e(t, "user list error")
                 chatListMutableLiveData.postValue(emptyList())
@@ -33,7 +33,7 @@ class ChatListViewModel : ViewModel() {
     fun removeChat(chat: Chat) {
         viewModelScope.launch {
             try {
-                chatListRepository.removeChat(chat.id)
+                chatsRepository.removeChat(chat.id)
                 loadList()
             } catch (t: Throwable) {
                 Timber.e(t)

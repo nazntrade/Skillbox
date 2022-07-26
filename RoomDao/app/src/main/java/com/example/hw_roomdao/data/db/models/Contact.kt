@@ -3,6 +3,7 @@ package com.example.hw_roomdao.data.db.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.hw_roomdao.R
 
 @Entity(tableName = ContactContract.TABLE_NAME)
 data class Contact(
@@ -16,5 +17,5 @@ data class Contact(
     @ColumnInfo(name = ContactContract.Columns.EMAIL)
     val email: String,
     @ColumnInfo(name = ContactContract.Columns.AVATAR)
-    val avatar: String?
+    val avatar: String? = "${R.drawable.smiling_face_emoji}"
 )
