@@ -3,37 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chatListFragment">
+    app:startDestination="@id/projectListFragment">
 
     <fragment
-        android:id="@+id/chatListFragment"
-        android:name="com.example.hw_roomdao.presentation.chat_list.ChatListFragment"
-        tools:layout="@layout/fragment_chat_list"
-        android:label="ChatListFragment">
+        android:id="@+id/projectListFragment"
+        android:name="com.example.hw_roomdao.presentation.project_list.ProjectListFragment"
+        tools:layout="@layout/fragment_project_list"
+        android:label="ProjectListFragment">
         <action
             android:id="@+id/action_chatListFragment_to_contactListFragment"
-            app:destination="@id/contactListFragment" />
+            app:destination="@id/employeeListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/contactListFragment"
-        tools:layout="@layout/fragment_users"
-        android:name="com.example.hw_roomdao.presentation.contact_list.ContactListFragment"
-        android:label="ContactListFragment" >
+        android:id="@+id/employeeListFragment"
+        tools:layout="@layout/fragment_employees"
+        android:name="com.example.hw_roomdao.presentation.employee_list.EmployeeListFragment"
+        android:label="EmployeeListFragment">
         <action
             android:id="@+id/action_contactListFragment_to_chatListFragment"
-            app:destination="@id/chatListFragment" />
+            app:destination="@id/projectListFragment" />
         <action
             android:id="@+id/action_contactListFragment_to_chatListFragment2"
-            app:destination="@id/chatListFragment" />
+            app:destination="@id/projectListFragment" />
         <action
             android:id="@+id/action_contactListFragment_to_addContactFragment"
-            app:destination="@id/addContactFragment" />
+            app:destination="@id/addEmployeeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addContactFragment"
-        tools:layout="@layout/fragment_contact_add"
-        android:name="com.example.hw_roomdao.presentation.contact_add.AddContactFragment"
-        android:label="AddContactFragment" >
+        android:id="@+id/addEmployeeFragment"
+        tools:layout="@layout/fragment_employee_add"
+        android:name="com.example.hw_roomdao.presentation.employee_add.AddEmployeeFragment"
+        android:label="AddEmployeeFragment">
         <argument android:name="id"
             app:argType="long"
             android:defaultValue="0L" />

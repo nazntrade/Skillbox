@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">hw_roomdao</string>
-    <string name="toolbar_chat_list_item">Chats</string>
-    <string name="toolbar_contact_list_item">Contacts</string>
+    <string name="toolbar_project_list_item">Company\'s projects</string>
+    <string name="toolbar_employee_list_item">Employees</string>
 
-    <string name="user_add_title">Add new user</string>
+    <string name="employee_add_title">Add new employee</string>
     <string name="user_add_hint_first_name">First name</string>
     <string name="user_add_hint_last_name">Last name</string>
     <string name="user_add_hint_email">Email</string>
