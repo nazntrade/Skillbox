@@ -57,7 +57,7 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
     private fun addNewProject() {
         binding.addNewProjectButton.setOnClickListener {
-            findNavController().navigate(ProjectListFragmentDirections.actionChatListFragmentToContactListFragment())
+            findNavController().navigate(ProjectListFragmentDirections.actionProjectListFragmentToAddProjectFragment())
         }
     }
 }

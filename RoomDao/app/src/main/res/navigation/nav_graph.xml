@@ -11,8 +11,8 @@
         tools:layout="@layout/fragment_project_list"
         android:label="ProjectListFragment">
         <action
-            android:id="@+id/action_chatListFragment_to_contactListFragment"
-            app:destination="@id/employeeListFragment" />
+            android:id="@+id/action_projectListFragment_to_addProjectFragment"
+            app:destination="@id/addProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/employeeListFragment"
@@ -20,22 +20,21 @@
         android:name="com.example.hw_roomdao.presentation.employee_list.EmployeeListFragment"
         android:label="EmployeeListFragment">
         <action
-            android:id="@+id/action_contactListFragment_to_chatListFragment"
-            app:destination="@id/projectListFragment" />
-        <action
-            android:id="@+id/action_contactListFragment_to_chatListFragment2"
-            app:destination="@id/projectListFragment" />
-        <action
             android:id="@+id/action_contactListFragment_to_addContactFragment"
             app:destination="@id/addEmployeeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEmployeeFragment"
         tools:layout="@layout/fragment_employee_add"
-        android:name="com.example.hw_roomdao.presentation.employee_add.AddEmployeeFragment"
+        android:name="com.example.hw_roomdao.presentation.employee_list.AddEmployeeFragment"
         android:label="AddEmployeeFragment">
         <argument android:name="id"
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>
+    <fragment
+        android:id="@+id/addProjectFragment"
+        android:name="com.example.hw_roomdao.presentation.project_list.AddProjectFragment"
+        android:label="AddProjectFragment"
+        tools:layout="@layout/fragment_project_add"/>
 </navigation>

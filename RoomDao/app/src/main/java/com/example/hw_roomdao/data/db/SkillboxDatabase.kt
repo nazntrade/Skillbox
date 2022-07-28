@@ -5,14 +5,14 @@ import androidx.room.RoomDatabase
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.EmployeeProject
-import com.example.hw_roomdao.data.db.models.Messages
+//import com.example.hw_roomdao.data.db.models.Messages
 
 @Database(
     entities = [
         Employee::class,
         EmployeeProject::class,
         Project::class,
-        Messages::class
+//        Messages::class
     ], version = SkillboxDatabase.DB_VERSION
 )
 abstract class SkillboxDatabase : RoomDatabase() {

@@ -4,6 +4,7 @@
     <string name="toolbar_employee_list_item">Employees</string>
 
     <string name="employee_add_title">Add new employee</string>
+    <string name="add_new_project_title">Add new Project</string>
     <string name="user_add_hint_first_name">First name</string>
     <string name="user_add_hint_last_name">Last name</string>
     <string name="user_add_hint_email">Email</string>
@@ -11,6 +12,8 @@
     <string name="user_add_button_save">Save</string>
     <string name="user_add_error_incorrect_format">Incorrect form</string>
     <string name="user_add_error_default">User save error</string>
+    <string name="project_add_error_default">Project save error</string>
+    <string name="add_title_hint">Title</string>
 
 
 </resources>

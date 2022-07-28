@@ -9,38 +9,42 @@ class ProjectRepository {
 
     private val projectDao = Database.instance.projectDao()
 
-   private val existedProjects = listOf(
-       Project(1, "Project Synergy"),
-       Project(2, "Project Zen"),
-       Project(3, "Matadors"),
-
-   )
+    private val existedProjects = listOf(
+        Project(1, "Project Synergy"),
+        Project(2, "Project Zen"),
+        Project(3, "Matadors"),
+        Project(4, "Artificial intelligence")
+    )
 
     suspend fun saveProject(project: Project) {
-//        projectDao.insertProject(listOf(project))
+        withContext(Dispatchers.IO) {
+            projectDao.insertProject(listOf(project))
+        }
     }
 
     suspend fun updateProject(project: Project) {
-//        projectDao.updateProject(project)
+        withContext(Dispatchers.IO) {
+            projectDao.updateProject(project)
+        }
     }
 
-    suspend fun removeProject(projectId: Long) {
+//    suspend fun removeProject(projectId: Long) {
 //        projectDao.removeProjectById(projectId)
-    }
+//    }
 
-//    suspend fun getChatById(projectId: Long): Project? {
+//    suspend fun getProjectById(projectId: Long): Project? {
 //        return projectDao.getProjectById(projectId)
 //    }
 
-    suspend fun initExistedProjects(){
+    suspend fun initExistedProjects() {
         withContext(Dispatchers.IO) {
             projectDao.insertProject(existedProjects)
         }
     }
 
     suspend fun getAllProjects(): List<Project> {
-       return withContext(Dispatchers.IO) {
-           projectDao.getAllProject()
+        return withContext(Dispatchers.IO) {
+            projectDao.getAllProject()
         }
     }
 }

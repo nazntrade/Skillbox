@@ -19,8 +19,8 @@ interface EmployeeDao {
     @Delete
     fun removeEmployee(employee: Employee)
 
-    @Query("DELETE FROM ${EmployeeContract.TABLE_NAME} WHERE ${EmployeeContract.Columns.ID} = :employeeId")
-    fun removeEmployeeById(employeeId: Long)
+//    @Query("DELETE FROM ${EmployeeContract.TABLE_NAME} WHERE ${EmployeeContract.Columns.ID} = :employeeId")
+//    fun removeEmployeeById(employeeId: Long)
 
 
     @Query("SELECT * FROM ${EmployeeContract.TABLE_NAME} WHERE ${EmployeeContract.Columns.ID} = :employeeId")

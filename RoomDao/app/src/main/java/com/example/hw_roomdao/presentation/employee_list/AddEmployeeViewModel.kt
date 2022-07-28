@@ -1,4 +1,4 @@
-package com.example.hw_roomdao.presentation.employee_add
+package com.example.hw_roomdao.presentation.employee_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,9 +12,9 @@ import com.example.hw_roomdao.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class AddContactViewModel : ViewModel() {
+class AddEmployeeViewModel : ViewModel() {
 
-    private val contactRepository = EmployeeRepository()
+    private val employeeRepository = EmployeeRepository()
 
     private val saveSuccessLiveEvent = SingleLiveEvent<Unit>()
     private val saveErrorLiveEvent = SingleLiveEvent<Int>()
@@ -32,7 +32,7 @@ class AddContactViewModel : ViewModel() {
     fun init(id: Long) {
         viewModelScope.launch {
             try {
-                val user = contactRepository.getEmployeeById(id)
+                val user = employeeRepository.getEmployeeById(id)
                 existingEmployeeMutableLiveData.postValue(user)
             } catch (t: Throwable) {
                 Timber.e(t)
@@ -57,9 +57,9 @@ class AddContactViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 if (id == 0L) {
-                    contactRepository.saveEmployee(employee)
+                    employeeRepository.saveEmployee(employee)
                 } else {
-                    contactRepository.updateEmployee(employee)
+                    employeeRepository.updateEmployee(employee)
                 }
                 saveSuccessLiveEvent.postValue(Unit)
             } catch (t: Throwable) {

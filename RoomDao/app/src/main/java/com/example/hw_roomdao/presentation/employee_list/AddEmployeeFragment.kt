@@ -1,4 +1,4 @@
-package com.example.hw_roomdao.presentation.employee_add
+package com.example.hw_roomdao.presentation.employee_list
 
 import android.os.Bundle
 import android.view.View
@@ -18,7 +18,7 @@ class AddEmployeeFragment: Fragment(R.layout.fragment_employee_add) {
 
     private val args: AddEmployeeFragmentArgs by navArgs()
 
-    private val viewModel by viewModels<AddContactViewModel>()
+    private val viewModel by viewModels<AddEmployeeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

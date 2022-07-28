@@ -1,9 +1,7 @@
 package com.example.hw_roomdao.data.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.ProjectContract
 
@@ -14,6 +12,9 @@ interface ProjectDao {
 
     @Delete
     fun removeProject(project: Project)
+
+    @Update
+    fun updateProject(project: Project)
 
     @Query("SELECT * FROM ${ProjectContract.TABLE_NAME}")
     fun getAllProject(): List<Project>
