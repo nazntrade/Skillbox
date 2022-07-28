@@ -28,9 +28,9 @@ class ProjectRepository {
         }
     }
 
-//    suspend fun removeProject(projectId: Long) {
+    suspend fun removeProject(projectId: Long) {
 //        projectDao.removeProjectById(projectId)
-//    }
+    }
 
 //    suspend fun getProjectById(projectId: Long): Project? {
 //        return projectDao.getProjectById(projectId)
