@@ -1,6 +1,6 @@
 package com.example.hw_roomdao.data.db.models
 
-object EmployeeProjectContract {
+object ProjectEmployeeCrossRefContract {
 
     const val TABLE_NAME = "EmployeeProjects"
 

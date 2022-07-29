@@ -17,7 +17,15 @@ class EmployeeRepository {
         Employee(4, "Donny", "Jepp", "jepp@gmail.com"),
         Employee(5, "Hom", "Tanks", "tanks@gmail.com"),
         Employee(6, "Don", "Yangon", "uianks@gmail.com"),
-        Employee(7, "Mike", "Town", "thanks@gmail.com")
+        Employee(7, "Mike", "Town", "thagnks@gmail.com"),
+        Employee(8, "Brandon", "Anderson", "pthvbnvbanks@gmail.com"),
+        Employee(9, "Edward", "Graham", "otohbnkdanks@gmail.com"),
+        Employee(10, "Cameron", "Henderson", "uthfghcanks@gmail.com"),
+        Employee(11, "Diana", "Kelly", "ctheertyanks@gmail.com"),
+        Employee(12, "Andrew", "Becker", "jthanks@gmail.com"),
+        Employee(13, "Gordon", "McDonald", "trethanks@gmail.com"),
+        Employee(14, "Harry", "Robertson", "yuthanks@gmail.com"),
+        Employee(15, "Emma", "Jones", "mnjthanks@gmail.com")
     )
 
     suspend fun saveEmployee(employee: Employee) {
@@ -60,7 +68,4 @@ class EmployeeRepository {
                 Patterns.EMAIL_ADDRESS.matcher(employee.email).matches()
     }
 
-    suspend fun createProjectWithSelectedEmployee(selectedEmployee: Employee) {
-
-    }
 }

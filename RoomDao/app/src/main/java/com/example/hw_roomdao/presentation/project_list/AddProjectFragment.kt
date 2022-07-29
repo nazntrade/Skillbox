@@ -13,7 +13,7 @@ import com.example.hw_roomdao.presentation.employee_list.AddEmployeeFragmentArgs
 import com.example.hw_roomdao.utils.hideKeyboardAndClearFocus
 import com.example.hw_roomdao.utils.toast
 
-class AddProjectFragment: Fragment(R.layout.fragment_project_add) {
+class AddProjectFragment : Fragment(R.layout.fragment_project_add) {
 
     lateinit var binding: FragmentProjectAddBinding
 

@@ -13,7 +13,7 @@ import com.example.hw_roomdao.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class AddProjectViewModel: ViewModel() {
+class AddProjectViewModel : ViewModel() {
 
     private val projectRepository = ProjectRepository()
 

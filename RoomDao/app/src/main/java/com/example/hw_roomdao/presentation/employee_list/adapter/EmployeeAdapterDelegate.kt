@@ -12,7 +12,11 @@ class EmployeeAdapterDelegate(
     private val onDeleteEmployee: (Employee) -> Unit
 ) : AbsListItemAdapterDelegate<Employee, Employee, EmployeeAdapterDelegate.Holder>() {
 
-    override fun isForViewType(item: Employee, items: MutableList<Employee>, position: Int): Boolean {
+    override fun isForViewType(
+        item: Employee,
+        items: MutableList<Employee>,
+        position: Int
+    ): Boolean {
         return true
     }
 

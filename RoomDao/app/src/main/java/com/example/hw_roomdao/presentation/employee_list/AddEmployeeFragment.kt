@@ -12,7 +12,7 @@ import com.example.hw_roomdao.databinding.FragmentEmployeeAddBinding
 import com.example.hw_roomdao.utils.hideKeyboardAndClearFocus
 import com.example.hw_roomdao.utils.toast
 
-class AddEmployeeFragment: Fragment(R.layout.fragment_employee_add) {
+class AddEmployeeFragment : Fragment(R.layout.fragment_employee_add) {
 
     lateinit var binding: FragmentEmployeeAddBinding
 

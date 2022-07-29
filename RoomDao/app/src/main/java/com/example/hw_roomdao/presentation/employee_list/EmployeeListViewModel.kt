@@ -8,20 +8,20 @@ import timber.log.Timber
 
 class EmployeeListViewModel() : ViewModel() {
 
-    private val contactsListRepository = EmployeeRepository()
+    private val employeeListRepository = EmployeeRepository()
 
-    private val contactsListMutableLiveData = MutableLiveData<List<Employee>>()
+    private val employeeListMutableLiveData = MutableLiveData<List<Employee>>()
     val employeeListLiveData: LiveData<List<Employee>>
-        get() = contactsListMutableLiveData
+        get() = employeeListMutableLiveData
 
 
     fun loadList() {
         viewModelScope.launch {
             try {
-                contactsListMutableLiveData.postValue(contactsListRepository.getAllEmployee())
+                employeeListMutableLiveData.postValue(employeeListRepository.getAllEmployee())
             } catch (t: Throwable) {
                 Timber.e(t, "user list error")
-                contactsListMutableLiveData.postValue(emptyList())
+                employeeListMutableLiveData.postValue(emptyList())
             }
         }
     }
@@ -32,7 +32,7 @@ class EmployeeListViewModel() : ViewModel() {
 
             } catch (t: Throwable) {
                 Timber.e(t, "user list error")
-                contactsListMutableLiveData.postValue(emptyList())
+                employeeListMutableLiveData.postValue(emptyList())
             }
         }
     }
@@ -40,7 +40,7 @@ class EmployeeListViewModel() : ViewModel() {
     fun removeEmployee(employee: Employee) {
         viewModelScope.launch {
             try {
-                contactsListRepository.removeEmployee(employee.id)
+                employeeListRepository.removeEmployee(employee.id)
                 loadList()
             } catch (t: Throwable) {
                 Timber.e(t)

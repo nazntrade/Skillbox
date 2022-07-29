@@ -1,10 +1,11 @@
-package com.example.hw_roomdao.presentation.employee_list
+package com.example.hw_roomdao.presentation.project_with_employee
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_roomdao.R
 import com.example.hw_roomdao.data.db.models.Employee
@@ -12,12 +13,12 @@ import com.example.hw_roomdao.databinding.FragmentEmployeesBinding
 import com.example.hw_roomdao.presentation.employee_list.adapter.EmployeeListAdapter
 import com.example.hw_roomdao.utils.autoCleared
 
-class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
+class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
 
     private lateinit var binding: FragmentEmployeesBinding
-    private val viewModel by viewModels<EmployeeListViewModel>()
+    private val incomingArgs: ProjectWithEmployeesListFragmentArgs by navArgs()
+    private val viewModel by viewModels<ProjectWithEmployeesListViewModel>()
     private var employeeListAdapter: EmployeeListAdapter by autoCleared()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,17 +28,17 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
         initList()
         bindViewModel()
         viewModel.loadList()
-        addNewEmployee()
+        addNewEmployeeToCurrentProject()
     }
 
     private fun bindViewModel() {
-        viewModel.employeeListLiveData.observe(viewLifecycleOwner) {
+        viewModel.projectWithEmployeesListLiveData.observe(viewLifecycleOwner) {
             employeeListAdapter.items = it
         }
     }
 
     private fun initToolBar() {
-        binding.appBar.toolBar.title = getString(R.string.toolbar_employee_list_item)
+        binding.appBar.toolBar.title = "Employees in ${incomingArgs.selectedProject.title}"
     }
 
     private fun initList() {
@@ -54,13 +55,18 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
     }
 
     private fun addEmployeeToProjectListAndNavigateBack(selectedEmployee: Employee) {
-        viewModel.addEmployeeToProjectList(selectedEmployee)
-        findNavController().popBackStack()
+        //some action
     }
 
-    private fun addNewEmployee() {
+    private fun addNewEmployeeToCurrentProject() {
         binding.addNewEmployeeButton.setOnClickListener {
-            findNavController().navigate(EmployeeListFragmentDirections.actionContactListFragmentToAddContactFragment())
+            findNavController().navigate(
+                ProjectWithEmployeesListFragmentDirections
+                    .actionProjectWithEmployeesListFragmentToEmployeeListFragment()
+            )
+
+            // to add action in order to add new employee to current project
+
         }
     }
 }

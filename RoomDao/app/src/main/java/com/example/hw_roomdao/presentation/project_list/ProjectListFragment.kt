@@ -36,7 +36,10 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
     private fun initList() {
         projectListAdapter =
-            ProjectListAdapter(::navigateToMessagesInChat, projectListViewModel::removeProject)
+            ProjectListAdapter(
+                ::navigateToProjectWithEmployees,
+                projectListViewModel::removeProject
+            )
         with(binding.projectListRecyclerView) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = projectListAdapter
@@ -50,9 +53,10 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
         }
     }
 
-    private fun navigateToMessagesInChat(project: Project) {
-//        val direction = UsersFragmentDirections.actionUsersFragmentToAddUserFragment(user.id)
-//        findNavController().navigate(direction)
+    private fun navigateToProjectWithEmployees(selectedProject: Project) {
+        val direction = ProjectListFragmentDirections
+            .actionProjectListFragmentToProjectWithEmployeesListFragment(selectedProject)
+        findNavController().navigate(direction)
     }
 
     private fun addNewProject() {

@@ -1,9 +1,12 @@
 package com.example.hw_roomdao.data.db.models
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = ProjectContract.TABLE_NAME)
 data class Project(
     @PrimaryKey(autoGenerate = true)
@@ -11,4 +14,4 @@ data class Project(
     val id: Long,
     @ColumnInfo(name = ProjectContract.Columns.TITLE)
     val title: String
-)
+) : Parcelable

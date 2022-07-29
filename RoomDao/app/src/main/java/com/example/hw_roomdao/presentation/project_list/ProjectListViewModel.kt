@@ -18,7 +18,7 @@ class ProjectListViewModel : ViewModel() {
     val projectsLiveData: LiveData<List<Project>>
         get() = projectListMutableLiveData
 
-    fun initExistedProjects(){
+    fun initExistedProjects() {
         viewModelScope.launch {
             try {
                 projectRepository.initExistedProjects()

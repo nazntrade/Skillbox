@@ -76,7 +76,7 @@
         android:hint="@string/user_add_hint_avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailTextField"/>
+        app:layout_constraintTop_toBottomOf="@id/emailTextField" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/saveButton"

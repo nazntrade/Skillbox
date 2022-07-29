@@ -1,3 +1,3 @@
 package com.example.hw_roomdao.data
 
-class IncorrectFormException: RuntimeException("incorrect form")
+class IncorrectFormException : RuntimeException("incorrect form")
