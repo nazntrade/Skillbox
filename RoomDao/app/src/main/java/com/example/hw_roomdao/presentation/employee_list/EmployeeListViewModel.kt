@@ -1,5 +1,6 @@
 package com.example.hw_roomdao.presentation.employee_list
 
+import android.content.Context
 import androidx.lifecycle.*
 import com.example.hw_roomdao.data.EmployeeRepository
 import com.example.hw_roomdao.data.db.models.Employee
@@ -14,6 +15,15 @@ class EmployeeListViewModel() : ViewModel() {
     val employeeListLiveData: LiveData<List<Employee>>
         get() = employeeListMutableLiveData
 
+    fun initExistedEmployee(requireContext: Context) {
+        viewModelScope.launch {
+            try {
+                employeeListRepository.initExistedEmployee(requireContext)
+            } catch (t: Throwable) {
+                Timber.e(t, "employee list error")
+            }
+        }
+    }
 
     fun loadList() {
         viewModelScope.launch {

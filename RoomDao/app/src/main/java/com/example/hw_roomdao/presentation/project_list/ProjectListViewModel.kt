@@ -1,5 +1,6 @@
 package com.example.hw_roomdao.presentation.project_list
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,15 +19,14 @@ class ProjectListViewModel : ViewModel() {
     val projectsLiveData: LiveData<List<Project>>
         get() = projectListMutableLiveData
 
-    fun initExistedProjects() {
+    fun initExistedProjects(requireContext: Context) {
         viewModelScope.launch {
             try {
-                projectRepository.initExistedProjects()
+                projectRepository.initExistedProjects(requireContext)
             } catch (t: Throwable) {
                 Timber.e(t, "project list error")
             }
         }
-
     }
 
     fun loadList() {

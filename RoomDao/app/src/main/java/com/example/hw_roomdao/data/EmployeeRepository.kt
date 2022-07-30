@@ -1,5 +1,8 @@
 package com.example.hw_roomdao.data
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
 import android.util.Patterns
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Employee
@@ -9,6 +12,8 @@ import kotlinx.coroutines.withContext
 class EmployeeRepository {
 
     private val employeeDao = Database.instance.employeeDao()
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val existedEmployee = listOf(
         Employee(1, "Beff", "Jezos", "jezos@gmail.com"),
@@ -55,9 +60,33 @@ class EmployeeRepository {
         }
     }
 
+    suspend fun initExistedEmployee(requireContext: Context) {
+        withContext(Dispatchers.IO) {
+            sharedPreferences =
+                requireContext.getSharedPreferences(
+                    ProjectRepository.SHARED_PREFS_NAME,
+                    Context.MODE_PRIVATE
+                )
+            try {
+                val sharedPrefExistedEmployee =
+                    sharedPreferences.getBoolean("existed_employees_first_run", true)
+                if (sharedPrefExistedEmployee) {
+                    Log.d("existed_employees: ", "created")
+
+                    employeeDao.insertEmployee(existedEmployee)
+
+                    sharedPreferences.edit()
+                        .putBoolean("existed_employees_first_run", false)
+                        .apply()
+                }
+            } catch (t: Throwable) {
+
+            }
+        }
+    }
+
     suspend fun getAllEmployee(): List<Employee> {
         return withContext(Dispatchers.IO) {
-            employeeDao.insertEmployee(existedEmployee)
             employeeDao.getAllEmployee()
         }
     }
@@ -67,5 +96,4 @@ class EmployeeRepository {
                 employee.lastName.isNotBlank() &&
                 Patterns.EMAIL_ADDRESS.matcher(employee.email).matches()
     }
-
 }

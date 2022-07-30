@@ -47,12 +47,12 @@ class ProjectWithEmployeesRepository {
 //        }
 //    }
 
-    suspend fun getAllEmployee(): List<Employee> {
-        return withContext(Dispatchers.IO) {
+//    suspend fun getAllEmployee(): List<Employee> {
+//        return withContext(Dispatchers.IO) {
 //            employeeDao.insertEmployee(existedEmployee)
 //            employeeDao.getAllEmployee()
-        }
-    }
+//        }
+//    }
 
 //    private fun isEmployeeValid(employee: Employee): Boolean {
 //        return employee.firstName.isNotBlank() &&

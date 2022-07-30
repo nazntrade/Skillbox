@@ -24,7 +24,7 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
         initToolBar()
         initList()
-        projectListViewModel.initExistedProjects()
+        projectListViewModel.initExistedProjects(requireContext())
         projectListViewModel.loadList()
         bindViewModel()
         addNewProject()

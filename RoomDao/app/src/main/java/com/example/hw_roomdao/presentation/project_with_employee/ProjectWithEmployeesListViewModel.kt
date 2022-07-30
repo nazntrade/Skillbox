@@ -8,23 +8,23 @@ import timber.log.Timber
 
 class ProjectWithEmployeesListViewModel : ViewModel() {
 
-    private val projectWithEmployeesRepository = ProjectWithEmployeesRepository()
-
-    private val projectWithEmployeesListMutableLiveData = MutableLiveData<List<Employee>>()
-    val projectWithEmployeesListLiveData: LiveData<List<Employee>>
-        get() = projectWithEmployeesListMutableLiveData
-
-
-    fun loadList() {
-        viewModelScope.launch {
-            try {
-                projectWithEmployeesListMutableLiveData.postValue(projectWithEmployeesRepository.getAllEmployee())
-            } catch (t: Throwable) {
-                Timber.e(t, "employee list error")
-                projectWithEmployeesListMutableLiveData.postValue(emptyList())
-            }
-        }
-    }
+//    private val projectWithEmployeesRepository = ProjectWithEmployeesRepository()
+//
+//    private val projectWithEmployeesListMutableLiveData = MutableLiveData<List<Employee>>()
+//    val projectWithEmployeesListLiveData: LiveData<List<Employee>>
+//        get() = projectWithEmployeesListMutableLiveData
+//
+//
+//    fun loadList() {
+//        viewModelScope.launch {
+//            try {
+//                projectWithEmployeesListMutableLiveData.postValue(projectWithEmployeesRepository.getAllEmployee())
+//            } catch (t: Throwable) {
+//                Timber.e(t, "employee list error")
+//                projectWithEmployeesListMutableLiveData.postValue(emptyList())
+//            }
+//        }
+//    }
 
     //    fun addEmployeeToProject(selectedEmployee: Employee) {
 //        viewModelScope.launch {
@@ -37,15 +37,15 @@ class ProjectWithEmployeesListViewModel : ViewModel() {
 //        }
 //    }
 //
-    fun removeEmployee(employee: Employee) {
-        viewModelScope.launch {
-            try {
-                projectWithEmployeesRepository.removeEmployee(employee.id)
-                loadList()
-            } catch (t: Throwable) {
-                Timber.e(t)
-            }
-        }
-    }
+//    fun removeEmployee(employee: Employee) {
+//        viewModelScope.launch {
+//            try {
+//                projectWithEmployeesRepository.removeEmployee(employee.id)
+//                loadList()
+//            } catch (t: Throwable) {
+//                Timber.e(t)
+//            }
+//        }
+//    }
 
 }

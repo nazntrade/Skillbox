@@ -24,6 +24,7 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
         binding = FragmentEmployeesBinding.bind(view)
 
         initToolBar()
+        viewModel.initExistedEmployee(requireContext())
         initList()
         bindViewModel()
         viewModel.loadList()
@@ -54,7 +55,7 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
     }
 
     private fun addEmployeeToProjectListAndNavigateBack(selectedEmployee: Employee) {
-        viewModel.addEmployeeToProjectList(selectedEmployee)
+//        viewModel.addEmployeeToProjectList(selectedEmployee)
         findNavController().popBackStack()
     }
 

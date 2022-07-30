@@ -1,5 +1,8 @@
 package com.example.hw_roomdao.data
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.Dispatchers
@@ -8,6 +11,8 @@ import kotlinx.coroutines.withContext
 class ProjectRepository {
 
     private val projectDao = Database.instance.projectDao()
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val existedProjects = listOf(
         Project(1, "Project Synergy"),
@@ -36,9 +41,25 @@ class ProjectRepository {
 //        return projectDao.getProjectById(projectId)
 //    }
 
-    suspend fun initExistedProjects() {
+    suspend fun initExistedProjects(requireContext: Context) {
         withContext(Dispatchers.IO) {
-            projectDao.insertProject(existedProjects)
+            sharedPreferences =
+                requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            try {
+                val sharedPrefExistedProjects =
+                    sharedPreferences.getBoolean("existed_projects_first_run", true)
+                if (sharedPrefExistedProjects) {
+                    Log.d("existed_projects: ", "created")
+
+                    projectDao.insertProject(existedProjects)
+
+                    sharedPreferences.edit()
+                        .putBoolean("existed_projects_first_run", false)
+                        .apply()
+                }
+            } catch (t: Throwable) {
+
+            }
         }
     }
 
@@ -46,5 +67,9 @@ class ProjectRepository {
         return withContext(Dispatchers.IO) {
             projectDao.getAllProject()
         }
+    }
+
+    companion object {
+        const val SHARED_PREFS_NAME = "shared_pref"
     }
 }
