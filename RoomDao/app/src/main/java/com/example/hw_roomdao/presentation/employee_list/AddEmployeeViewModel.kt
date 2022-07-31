@@ -1,6 +1,5 @@
 package com.example.hw_roomdao.presentation.employee_list
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,10 +18,10 @@ class AddEmployeeViewModel : ViewModel() {
 
     private val saveSuccessLiveEvent = SingleLiveEvent<Unit>()
     private val saveErrorLiveEvent = SingleLiveEvent<Int>()
-    private val existingEmployeeMutableLiveData = MutableLiveData<Employee>()
+    private val employeeMutableLiveData = MutableLiveData<Employee>()
 
-    val existingEmployeeLiveData: LiveData<Employee?>
-        get() = existingEmployeeMutableLiveData
+    val existingProjectWithEmployeeLiveData: LiveData<Employee?>
+        get() = employeeMutableLiveData
 
     val saveSuccessLiveData: LiveData<Unit>
         get() = saveSuccessLiveEvent
@@ -34,7 +33,7 @@ class AddEmployeeViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val user = employeeRepository.getEmployeeById(id)
-                existingEmployeeMutableLiveData.postValue(user)
+                employeeMutableLiveData.postValue(user)
             } catch (t: Throwable) {
                 Timber.e(t)
             }

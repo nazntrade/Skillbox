@@ -3,7 +3,6 @@ package com.example.hw_roomdao.data
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.util.Patterns
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.relations.ProjectWithEmployee
@@ -13,10 +12,11 @@ import kotlinx.coroutines.withContext
 class ProjectWithEmployeesRepository {
 
     private val employeeDao = Database.instance.employeeDao()
+    private val relationsDao = Database.instance.relationsDao()
 
     private lateinit var sharedPreferences: SharedPreferences
 
-    private val existedEmployee = listOf(
+    private val existedEmployees = listOf(
         Employee(1, "Beff", "Jezos", "jezos@gmail.com"),
         Employee(2, "Mark", "Suckerberg", "suckerberg@gmail.com"),
         Employee(3, "Gill", "Bates", "bates@gmail.com"),
@@ -53,7 +53,7 @@ class ProjectWithEmployeesRepository {
                 if (sharedPrefExistedEmployee) {
                     Log.d("existed_employees: ", "created")
 
-                    employeeDao.insertEmployee(existedEmployee)
+                    employeeDao.insertEmployee(existedEmployees)
 
                     sharedPreferences.edit()
                         .putBoolean("existed_employees_first_run", false)
@@ -67,7 +67,7 @@ class ProjectWithEmployeesRepository {
 
     suspend fun getAllEmployeeInCurrentProject(): List<ProjectWithEmployee> {
         return withContext(Dispatchers.IO) {
-            employeeDao.getEmployeeOfCurrentProject()//no all. only in current project//////////////////
+            relationsDao.getProjectWithEmployee()//no all. only in current project//////////////////
         }
     }
 }

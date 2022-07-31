@@ -1,7 +1,6 @@
 package com.example.hw_roomdao.data.db
 
 import androidx.room.*
-import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.ProjectContract
 

@@ -7,7 +7,7 @@ import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class EmployeeListViewModel() : ViewModel() {
+class EmployeeListViewModel : ViewModel() {
 
     private val employeeListRepository = EmployeeRepository()
 

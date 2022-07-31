@@ -26,8 +26,8 @@ class EmployeeRepository {
         return withContext(Dispatchers.IO) {
             employeeDao.insertSelectedEmployeeToCurrentProject(
                 ProjectEmployeeCrossRef(
-                    currentProject.title,
-                    selectedEmployee.lastName
+                    currentProject.id,
+                    selectedEmployee.id
                 )
             )
         }

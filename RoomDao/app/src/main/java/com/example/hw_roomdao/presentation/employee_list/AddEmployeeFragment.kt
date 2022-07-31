@@ -39,7 +39,7 @@ class AddEmployeeFragment : Fragment(R.layout.fragment_employee_add) {
 
     private fun bindViewModel() {
         binding.saveButton.setOnClickListener { saveEmployee() }
-        viewModel.existingEmployeeLiveData.observe(viewLifecycleOwner) {
+        viewModel.existingProjectWithEmployeeLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 setExistingEmployeeInfo(it)
             }

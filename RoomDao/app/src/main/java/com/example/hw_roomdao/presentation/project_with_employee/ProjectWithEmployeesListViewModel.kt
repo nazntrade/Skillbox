@@ -3,7 +3,8 @@ package com.example.hw_roomdao.presentation.project_with_employee
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.hw_roomdao.data.ProjectWithEmployeesRepository
-import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.ProjectWithEmployee
+import com.example.hw_roomdao.data.db.models.relations.ProjectWithEmployee
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -11,8 +12,8 @@ class ProjectWithEmployeesListViewModel : ViewModel() {
 
     private val projectWithEmployeesRepository = ProjectWithEmployeesRepository()
 
-    private val projectWithEmployeesListMutableLiveData = MutableLiveData<List<Employee>>()
-    val projectWithEmployeesListLiveData: LiveData<List<Employee>>
+    private val projectWithEmployeesListMutableLiveData = MutableLiveData<List<ProjectWithEmployee>>()
+    val projectWithEmployeesListLiveData: LiveData<List<ProjectWithEmployee>>
         get() = projectWithEmployeesListMutableLiveData
 
     fun initExistedEmployees(requireContext: Context) {
@@ -37,10 +38,10 @@ class ProjectWithEmployeesListViewModel : ViewModel() {
         }
     }
 
-    fun removeEmployee(employee: Employee) {
+    fun removeEmployee(projectWithEmployee: com.example.hw_roomdao.data.db.models.ProjectWithEmployee) {
         viewModelScope.launch {
             try {
-                projectWithEmployeesRepository.removeEmployeeInCurrentProject(employee.id)
+                projectWithEmployeesRepository.removeEmployeeInCurrentProject(projectWithEmployee.id)
                 loadList()
             } catch (t: Throwable) {
                 Timber.e(t)
