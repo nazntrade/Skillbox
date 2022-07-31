@@ -1,9 +1,9 @@
 package com.example.hw_roomdao.presentation.employee_list
 
-import android.content.Context
 import androidx.lifecycle.*
 import com.example.hw_roomdao.data.EmployeeRepository
 import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -14,16 +14,6 @@ class EmployeeListViewModel() : ViewModel() {
     private val employeeListMutableLiveData = MutableLiveData<List<Employee>>()
     val employeeListLiveData: LiveData<List<Employee>>
         get() = employeeListMutableLiveData
-
-    fun initExistedEmployee(requireContext: Context) {
-        viewModelScope.launch {
-            try {
-                employeeListRepository.initExistedEmployee(requireContext)
-            } catch (t: Throwable) {
-                Timber.e(t, "employee list error")
-            }
-        }
-    }
 
     fun loadList() {
         viewModelScope.launch {
@@ -36,10 +26,10 @@ class EmployeeListViewModel() : ViewModel() {
         }
     }
 
-    fun addEmployeeToProjectList(selectedEmployee: Employee) {
+    fun addSelectedEmployeeToCurrentProject(selectedProject: Project, selectedEmployee: Employee) {
         viewModelScope.launch {
             try {
-
+            employeeListRepository.addSelectedEmployeeToCurrentProject(selectedProject, selectedEmployee)
             } catch (t: Throwable) {
                 Timber.e(t, "user list error")
                 employeeListMutableLiveData.postValue(emptyList())

@@ -1,19 +1,16 @@
-package com.example.hw_roomdao.data.db.models
+package com.example.hw_roomdao.data.db.models.relations
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.EmployeeContract
+import com.example.hw_roomdao.data.db.models.Project
+import com.example.hw_roomdao.data.db.models.ProjectContract
 
-// here
-@Entity(tableName = ProjectEmployeeCrossRefContract.TABLE_NAME)
+@Entity(primaryKeys = ["projectName", "employeeName"])
 data class ProjectEmployeeCrossRef(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = ProjectEmployeeCrossRefContract.Columns.ID)
-    val id: Long,
-
-    @ColumnInfo(name = ProjectEmployeeCrossRefContract.Columns.EMPLOYEE_ID)
-    val employeeId: Long,
-
-    @ColumnInfo(name = ProjectEmployeeCrossRefContract.Columns.PROJECT_ID)
-    val projectId: Long
+    val projectName: String,
+    val employeeName: String
 )

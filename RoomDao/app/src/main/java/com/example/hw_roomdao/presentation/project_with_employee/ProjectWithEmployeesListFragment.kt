@@ -25,16 +25,17 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
         binding = FragmentEmployeesBinding.bind(view)
 
         initToolBar()
+        viewModel.initExistedEmployees(requireContext())
         initList()
         bindViewModel()
-//        viewModel.loadList()
+        viewModel.loadList()
         addNewEmployeeToCurrentProject()
     }
 
     private fun bindViewModel() {
-//        viewModel.projectWithEmployeesListLiveData.observe(viewLifecycleOwner) {
-//            employeeListAdapter.items = it
-//        }
+        viewModel.projectWithEmployeesListLiveData.observe(viewLifecycleOwner) {
+            employeeListAdapter.items = it
+        }
     }
 
     private fun initToolBar() {
@@ -42,19 +43,19 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
     }
 
     private fun initList() {
-//        employeeListAdapter =
-//            EmployeeListAdapter(
-//                ::addEmployeeToProjectListAndNavigateBack,
-//                viewModel::removeEmployee
-//            )
-//        with(binding.employeeList) {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = employeeListAdapter
-//            setHasFixedSize(true)
-//        }
+        employeeListAdapter =
+            EmployeeListAdapter(
+                ::clickOnEmployee,
+                viewModel::removeEmployee
+            )
+        with(binding.employeeList) {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = employeeListAdapter
+            setHasFixedSize(true)
+        }
     }
 
-    private fun addEmployeeToProjectListAndNavigateBack(selectedEmployee: Employee) {
+    private fun clickOnEmployee(selectedEmployee: Employee) {
         //some action
     }
 
@@ -62,11 +63,8 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
         binding.addNewEmployeeButton.setOnClickListener {
             findNavController().navigate(
                 ProjectWithEmployeesListFragmentDirections
-                    .actionProjectWithEmployeesListFragmentToEmployeeListFragment()
+                    .actionProjectWithEmployeesListFragmentToEmployeeListFragment(incomingArgs.selectedProject)
             )
-
-            // to add action in order to add new employee to current project
-
         }
     }
 }

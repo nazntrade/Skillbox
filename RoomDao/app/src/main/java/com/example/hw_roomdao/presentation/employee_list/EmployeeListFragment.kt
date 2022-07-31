@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_roomdao.R
 import com.example.hw_roomdao.data.db.models.Employee
@@ -16,6 +17,7 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
 
     private lateinit var binding: FragmentEmployeesBinding
     private val viewModel by viewModels<EmployeeListViewModel>()
+    private val incomingArgs: EmployeeListFragmentArgs by navArgs()
     private var employeeListAdapter: EmployeeListAdapter by autoCleared()
 
 
@@ -24,7 +26,6 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
         binding = FragmentEmployeesBinding.bind(view)
 
         initToolBar()
-        viewModel.initExistedEmployee(requireContext())
         initList()
         bindViewModel()
         viewModel.loadList()
@@ -55,7 +56,8 @@ class EmployeeListFragment : Fragment(R.layout.fragment_employees) {
     }
 
     private fun addEmployeeToProjectListAndNavigateBack(selectedEmployee: Employee) {
-//        viewModel.addEmployeeToProjectList(selectedEmployee)
+        val selectedProject = incomingArgs.selectedProject
+        viewModel.addSelectedEmployeeToCurrentProject(selectedProject, selectedEmployee)
         findNavController().popBackStack()
     }
 

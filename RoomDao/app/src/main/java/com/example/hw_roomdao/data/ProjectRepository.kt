@@ -46,8 +46,7 @@ class ProjectRepository {
             sharedPreferences =
                 requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
             try {
-                val sharedPrefExistedProjects =
-                    sharedPreferences.getBoolean("existed_projects_first_run", true)
+                val sharedPrefExistedProjects = sharedPreferences.getBoolean("existed_projects_first_run", true)
                 if (sharedPrefExistedProjects) {
                     Log.d("existed_projects: ", "created")
 

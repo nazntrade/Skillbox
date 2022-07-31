@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.Employee
-import com.example.hw_roomdao.data.db.models.ProjectEmployeeCrossRef
+import com.example.hw_roomdao.data.db.models.relations.ProjectEmployeeCrossRef
 
 //import com.example.hw_roomdao.data.db.models.Messages
 

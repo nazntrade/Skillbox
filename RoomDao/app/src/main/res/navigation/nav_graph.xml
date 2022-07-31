@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_contactListFragment_to_addContactFragment"
             app:destination="@id/addEmployeeFragment" />
+        <argument
+            android:name="selectedProject"
+            app:argType="com.example.hw_roomdao.data.db.models.Project" />
+        <action
+            android:id="@+id/action_employeeListFragment_to_projectWithEmployeesListFragment"
+            app:destination="@id/projectWithEmployeesListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEmployeeFragment"
