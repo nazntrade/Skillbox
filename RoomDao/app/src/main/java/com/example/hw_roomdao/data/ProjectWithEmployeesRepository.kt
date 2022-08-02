@@ -18,7 +18,7 @@ class ProjectWithEmployeesRepository {
 
     private val existedEmployees = listOf(
         Employee(1, "Beff", "Jezos", "jezos@gmail.com"),
-        Employee(2, "Mark", "Suckerberg", "suckerberg@gmail.com"),
+        Employee(2, "Sark", "Muckerberg", "muckerberg@gmail.com"),
         Employee(3, "Gill", "Bates", "bates@gmail.com"),
         Employee(4, "Donny", "Jepp", "jepp@gmail.com"),
         Employee(5, "Hom", "Tanks", "tanks@gmail.com"),
@@ -36,7 +36,7 @@ class ProjectWithEmployeesRepository {
 
     suspend fun removeEmployeeInCurrentProject(employeeId: Long) {
         return withContext(Dispatchers.IO) {
-//            employeeDao.removeEmployeeById(employeeId)
+            relationsDao.removeEmployeeInCurrentProjectById(employeeId)
         }
     }
 
@@ -65,9 +65,12 @@ class ProjectWithEmployeesRepository {
         }
     }
 
-    suspend fun getAllEmployeeInCurrentProject(): List<ProjectWithEmployee> {
-        return withContext(Dispatchers.IO) {
-            relationsDao.getProjectWithEmployee()//no all. only in current project//////////////////
+    suspend fun getProjectWithEmployeeById(projectWithEmployeeId: Long): List<Employee> {
+        var listEmployees: List<Employee>
+        withContext(Dispatchers.IO) {
+            val projectWithEmployee = relationsDao.getProjectWithEmployeeById(projectWithEmployeeId)
+            listEmployees = projectWithEmployee.employees
         }
+        return listEmployees
     }
 }

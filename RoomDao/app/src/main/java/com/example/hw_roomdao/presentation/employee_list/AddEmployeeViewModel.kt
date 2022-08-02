@@ -48,7 +48,7 @@ class AddEmployeeViewModel : ViewModel() {
     ) {
 
         val employee = Employee(
-            id = id,
+            employeeId = id,
             firstName = firstName,
             lastName = lastName,
             email = email,

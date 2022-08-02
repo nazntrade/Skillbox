@@ -40,7 +40,7 @@ class EmployeeListViewModel : ViewModel() {
     fun removeEmployee(employee: Employee) {
         viewModelScope.launch {
             try {
-                employeeListRepository.removeEmployee(employee.id)
+                employeeListRepository.removeEmployee(employee.employeeId)
                 loadList()
             } catch (t: Throwable) {
                 Timber.e(t)

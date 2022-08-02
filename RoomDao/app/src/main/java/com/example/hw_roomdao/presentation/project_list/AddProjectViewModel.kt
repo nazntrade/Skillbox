@@ -46,7 +46,7 @@ class AddProjectViewModel : ViewModel() {
     ) {
 
         val project = Project(
-            id = id,
+            projectId = id,
             title = title
         )
 

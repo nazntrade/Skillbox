@@ -1,15 +1,16 @@
 package com.example.hw_roomdao.data.db.models.relations
 
-import androidx.room.Embedded
-import androidx.room.Junction
-import androidx.room.Relation
+import androidx.room.*
+import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.EmployeeContract
 import com.example.hw_roomdao.data.db.models.Project
+import com.example.hw_roomdao.data.db.models.ProjectContract
 
 data class EmployeeWithProject(
-    @Embedded val projectWithEmployee: ProjectWithEmployee,
+    @Embedded val employee: Employee,
     @Relation(
-        parentColumn = "employeeName",
-        entityColumn = "projectName",
+        parentColumn = EmployeeContract.Columns.ID,
+        entityColumn = ProjectContract.Columns.ID,
         associateBy = Junction(ProjectEmployeeCrossRef::class)
     )
     val projects: List<Project>

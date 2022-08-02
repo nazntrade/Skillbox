@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Project(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProjectContract.Columns.ID)
-    val id: Long,
+    val projectId: Long,
     @ColumnInfo(name = ProjectContract.Columns.TITLE)
     val title: String
 ) : Parcelable

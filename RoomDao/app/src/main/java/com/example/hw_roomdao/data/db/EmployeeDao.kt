@@ -23,8 +23,8 @@ interface EmployeeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSelectedEmployeeToCurrentProject(crossRef: ProjectEmployeeCrossRef)
 
-//    @Query("DELETE FROM ${EmployeeContract.TABLE_NAME} WHERE ${EmployeeContract.Columns.ID} = :employeeId")
-//    fun removeEmployeeById(employeeId: Long)
+    @Query("DELETE FROM ${EmployeeContract.TABLE_NAME} WHERE ${EmployeeContract.Columns.ID} = :employeeId")
+    fun removeEmployeeById(employeeId: Long)
 
     @Query("SELECT * FROM ${EmployeeContract.TABLE_NAME} WHERE ${EmployeeContract.Columns.ID} = :employeeId")
     fun getEmployeeById(employeeId: Long): Employee

@@ -9,7 +9,7 @@ import com.example.hw_roomdao.R
 data class Employee(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = EmployeeContract.Columns.ID)
-    val id: Long,
+    val employeeId: Long,
     @ColumnInfo(name = EmployeeContract.Columns.FIRST_NAME)
     val firstName: String,
     @ColumnInfo(name = EmployeeContract.Columns.LAST_NAME)

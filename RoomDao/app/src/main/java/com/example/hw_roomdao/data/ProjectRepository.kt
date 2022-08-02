@@ -33,8 +33,11 @@ class ProjectRepository {
         }
     }
 
+    ///////////////////////////////////////////////////////////////
     suspend fun removeProject(projectId: Long) {
-//        projectDao.removeProjectById(projectId)
+        withContext(Dispatchers.IO) {
+            projectDao.removeProjectById(projectId)
+        }
     }
 
 //    suspend fun getProjectById(projectId: Long): Project? {

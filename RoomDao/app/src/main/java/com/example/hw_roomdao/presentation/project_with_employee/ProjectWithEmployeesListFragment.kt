@@ -8,9 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_roomdao.R
-import com.example.hw_roomdao.data.db.models.relations.ProjectWithEmployee
+import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.databinding.FragmentEmployeesBinding
-import com.example.hw_roomdao.presentation.project_with_employee.adapter.ProjectWithEmployeeAdapter
+import com.example.hw_roomdao.presentation.employee_list.adapter.EmployeeListAdapter
 import com.example.hw_roomdao.utils.autoCleared
 
 class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
@@ -18,7 +18,7 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
     private lateinit var binding: FragmentEmployeesBinding
     private val incomingArgs: ProjectWithEmployeesListFragmentArgs by navArgs()
     private val viewModel by viewModels<ProjectWithEmployeesListViewModel>()
-    private var employeeListAdapter: ProjectWithEmployeeAdapter by autoCleared()
+    private var employeeListAdapter: EmployeeListAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +28,7 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
         viewModel.initExistedEmployees(requireContext())
         initList()
         bindViewModel()
-        viewModel.loadList()
+        viewModel.loadList(incomingArgs.selectedProject.projectId)
         addNewEmployeeToCurrentProject()
     }
 
@@ -44,8 +44,8 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
 
     private fun initList() {
         employeeListAdapter =
-            ProjectWithEmployeeAdapter(
-                ::clickOnEmployee,
+            EmployeeListAdapter(
+                ::onEmployeeClick,
                 viewModel::removeEmployee
             )
         with(binding.employeeList) {
@@ -55,7 +55,7 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
         }
     }
 
-    private fun clickOnEmployee(selecteditem: ProjectWithEmployee) {
+    private fun onEmployeeClick(selectedEmployee: Employee) {
         //some action
     }
 

@@ -4,7 +4,7 @@ object ProjectContract {
     const val TABLE_NAME = "projects"
 
     object Columns {
-        const val ID = "id"
+        const val ID = "projectId"
         const val TITLE = "title"
     }
 }

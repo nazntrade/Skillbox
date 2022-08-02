@@ -22,9 +22,9 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProjectListBinding.bind(view)
 
+        projectListViewModel.initExistedProjects(requireContext())
         initToolBar()
         initList()
-        projectListViewModel.initExistedProjects(requireContext())
         projectListViewModel.loadList()
         bindViewModel()
         addNewProject()

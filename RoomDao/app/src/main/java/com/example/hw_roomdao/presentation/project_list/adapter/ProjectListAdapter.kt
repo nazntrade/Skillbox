@@ -15,7 +15,7 @@ class ProjectListAdapter(
 
     class UserDiffUtilCallback : DiffUtil.ItemCallback<Project>() {
         override fun areItemsTheSame(oldItem: Project, newItem: Project): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.projectId == newItem.projectId
         }
 
         override fun areContentsTheSame(oldItem: Project, newItem: Project): Boolean {

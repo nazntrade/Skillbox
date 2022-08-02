@@ -26,8 +26,8 @@ class EmployeeRepository {
         return withContext(Dispatchers.IO) {
             employeeDao.insertSelectedEmployeeToCurrentProject(
                 ProjectEmployeeCrossRef(
-                    currentProject.id,
-                    selectedEmployee.id
+                    currentProject.projectId,
+                    selectedEmployee.employeeId
                 )
             )
         }
@@ -40,9 +40,10 @@ class EmployeeRepository {
         }
     }
 
+////////////////////////////////////////////////////////////////////////
     suspend fun removeEmployee(employeeId: Long) {
         return withContext(Dispatchers.IO) {
-//            employeeDao.removeEmployeeById(employeeId)
+            employeeDao.removeEmployeeById(employeeId)
         }
     }
 

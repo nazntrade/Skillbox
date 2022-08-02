@@ -15,7 +15,7 @@ class EmployeeListAdapter(
 
     class UserDiffUtilCallback : DiffUtil.ItemCallback<Employee>() {
         override fun areItemsTheSame(oldItem: Employee, newItem: Employee): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.employeeId == newItem.employeeId
         }
 
         override fun areContentsTheSame(oldItem: Employee, newItem: Employee): Boolean {

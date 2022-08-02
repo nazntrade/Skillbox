@@ -32,7 +32,8 @@ class ProjectListViewModel : ViewModel() {
     fun loadList() {
         viewModelScope.launch {
             try {
-                projectListMutableLiveData.postValue(projectRepository.getAllProjects())
+                projectListMutableLiveData.postValue(
+                    projectRepository.getAllProjects())
             } catch (t: Throwable) {
                 Timber.e(t, "project list error")
                 projectListMutableLiveData.postValue(emptyList())
@@ -43,7 +44,7 @@ class ProjectListViewModel : ViewModel() {
     fun removeProject(project: Project) {
         viewModelScope.launch {
             try {
-                projectRepository.removeProject(project.id)
+                projectRepository.removeProject(project.projectId)
                 loadList()
             } catch (t: Throwable) {
                 Timber.e(t)
