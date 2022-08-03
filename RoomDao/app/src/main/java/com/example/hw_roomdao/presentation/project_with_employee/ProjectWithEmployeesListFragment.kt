@@ -24,12 +24,12 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEmployeesBinding.bind(view)
 
-        initToolBar()
         viewModel.initExistedEmployees(requireContext())
+        initToolBar()
         initList()
         bindViewModel()
-        viewModel.loadList(incomingArgs.selectedProject.projectId)
         addNewEmployeeToCurrentProject()
+        viewModel.loadList(incomingArgs.selectedProject.projectId)
     }
 
     private fun bindViewModel() {
@@ -46,7 +46,7 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
         employeeListAdapter =
             EmployeeListAdapter(
                 ::onEmployeeClick,
-                viewModel::removeEmployee
+                ::removeEmployeeFromCurrentProject
             )
         with(binding.employeeList) {
             layoutManager = LinearLayoutManager(requireContext())
@@ -57,6 +57,11 @@ class ProjectWithEmployeesListFragment : Fragment(R.layout.fragment_employees) {
 
     private fun onEmployeeClick(selectedEmployee: Employee) {
         //some action
+    }
+
+    private fun removeEmployeeFromCurrentProject(selectedEmployee: Employee) {
+        val currentProject = incomingArgs.selectedProject
+        viewModel.removeEmployeeFromCurrentProject(selectedEmployee, currentProject)
     }
 
     private fun addNewEmployeeToCurrentProject() {

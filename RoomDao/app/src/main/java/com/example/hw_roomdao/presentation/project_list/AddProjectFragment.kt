@@ -15,7 +15,7 @@ import com.example.hw_roomdao.utils.toast
 
 class AddProjectFragment : Fragment(R.layout.fragment_project_add) {
 
-    lateinit var binding: FragmentProjectAddBinding
+    private lateinit var binding: FragmentProjectAddBinding
 
     private val args: AddEmployeeFragmentArgs by navArgs()
 

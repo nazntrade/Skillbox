@@ -33,7 +33,8 @@ class ProjectListViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 projectListMutableLiveData.postValue(
-                    projectRepository.getAllProjects())
+                    projectRepository.getAllProjects()
+                )
             } catch (t: Throwable) {
                 Timber.e(t, "project list error")
                 projectListMutableLiveData.postValue(emptyList())

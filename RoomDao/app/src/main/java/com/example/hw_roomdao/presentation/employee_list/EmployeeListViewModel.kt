@@ -29,9 +29,12 @@ class EmployeeListViewModel : ViewModel() {
     fun addSelectedEmployeeToCurrentProject(selectedProject: Project, selectedEmployee: Employee) {
         viewModelScope.launch {
             try {
-            employeeListRepository.addSelectedEmployeeToCurrentProject(selectedProject, selectedEmployee)
+                employeeListRepository.addSelectedEmployeeToCurrentProject(
+                    selectedProject,
+                    selectedEmployee
+                )
             } catch (t: Throwable) {
-                Timber.e(t, "user list error")
+                Timber.e(t, "employee list error")
                 employeeListMutableLiveData.postValue(emptyList())
             }
         }

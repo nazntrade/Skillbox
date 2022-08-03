@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Employee
-import com.example.hw_roomdao.data.db.models.relations.ProjectWithEmployee
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -31,7 +30,8 @@ class ProjectWithEmployeesRepository {
         Employee(12, "Andrew", "Becker", "jthanks@gmail.com"),
         Employee(13, "Gordon", "McDonald", "trethanks@gmail.com"),
         Employee(14, "Harry", "Robertson", "yuthanks@gmail.com"),
-        Employee(15, "Emma", "Jones", "mnjthanks@gmail.com")
+        Employee(15, "Emma", "Jones", "mnjthanks@gmail.com"),
+        Employee(16, "Lohn", "Jennon", "Lojthanks@gmail.com")
     )
 
     suspend fun removeEmployeeInCurrentProject(employeeId: Long) {

@@ -3,7 +3,6 @@ package com.example.hw_roomdao.data.db.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.hw_roomdao.R
 
 @Entity(tableName = EmployeeContract.TABLE_NAME)
 data class Employee(

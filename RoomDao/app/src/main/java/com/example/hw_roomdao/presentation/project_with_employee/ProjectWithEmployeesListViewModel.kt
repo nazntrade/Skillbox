@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.*
 import com.example.hw_roomdao.data.ProjectWithEmployeesRepository
 import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -27,10 +28,14 @@ class ProjectWithEmployeesListViewModel : ViewModel() {
     }
 
 
-    fun loadList(projectWithEmployeeId: Long) {
+    fun loadList(currentProjectId: Long) {
         viewModelScope.launch {
             try {
-                employeesListMutableLiveData.postValue(projectWithEmployeesRepository.getProjectWithEmployeeById(projectWithEmployeeId))
+                employeesListMutableLiveData.postValue(
+                    projectWithEmployeesRepository.getProjectWithEmployeeById(
+                        currentProjectId
+                    )
+                )
             } catch (t: Throwable) {
                 Timber.e(t, "employee list error")
                 employeesListMutableLiveData.postValue(emptyList())
@@ -38,11 +43,11 @@ class ProjectWithEmployeesListViewModel : ViewModel() {
         }
     }
 
-    fun removeEmployee(selectedProjectWithEmployeeId: Employee) {
+    fun removeEmployeeFromCurrentProject(selectedEmployee: Employee, currentProject: Project) {
         viewModelScope.launch {
             try {
-                projectWithEmployeesRepository.removeEmployeeInCurrentProject(selectedProjectWithEmployeeId.employeeId)
-                loadList(selectedProjectWithEmployeeId.employeeId)
+                projectWithEmployeesRepository.removeEmployeeInCurrentProject(selectedEmployee.employeeId)
+                loadList(currentProject.projectId)
             } catch (t: Throwable) {
                 Timber.e(t)
             }

@@ -1,7 +1,9 @@
 package com.example.hw_roomdao.data.db
 
-import androidx.room.*
-import com.example.hw_roomdao.data.db.models.EmployeeContract
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.ProjectContract
 

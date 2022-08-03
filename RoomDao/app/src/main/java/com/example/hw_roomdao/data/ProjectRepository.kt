@@ -18,7 +18,9 @@ class ProjectRepository {
         Project(1, "Project Synergy"),
         Project(2, "Project Zen"),
         Project(3, "Matadors"),
-        Project(4, "Artificial intelligence")
+        Project(4, "Artificial intelligence"),
+        Project(5, "Strava"),
+        Project(6, "WhatsApp")
     )
 
     suspend fun saveProject(project: Project) {
@@ -33,23 +35,19 @@ class ProjectRepository {
         }
     }
 
-    ///////////////////////////////////////////////////////////////
     suspend fun removeProject(projectId: Long) {
         withContext(Dispatchers.IO) {
             projectDao.removeProjectById(projectId)
         }
     }
 
-//    suspend fun getProjectById(projectId: Long): Project? {
-//        return projectDao.getProjectById(projectId)
-//    }
-
     suspend fun initExistedProjects(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
                 requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
             try {
-                val sharedPrefExistedProjects = sharedPreferences.getBoolean("existed_projects_first_run", true)
+                val sharedPrefExistedProjects =
+                    sharedPreferences.getBoolean("existed_projects_first_run", true)
                 if (sharedPrefExistedProjects) {
                     Log.d("existed_projects: ", "created")
 
