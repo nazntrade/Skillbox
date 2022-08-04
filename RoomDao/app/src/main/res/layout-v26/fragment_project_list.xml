@@ -11,12 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/directorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintBottom_toTopOf="@+id/project_list_recycler_view">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/director_icon"
+            android:contentDescription="@string/director_icon" />
+
+        <TextView
+            android:id="@+id/who_director_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:text="@string/hire_a_director"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/project_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintTop_toBottomOf="@+id/directorLayout"
         tools:itemCount="4"
         tools:listitem="@layout/fragment_item_project" />
 
@@ -25,7 +50,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="50dp"
-        android:contentDescription="someText"
+        android:contentDescription="@string/add_project_bottom"
         android:src="@drawable/add_project_icon"
         android:tooltipText="add project"
         app:layout_constraintBottom_toBottomOf="parent"

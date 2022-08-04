@@ -14,6 +14,11 @@
     <string name="user_add_error_default">User save error</string>
     <string name="project_add_error_default">Project save error</string>
     <string name="add_title_hint">Title</string>
+    <string name="hire_a_director">Hire a director</string>
+    <string name="director_icon">director_icon</string>
+    <string name="add_project_bottom">add_project_bottom</string>
+    <string name="hire">hire</string>
+    <string name="director_name">Director name</string>
 
 
 </resources>

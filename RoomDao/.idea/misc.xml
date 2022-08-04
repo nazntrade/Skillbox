@@ -10,6 +10,8 @@
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/drawable/ic_send.xml" value="0.108" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout-v26/fragment_project_list.xml" value="0.2526041666666667" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/activity_main.xml" value="0.30648148148148147" />
+        <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/add_director.xml" value="0.36822916666666666" />
+        <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_add_director.xml" value="0.3692708333333333" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_chat_list.xml" value="0.33" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_chat_messages.xml" value="0.20833333333333334" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_contact_add.xml" value="0.3692708333333333" />
@@ -21,7 +23,7 @@
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_item_project.xml" value="0.15925925925925927" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_item_user.xml" value="0.16111111111111112" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_project_add.xml" value="0.275" />
-        <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_project_list.xml" value="0.1574074074074074" />
+        <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_project_list.xml" value="0.33" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_project_messages.xml" value="0.3645833333333333" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_user_add.xml" value="0.2864321608040201" />
         <entry key="..\:/Android/SkillBox/android_basic/RoomDao/app/src/main/res/layout/fragment_users.xml" value="0.20833333333333334" />

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_roomdao.R
+import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.databinding.FragmentProjectListBinding
 import com.example.hw_roomdao.presentation.project_list.adapter.ProjectListAdapter
@@ -24,6 +25,7 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
         projectListViewModel.initExistedProjects(requireContext())
         initToolBar()
+        appointDirector()
         initList()
         projectListViewModel.loadList()
         bindViewModel()
@@ -32,6 +34,14 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
     private fun initToolBar() {
         binding.appBar.toolBar.title = getString(R.string.toolbar_project_list_item)
+    }
+
+    private fun appointDirector() {
+        binding.directorLayout.setOnClickListener {
+            val direction = ProjectListFragmentDirections
+                .actionProjectListFragmentToHireDirectorFragment()
+            findNavController().navigate(direction)
+        }
     }
 
     private fun initList() {
