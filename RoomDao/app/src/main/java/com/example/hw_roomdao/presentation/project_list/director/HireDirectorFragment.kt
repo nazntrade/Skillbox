@@ -15,12 +15,16 @@ class HireDirectorFragment: Fragment(R.layout.fragment_add_director) {
         binding = FragmentAddDirectorBinding.bind(view)
 
         initToolBar()
-
+        saveDirector()
     }
-
 
     private fun initToolBar() {
-        binding.appBar.toolBar.title = getString(R.string.toolbar_project_list_item)
+        binding.appBar.toolBar.title = "Hire director"
     }
 
+    private fun saveDirector(){
+        binding.saveButton.setOnClickListener{
+            
+        }
+    }
 }

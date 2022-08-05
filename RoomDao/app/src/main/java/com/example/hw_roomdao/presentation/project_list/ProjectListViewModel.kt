@@ -19,10 +19,10 @@ class ProjectListViewModel : ViewModel() {
     val projectsLiveData: LiveData<List<Project>>
         get() = projectListMutableLiveData
 
-    fun initExistedProjects(requireContext: Context) {
+    fun initExistedCompanyWithProjects(requireContext: Context) {
         viewModelScope.launch {
             try {
-                projectRepository.initExistedProjects(requireContext)
+                projectRepository.initExistedCompanyWithProjects(requireContext)
             } catch (t: Throwable) {
                 Timber.e(t, "project list error")
             }

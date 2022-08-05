@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.hw_roomdao.data.db.Database
+import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,6 +12,7 @@ import kotlinx.coroutines.withContext
 class ProjectRepository {
 
     private val projectDao = Database.instance.projectDao()
+    private val companyDao = Database.instance.companyDao()
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -22,6 +24,7 @@ class ProjectRepository {
         Project(5, "Strava"),
         Project(6, "WhatsApp")
     )
+    private val existedCompany = Company(1, "First Book")
 
     suspend fun saveProject(project: Project) {
         withContext(Dispatchers.IO) {
@@ -41,7 +44,7 @@ class ProjectRepository {
         }
     }
 
-    suspend fun initExistedProjects(requireContext: Context) {
+    suspend fun initExistedCompanyWithProjects(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
                 requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
@@ -51,6 +54,7 @@ class ProjectRepository {
                 if (sharedPrefExistedProjects) {
                     Log.d("existed_projects: ", "created")
 
+                    companyDao.insertCompany(existedCompany)
                     projectDao.insertProject(existedProjects)
 
                     sharedPreferences.edit()
