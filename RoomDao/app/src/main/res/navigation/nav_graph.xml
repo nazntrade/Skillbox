@@ -66,5 +66,9 @@
         android:id="@+id/hireDirectorFragment"
         android:name="com.example.hw_roomdao.presentation.project_list.director.HireDirectorFragment"
         tools:layout="@layout/fragment_add_director"
-        android:label="HireDirectorFragment" />
+        android:label="HireDirectorFragment" >
+        <argument
+            android:name="argsDirector"
+            app:argType="com.example.hw_roomdao.data.db.models.Director" />
+    </fragment>
 </navigation>

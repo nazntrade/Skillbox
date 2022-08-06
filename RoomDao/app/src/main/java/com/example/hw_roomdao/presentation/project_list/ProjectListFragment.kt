@@ -22,25 +22,17 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProjectListBinding.bind(view)
 
-        projectListViewModel.initExistedCompanyWithProjects(requireContext())
+        projectListViewModel.initExistedCompanyWithDirectorWithProjects(requireContext())
         initToolBar()
-        appointDirector()
         initList()
         projectListViewModel.loadList()
+        projectListViewModel.getDirector()
         bindViewModel()
         addNewProject()
     }
 
     private fun initToolBar() {
         binding.appBar.toolBar.title = getString(R.string.toolbar_project_list_item)
-    }
-
-    private fun appointDirector() {
-        binding.directorLayout.setOnClickListener {
-            val direction = ProjectListFragmentDirections
-                .actionProjectListFragmentToHireDirectorFragment()
-            findNavController().navigate(direction)
-        }
     }
 
     private fun initList() {
@@ -60,6 +52,16 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
         projectListViewModel.projectsLiveData.observe(viewLifecycleOwner) {
             projectListAdapter.items = it
         }
+
+        projectListViewModel.directorLiveData.observe(viewLifecycleOwner) {
+            binding.whoDirectorTextView.text = "Dir: ${it.directorName}"
+
+            val currentDirector = it
+            binding.directorLayout.setOnClickListener {
+                val direction = ProjectListFragmentDirections.actionProjectListFragmentToHireDirectorFragment(currentDirector)
+                findNavController().navigate(direction)
+            }
+        }
     }
 
     private fun navigateToProjectWithEmployees(selectedProject: Project) {
@@ -70,7 +72,9 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
     private fun addNewProject() {
         binding.addNewProjectButton.setOnClickListener {
-            findNavController().navigate(ProjectListFragmentDirections.actionProjectListFragmentToAddProjectFragment())
+            val direction = ProjectListFragmentDirections.actionProjectListFragmentToAddProjectFragment()
+            findNavController().navigate(direction)
         }
     }
+
 }

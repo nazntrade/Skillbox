@@ -41,22 +41,16 @@ class AddProjectViewModel : ViewModel() {
     }
 
     fun save(
-        id: Long,
         title: String,
     ) {
 
         val project = Project(
-            projectId = id,
             title = title
         )
 
         viewModelScope.launch {
             try {
-                if (id == 0L) {
-                    projectRepository.saveProject(project)
-                } else {
-                    projectRepository.updateProject(project)
-                }
+                projectRepository.saveProject(project)
                 saveSuccessLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t, "project save error")

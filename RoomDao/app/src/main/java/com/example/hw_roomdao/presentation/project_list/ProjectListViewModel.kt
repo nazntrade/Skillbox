@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hw_roomdao.data.EmployeeRepository
 import com.example.hw_roomdao.data.ProjectRepository
+import com.example.hw_roomdao.data.db.models.Director
 import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -14,17 +16,35 @@ class ProjectListViewModel : ViewModel() {
 
     private val projectRepository = ProjectRepository()
 
-    private val projectListMutableLiveData = MutableLiveData<List<Project>>()
+    private val employeeRepository = EmployeeRepository()
 
+    private val projectListMutableLiveData = MutableLiveData<List<Project>>()
     val projectsLiveData: LiveData<List<Project>>
         get() = projectListMutableLiveData
 
-    fun initExistedCompanyWithProjects(requireContext: Context) {
+    private val directorMutableLiveData = MutableLiveData<Director>()
+    val directorLiveData: LiveData<Director>
+        get() = directorMutableLiveData
+
+    fun initExistedCompanyWithDirectorWithProjects(requireContext: Context) {
         viewModelScope.launch {
             try {
-                projectRepository.initExistedCompanyWithProjects(requireContext)
+                projectRepository.initExistedCompanyWithDirectorWithProjects(requireContext)
             } catch (t: Throwable) {
                 Timber.e(t, "project list error")
+            }
+        }
+    }
+
+    fun getDirector() {
+        viewModelScope.launch {
+            try {
+                directorMutableLiveData.postValue(
+                    employeeRepository.getDirector()
+                )
+
+            } catch (t: Throwable) {
+                Timber.e(t, "get director error")
             }
         }
     }

@@ -18,7 +18,7 @@
     <string name="director_icon">director_icon</string>
     <string name="add_project_bottom">add_project_bottom</string>
     <string name="hire">hire</string>
-    <string name="director_name">Director name</string>
+    <string name="director_name">New director name</string>
 
 
 </resources>

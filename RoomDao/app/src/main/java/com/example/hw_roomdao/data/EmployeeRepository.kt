@@ -2,6 +2,7 @@ package com.example.hw_roomdao.data
 
 import android.util.Patterns
 import com.example.hw_roomdao.data.db.Database
+import com.example.hw_roomdao.data.db.models.Director
 import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.relations.ProjectEmployeeCrossRef
@@ -11,6 +12,7 @@ import kotlinx.coroutines.withContext
 class EmployeeRepository {
 
     private val employeeDao = Database.instance.employeeDao()
+    private val directorDao = Database.instance.directorDao()
 
     suspend fun saveEmployee(employee: Employee) {
         if (isEmployeeValid(employee).not()) throw IncorrectFormException()
@@ -30,6 +32,18 @@ class EmployeeRepository {
                     selectedEmployee.employeeId
                 )
             )
+        }
+    }
+
+    suspend fun updateDirector(director: Director) {
+        return withContext(Dispatchers.IO) {
+            directorDao.updateDirector(director)
+        }
+    }
+
+    suspend fun getDirector(): Director {
+        return withContext(Dispatchers.IO) {
+            directorDao.getDirector()
         }
     }
 

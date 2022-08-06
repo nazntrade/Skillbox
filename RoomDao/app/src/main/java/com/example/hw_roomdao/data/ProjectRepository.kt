@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Company
+import com.example.hw_roomdao.data.db.models.Director
 import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,6 +14,7 @@ class ProjectRepository {
 
     private val projectDao = Database.instance.projectDao()
     private val companyDao = Database.instance.companyDao()
+    private val directorDao = Database.instance.directorDao()
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -25,6 +27,7 @@ class ProjectRepository {
         Project(6, "WhatsApp")
     )
     private val existedCompany = Company(1, "First Book")
+    private val existedDirector = Director(directorName = "Sam North")
 
     suspend fun saveProject(project: Project) {
         withContext(Dispatchers.IO) {
@@ -44,21 +47,22 @@ class ProjectRepository {
         }
     }
 
-    suspend fun initExistedCompanyWithProjects(requireContext: Context) {
+    suspend fun initExistedCompanyWithDirectorWithProjects(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
                 requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
             try {
-                val sharedPrefExistedProjects =
-                    sharedPreferences.getBoolean("existed_projects_first_run", true)
-                if (sharedPrefExistedProjects) {
-                    Log.d("existed_projects: ", "created")
+                val sharedPrefExistedValue =
+                    sharedPreferences.getBoolean("existedValue_first_run", true)
+                if (sharedPrefExistedValue) {
+                    Log.d("ExistedValue_first_run: ", "created")
 
                     companyDao.insertCompany(existedCompany)
                     projectDao.insertProject(existedProjects)
+                    directorDao.insertDirector(existedDirector)
 
                     sharedPreferences.edit()
-                        .putBoolean("existed_projects_first_run", false)
+                        .putBoolean("existedValue_first_run", false)
                         .apply()
                 }
             } catch (t: Throwable) {

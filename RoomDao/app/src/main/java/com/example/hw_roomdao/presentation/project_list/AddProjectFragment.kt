@@ -5,19 +5,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.hw_roomdao.R
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.databinding.FragmentProjectAddBinding
-import com.example.hw_roomdao.presentation.employee_list.AddEmployeeFragmentArgs
 import com.example.hw_roomdao.utils.hideKeyboardAndClearFocus
 import com.example.hw_roomdao.utils.toast
 
 class AddProjectFragment : Fragment(R.layout.fragment_project_add) {
 
     private lateinit var binding: FragmentProjectAddBinding
-
-    private val args: AddEmployeeFragmentArgs by navArgs()
 
     private val viewModel by viewModels<AddProjectViewModel>()
 
@@ -50,7 +46,6 @@ class AddProjectFragment : Fragment(R.layout.fragment_project_add) {
 
     private fun saveProject() {
         viewModel.save(
-            id = args.id,
             title = binding.addTitleTextField.editText?.text?.toString().orEmpty()
         )
     }
