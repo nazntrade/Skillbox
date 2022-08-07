@@ -8,15 +8,13 @@ import com.example.hw_roomdao.data.db.models.Employee
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.data.db.models.relations.ProjectEmployeeCrossRef
 
-//import com.example.hw_roomdao.data.db.models.Messages
-
 @Database(
     entities = [
+        Company::class,
+        Director::class,
+        Project::class,
         Employee::class,
         ProjectEmployeeCrossRef::class,
-        Project::class,
-        Company::class,
-        Director::class
 //        Messages::class
     ], version = SkillboxDatabase.DB_VERSION
 )
@@ -34,3 +32,5 @@ abstract class SkillboxDatabase : RoomDatabase() {
         const val DB_NAME = "skillbox-database"
     }
 }
+
+//import com.example.hw_roomdao.data.db.models.Messages

@@ -3,6 +3,7 @@ package com.example.hw_roomdao.data.db.models.relations
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
+// Many to Many
 @Entity(
     tableName = ProjectEmployeeCrossRefContract.TABLE_NAME,
     primaryKeys = [ProjectEmployeeCrossRefContract.Columns.PROJECT_ID,

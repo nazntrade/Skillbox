@@ -27,11 +27,13 @@ class HireDirectorViewModel : ViewModel() {
 
     fun updateDirector(
         directorId: Long,
-        directorName: String
+        directorName: String,
+        companyId: Long
     ) {
         val director = Director(
             directorId = directorId,
             directorName = directorName,
+            companyId = companyId
         )
         viewModelScope.launch {
             try {

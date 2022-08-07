@@ -37,7 +37,8 @@ class HireDirectorFragment: Fragment(R.layout.fragment_add_director) {
         binding.saveButton.setOnClickListener{
             viewModel.updateDirector(
                 args.argsDirector.directorId,
-                directorName = binding.addDirectorTextField.editText?.text?.toString().orEmpty()
+                directorName = binding.addDirectorTextField.editText?.text?.toString().orEmpty(),
+                args.argsDirector.companyId
             )
         }
         viewModel.saveErrorLiveData.observe(viewLifecycleOwner) { toast(it) }

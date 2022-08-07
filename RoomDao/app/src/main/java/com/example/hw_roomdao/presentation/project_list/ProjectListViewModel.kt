@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hw_roomdao.data.EmployeeRepository
 import com.example.hw_roomdao.data.ProjectRepository
+import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Director
 import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.launch
@@ -15,8 +16,10 @@ import timber.log.Timber
 class ProjectListViewModel : ViewModel() {
 
     private val projectRepository = ProjectRepository()
-
     private val employeeRepository = EmployeeRepository()
+
+    val currentCompany: Company
+        get() = projectRepository.existedCompany
 
     private val projectListMutableLiveData = MutableLiveData<List<Project>>()
     val projectsLiveData: LiveData<List<Project>>
@@ -30,13 +33,15 @@ class ProjectListViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 projectRepository.initExistedCompanyWithDirectorWithProjects(requireContext)
+                getDirector()
+                loadList()
             } catch (t: Throwable) {
                 Timber.e(t, "project list error")
             }
         }
     }
 
-    fun getDirector() {
+    private fun getDirector() {
         viewModelScope.launch {
             try {
                 directorMutableLiveData.postValue(
@@ -49,7 +54,7 @@ class ProjectListViewModel : ViewModel() {
         }
     }
 
-    fun loadList() {
+    private fun loadList() {
         viewModelScope.launch {
             try {
                 projectListMutableLiveData.postValue(
@@ -72,5 +77,4 @@ class ProjectListViewModel : ViewModel() {
             }
         }
     }
-
 }

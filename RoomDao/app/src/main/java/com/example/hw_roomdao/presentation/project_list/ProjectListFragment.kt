@@ -7,10 +7,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_roomdao.R
+import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.databinding.FragmentProjectListBinding
 import com.example.hw_roomdao.presentation.project_list.adapter.ProjectListAdapter
 import com.example.hw_roomdao.utils.autoCleared
+import okhttp3.internal.wait
 
 class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
@@ -21,12 +23,9 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProjectListBinding.bind(view)
-
         projectListViewModel.initExistedCompanyWithDirectorWithProjects(requireContext())
         initToolBar()
         initList()
-        projectListViewModel.loadList()
-        projectListViewModel.getDirector()
         bindViewModel()
         addNewProject()
     }
@@ -54,14 +53,16 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
         }
 
         projectListViewModel.directorLiveData.observe(viewLifecycleOwner) {
-            binding.whoDirectorTextView.text = "Dir: ${it.directorName}"
-
             val currentDirector = it
+            binding.whoDirectorTextView.text = "Dir: ${currentDirector.directorName}"
+
             binding.directorLayout.setOnClickListener {
-                val direction = ProjectListFragmentDirections.actionProjectListFragmentToHireDirectorFragment(currentDirector)
+                val direction = ProjectListFragmentDirections
+                    .actionProjectListFragmentToHireDirectorFragment(currentDirector)
                 findNavController().navigate(direction)
             }
         }
+
     }
 
     private fun navigateToProjectWithEmployees(selectedProject: Project) {
@@ -72,7 +73,9 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 
     private fun addNewProject() {
         binding.addNewProjectButton.setOnClickListener {
-            val direction = ProjectListFragmentDirections.actionProjectListFragmentToAddProjectFragment()
+            val direction =
+                ProjectListFragmentDirections
+                    .actionProjectListFragmentToAddProjectFragment(projectListViewModel.currentCompany)
             findNavController().navigate(direction)
         }
     }

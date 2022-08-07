@@ -5,7 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.hw_roomdao.R
+import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.databinding.FragmentProjectAddBinding
 import com.example.hw_roomdao.utils.hideKeyboardAndClearFocus
@@ -16,6 +18,8 @@ class AddProjectFragment : Fragment(R.layout.fragment_project_add) {
     private lateinit var binding: FragmentProjectAddBinding
 
     private val viewModel by viewModels<AddProjectViewModel>()
+
+    private val args: AddProjectFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +50,8 @@ class AddProjectFragment : Fragment(R.layout.fragment_project_add) {
 
     private fun saveProject() {
         viewModel.save(
-            title = binding.addTitleTextField.editText?.text?.toString().orEmpty()
+            title = binding.addTitleTextField.editText?.text?.toString().orEmpty(),
+            companyId = args.currentCompany.companyId
         )
     }
 

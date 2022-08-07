@@ -49,7 +49,11 @@
         android:id="@+id/addProjectFragment"
         android:name="com.example.hw_roomdao.presentation.project_list.AddProjectFragment"
         android:label="AddProjectFragment"
-        tools:layout="@layout/fragment_project_add" />
+        tools:layout="@layout/fragment_project_add" >
+        <argument
+            android:name="currentCompany"
+            app:argType="com.example.hw_roomdao.data.db.models.Company" />
+    </fragment>
     <fragment
         android:id="@+id/projectWithEmployeesListFragment"
         android:name="com.example.hw_roomdao.presentation.project_with_employee.ProjectWithEmployeesListFragment"

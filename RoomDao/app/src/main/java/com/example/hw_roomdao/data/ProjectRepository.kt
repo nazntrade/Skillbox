@@ -18,16 +18,16 @@ class ProjectRepository {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    val existedCompany = Company((0..9999L).random(), "First Book")
+    private val existedDirector = Director(directorName = "Sam North", companyId = existedCompany.companyId)
     private val existedProjects = listOf(
-        Project(1, "Project Synergy"),
-        Project(2, "Project Zen"),
-        Project(3, "Matadors"),
-        Project(4, "Artificial intelligence"),
-        Project(5, "Strava"),
-        Project(6, "WhatsApp")
+        Project((0..9999L).random(), "Project Synergy", existedCompany.companyId),
+        Project((0..9999L).random(), "Project Zen", existedCompany.companyId),
+        Project((0..9999L).random(), "Matadors", existedCompany.companyId),
+        Project((0..9999L).random(), "Artificial intelligence", existedCompany.companyId),
+        Project((0..9999L).random(), "Strava", existedCompany.companyId),
+        Project((0..9999L).random(), "WhatsApp", existedCompany.companyId)
     )
-    private val existedCompany = Company(1, "First Book")
-    private val existedDirector = Director(directorName = "Sam North")
 
     suspend fun saveProject(project: Project) {
         withContext(Dispatchers.IO) {
@@ -58,8 +58,8 @@ class ProjectRepository {
                     Log.d("ExistedValue_first_run: ", "created")
 
                     companyDao.insertCompany(existedCompany)
-                    projectDao.insertProject(existedProjects)
                     directorDao.insertDirector(existedDirector)
+                    projectDao.insertProject(existedProjects)
 
                     sharedPreferences.edit()
                         .putBoolean("existedValue_first_run", false)

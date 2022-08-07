@@ -42,10 +42,12 @@ class AddProjectViewModel : ViewModel() {
 
     fun save(
         title: String,
+        companyId: Long
     ) {
 
         val project = Project(
-            title = title
+            title = title,
+            companyId = companyId
         )
 
         viewModelScope.launch {

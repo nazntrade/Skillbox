@@ -11,7 +11,9 @@ import kotlinx.parcelize.Parcelize
 data class Director(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DirectorContract.Columns.ID)
-    val directorId: Long = (0..999999999999).random(),
+    val directorId: Long = (0..99999L).random(),
     @ColumnInfo(name = DirectorContract.Columns.DIRECTOR_NAME)
-    val directorName: String
+    val directorName: String,
+    @ColumnInfo(name = CompanyContract.Columns.ID)
+    val companyId: Long
 ) : Parcelable
