@@ -3,6 +3,7 @@ package com.example.hw_roomdao.data
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.room.withTransaction
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Director
@@ -53,16 +54,19 @@ class ProjectRepository {
                 requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
             try {
                 val sharedPrefExistedValue =
-                    sharedPreferences.getBoolean("existedValue_first_run", true)
+                    sharedPreferences.getBoolean("first_run", true)
                 if (sharedPrefExistedValue) {
-                    Log.d("ExistedValue_first_run: ", "created")
+                    Log.d("first_run: ", "true")
 
-                    companyDao.insertCompany(existedCompany)
-                    directorDao.insertDirector(existedDirector)
-                    projectDao.insertProject(existedProjects)
+                    // in order to insert all objects in ONE transaction
+                    Database.instance.withTransaction {
+                        companyDao.insertCompany(existedCompany)
+                        directorDao.insertDirector(existedDirector)
+                        projectDao.insertProject(existedProjects)
+                    }
 
                     sharedPreferences.edit()
-                        .putBoolean("existedValue_first_run", false)
+                        .putBoolean("first_run", false)
                         .apply()
                 }
             } catch (t: Throwable) {

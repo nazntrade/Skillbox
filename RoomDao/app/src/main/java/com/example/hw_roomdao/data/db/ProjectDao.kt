@@ -9,6 +9,7 @@ import com.example.hw_roomdao.data.db.models.ProjectContract
 
 @Dao
 interface ProjectDao {
+
     @Insert
     fun insertProject(project: List<Project>)
 
