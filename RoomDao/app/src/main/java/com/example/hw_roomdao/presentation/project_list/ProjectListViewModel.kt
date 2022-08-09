@@ -36,7 +36,7 @@ class ProjectListViewModel : ViewModel() {
                 getDirector()
                 loadList()
             } catch (t: Throwable) {
-                Timber.e(t, "project list error")
+                Timber.e(t, "main screen error")
             }
         }
     }

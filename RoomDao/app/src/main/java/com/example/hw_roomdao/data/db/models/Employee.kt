@@ -1,14 +1,13 @@
 package com.example.hw_roomdao.data.db.models
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.example.hw_roomdao.data.db.EmployeePositionConverter
 
 @Entity(
     tableName = EmployeeContract.TABLE_NAME,
     indices = [Index(EmployeeContract.Columns.LAST_NAME)] // in order to search FASTER
 )
+@TypeConverters(EmployeePositionConverter::class)
 data class Employee(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = EmployeeContract.Columns.ID)
@@ -19,4 +18,6 @@ data class Employee(
     val lastName: String,
     @ColumnInfo(name = EmployeeContract.Columns.EMAIL)
     val email: String,
+    @ColumnInfo(name = EmployeeContract.Columns.POSITION)
+    val position: EmployeePosition
 )

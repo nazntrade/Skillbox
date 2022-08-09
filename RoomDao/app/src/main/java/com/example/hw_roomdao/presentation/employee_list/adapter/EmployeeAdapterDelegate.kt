@@ -42,6 +42,7 @@ class EmployeeAdapterDelegate(
 
         private val nameTextView = binding.nameTextView
         private val emailTextView = binding.emailTextView
+        private val positionTextView = binding.EmployeePositionTextView
 
         private var currentEmployee: Employee? = null
 
@@ -54,6 +55,7 @@ class EmployeeAdapterDelegate(
             currentEmployee = employee
             nameTextView.text = "${employee.firstName} ${employee.lastName}"
             emailTextView.text = employee.email
+            positionTextView.text = employee.position.name
         }
     }
 }

@@ -8,6 +8,7 @@ import com.example.hw_roomdao.R
 import com.example.hw_roomdao.data.EmployeeRepository
 import com.example.hw_roomdao.data.IncorrectFormException
 import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.EmployeePosition
 import com.example.hw_roomdao.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -52,6 +53,7 @@ class AddEmployeeViewModel : ViewModel() {
             firstName = firstName,
             lastName = lastName,
             email = email,
+            position = EmployeePosition.PROGRAMMER
         )
 
         viewModelScope.launch {

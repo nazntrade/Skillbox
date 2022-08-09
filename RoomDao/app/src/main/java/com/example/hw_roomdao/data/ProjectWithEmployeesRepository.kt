@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.hw_roomdao.data.db.Database
 import com.example.hw_roomdao.data.db.models.Employee
+import com.example.hw_roomdao.data.db.models.EmployeePosition
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,22 +17,22 @@ class ProjectWithEmployeesRepository {
     private lateinit var sharedPreferences: SharedPreferences
 
     private val existedEmployees = listOf(
-        Employee(1, "Beff", "Jezos", "jezos@gmail.com"),
-        Employee(2, "Sark", "Muckerberg", "muckerberg@gmail.com"),
-        Employee(3, "Gill", "Bates", "bates@gmail.com"),
-        Employee(4, "Donny", "Jepp", "jepp@gmail.com"),
-        Employee(5, "Hom", "Tanks", "tanks@gmail.com"),
-        Employee(6, "Don", "Yangon", "uianks@gmail.com"),
-        Employee(7, "Mike", "Town", "thagnks@gmail.com"),
-        Employee(8, "Brandon", "Anderson", "pthvbnvbanks@gmail.com"),
-        Employee(9, "Edward", "Graham", "otohbnkdanks@gmail.com"),
-        Employee(10, "Cameron", "Henderson", "uthfghcanks@gmail.com"),
-        Employee(11, "Diana", "Kelly", "ctheertyanks@gmail.com"),
-        Employee(12, "Andrew", "Becker", "jthanks@gmail.com"),
-        Employee(13, "Gordon", "McDonald", "trethanks@gmail.com"),
-        Employee(14, "Harry", "Robertson", "yuthanks@gmail.com"),
-        Employee(15, "Emma", "Jones", "mnjthanks@gmail.com"),
-        Employee(16, "Lohn", "Jennon", "Lojthanks@gmail.com")
+        Employee(1, "Beff", "Jezos", "jezos@gmail.com", EmployeePosition.DESIGNER),
+        Employee(2, "Sark", "Muckerberg", "muckerberg@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(3, "Gill", "Bates", "bates@gmail.com", EmployeePosition.TESTER),
+        Employee(4, "Donny", "Jepp", "jepp@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(5, "Hom", "Tanks", "tanks@gmail.com", EmployeePosition.DESIGNER),
+        Employee(6, "Don", "Yangon", "uianks@gmail.com", EmployeePosition.TESTER),
+        Employee(7, "Mike", "Town", "thagnks@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(8, "Brandon", "Anderson", "pthvbnvbanks@gmail.com", EmployeePosition.TESTER),
+        Employee(9, "Edward", "Graham", "otohbnkdanks@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(10, "Cameron", "Henderson", "uthfghcanks@gmail.com", EmployeePosition.DESIGNER),
+        Employee(11, "Diana", "Kelly", "ctheertyanks@gmail.com", EmployeePosition.TESTER),
+        Employee(12, "Andrew", "Becker", "jthanks@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(13, "Gordon", "McDonald", "trethanks@gmail.com", EmployeePosition.DESIGNER),
+        Employee(14, "Harry", "Robertson", "yuthanks@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(15, "Emma", "Jones", "mnjthanks@gmail.com", EmployeePosition.PROGRAMMER),
+        Employee(16, "Lohn", "Jennon", "Lojthanks@gmail.com", EmployeePosition.PROGRAMMER)
     )
 
     suspend fun removeEmployeeInCurrentProject(employeeId: Long) {

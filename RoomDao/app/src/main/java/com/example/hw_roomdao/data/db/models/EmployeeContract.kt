@@ -10,6 +10,7 @@ object EmployeeContract {
         const val LAST_NAME = "last_name"
         const val EMAIL = "email"
         const val AVATAR = "avatar"
+        const val POSITION = "position"
     }
 
 }

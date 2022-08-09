@@ -45,6 +45,16 @@
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"
         tools:text="test@email.com" />
 
+    <TextView
+        android:id="@+id/EmployeePositionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/avatarImageVIew"
+        app:layout_constraintTop_toBottomOf="@+id/emailTextView"
+        android:text="@string/position"/>
+
     <ImageView
         android:id="@+id/removeButton"
         android:layout_width="36dp"
