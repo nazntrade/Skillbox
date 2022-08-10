@@ -13,6 +13,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdk 32
 
+
     defaultConfig {
         applicationId "com.example.hw_roomdao"
         minSdk 24
@@ -22,7 +23,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//    this way room schema generation didn't working
+//    this way generation room schema didn't working
 //
 //        javaCompileOptions {
 //            annotationProcessorOptions {
@@ -31,7 +32,7 @@ android {
 //            }
 //        }
 //
-//  this works
+//    this works
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas".toString())

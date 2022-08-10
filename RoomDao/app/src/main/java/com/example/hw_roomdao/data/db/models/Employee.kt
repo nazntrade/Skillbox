@@ -19,5 +19,7 @@ data class Employee(
     @ColumnInfo(name = EmployeeContract.Columns.EMAIL)
     val email: String,
     @ColumnInfo(name = EmployeeContract.Columns.POSITION)
-    val position: EmployeePosition
+    val position: EmployeePosition,
+    @ColumnInfo(name = EmployeeContract.Columns.AGE, defaultValue = "0")
+    val age: Int
 )

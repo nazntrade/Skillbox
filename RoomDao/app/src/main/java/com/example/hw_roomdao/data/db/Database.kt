@@ -14,6 +14,7 @@ object Database {
             SkillboxDatabase::class.java,
             SkillboxDatabase.DB_NAME
         )
+            .addMigrations(MIGRATION_1_2)
             .build()
     }
 }

@@ -15,7 +15,6 @@ import com.example.hw_roomdao.data.db.models.relations.ProjectEmployeeCrossRef
         Project::class,
         Employee::class,
         ProjectEmployeeCrossRef::class,
-//        Messages::class
     ], version = SkillboxDatabase.DB_VERSION
 )
 abstract class SkillboxDatabase : RoomDatabase() {
@@ -25,10 +24,9 @@ abstract class SkillboxDatabase : RoomDatabase() {
     abstract fun projectDao(): ProjectDao
     abstract fun employeeDao(): EmployeeDao
     abstract fun relationsDao(): RelationsDao
-//    abstract fun messageDao(): MessageDao
 
     companion object {
-        const val DB_VERSION = 1
+        const val DB_VERSION = 2
         const val DB_NAME = "skillbox-database"
     }
 }

@@ -20,7 +20,8 @@ class ProjectRepository {
     private lateinit var sharedPreferences: SharedPreferences
 
     val existedCompany = Company((0..9999L).random(), "First Book")
-    private val existedDirector = Director(directorName = "Sam North", companyId = existedCompany.companyId)
+    private val existedDirector =
+        Director(directorName = "Sam North", companyId = existedCompany.companyId)
     private val existedProjects = listOf(
         Project((0..9999L).random(), "Project Synergy", existedCompany.companyId),
         Project((0..9999L).random(), "Project Zen", existedCompany.companyId),

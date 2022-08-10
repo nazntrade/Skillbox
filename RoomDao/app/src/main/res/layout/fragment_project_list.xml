@@ -33,7 +33,7 @@
             android:layout_gravity="center"
             android:padding="10dp"
             android:textSize="20sp"
-            android:text="@string/hire_a_director"/>
+            android:text="@string/hire_a_director" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

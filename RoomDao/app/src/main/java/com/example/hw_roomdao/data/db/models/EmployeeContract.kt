@@ -11,6 +11,7 @@ object EmployeeContract {
         const val EMAIL = "email"
         const val AVATAR = "avatar"
         const val POSITION = "position"
+        const val AGE = "age"
     }
 
 }

@@ -10,7 +10,7 @@ import com.example.hw_roomdao.R
 import com.example.hw_roomdao.databinding.FragmentAddDirectorBinding
 import com.example.hw_roomdao.utils.toast
 
-class HireDirectorFragment: Fragment(R.layout.fragment_add_director) {
+class HireDirectorFragment : Fragment(R.layout.fragment_add_director) {
 
     private lateinit var binding: FragmentAddDirectorBinding
 
@@ -33,8 +33,8 @@ class HireDirectorFragment: Fragment(R.layout.fragment_add_director) {
         }
     }
 
-    private fun bindViewModel(){
-        binding.saveButton.setOnClickListener{
+    private fun bindViewModel() {
+        binding.saveButton.setOnClickListener {
             viewModel.updateDirector(
                 args.argsDirector.directorId,
                 directorName = binding.addDirectorTextField.editText?.text?.toString().orEmpty(),

@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.hw_roomdao.R
-import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.databinding.FragmentProjectAddBinding
 import com.example.hw_roomdao.utils.hideKeyboardAndClearFocus

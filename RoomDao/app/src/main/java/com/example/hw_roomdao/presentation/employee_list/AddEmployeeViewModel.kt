@@ -46,6 +46,7 @@ class AddEmployeeViewModel : ViewModel() {
         firstName: String,
         lastName: String,
         email: String,
+        age: Int
     ) {
 
         val employee = Employee(
@@ -53,7 +54,8 @@ class AddEmployeeViewModel : ViewModel() {
             firstName = firstName,
             lastName = lastName,
             email = email,
-            position = EmployeePosition.PROGRAMMER
+            position = EmployeePosition.PROGRAMMER,
+            age = age
         )
 
         viewModelScope.launch {

@@ -7,12 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hw_roomdao.R
-import com.example.hw_roomdao.data.db.models.Company
 import com.example.hw_roomdao.data.db.models.Project
 import com.example.hw_roomdao.databinding.FragmentProjectListBinding
 import com.example.hw_roomdao.presentation.project_list.adapter.ProjectListAdapter
 import com.example.hw_roomdao.utils.autoCleared
-import okhttp3.internal.wait
 
 class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
 

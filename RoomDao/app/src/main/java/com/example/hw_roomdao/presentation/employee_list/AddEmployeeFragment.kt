@@ -53,7 +53,8 @@ class AddEmployeeFragment : Fragment(R.layout.fragment_employee_add) {
             id = args.id,
             firstName = binding.firstNameTextField.editText?.text?.toString().orEmpty(),
             lastName = binding.lastNameTextField.editText?.text?.toString().orEmpty(),
-            email = binding.emailTextField.editText?.text?.toString().orEmpty()
+            email = binding.emailTextField.editText?.text?.toString().orEmpty(),
+            age = 54
         )
     }
 
