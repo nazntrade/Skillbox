@@ -22,10 +22,19 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation":
-                                      "$projectDir/schemas".toString()]
+//    this way room schema generation didn't working
+//
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments += ["room.schemaLocation":
+//                                      "$projectDir/schemas".toString()]
+//            }
+//        }
+//
+//  this works
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
             }
         }
     }
@@ -62,12 +71,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
 
     //navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
 
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
-    implementation 'androidx.fragment:fragment-ktx:1.5.0'
+    implementation 'androidx.fragment:fragment-ktx:1.5.1'
 
     //LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0-alpha01"
@@ -85,7 +94,7 @@ dependencies {
     implementation 'io.coil-kt:coil:2.1.0'
 
     //RoomDao
-    def room_version = "2.4.2"
+    def room_version = "2.4.3"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
