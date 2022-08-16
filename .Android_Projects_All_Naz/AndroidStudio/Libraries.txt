@@ -19,8 +19,6 @@ PermissionsDispatcher
 // https://jarcasting.com/artifacts/com.github.permissions-dispatcher/ktx/
     implementation ("com.github.permissions-dispatcher:ktx:1.1.4")
 
-
-
 //Adapterdelegate
     implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 
@@ -57,6 +55,10 @@ PermissionsDispatcher
        }
     }
 
+    //for @Parcelize
+    id 'kotlin-parcelize'
+
+
 
 //Networking
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -91,6 +93,17 @@ PermissionsDispatcher
 
 //DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+
+    //RoomDao
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+       and you need to add :     
+       //for kapt
+       id 'kotlin-kapt'   to plugins
+
 
 
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/projectListFragment">
+
+    <fragment
+        android:id="@+id/projectListFragment"
+        android:name="com.example.hw_roomdao.presentation.project_list.ProjectListFragment"
+        tools:layout="@layout/fragment_project_list"
+        android:label="ProjectListFragment">
+        <action
+            android:id="@+id/action_projectListFragment_to_addProjectFragment"
+            app:destination="@id/addProjectFragment" />
+        <action
+            android:id="@+id/action_projectListFragment_to_projectWithEmployeesListFragment"
+            app:destination="@id/projectWithEmployeesListFragment" />
+        <action
+            android:id="@+id/action_projectListFragment_to_hireDirectorFragment"
+            app:destination="@id/hireDirectorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeListFragment"
+        tools:layout="@layout/fragment_employees"
+        android:name="com.example.hw_roomdao.presentation.employee_list.EmployeeListFragment"
+        android:label="EmployeeListFragment">
+        <action
+            android:id="@+id/action_contactListFragment_to_addContactFragment"
+            app:destination="@id/addEmployeeFragment" />
+        <argument
+            android:name="selectedProject"
+            app:argType="com.example.hw_roomdao.data.db.models.Project" />
+        <action
+            android:id="@+id/action_employeeListFragment_to_projectWithEmployeesListFragment"
+            app:destination="@id/projectWithEmployeesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        tools:layout="@layout/fragment_employee_add"
+        android:name="com.example.hw_roomdao.presentation.employee_list.AddEmployeeFragment"
+        android:label="AddEmployeeFragment">
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProjectFragment"
+        android:name="com.example.hw_roomdao.presentation.project_list.AddProjectFragment"
+        android:label="AddProjectFragment"
+        tools:layout="@layout/fragment_project_add">
+        <argument
+            android:name="currentCompany"
+            app:argType="com.example.hw_roomdao.data.db.models.Company" />
+    </fragment>
+    <fragment
+        android:id="@+id/projectWithEmployeesListFragment"
+        android:name="com.example.hw_roomdao.presentation.project_with_employee.ProjectWithEmployeesListFragment"
+        android:label="ProjectWithEmployeesListFragment"
+        tools:layout="@layout/fragment_employees">
+        <action
+            android:id="@+id/action_projectWithEmployeesListFragment_to_employeeListFragment"
+            app:destination="@id/employeeListFragment" />
+        <argument
+            android:name="selectedProject"
+            app:argType="com.example.hw_roomdao.data.db.models.Project" />
+    </fragment>
+    <fragment
+        android:id="@+id/hireDirectorFragment"
+        android:name="com.example.hw_roomdao.presentation.project_list.director.HireDirectorFragment"
+        tools:layout="@layout/fragment_add_director"
+        android:label="HireDirectorFragment">
+        <argument
+            android:name="argsDirector"
+            app:argType="com.example.hw_roomdao.data.db.models.Director" />
+    </fragment>
+</navigation>
