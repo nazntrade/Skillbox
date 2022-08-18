@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "ScopedStorage"
+rootProject.name = "L_ScopedStorage"
