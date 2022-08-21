@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">hw_ScopedStorage</string>
+    <string name="video_list_grant_permission">Grant permission</string>
+    <string name="add_video">Add video</string>
+    <string name="video_name">Video name</string>
+    <string name="video_url">video URL</string>
+    <string name="save">SAVE</string>
+
 </resources>
