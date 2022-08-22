@@ -1,4 +1,4 @@
-package ru.skillbox.scopedstorage.utils
+package com.skillbox.hw_scopedstorage.utils
 
 import android.os.Bundle
 import android.view.LayoutInflater

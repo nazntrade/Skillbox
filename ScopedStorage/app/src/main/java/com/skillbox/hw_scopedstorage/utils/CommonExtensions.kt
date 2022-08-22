@@ -1,4 +1,4 @@
-package ru.skillbox.scopedstorage.utils
+package com.skillbox.hw_scopedstorage.utils
 
 import android.app.Activity
 import android.content.Context
