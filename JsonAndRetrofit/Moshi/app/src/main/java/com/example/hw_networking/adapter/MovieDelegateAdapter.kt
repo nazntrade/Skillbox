@@ -61,10 +61,12 @@ class MovieDelegateAdapter(private val onItemClick: (itemMovie: RemoteMovie) -> 
 
         fun bind(item: RemoteMovie) {
             itemMovie = item
+
             posterView.load(item.poster) {
                 error(R.drawable.ic_404)
                 placeholder(R.drawable.loading)
             }
+
             titleView.text = item.title
             "Year: ${item.year}".also { yearView.text = it }
             "Type: ${item.type}".also { typeView.text = it }

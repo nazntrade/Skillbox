@@ -1,4 +1,8 @@
 package com.skillbox.hw_scopedstorage.data
 
-class VideosRepository {
+import android.content.Context
+
+class VideosRepository(
+    private val context: Context
+) {
 }

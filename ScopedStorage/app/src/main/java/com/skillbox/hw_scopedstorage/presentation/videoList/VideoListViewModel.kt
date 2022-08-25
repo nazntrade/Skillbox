@@ -6,11 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skillbox.hw_scopedstorage.data.Video
+import com.skillbox.hw_scopedstorage.data.VideosRepository
 import com.skillbox.hw_scopedstorage.utils.SingleLiveEvent
 
 class VideoListViewModel(
     app: Application
 ) : AndroidViewModel(app) {
+
+    private val videoRepository = VideosRepository(app)
 
     private val permissionsGrantedMutableLiveData = MutableLiveData(true)
     val permissionsGrantedLiveData: LiveData<Boolean>
@@ -20,9 +23,9 @@ class VideoListViewModel(
     val toastLiveData: LiveData<Int>
         get() = toastSingleLiveEvent
 
-    private val imagesMutableLiveData = MutableLiveData<List<Video>>()
+    private val videoMutableLiveData = MutableLiveData<List<Video>>()
     val imagesLiveData: LiveData<List<Video>>
-        get() = imagesMutableLiveData
+        get() = videoMutableLiveData
 
     private val recoverableActionMutableLiveData = MutableLiveData<RemoteAction>()
     val recoverableActionLiveData: LiveData<RemoteAction>
@@ -40,9 +43,9 @@ class VideoListViewModel(
     }
 
     fun permissionsGranted() {
-//        loadImages()
+//        loadVideo()
         if (isObservingStarted.not()) {
-//            videoRepository.observeImages { loadImages() }
+//            videoRepository.observeVideo { loadVideo() }
             isObservingStarted = true
         }
         permissionsGrantedMutableLiveData.postValue(true)
