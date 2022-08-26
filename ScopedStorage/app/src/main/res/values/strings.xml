@@ -6,5 +6,7 @@
     <string name="video_url">video URL</string>
     <string name="save">SAVE</string>
     <string name="toolBarTitle">Video files</string>
+    <string name="load_list_error">Load list error</string>
+    <string name="video_delete_error">Video delete error</string>
 
 </resources>

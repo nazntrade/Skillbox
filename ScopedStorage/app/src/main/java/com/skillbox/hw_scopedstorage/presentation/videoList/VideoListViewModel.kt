@@ -1,13 +1,19 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList
 
 import android.app.Application
+import android.app.RecoverableSecurityException
 import android.app.RemoteAction
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.data.Video
 import com.skillbox.hw_scopedstorage.data.VideosRepository
 import com.skillbox.hw_scopedstorage.utils.SingleLiveEvent
+import com.skillbox.hw_scopedstorage.utils.haveOSQAndAbove
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class VideoListViewModel(
     app: Application
@@ -24,7 +30,7 @@ class VideoListViewModel(
         get() = toastSingleLiveEvent
 
     private val videoMutableLiveData = MutableLiveData<List<Video>>()
-    val imagesLiveData: LiveData<List<Video>>
+    val videoLiveData: LiveData<List<Video>>
         get() = videoMutableLiveData
 
     private val recoverableActionMutableLiveData = MutableLiveData<RemoteAction>()
@@ -43,7 +49,7 @@ class VideoListViewModel(
     }
 
     fun permissionsGranted() {
-//        loadVideo()
+        loadVideo()
         if (isObservingStarted.not()) {
 //            videoRepository.observeVideo { loadVideo() }
             isObservingStarted = true
@@ -53,6 +59,53 @@ class VideoListViewModel(
 
     fun permissionsDenied() {
         permissionsGrantedMutableLiveData.postValue(false)
+    }
+
+    private fun loadVideo() {
+        viewModelScope.launch {
+            try {
+                val video = videoRepository.getVideo()
+                videoMutableLiveData.postValue(video)
+            } catch (t: Throwable) {
+                Timber.e(t)
+                videoMutableLiveData.postValue(emptyList())
+                toastSingleLiveEvent.postValue(R.string.load_list_error)
+            }
+        }
+    }
+
+    fun deleteVideo(id: Long) {
+        viewModelScope.launch {
+            try {
+                videoRepository.deleteVideo(id)
+                pendingDeleteId = null
+            } catch (t: Throwable) {
+                Timber.e(t)
+                if (haveOSQAndAbove() && t is RecoverableSecurityException) {
+                    pendingDeleteId = id
+                    recoverableActionMutableLiveData.postValue(t.userAction)
+                } else {
+                    toastSingleLiveEvent.postValue(R.string.video_delete_error)
+                }
+            }
+        }
+    }
+
+    // ????
+    fun confirmDelete() {
+        pendingDeleteId?.let {
+            deleteVideo(it)
+        }
+    }
+
+    // ????
+    fun declineDelete() {
+        pendingDeleteId = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        videoRepository.unregisterObserver()
     }
 
 }

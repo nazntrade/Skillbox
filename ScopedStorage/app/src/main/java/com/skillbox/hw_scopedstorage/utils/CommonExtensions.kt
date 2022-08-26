@@ -43,6 +43,6 @@ fun <T : Fragment> T.toast(message: String) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
-fun haveQ(): Boolean {
+fun haveOSQAndAbove(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 }

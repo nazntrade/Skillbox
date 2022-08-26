@@ -1,13 +1,18 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList
 
 import android.Manifest
+import android.app.Activity
+import android.app.RemoteAction
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.skillbox.hw_scopedstorage.R
@@ -15,7 +20,7 @@ import com.skillbox.hw_scopedstorage.databinding.FragmentVideoListBinding
 import com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter.VideoAdapter
 import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
 import com.skillbox.hw_scopedstorage.utils.autoCleared
-import com.skillbox.hw_scopedstorage.utils.haveQ
+import com.skillbox.hw_scopedstorage.utils.haveOSQAndAbove
 import com.skillbox.hw_scopedstorage.utils.toast
 
 //since this time binding only this and +file: ViewBindingFragment
@@ -26,12 +31,13 @@ class VideoListFragment :
     private var videoAdapter: VideoAdapter by autoCleared()
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>> //1 PERMISSIONS
+    private lateinit var recoverableActionLauncher: ActivityResultLauncher<IntentSenderRequest> //// What is it?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initPermissionResultListener() //1 PERMISSIONS
-//        initRecoverableActionListener()
+        initRecoverableActionListener() // what is it?
 
     }
 
@@ -75,9 +81,20 @@ class VideoListFragment :
 
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
-        viewModel.imagesLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
-        viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)
-        viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
+        viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
+        viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi) // ????
+
+        // if ????
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
+        }
+    }
+
+    //????
+    private fun updatePermissionUi(isGranted: Boolean) {
+        binding.grantPermissionButton.isVisible = isGranted.not()
+        binding.addVideoButton.isVisible = isGranted
+        binding.videoList.isVisible = isGranted
     }
 
     //1 PERMISSIONS
@@ -89,6 +106,20 @@ class VideoListFragment :
                 viewModel.permissionsGranted()
             } else {
                 viewModel.permissionsDenied()
+            }
+        }
+    }
+
+    // ????
+    private fun initRecoverableActionListener() {
+        recoverableActionLauncher = registerForActivityResult(
+            ActivityResultContracts.StartIntentSenderForResult()
+        ) {  activityResult ->
+            val isConfirmed = activityResult.resultCode == Activity.RESULT_OK
+            if(isConfirmed) {
+                viewModel.confirmDelete()
+            } else {
+                viewModel.declineDelete()
             }
         }
     }
@@ -113,12 +144,20 @@ class VideoListFragment :
         binding.appBar.toolBar.title = getString(R.string.toolBarTitle)
     }
 
+    // ????
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun handleRecoverableAction(action: RemoteAction) {
+        val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
+            .build()
+        recoverableActionLauncher.launch(request)
+    }
+
     //1 PERMISSIONS
     companion object {
         private val PERMISSIONS = listOfNotNull(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-                .takeIf { haveQ().not() }
+                .takeIf { haveOSQAndAbove().not() }
         )
     }
 }
