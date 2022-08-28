@@ -23,7 +23,7 @@ import com.skillbox.hw_scopedstorage.utils.autoCleared
 import com.skillbox.hw_scopedstorage.utils.haveOSQAndAbove
 import com.skillbox.hw_scopedstorage.utils.toast
 
-//since this time binding only this and +file: ViewBindingFragment
+//since this time binding only this. and + file: ViewBindingFragment
 class VideoListFragment :
     ViewBindingFragment<FragmentVideoListBinding>(FragmentVideoListBinding::inflate) {
 

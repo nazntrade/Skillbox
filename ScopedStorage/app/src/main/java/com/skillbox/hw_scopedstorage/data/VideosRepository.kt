@@ -41,10 +41,10 @@ class VideosRepository(
     }
 
     suspend fun deleteVideo(id: Long) {
-//        withContext(Dispatchers.IO) {
-//            val uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
-//            context.contentResolver.delete(uri, null, null)
-//        }
+        withContext(Dispatchers.IO) {
+            val uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
+            context.contentResolver.delete(uri, null, null)
+        }
     }
 
     fun unregisterObserver() {
