@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
@@ -17,6 +21,8 @@ import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
 //
 class AddVideoDialogFragment : BottomSheetDialogFragment() {
 
+    private val viewModel: AddVideoViewModel by viewModels()
+
     private var _binding: DialogAddVideoBinding? = null
     private val binding: DialogAddVideoBinding
         get() = _binding!!
@@ -25,7 +31,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = DialogAddVideoBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
 
@@ -45,5 +51,9 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        private const val COLLAPSED_HEIGHT = 228
     }
 }

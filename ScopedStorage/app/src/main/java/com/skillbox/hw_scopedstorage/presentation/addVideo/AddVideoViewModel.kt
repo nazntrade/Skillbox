@@ -1,4 +1,10 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
-class AddVideoViewModel {
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+
+class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
+
+
 }

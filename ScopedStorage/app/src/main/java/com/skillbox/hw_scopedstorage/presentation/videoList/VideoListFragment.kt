@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.databinding.FragmentVideoListBinding
+import com.skillbox.hw_scopedstorage.presentation.addVideo.AddVideoDialogFragment
 import com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter.VideoAdapter
 import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
 import com.skillbox.hw_scopedstorage.utils.autoCleared
@@ -63,7 +64,8 @@ class VideoListFragment :
 
     private fun initCallbacks() {
         binding.addVideoButton.setOnClickListener {
-            findNavController().navigate(VideoListFragmentDirections.actionVideoListFragmentToAddVideoDialogFragment())
+            findNavController().navigate(R.id.action_videoListFragment_to_addVideoDialogFragment)
+//            AddVideoDialogFragment().show(childFragmentManager,"tag")
         }
         binding.grantPermissionButton.setOnClickListener {
             requestPermissions()

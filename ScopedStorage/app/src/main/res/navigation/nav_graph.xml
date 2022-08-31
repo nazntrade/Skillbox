@@ -14,7 +14,7 @@
             android:id="@+id/action_videoListFragment_to_addVideoDialogFragment"
             app:destination="@id/addVideoDialogFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/addVideoDialogFragment"
         android:name="com.skillbox.hw_scopedstorage.presentation.addVideo.AddVideoDialogFragment"
         android:label="AddVideoDialogFragment"
