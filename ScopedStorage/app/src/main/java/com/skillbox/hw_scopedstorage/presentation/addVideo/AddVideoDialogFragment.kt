@@ -1,10 +1,12 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
+import com.skillbox.hw_scopedstorage.utils.toast
 
 //
 // BottomSheetDialogFragment() for popup View on main screen
@@ -37,10 +40,24 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        bindViewModel()
+        bindViewModel()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun bindViewModel() {
+        binding.saveButton.setOnClickListener {
+            val url = binding.urlTextField.editText?.text?.toString().orEmpty()
+            val name = binding.nameTextField.editText?.text?.toString().orEmpty()
+            viewModel.saveVideo(name, url)
+        }
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, ::setLoading)
+        viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
+        viewModel.saveSuccessLiveData.observe(viewLifecycleOwner) { dismiss() }
+
     }
 
     private fun setLoading(isLoading: Boolean) {
@@ -53,7 +70,4 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 
-    companion object{
-        private const val COLLAPSED_HEIGHT = 228
-    }
 }

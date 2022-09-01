@@ -17,11 +17,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.databinding.FragmentVideoListBinding
-import com.skillbox.hw_scopedstorage.presentation.addVideo.AddVideoDialogFragment
 import com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter.VideoAdapter
 import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
 import com.skillbox.hw_scopedstorage.utils.autoCleared
-import com.skillbox.hw_scopedstorage.utils.haveOSQAndAbove
+import com.skillbox.hw_scopedstorage.utils.haveQ
 import com.skillbox.hw_scopedstorage.utils.toast
 
 //since this time binding only this. and + file: ViewBindingFragment
@@ -159,7 +158,7 @@ class VideoListFragment :
         private val PERMISSIONS = listOfNotNull(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-                .takeIf { haveOSQAndAbove().not() }
+                .takeIf { haveQ().not() }
         )
     }
 }

@@ -11,7 +11,7 @@ import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.data.Video
 import com.skillbox.hw_scopedstorage.data.VideosRepository
 import com.skillbox.hw_scopedstorage.utils.SingleLiveEvent
-import com.skillbox.hw_scopedstorage.utils.haveOSQAndAbove
+import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -81,7 +81,7 @@ class VideoListViewModel(
                 pendingDeleteId = null
             } catch (t: Throwable) {
                 Timber.e(t)
-                if (haveOSQAndAbove() && t is RecoverableSecurityException) {
+                if (haveQ() && t is RecoverableSecurityException) {
                     pendingDeleteId = id
                     recoverableActionMutableLiveData.postValue(t.userAction)
                 } else {
