@@ -1,19 +1,12 @@
-    //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6"
+package com.skillbox.hw_scopedstorage.data
 
-
-object Networking {
-
- 
-import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import okhttp3.OkHttpClient
 import retrofit2.create
 
-
-
-   private val okhttpClient = OkHttpClient.Builder()
+object Networking {
+    private val okhttpClient = OkHttpClient.Builder()
         .addNetworkInterceptor(
             HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -29,16 +22,4 @@ import retrofit2.create
     val api: Api
         get() = retrofit.create()
 
-}
-
-
-import okhttp3.ResponseBody
-import retrofit2.http.GET
-import retrofit2.http.Url
-
-interface Api {
-    @GET
-    suspend fun getFile(
-        @Url url: String
-    ): ResponseBody
 }
