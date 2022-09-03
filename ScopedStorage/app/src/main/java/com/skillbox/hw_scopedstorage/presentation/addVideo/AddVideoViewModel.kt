@@ -35,7 +35,7 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)
-                toastSingleLiveEvent.postValue(R.string.image_add_error)
+                toastSingleLiveEvent.postValue(R.string.video_add_error)
             } finally {
                 loadingMutableLiveData.postValue(false)
             }
