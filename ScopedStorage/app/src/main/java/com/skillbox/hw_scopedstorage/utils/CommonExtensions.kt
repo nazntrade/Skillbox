@@ -40,7 +40,7 @@ fun <T : Fragment> T.toast(@StringRes message: Int) {
 }
 
 fun <T : Fragment> T.toast(message: String) {
-    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
 }
 
 fun haveQ(): Boolean {

@@ -3,6 +3,9 @@ package com.skillbox.hw_scopedstorage.presentation.videoList
 import android.app.Application
 import android.app.RecoverableSecurityException
 import android.app.RemoteAction
+import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,10 +51,21 @@ class VideoListViewModel(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun initExistedVideo(requireContext: Context) {
+        viewModelScope.launch {
+            try {
+                videoRepository.initExistedVideo(requireContext)
+            } catch (t: Throwable) {
+                Timber.e(t, "main screen error")
+            }
+        }
+    }
+
     fun permissionsGranted() {
         loadVideo()
         if (isObservingStarted.not()) {
-//            videoRepository.observeVideo { loadVideo() }
+            videoRepository.observeVideo { loadVideo() }
             isObservingStarted = true
         }
         permissionsGrantedMutableLiveData.postValue(true)

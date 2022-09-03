@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
+import android.content.SharedPreferences
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class VideosRepository(
     private val context: Context
@@ -19,7 +23,47 @@ class VideosRepository(
 
     private var observer: ContentObserver? = null
 
-    // https://rr1---sn-5hne6nz6.googlevideo.com/videoplayback?expire=1662118300&ei=PJURY6HIGJaAgAevtY3oAw&ip=216.131.88.183&id=o-ALADGcK5KGngW7zCeMd0ZMdSw21inZo2xbKLUqUWjirx&itag=18&source=youtube&requiressl=yes&mh=X2&mm=31%2C29&mn=sn-5hne6nz6%2Csn-5hnekn7k&ms=au%2Crdu&mv=m&mvi=1&pl=23&initcwndbps=2340000&spc=lT-KhnhyA580qaPO-ygHCLZfqdKsDIo&vprv=1&mime=video%2Fmp4&ns=ulpaoy3ciJCcNGKzIQ7DxdwH&cnr=14&ratebypass=yes&dur=65.062&lmt=1627138294836796&mt=1662096327&fvip=4&fexp=24001373%2C24007246&c=WEB&rbqsm=fr&n=Pla8AkqhysmJAQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIgQs_et9PdttW2LAlI9cX61MB3wiEjZo74Cfj18mfwxScCIQC5O_IaWAF0PINmYRmnAstn_UiZfPKzq0qVmcsYHvBeqw%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAKvYFwm3xYV_QqwAX2805o_JNlDYmhN9KjADYARJFLEqAiBwtcoljRD4kSFxOaE0ADVipk96wOdt8_ntEVV-BvHmpQ%3D%3D
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val name1 = "simpleVideo1"
+    private val url1 =
+        "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+    private val name2 = "simpleVideo2"
+    private val url2 = "https://download.samplelib.com/mp4/sample-5s.mp4"
+    private val name3 = "simpleVideo3"
+    private val url3 =
+        "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
+    private val name4 = "simpleVideo4"
+    private val url4 =
+        "https://file-examples.com/storage/fe6a5406fa63112369b75a2/2017/04/file_example_MP4_480_1_5MG.mp4"
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    suspend fun initExistedVideo(requireContext: Context) {
+        withContext(Dispatchers.IO) {
+            sharedPreferences =
+                requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            try {
+                val sharedPrefExistedValue =
+                    sharedPreferences.getBoolean("first_run", true)
+                if (sharedPrefExistedValue) {
+                    Timber.tag("first_run: ").d("true")
+
+                    withContext(Dispatchers.IO) {
+                        saveVideo(name1, url1)
+                        saveVideo(name2, url2)
+                        saveVideo(name3, url3)
+                        saveVideo(name4, url4)
+                    }
+
+                    sharedPreferences.edit()
+                        .putBoolean("first_run", false)
+                        .apply()
+                }
+            } catch (t: Throwable) {
+
+            }
+        }
+    }
 
     @SuppressLint("Range")
     suspend fun getVideo(): List<Video> {
@@ -34,10 +78,13 @@ class VideosRepository(
             )?.use { cursor ->
                 while (cursor.moveToNext()) {
                     val id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID))
-                    val name = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME))
+                    val name =
+                        cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME))
                     val size = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))
-                    val duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))
-                    val uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
+                    val duration =
+                        cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))
+                    val uri =
+                        ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
 
                     videoList += Video(id, uri, name, duration, size)
                 }
@@ -55,8 +102,8 @@ class VideosRepository(
         }
     }
 
-        //!!!!!!!!!!!!
-    @RequiresApi(Build.VERSION_CODES.Q)// this annotation ???
+    //!!!!!!!!!!!!
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
         val volume =
             if (haveQ()) {
@@ -68,8 +115,8 @@ class VideosRepository(
         val videoCollectionUri = MediaStore.Video.Media.getContentUri(volume)
         val videoDetails = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
-            put(MediaStore.Video.Media.MIME_TYPE, "video/*")
-            if (haveQ()){
+            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
+            if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
             }
         }
@@ -78,7 +125,7 @@ class VideosRepository(
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun makeVideoVisible(imageUri: Uri) {
-        if(haveQ().not()) return
+        if (haveQ().not()) return
 
         val imageDetails = ContentValues().apply {
             put(MediaStore.Images.Media.IS_PENDING, 0)
@@ -97,7 +144,6 @@ class VideosRepository(
         }
     }
 
-
     suspend fun deleteVideo(id: Long) {
         withContext(Dispatchers.IO) {
             val uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
@@ -105,8 +151,27 @@ class VideosRepository(
         }
     }
 
+    // observe all change in videoFiles
+    fun observeVideo(onChange: () -> Unit) {
+        observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
+            override fun onChange(selfChange: Boolean) {
+                super.onChange(selfChange)
+                onChange
+            }
+        }
+        context.contentResolver.registerContentObserver(
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+            true,
+            observer!!
+        )
+    }
+
     fun unregisterObserver() {
         observer?.let { context.contentResolver.unregisterContentObserver(it) }
+    }
+
+    companion object {
+        const val SHARED_PREFS_NAME = "shared_pref"
     }
 
 }

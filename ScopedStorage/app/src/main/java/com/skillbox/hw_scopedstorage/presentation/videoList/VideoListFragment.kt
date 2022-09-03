@@ -41,6 +41,7 @@ class VideoListFragment :
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,6 +52,8 @@ class VideoListFragment :
             requestPermissions()
         }
 
+        toast("Please wait a minute until video is downloading")
+        viewModel.initExistedVideo(requireContext())
         initList()
         initCallbacks()
         bindViewModel()
@@ -64,7 +67,6 @@ class VideoListFragment :
     private fun initCallbacks() {
         binding.addVideoButton.setOnClickListener {
             findNavController().navigate(R.id.action_videoListFragment_to_addVideoDialogFragment)
-//            AddVideoDialogFragment().show(childFragmentManager,"tag")
         }
         binding.grantPermissionButton.setOnClickListener {
             requestPermissions()
@@ -78,7 +80,6 @@ class VideoListFragment :
             adapter = videoAdapter
         }
     }
-
 
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }

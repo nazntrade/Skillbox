@@ -22,7 +22,7 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     val saveSuccessLiveData: LiveData<Unit>
         get() = saveSuccessSingleLiveEvent
 
-    private val loadingMutableLiveData = MutableLiveData<Boolean>(false)
+    private val loadingMutableLiveData = MutableLiveData(false)
     val loadingLiveData: LiveData<Boolean>
         get() = loadingMutableLiveData
 
