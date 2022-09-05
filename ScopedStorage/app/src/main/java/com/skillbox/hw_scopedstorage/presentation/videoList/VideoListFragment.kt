@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -51,7 +52,6 @@ class VideoListFragment :
         if (hasPermission().not()) {
             requestPermissions()
         }
-
         toast("Please wait a minute until video is downloading")
         viewModel.initExistedVideo(requireContext())
         initList()

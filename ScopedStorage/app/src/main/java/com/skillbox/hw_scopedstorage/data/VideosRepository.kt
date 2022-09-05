@@ -11,8 +11,10 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
+import com.skillbox.hw_scopedstorage.utils.toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -35,7 +37,7 @@ class VideosRepository(
         "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
     private val name4 = "simpleVideo4"
     private val url4 =
-        "https://file-examples.com/storage/fe6a5406fa63112369b75a2/2017/04/file_example_MP4_480_1_5MG.mp4"
+        "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
     @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
@@ -49,10 +51,11 @@ class VideosRepository(
                     Timber.tag("first_run: ").d("true")
 
                     withContext(Dispatchers.IO) {
-                        saveVideo(name1, url1)
-                        saveVideo(name2, url2)
+
                         saveVideo(name3, url3)
                         saveVideo(name4, url4)
+                        saveVideo(name2, url2)
+                        saveVideo(name1, url1)
                     }
 
                     sharedPreferences.edit()
