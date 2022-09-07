@@ -1,6 +1,7 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.RemoteAction
 import android.content.pm.PackageManager
@@ -42,7 +43,6 @@ class VideoListFragment :
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,10 +53,10 @@ class VideoListFragment :
             requestPermissions()
         }
         toast("Please wait a minute until video is downloading")
-        viewModel.initExistedVideo(requireContext())
         initList()
         initCallbacks()
         bindViewModel()
+        viewModel.initExistedVideo(requireContext())
     }
 
     override fun onResume() {
@@ -84,12 +84,9 @@ class VideoListFragment :
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
         viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
-        viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi) // ????
+        viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)// ???
+        viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
 
-        // if ????
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
-        }
     }
 
     //????
@@ -116,9 +113,9 @@ class VideoListFragment :
     private fun initRecoverableActionListener() {
         recoverableActionLauncher = registerForActivityResult(
             ActivityResultContracts.StartIntentSenderForResult()
-        ) {  activityResult ->
+        ) { activityResult ->
             val isConfirmed = activityResult.resultCode == Activity.RESULT_OK
-            if(isConfirmed) {
+            if (isConfirmed) {
                 viewModel.confirmDelete()
             } else {
                 viewModel.declineDelete()
@@ -147,7 +144,7 @@ class VideoListFragment :
     }
 
     // ????
-    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("NewApi")
     private fun handleRecoverableAction(action: RemoteAction) {
         val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
             .build()

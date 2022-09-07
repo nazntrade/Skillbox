@@ -1,9 +1,7 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter
 
 import android.view.ViewGroup
-import androidx.core.graphics.createBitmap
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate

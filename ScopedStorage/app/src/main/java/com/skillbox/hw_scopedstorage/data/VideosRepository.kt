@@ -39,7 +39,6 @@ class VideosRepository(
     private val url4 =
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
@@ -96,7 +95,6 @@ class VideosRepository(
         return videoList
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
@@ -106,7 +104,6 @@ class VideosRepository(
     }
 
     //!!!!!!!!!!!!
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
         val volume =
             if (haveQ()) {
@@ -126,12 +123,13 @@ class VideosRepository(
         return context.contentResolver.insert(videoCollectionUri, videoDetails)!!
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun makeVideoVisible(imageUri: Uri) {
         if (haveQ().not()) return
 
         val imageDetails = ContentValues().apply {
-            put(MediaStore.Images.Media.IS_PENDING, 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.Images.Media.IS_PENDING, 0)
+            }
         }
         context.contentResolver.update(imageUri, imageDetails, null, null)
     }
@@ -167,6 +165,7 @@ class VideosRepository(
             true,
             observer!!
         )
+
     }
 
     fun unregisterObserver() {
