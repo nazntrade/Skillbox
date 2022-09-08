@@ -155,7 +155,6 @@ class VideosRepository(
             override fun onChange(selfChange: Boolean) {
                 super.onChange(selfChange)
                 onChange()
-                Timber.d( "observer",selfChange)
             }
         }
         context.contentResolver.registerContentObserver(

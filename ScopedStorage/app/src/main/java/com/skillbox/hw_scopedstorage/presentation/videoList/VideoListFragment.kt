@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -109,23 +108,9 @@ class VideoListFragment :
         }
     }
 
-    // ????
-    private fun initRecoverableActionListener() {
-        recoverableActionLauncher = registerForActivityResult(
-            ActivityResultContracts.StartIntentSenderForResult()
-        ) { activityResult ->
-            val isConfirmed = activityResult.resultCode == Activity.RESULT_OK
-            if (isConfirmed) {
-                viewModel.confirmDelete()
-            } else {
-                viewModel.declineDelete()
-            }
-        }
-    }
-
     //1 PERMISSIONS
     private fun requestPermissions() {
-        requestPermissionLauncher.launch(*PERMISSIONS.toTypedArray())
+        requestPermissionLauncher.launch(PERMISSIONS.toTypedArray())
     }
 
     //1 PERMISSIONS
@@ -141,6 +126,20 @@ class VideoListFragment :
     //including statusBar
     private fun initToolBar() {
         binding.appBar.toolBar.title = getString(R.string.toolBarTitle)
+    }
+
+    // ????
+    private fun initRecoverableActionListener() {
+        recoverableActionLauncher = registerForActivityResult(
+            ActivityResultContracts.StartIntentSenderForResult()
+        ) { activityResult ->
+            val isConfirmed = activityResult.resultCode == Activity.RESULT_OK
+            if (isConfirmed) {
+                viewModel.confirmDelete()
+            } else {
+                viewModel.declineDelete()
+            }
+        }
     }
 
     // ????

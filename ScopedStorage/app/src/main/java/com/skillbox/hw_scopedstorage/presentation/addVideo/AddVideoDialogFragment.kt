@@ -1,19 +1,12 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
 import com.skillbox.hw_scopedstorage.utils.toast
 
