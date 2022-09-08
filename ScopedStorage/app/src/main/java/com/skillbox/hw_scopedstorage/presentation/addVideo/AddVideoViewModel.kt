@@ -26,7 +26,6 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     val loadingLiveData: LiveData<Boolean>
         get() = loadingMutableLiveData
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     fun saveVideo(name: String, url: String) {
         viewModelScope.launch {
             loadingMutableLiveData.postValue(true)

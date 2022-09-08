@@ -46,8 +46,8 @@ class VideoListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.startVideoObserver()
         initToolBar()
-
         //1 PERMISSIONS
         if (hasPermission().not()) {
             requestPermissions()

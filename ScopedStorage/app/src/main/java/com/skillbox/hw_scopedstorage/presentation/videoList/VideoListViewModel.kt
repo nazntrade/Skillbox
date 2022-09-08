@@ -26,11 +26,6 @@ class VideoListViewModel(
 
     private var isObservingStarted: Boolean = false
 
-    override fun onCleared() {
-        super.onCleared()
-        videoRepository.unregisterObserver()
-    }
-
     private var pendingDeleteId: Long? = null
 
     private val permissionsGrantedMutableLiveData = MutableLiveData(true)
@@ -57,6 +52,13 @@ class VideoListViewModel(
         }
     }
 
+    fun startVideoObserver() {
+        if (isObservingStarted.not()) {
+            videoRepository.observeVideo { loadVideo() }
+            isObservingStarted = true
+        }
+    }
+
     fun initExistedVideo(requireContext: Context) {
         viewModelScope.launch {
             try {
@@ -69,10 +71,6 @@ class VideoListViewModel(
 
     fun permissionsGranted() {
         loadVideo()
-        if (isObservingStarted.not()) {
-            videoRepository.observeVideo { loadVideo() }
-            isObservingStarted = true
-        }
         permissionsGrantedMutableLiveData.postValue(true)
     }
 
@@ -120,6 +118,11 @@ class VideoListViewModel(
     // ????
     fun declineDelete() {
         pendingDeleteId = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        videoRepository.unregisterObserver()
     }
 
 }

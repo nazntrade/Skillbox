@@ -40,14 +40,12 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         bindViewModel()
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun bindViewModel() {
         binding.saveButton.setOnClickListener {
             val url = binding.urlTextField.editText?.text?.toString().orEmpty()
