@@ -11,10 +11,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
-import com.skillbox.hw_scopedstorage.utils.toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -157,7 +154,8 @@ class VideosRepository(
         observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
             override fun onChange(selfChange: Boolean) {
                 super.onChange(selfChange)
-                onChange
+                onChange()
+                Timber.d( "observer",selfChange)
             }
         }
         context.contentResolver.registerContentObserver(
@@ -165,7 +163,6 @@ class VideosRepository(
             true,
             observer!!
         )
-
     }
 
     fun unregisterObserver() {

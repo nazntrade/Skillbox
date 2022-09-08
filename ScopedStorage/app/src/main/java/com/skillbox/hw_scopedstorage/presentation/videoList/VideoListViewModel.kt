@@ -54,8 +54,8 @@ class VideoListViewModel(
 
     fun startVideoObserver() {
         if (isObservingStarted.not()) {
-            videoRepository.observeVideo { loadVideo() }
             isObservingStarted = true
+            videoRepository.observeVideo { loadVideo() }
         }
     }
 
