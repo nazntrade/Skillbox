@@ -1,5 +1,6 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,14 +37,14 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindViewModel()
+        bindViewModel(requireContext())
     }
 
-    private fun bindViewModel() {
+    private fun bindViewModel(requireContext: Context) {
         binding.saveButton.setOnClickListener {
             val url = binding.urlTextField.editText?.text?.toString().orEmpty()
             val name = binding.nameTextField.editText?.text?.toString().orEmpty()
-            viewModel.saveVideo(name, url)
+            viewModel.saveVideo(requireContext, name, url)
         }
         viewModel.loadingLiveData.observe(viewLifecycleOwner, ::setLoading)
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }

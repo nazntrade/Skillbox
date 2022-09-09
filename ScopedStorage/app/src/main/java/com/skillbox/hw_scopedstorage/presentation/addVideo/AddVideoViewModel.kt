@@ -1,6 +1,7 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
 import android.app.Application
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
@@ -26,11 +27,11 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     val loadingLiveData: LiveData<Boolean>
         get() = loadingMutableLiveData
 
-    fun saveVideo(name: String, url: String) {
+    fun saveVideo(requireContext: Context, name: String, url: String) {
         viewModelScope.launch {
             loadingMutableLiveData.postValue(true)
             try {
-                videosRepository.saveVideo(name, url)
+                videosRepository.saveVideo(requireContext, name, url)
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)
