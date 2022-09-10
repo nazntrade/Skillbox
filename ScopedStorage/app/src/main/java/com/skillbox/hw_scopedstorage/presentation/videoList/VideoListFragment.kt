@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.RemoteAction
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -82,10 +83,12 @@ class VideoListFragment :
 
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
-        viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
+        viewModel.videoLiveData.observe(viewLifecycleOwner) {
+            videoAdapter.items = it
+            MediaPlayer.create(requireContext(), R.raw.retro_game_notification).start()
+        }
         viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)// ???
         viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
-
     }
 
     //????

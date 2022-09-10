@@ -27,11 +27,11 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     val loadingLiveData: LiveData<Boolean>
         get() = loadingMutableLiveData
 
-    fun saveVideo(requireContext: Context, name: String, url: String) {
+    fun saveVideo(name: String, url: String) {
         viewModelScope.launch {
             loadingMutableLiveData.postValue(true)
             try {
-                videosRepository.saveVideo(requireContext, name, url)
+                videosRepository.saveVideo(name, url)
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)

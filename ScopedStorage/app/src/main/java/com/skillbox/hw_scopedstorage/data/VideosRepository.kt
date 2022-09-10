@@ -50,10 +50,10 @@ class VideosRepository(
 
                     withContext(Dispatchers.IO) {
 
-                        saveVideo(requireContext, name3, url3)
-                        saveVideo(requireContext, name4, url4)
-                        saveVideo(requireContext, name2, url2)
-                        saveVideo(requireContext, name1, url1)
+                        saveVideo(name3, url3)
+                        saveVideo(name4, url4)
+                        saveVideo(name2, url2)
+                        saveVideo(name1, url1)
                     }
 
                     sharedPreferences.edit()
@@ -94,10 +94,10 @@ class VideosRepository(
         return videoList
     }
 
-    suspend fun saveVideo(requireContext: Context, name: String, url: String) {
+    suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
-            downloadVideo(requireContext, name, url, videoUri)
+            downloadVideo(url, videoUri)
             makeVideoVisible(videoUri)
         }
     }
@@ -132,14 +132,11 @@ class VideosRepository(
         }
         context.contentResolver.update(imageUri, imageDetails, null, null)
     }
-/////////////////////////////// URI !!!!!! this code not working
-    private suspend fun downloadVideo(requireContext: Context, name: String, url: String, uri: Uri) {
-        withContext(Dispatchers.IO){
-            val folder = requireContext.getExternalFilesDir("Movies")
+
+    private suspend fun downloadVideo(url: String, uri: Uri) {
+        withContext(Dispatchers.IO) {
             try {
-                newFile = File(folder, name)
-                newFile.outputStream().use {
-                        outputStream ->
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                     Networking.api
                         .getFile(url)
                         .byteStream()
@@ -148,19 +145,8 @@ class VideosRepository(
                         }
                 }
             } catch (t: Throwable) {
-                newFile.delete()
+                context.contentResolver.delete(uri, null, null)
             }
-
-        //this worked well
-
-//            context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-//                Networking.api
-//                    .getFile(url)
-//                    .byteStream()
-//                    .use { inputStream ->
-//                        inputStream.copyTo(outputStream)
-//                    }
-//            }
         }
     }
 
