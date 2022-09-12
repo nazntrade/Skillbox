@@ -6,18 +6,18 @@ import android.app.Activity
 import android.app.RemoteAction
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.skillbox.hw_scopedstorage.R
+import com.skillbox.hw_scopedstorage.data.Video
 import com.skillbox.hw_scopedstorage.databinding.FragmentVideoListBinding
 import com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter.VideoAdapter
 import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
@@ -74,11 +74,18 @@ class VideoListFragment :
     }
 
     private fun initList() {
-        videoAdapter = VideoAdapter(viewModel::deleteVideo)
+        videoAdapter = VideoAdapter(
+            ::navigateAndPlayVideo,
+            viewModel::deleteVideo)
         with(binding.videoList) {
             setHasFixedSize(true)
             adapter = videoAdapter
         }
+    }
+
+    private fun navigateAndPlayVideo(clickedVideo: Video) {
+        val directions = VideoListFragmentDirections.actionVideoListFragmentToPlayVideoFragment(clickedVideo)
+        findNavController().navigate(directions)
     }
 
     private fun bindViewModel() {

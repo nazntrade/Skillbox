@@ -13,10 +13,22 @@
         <action
             android:id="@+id/action_videoListFragment_to_addVideoDialogFragment"
             app:destination="@id/addVideoDialogFragment" />
+        <action
+            android:id="@+id/action_videoListFragment_to_playVideoFragment"
+            app:destination="@id/playVideoFragment" />
     </fragment>
     <dialog
         android:id="@+id/addVideoDialogFragment"
         android:name="com.skillbox.hw_scopedstorage.presentation.addVideo.AddVideoDialogFragment"
         android:label="AddVideoDialogFragment"
         tools:layout="@layout/dialog_add_video"/>
+    <fragment
+        android:id="@+id/playVideoFragment"
+        android:name="com.skillbox.hw_scopedstorage.presentation.playVideo.PlayVideoFragment"
+        android:label="PlayVideoFragment"
+        tools:layout="@layout/fragment_play_video">
+        <argument
+            android:name="clickedVideo"
+            app:argType="com.skillbox.hw_scopedstorage.data.Video" />
+    </fragment>
 </navigation>
