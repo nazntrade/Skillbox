@@ -102,6 +102,26 @@ class VideosRepository(
         }
     }
 
+    suspend fun saveVideoToCustomDir(name: String, url: String, uri: Uri) {
+//        withContext(Dispatchers.IO) {
+//            val videoCustomUri = saveCustomVideoDetails(name, uri)
+//            downloadVideo(url, videoCustomUri)
+//            makeVideoVisible(videoCustomUri)
+//        }
+    }
+
+    private fun saveCustomVideoDetails(name: String, uri: Uri): Uri {
+//        val videoCollectionUri = MediaStore.Video.Media.getContentUri(uri.toString())
+//        val videoDetails = ContentValues().apply {
+//            put(MediaStore.Video.Media.DISPLAY_NAME, name)
+//            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
+//            if (haveQ()) {
+//                put(MediaStore.Video.Media.IS_PENDING, 1)
+//            }
+//        }
+//        return context.contentResolver.insert(videoCollectionUri, videoDetails)!!
+    }
+
     //!!!!!!!!!!!!
     private fun saveVideoDetails(name: String): Uri {
         val volume =

@@ -50,7 +50,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     //select dir
     private fun initSelectVideoFolderLauncher() {
         selectVideoDirectoryLauncher = registerForActivityResult(
-            ActivityResultContracts.OpenDocumentTree()
+            ActivityResultContracts.OpenDocumentTree()  // Possibly this error
         ) { uri ->
             handleSelectDirectory(uri)
         }
@@ -62,23 +62,25 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     }
 
     //select dir
-    private fun handleSelectDirectory(uri: Uri?) {
-        if (uri == null) {
+    private fun handleSelectDirectory(customUri: Uri?) {
+        if (customUri == null) {
             toast("directory not selected")
             return
         }
-        toast("Selected directory = $uri")
+//        toast("Selected directory = $customUri")
         ///////////////////
         //        val url = binding.urlTextField.editText?.text?.toString().orEmpty()
         //        val name = binding.nameTextField.editText?.text?.toString().orEmpty()
         // pass parameters !!!
         //save video to uri
+        val name = binding.nameTextField.editText?.text?.toString().orEmpty()
+        val url = binding.urlTextField.editText?.text?.toString().orEmpty()
+        viewModel.saveVideoToCustomDir(name, url, customUri)
     }
 
-
     private fun bindViewModel() {
-        val url = binding.urlTextField.editText?.text?.toString().orEmpty()
         val name = binding.nameTextField.editText?.text?.toString().orEmpty()
+        val url = binding.urlTextField.editText?.text?.toString().orEmpty()
 
         binding.saveCustomDirButton.setOnClickListener {
             selectDirectory()

@@ -2,6 +2,7 @@ package com.skillbox.hw_scopedstorage.presentation.addVideo
 
 import android.app.Application
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
@@ -32,6 +33,21 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
             loadingMutableLiveData.postValue(true)
             try {
                 videosRepository.saveVideo(name, url)
+                saveSuccessSingleLiveEvent.postValue(Unit)
+            } catch (t: Throwable) {
+                Timber.e(t)
+                toastSingleLiveEvent.postValue(R.string.video_add_error)
+            } finally {
+                loadingMutableLiveData.postValue(false)
+            }
+        }
+    }
+
+    fun saveVideoToCustomDir(name: String, url: String, uri: Uri) {
+        viewModelScope.launch {
+            loadingMutableLiveData.postValue(true)
+            try {
+                videosRepository.saveVideoToCustomDir(name, url, uri)
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)
