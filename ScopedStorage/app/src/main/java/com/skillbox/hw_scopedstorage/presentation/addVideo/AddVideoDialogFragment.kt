@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,7 +24,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     private val viewModel: AddVideoViewModel by viewModels()
 
     //select dir
-    private lateinit var selectVideoDirectoryLauncher: ActivityResultLauncher<Uri?>
+    private lateinit var selectVideoDirectoryLauncher: ActivityResultLauncher<String>
 
     private var _binding: DialogAddVideoBinding? = null
     private val binding: DialogAddVideoBinding
@@ -50,15 +51,10 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     //select dir
     private fun initSelectVideoFolderLauncher() {
         selectVideoDirectoryLauncher = registerForActivityResult(
-            ActivityResultContracts.OpenDocumentTree()  // Possibly this error
+            CreateDocument("video/mp4")  // Possibly this error
         ) { uri ->
             handleSelectDirectory(uri)
         }
-    }
-
-    //select dir
-    private fun selectDirectory() {
-        selectVideoDirectoryLauncher.launch(null)
     }
 
     //select dir
@@ -67,12 +63,6 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
             toast("directory not selected")
             return
         }
-//        toast("Selected directory = $customUri")
-        ///////////////////
-        //        val url = binding.urlTextField.editText?.text?.toString().orEmpty()
-        //        val name = binding.nameTextField.editText?.text?.toString().orEmpty()
-        // pass parameters !!!
-        //save video to uri
         val name = binding.nameTextField.editText?.text?.toString().orEmpty()
         val url = binding.urlTextField.editText?.text?.toString().orEmpty()
         viewModel.saveVideoToCustomDir(name, url, customUri)
@@ -82,8 +72,9 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         val name = binding.nameTextField.editText?.text?.toString().orEmpty()
         val url = binding.urlTextField.editText?.text?.toString().orEmpty()
 
+        //select dir
         binding.saveCustomDirButton.setOnClickListener {
-            selectDirectory()
+            selectVideoDirectoryLauncher.launch(name)
         }
         binding.saveButton.setOnClickListener {
             viewModel.saveVideo(name, url)

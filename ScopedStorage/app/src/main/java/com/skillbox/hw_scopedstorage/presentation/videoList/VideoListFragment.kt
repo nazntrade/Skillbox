@@ -76,7 +76,8 @@ class VideoListFragment :
     private fun initList() {
         videoAdapter = VideoAdapter(
             ::navigateAndPlayVideo,
-            viewModel::deleteVideo)
+            viewModel::deleteVideo
+        )
         with(binding.videoList) {
             setHasFixedSize(true)
             adapter = videoAdapter
@@ -84,16 +85,14 @@ class VideoListFragment :
     }
 
     private fun navigateAndPlayVideo(clickedVideo: Video) {
-        val directions = VideoListFragmentDirections.actionVideoListFragmentToPlayVideoFragment(clickedVideo)
+        val directions =
+            VideoListFragmentDirections.actionVideoListFragmentToPlayVideoFragment(clickedVideo)
         findNavController().navigate(directions)
     }
 
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
-        viewModel.videoLiveData.observe(viewLifecycleOwner) {
-            videoAdapter.items = it
-            MediaPlayer.create(requireContext(), R.raw.retro_game_notification).start()
-        }
+        viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
         viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)// ???
         viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
     }
