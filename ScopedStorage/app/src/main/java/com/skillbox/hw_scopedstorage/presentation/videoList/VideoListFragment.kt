@@ -5,13 +5,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.RemoteAction
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -32,27 +32,27 @@ class VideoListFragment :
     private val viewModel: VideoListViewModel by viewModels()
     private var videoAdapter: VideoAdapter by autoCleared()
 
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>> //1 PERMISSIONS
-    private lateinit var recoverableActionLauncher: ActivityResultLauncher<IntentSenderRequest> //// What is it?
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>> // PERMISSIONS
+    private lateinit var recoverableActionLauncher: ActivityResultLauncher<IntentSenderRequest>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initPermissionResultListener() //1 PERMISSIONS
-        initRecoverableActionListener() // what is it?
+        initPermissionResultListener() // PERMISSIONS
+        initRecoverableActionListener()
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.startVideoObserver()
         initToolBar()
-        //1 PERMISSIONS
+        // PERMISSIONS
         if (hasPermission().not()) {
             requestPermissions()
         }
-        toast("Please wait a minute until video is downloading")
         initList()
         initCallbacks()
         bindViewModel()
@@ -61,7 +61,7 @@ class VideoListFragment :
 
     override fun onResume() {
         super.onResume()
-        viewModel.updatePermissionState(hasPermission())//1 PERMISSIONS
+        viewModel.updatePermissionState(hasPermission())// PERMISSIONS
     }
 
     private fun initCallbacks() {
@@ -93,18 +93,17 @@ class VideoListFragment :
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
         viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
-        viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)// ???
+        viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)
         viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
     }
 
-    //????
     private fun updatePermissionUi(isGranted: Boolean) {
         binding.grantPermissionButton.isVisible = isGranted.not()
         binding.addVideoButton.isVisible = isGranted
         binding.videoList.isVisible = isGranted
     }
 
-    //1 PERMISSIONS
+    // PERMISSIONS
     private fun initPermissionResultListener() {
         requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
@@ -117,12 +116,12 @@ class VideoListFragment :
         }
     }
 
-    //1 PERMISSIONS
+    // PERMISSIONS
     private fun requestPermissions() {
         requestPermissionLauncher.launch(PERMISSIONS.toTypedArray())
     }
 
-    //1 PERMISSIONS
+    // PERMISSIONS
     private fun hasPermission(): Boolean {
         return PERMISSIONS.all {
             ActivityCompat.checkSelfPermission(
@@ -137,7 +136,6 @@ class VideoListFragment :
         binding.appBar.toolBar.title = getString(R.string.toolBarTitle)
     }
 
-    // ????
     private fun initRecoverableActionListener() {
         recoverableActionLauncher = registerForActivityResult(
             ActivityResultContracts.StartIntentSenderForResult()
@@ -151,7 +149,6 @@ class VideoListFragment :
         }
     }
 
-    // ????
     @SuppressLint("NewApi")
     private fun handleRecoverableAction(action: RemoteAction) {
         val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
@@ -159,7 +156,7 @@ class VideoListFragment :
         recoverableActionLauncher.launch(request)
     }
 
-    //1 PERMISSIONS
+    // PERMISSIONS
     companion object {
         private val PERMISSIONS = listOfNotNull(
             Manifest.permission.READ_EXTERNAL_STORAGE,

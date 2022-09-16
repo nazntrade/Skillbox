@@ -1,6 +1,5 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter
 
-import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -21,7 +20,7 @@ class VideoAdapterDelegate(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(ItemVideoBinding::inflate),onVideoClick, onDeleteVideo)
+        return Holder(parent.inflate(ItemVideoBinding::inflate), onVideoClick, onDeleteVideo)
     }
 
     override fun onBindViewHolder(item: Video, holder: Holder, payloads: MutableList<Any>) {

@@ -11,11 +11,13 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
+import com.skillbox.hw_scopedstorage.utils.toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.io.File
 
 class VideosRepository(
     private val context: Context
@@ -37,6 +39,7 @@ class VideosRepository(
     private val url4 =
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
@@ -46,7 +49,6 @@ class VideosRepository(
                     sharedPreferences.getBoolean("first_run", true)
                 if (sharedPrefExistedValue) {
                     Timber.tag("first_run: ").d("true")
-
                     withContext(Dispatchers.IO) {
 
                         saveVideo(name3, url3)
@@ -93,6 +95,7 @@ class VideosRepository(
         return videoList
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
@@ -101,27 +104,13 @@ class VideosRepository(
         }
     }
 
-    suspend fun saveVideoToCustomDir(name: String, url: String, uri: Uri) {
+    suspend fun saveVideoToCustomDir(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
-            val videoCustomUri = saveCustomVideoDetails(name, uri)
-            downloadVideo(url, videoCustomUri)
-            makeVideoVisible(videoCustomUri)
+            downloadVideo(url, uri)
         }
     }
 
-    private fun saveCustomVideoDetails(name: String, uri: Uri): Uri {
-//        val videoCollectionUri = MediaStore.Video.Media.getContentUri(uri.toString())
-        val videoDetails = ContentValues().apply {
-            put(MediaStore.Video.Media.DISPLAY_NAME, name)
-            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
-            if (haveQ()) {
-                put(MediaStore.Video.Media.IS_PENDING, 1)
-            }
-        }
-        return context.contentResolver.insert(uri, videoDetails)!!
-    }
-
-    //!!!!!!!!!!!!
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
         val volume =
             if (haveQ()) {
@@ -141,15 +130,15 @@ class VideosRepository(
         return context.contentResolver.insert(videoCollectionUri, videoDetails)!!
     }
 
-    private fun makeVideoVisible(imageUri: Uri) {
+    private fun makeVideoVisible(videoUri: Uri) {
         if (haveQ().not()) return
 
-        val imageDetails = ContentValues().apply {
+        val videoDetails = ContentValues().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Images.Media.IS_PENDING, 0)
+                put(MediaStore.Video.Media.IS_PENDING, 0)
             }
         }
-        context.contentResolver.update(imageUri, imageDetails, null, null)
+        context.contentResolver.update(videoUri, videoDetails, null, null)
     }
 
     private suspend fun downloadVideo(url: String, uri: Uri) {
@@ -198,5 +187,4 @@ class VideosRepository(
     companion object {
         const val SHARED_PREFS_NAME = "shared_pref"
     }
-
 }

@@ -4,6 +4,8 @@ import android.app.Application
 import android.app.RecoverableSecurityException
 import android.app.RemoteAction
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -57,6 +59,7 @@ class VideoListViewModel(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun initExistedVideo(requireContext: Context) {
         viewModelScope.launch {
             try {
@@ -106,14 +109,12 @@ class VideoListViewModel(
         }
     }
 
-    // ????
     fun confirmDelete() {
         pendingDeleteId?.let {
             deleteVideo(it)
         }
     }
 
-    // ????
     fun declineDelete() {
         pendingDeleteId = null
     }
@@ -122,5 +123,4 @@ class VideoListViewModel(
         super.onCleared()
         videoRepository.unregisterObserver()
     }
-
 }

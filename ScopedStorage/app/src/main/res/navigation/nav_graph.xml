@@ -21,7 +21,7 @@
         android:id="@+id/addVideoDialogFragment"
         android:name="com.skillbox.hw_scopedstorage.presentation.addVideo.AddVideoDialogFragment"
         android:label="AddVideoDialogFragment"
-        tools:layout="@layout/dialog_add_video"/>
+        tools:layout="@layout/dialog_add_video" />
     <fragment
         android:id="@+id/playVideoFragment"
         android:name="com.skillbox.hw_scopedstorage.presentation.playVideo.PlayVideoFragment"
