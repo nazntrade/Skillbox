@@ -5,11 +5,13 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.RemoteAction
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -22,7 +24,6 @@ import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
 import com.skillbox.hw_scopedstorage.utils.autoCleared
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import com.skillbox.hw_scopedstorage.utils.toast
-import timber.log.Timber
 
 //since this time binding only this. and + file: ViewBindingFragment
 class VideoListFragment :
@@ -42,19 +43,20 @@ class VideoListFragment :
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.startVideoObserver()
         initToolBar()
         // PERMISSIONS
         if (hasPermission().not()) {
             requestPermissions()
         }
+        viewModel.startVideoObserver()
+        viewModel.initExistedVideo(requireContext())
         initList()
         initCallbacks()
         bindViewModel()
-        viewModel.initExistedVideo(requireContext())
     }
 
     override fun onResume() {

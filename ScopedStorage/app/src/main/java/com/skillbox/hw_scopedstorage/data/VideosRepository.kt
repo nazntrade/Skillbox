@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -36,31 +37,29 @@ class VideosRepository(
     private val url4 =
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
-        withContext(Dispatchers.IO) {
-            sharedPreferences =
-                requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-            try {
-                val sharedPrefExistedValue =
-                    sharedPreferences.getBoolean("first_run", true)
-                if (sharedPrefExistedValue) {
-                    Timber.tag("first_run: ").d("true")
-                    withContext(Dispatchers.IO) {
-
-                        saveVideo(name3, url3)
-                        saveVideo(name4, url4)
-                        saveVideo(name2, url2)
-                        saveVideo(name1, url1)
-                    }
-
+        sharedPreferences =
+            requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+        try {
+            val sharedPrefExistedValue =
+                sharedPreferences.getBoolean("first_run", true)
+            if (sharedPrefExistedValue) {
+                Timber.tag("first_run: ").d("true")
+                withContext(Dispatchers.IO) {
+                    saveVideo(name3, url3)
+                    saveVideo(name4, url4)
+                    saveVideo(name2, url2)
+                    saveVideo(name1, url1)
                     sharedPreferences.edit()
                         .putBoolean("first_run", false)
                         .apply()
                 }
-            } catch (t: Throwable) {
-
             }
+        } catch (t: Throwable) {
+
         }
+
     }
 
     @SuppressLint("Range")
@@ -91,6 +90,7 @@ class VideosRepository(
         return videoList
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
@@ -105,6 +105,7 @@ class VideosRepository(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
         val volume =
             if (haveQ()) {
@@ -116,7 +117,7 @@ class VideosRepository(
         val videoCollectionUri = MediaStore.Video.Media.getContentUri(volume)
         val videoDetails = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
-            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
+            put(MediaStore.Video.Media.MIME_TYPE, "video/*")
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
             }
@@ -137,17 +138,19 @@ class VideosRepository(
 
     private suspend fun downloadVideo(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
-            try {
-                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    Networking.api
-                        .getFile(url)
-                        .byteStream()
-                        .use { inputStream ->
-                            inputStream.copyTo(outputStream)
-                        }
+            runCatching {
+                try {
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        Networking.api
+                            .getFile(url)
+                            .byteStream()
+                            .use { inputStream ->
+                                inputStream.copyTo(outputStream)
+                            }
+                    }
+                } catch (t: Throwable) {
+                    context.contentResolver.delete(uri, null, null)
                 }
-            } catch (t: Throwable) {
-                context.contentResolver.delete(uri, null, null)
             }
         }
     }
