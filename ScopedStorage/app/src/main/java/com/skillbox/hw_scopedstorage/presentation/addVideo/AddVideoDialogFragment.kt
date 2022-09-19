@@ -50,7 +50,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     //select dir. this f call picker and return selected uri
     private fun initSelectVideoFolderLauncher() {
         selectVideoDirectoryLauncher = registerForActivityResult(
-            CreateDocument("video/*")
+            CreateDocument("video/mp4")
         ) { uri ->
             handleSelectDirectory(uri)
         }

@@ -43,7 +43,7 @@ class VideoListFragment :
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,8 +52,6 @@ class VideoListFragment :
         if (hasPermission().not()) {
             requestPermissions()
         }
-        viewModel.startVideoObserver()
-        viewModel.initExistedVideo(requireContext())
         initList()
         initCallbacks()
         bindViewModel()
@@ -61,7 +59,7 @@ class VideoListFragment :
 
     override fun onResume() {
         super.onResume()
-        viewModel.updatePermissionState(hasPermission())// PERMISSIONS
+        viewModel.updatePermissionState(hasPermission(),requireContext())// PERMISSIONS
     }
 
     private fun initCallbacks() {
@@ -90,6 +88,7 @@ class VideoListFragment :
         findNavController().navigate(directions)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
         viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
@@ -109,7 +108,7 @@ class VideoListFragment :
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissionToGrantedMap: Map<String, Boolean> ->
             if (permissionToGrantedMap.values.all { it }) {
-                viewModel.permissionsGranted()
+                viewModel.permissionsGranted(requireContext())
             } else {
                 viewModel.permissionsDenied()
             }
@@ -149,7 +148,7 @@ class VideoListFragment :
         }
     }
 
-    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun handleRecoverableAction(action: RemoteAction) {
         val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
             .build()

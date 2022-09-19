@@ -44,34 +44,27 @@ class VideoListViewModel(
     val recoverableActionLiveData: LiveData<RemoteAction>
         get() = recoverableActionMutableLiveData
 
-    fun updatePermissionState(isGranted: Boolean) {
+    fun updatePermissionState(isGranted: Boolean, requireContext: Context) {
         if (isGranted) {
-            permissionsGranted()
+            permissionsGranted(requireContext)
         } else {
             permissionsDenied()
         }
     }
 
-    fun startVideoObserver() {
+    fun permissionsGranted(requireContext: Context) {
+        loadVideo()
         if (isObservingStarted.not()) {
-            isObservingStarted = true
             videoRepository.observeVideo { loadVideo() }
+            isObservingStarted = true
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun initExistedVideo(requireContext: Context) {
         viewModelScope.launch {
             try {
                 videoRepository.initExistedVideo(requireContext)
             } catch (t: Throwable) {
-                Timber.e(t, "main screen error")
+                Timber.e(t, "initExistedVideo error")
             }
         }
-    }
-
-    fun permissionsGranted() {
-        loadVideo()
         permissionsGrantedMutableLiveData.postValue(true)
     }
 

@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -37,7 +36,6 @@ class VideosRepository(
     private val url4 =
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
         sharedPreferences =
             requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
@@ -77,20 +75,20 @@ class VideosRepository(
                     val id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID))
                     val name =
                         cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME))
-                    val size = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))
+                    val size = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.SIZE))
                     val duration =
-                        cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))
+                        cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DURATION))
                     val uri =
                         ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
 
                     videoList += Video(id, uri, name, duration, size)
+                    Timber.e("$name, $size, $duration")
                 }
             }
         }
         return videoList
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
@@ -105,19 +103,17 @@ class VideosRepository(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
-        val volume =
-            if (haveQ()) {
-                MediaStore.VOLUME_EXTERNAL_PRIMARY
-            } else {
-                MediaStore.VOLUME_EXTERNAL
-            }
+        val volume = if (haveQ()) {
+            MediaStore.VOLUME_EXTERNAL_PRIMARY
+        } else {
+            MediaStore.VOLUME_EXTERNAL
+        }
 
         val videoCollectionUri = MediaStore.Video.Media.getContentUri(volume)
         val videoDetails = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
-            put(MediaStore.Video.Media.MIME_TYPE, "video/*")
+            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
             }

@@ -1,5 +1,6 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList.videoListAdapter
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -45,6 +46,7 @@ class VideoAdapterDelegate(
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: Video) {
             currentVideo = item
             currentVideoId = item.id
