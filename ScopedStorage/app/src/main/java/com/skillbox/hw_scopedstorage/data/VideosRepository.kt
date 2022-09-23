@@ -45,20 +45,21 @@ class VideosRepository(
                     sharedPreferences.getBoolean("first_run", true)
                 if (sharedPrefExistedValue) {
                     Timber.tag("first_run: ").d("true")
+                    withContext(Dispatchers.IO) {
+                        saveVideo(name3, url3)
+                        saveVideo(name4, url4)
+                        saveVideo(name2, url2)
+                        saveVideo(name1, url1)
 
-                    saveVideo(name3, url3)
-                    saveVideo(name4, url4)
-                    saveVideo(name2, url2)
-                    saveVideo(name1, url1)
+                    }
                 }
             } catch (t: Throwable) {
 
-            } finally {
-                sharedPreferences.edit()
-                    .putBoolean("first_run", false)
-                    .apply()
-
             }
+            sharedPreferences.edit()
+                .putBoolean("first_run", false)
+                .apply()
+
         }
     }
 
