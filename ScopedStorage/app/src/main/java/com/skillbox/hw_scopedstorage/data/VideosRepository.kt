@@ -37,27 +37,29 @@ class VideosRepository(
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
     suspend fun initExistedVideo(requireContext: Context) {
-        sharedPreferences =
-            requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-        try {
-            val sharedPrefExistedValue =
-                sharedPreferences.getBoolean("first_run", true)
-            if (sharedPrefExistedValue) {
-                Timber.tag("first_run: ").d("true")
-                withContext(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
+            sharedPreferences =
+                requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            try {
+                val sharedPrefExistedValue =
+                    sharedPreferences.getBoolean("first_run", true)
+                if (sharedPrefExistedValue) {
+                    Timber.tag("first_run: ").d("true")
+
                     saveVideo(name3, url3)
                     saveVideo(name4, url4)
                     saveVideo(name2, url2)
                     saveVideo(name1, url1)
-                    sharedPreferences.edit()
-                        .putBoolean("first_run", false)
-                        .apply()
                 }
+            } catch (t: Throwable) {
+
+            } finally {
+                sharedPreferences.edit()
+                    .putBoolean("first_run", false)
+                    .apply()
+
             }
-        } catch (t: Throwable) {
-
         }
-
     }
 
     @SuppressLint("Range")
@@ -72,14 +74,41 @@ class VideosRepository(
                 null
             )?.use { cursor ->
                 while (cursor.moveToNext()) {
-                    val id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID))
+                    val id = cursor.getLong(
+                        cursor
+                            .getColumnIndex(MediaStore.Video.VideoColumns._ID)
+                    )
+                        .takeIf { it >= 0 }
+                        ?: error("Error getting data from cursor")
+
                     val name =
-                        cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME))
-                    val size = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.SIZE))
+                        cursor.getString(
+                            cursor
+                                .getColumnIndex(MediaStore.Video.VideoColumns.DISPLAY_NAME)
+                        )
+                            .takeIf { it >= 0.toString() }
+                            ?: error("Error getting data from cursor")
+
+                    val size = cursor.getInt(
+                        cursor
+                            .getColumnIndex(MediaStore.Video.VideoColumns.SIZE)
+                    )
+                        .takeIf { it >= 0 }
+                        ?: error("Error getting data from cursor")
+
                     val duration =
-                        cursor.getInt(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DURATION))
+                        cursor.getInt(
+                            cursor
+                                .getColumnIndex(MediaStore.Video.VideoColumns.DURATION)
+                        )
+                            .takeIf { it >= 0 }
+                            ?: error("Error getting data from cursor")
+
                     val uri =
-                        ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
+                        ContentUris.withAppendedId(
+                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            id
+                        )
 
                     videoList += Video(id, uri, name, duration, size)
                     Timber.e("$name, $size, $duration")
@@ -118,7 +147,8 @@ class VideosRepository(
                 put(MediaStore.Video.Media.IS_PENDING, 1)
             }
         }
-        return context.contentResolver.insert(videoCollectionUri, videoDetails)!!
+        return context.contentResolver.insert(videoCollectionUri, videoDetails)
+            ?: error("Error creating video uri")
     }
 
     private fun makeVideoVisible(videoUri: Uri) {
