@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -36,6 +37,7 @@ class VideosRepository(
     private val url4 =
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
@@ -46,20 +48,20 @@ class VideosRepository(
                 if (sharedPrefExistedValue) {
                     Timber.tag("first_run: ").d("true")
                     withContext(Dispatchers.IO) {
+
                         saveVideo(name3, url3)
                         saveVideo(name4, url4)
                         saveVideo(name2, url2)
                         saveVideo(name1, url1)
-
                     }
+
+                    sharedPreferences.edit()
+                        .putBoolean("first_run", false)
+                        .apply()
                 }
             } catch (t: Throwable) {
 
             }
-            sharedPreferences.edit()
-                .putBoolean("first_run", false)
-                .apply()
-
         }
     }
 
@@ -75,50 +77,23 @@ class VideosRepository(
                 null
             )?.use { cursor ->
                 while (cursor.moveToNext()) {
-                    val id = cursor.getLong(
-                        cursor
-                            .getColumnIndex(MediaStore.Video.VideoColumns._ID)
-                    )
-                        .takeIf { it >= 0 }
-                        ?: error("Error getting data from cursor")
-
+                    val id = cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID))
                     val name =
-                        cursor.getString(
-                            cursor
-                                .getColumnIndex(MediaStore.Video.VideoColumns.DISPLAY_NAME)
-                        )
-                            .takeIf { it >= 0.toString() }
-                            ?: error("Error getting data from cursor")
-
-                    val size = cursor.getInt(
-                        cursor
-                            .getColumnIndex(MediaStore.Video.VideoColumns.SIZE)
-                    )
-                        .takeIf { it >= 0 }
-                        ?: error("Error getting data from cursor")
-
+                        cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME))
+                    val size = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.SIZE))
                     val duration =
-                        cursor.getInt(
-                            cursor
-                                .getColumnIndex(MediaStore.Video.VideoColumns.DURATION)
-                        )
-                            .takeIf { it >= 0 }
-                            ?: error("Error getting data from cursor")
-
+                        cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.DURATION))
                     val uri =
-                        ContentUris.withAppendedId(
-                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                            id
-                        )
+                        ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
 
                     videoList += Video(id, uri, name, duration, size)
-                    Timber.e("$name, $size, $duration")
                 }
             }
         }
         return videoList
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
@@ -133,12 +108,14 @@ class VideosRepository(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
-        val volume = if (haveQ()) {
-            MediaStore.VOLUME_EXTERNAL_PRIMARY
-        } else {
-            MediaStore.VOLUME_EXTERNAL
-        }
+        val volume =
+            if (haveQ()) {
+                MediaStore.VOLUME_EXTERNAL_PRIMARY
+            } else {
+                MediaStore.VOLUME_EXTERNAL
+            }
 
         val videoCollectionUri = MediaStore.Video.Media.getContentUri(volume)
         val videoDetails = ContentValues().apply {
@@ -148,8 +125,7 @@ class VideosRepository(
                 put(MediaStore.Video.Media.IS_PENDING, 1)
             }
         }
-        return context.contentResolver.insert(videoCollectionUri, videoDetails)
-            ?: error("Error creating video uri")
+        return context.contentResolver.insert(videoCollectionUri, videoDetails)!!
     }
 
     private fun makeVideoVisible(videoUri: Uri) {
@@ -165,19 +141,17 @@ class VideosRepository(
 
     private suspend fun downloadVideo(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
-            runCatching {
-                try {
-                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        Networking.api
-                            .getFile(url)
-                            .byteStream()
-                            .use { inputStream ->
-                                inputStream.copyTo(outputStream)
-                            }
-                    }
-                } catch (t: Throwable) {
-                    context.contentResolver.delete(uri, null, null)
+            try {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    Networking.api
+                        .getFile(url)
+                        .byteStream()
+                        .use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
                 }
+            } catch (t: Throwable) {
+                context.contentResolver.delete(uri, null, null)
             }
         }
     }
