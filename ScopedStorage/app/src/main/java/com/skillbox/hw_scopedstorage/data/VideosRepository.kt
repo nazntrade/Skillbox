@@ -37,7 +37,6 @@ class VideosRepository(
     private val url4 =
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun initExistedVideo(requireContext: Context) {
         withContext(Dispatchers.IO) {
             sharedPreferences =
@@ -93,7 +92,6 @@ class VideosRepository(
         return videoList
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = saveVideoDetails(name)
@@ -108,13 +106,12 @@ class VideosRepository(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
         val volume =
             if (haveQ()) {
                 MediaStore.VOLUME_EXTERNAL_PRIMARY
             } else {
-                MediaStore.VOLUME_EXTERNAL
+                MediaStore.VOLUME_EXTERNAL  // I ges error here
             }
 
         val videoCollectionUri = MediaStore.Video.Media.getContentUri(volume)
@@ -141,17 +138,19 @@ class VideosRepository(
 
     private suspend fun downloadVideo(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
-            try {
-                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    Networking.api
-                        .getFile(url)
-                        .byteStream()
-                        .use { inputStream ->
-                            inputStream.copyTo(outputStream)
-                        }
+            kotlin.runCatching {
+                try {
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        Networking.api
+                            .getFile(url)
+                            .byteStream()
+                            .use { inputStream ->
+                                inputStream.copyTo(outputStream)
+                            }
+                    }
+                } catch (t: Throwable) {
+                    context.contentResolver.delete(uri, null, null)
                 }
-            } catch (t: Throwable) {
-                context.contentResolver.delete(uri, null, null)
             }
         }
     }
