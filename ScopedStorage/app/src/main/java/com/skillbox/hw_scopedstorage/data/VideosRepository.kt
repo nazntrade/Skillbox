@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -46,20 +45,20 @@ class VideosRepository(
                     sharedPreferences.getBoolean("first_run", true)
                 if (sharedPrefExistedValue) {
                     Timber.tag("first_run: ").d("true")
-                    withContext(Dispatchers.IO) {
 
-                        saveVideo(name3, url3)
-                        saveVideo(name4, url4)
-                        saveVideo(name2, url2)
-                        saveVideo(name1, url1)
-                    }
+                    saveVideo(name3, url3)
+                    saveVideo(name4, url4)
+                    saveVideo(name2, url2)
+                    saveVideo(name1, url1)
 
-                    sharedPreferences.edit()
-                        .putBoolean("first_run", false)
-                        .apply()
                 }
             } catch (t: Throwable) {
 
+            } finally {
+                sharedPreferences.edit()
+                    .putBoolean("first_run", false)
+                    .apply()
+                Timber.tag("first_run: ").d("false")
             }
         }
     }
@@ -118,6 +117,9 @@ class VideosRepository(
         val videoDetails = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
             put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
+//            if (haveQ().not()) {
+//                put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/")
+//            }
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
             }
