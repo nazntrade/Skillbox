@@ -4,6 +4,8 @@ import android.app.Application
 import android.app.RecoverableSecurityException
 import android.app.RemoteAction
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -42,27 +44,34 @@ class VideoListViewModel(
     val recoverableActionLiveData: LiveData<RemoteAction>
         get() = recoverableActionMutableLiveData
 
-    fun updatePermissionState(isGranted: Boolean, requireContext: Context) {
+    fun updatePermissionState(isGranted: Boolean) {
         if (isGranted) {
-            permissionsGranted(requireContext)
+            permissionsGranted()
         } else {
             permissionsDenied()
         }
     }
 
-    fun permissionsGranted(requireContext: Context) {
-        loadVideo()
+    fun startVideoObserver() {
         if (isObservingStarted.not()) {
-            videoRepository.observeVideo { loadVideo() }
             isObservingStarted = true
+            videoRepository.observeVideo { loadVideo() }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun initExistedVideo(requireContext: Context) {
         viewModelScope.launch {
             try {
                 videoRepository.initExistedVideo(requireContext)
             } catch (t: Throwable) {
-                Timber.e(t, "initExistedVideo error")
+                Timber.e(t, "main screen error")
             }
         }
+    }
+
+    fun permissionsGranted() {
+        loadVideo()
         permissionsGrantedMutableLiveData.postValue(true)
     }
 

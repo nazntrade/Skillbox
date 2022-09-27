@@ -1,12 +1,14 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -38,6 +40,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,6 +69,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         viewModel.saveVideoToCustomDir(url, customUri)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun bindViewModel() {
         //select dir
         binding.saveCustomDirButton.setOnClickListener {

@@ -24,6 +24,7 @@ import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
 import com.skillbox.hw_scopedstorage.utils.autoCleared
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import com.skillbox.hw_scopedstorage.utils.toast
+import timber.log.Timber
 
 //since this time binding only this. and + file: ViewBindingFragment
 class VideoListFragment :
@@ -43,10 +44,11 @@ class VideoListFragment :
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.startVideoObserver()
         initToolBar()
         // PERMISSIONS
         if (hasPermission().not()) {
@@ -55,11 +57,12 @@ class VideoListFragment :
         initList()
         initCallbacks()
         bindViewModel()
+        viewModel.initExistedVideo(requireContext())
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.updatePermissionState(hasPermission(),requireContext())// PERMISSIONS
+        viewModel.updatePermissionState(hasPermission())// PERMISSIONS
     }
 
     private fun initCallbacks() {
@@ -88,7 +91,6 @@ class VideoListFragment :
         findNavController().navigate(directions)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
         viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
@@ -108,7 +110,7 @@ class VideoListFragment :
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissionToGrantedMap: Map<String, Boolean> ->
             if (permissionToGrantedMap.values.all { it }) {
-                viewModel.permissionsGranted(requireContext())
+                viewModel.permissionsGranted()
             } else {
                 viewModel.permissionsDenied()
             }
@@ -148,7 +150,7 @@ class VideoListFragment :
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("NewApi")
     private fun handleRecoverableAction(action: RemoteAction) {
         val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
             .build()
