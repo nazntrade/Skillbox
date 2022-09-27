@@ -6,6 +6,7 @@ import android.app.RemoteAction
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,9 +45,9 @@ class VideoListViewModel(
     val recoverableActionLiveData: LiveData<RemoteAction>
         get() = recoverableActionMutableLiveData
 
-    fun updatePermissionState(isGranted: Boolean) {
+    fun updatePermissionState(isGranted: Boolean, requireContext: Context) {
         if (isGranted) {
-            permissionsGranted()
+            permissionsGranted(requireContext)
         } else {
             permissionsDenied()
         }
@@ -59,8 +60,7 @@ class VideoListViewModel(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun initExistedVideo(requireContext: Context) {
+    private fun initExistedVideo(requireContext: Context) {
         viewModelScope.launch {
             try {
                 videoRepository.initExistedVideo(requireContext)
@@ -70,8 +70,9 @@ class VideoListViewModel(
         }
     }
 
-    fun permissionsGranted() {
+    fun permissionsGranted(requireContext: Context) {
         loadVideo()
+        initExistedVideo(requireContext)
         permissionsGrantedMutableLiveData.postValue(true)
     }
 

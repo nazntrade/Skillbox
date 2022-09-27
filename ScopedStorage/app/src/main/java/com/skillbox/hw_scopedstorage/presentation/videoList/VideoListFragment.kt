@@ -57,12 +57,11 @@ class VideoListFragment :
         initList()
         initCallbacks()
         bindViewModel()
-        viewModel.initExistedVideo(requireContext())
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.updatePermissionState(hasPermission())// PERMISSIONS
+        viewModel.updatePermissionState(hasPermission(), requireContext())// PERMISSIONS
     }
 
     private fun initCallbacks() {
@@ -110,7 +109,7 @@ class VideoListFragment :
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissionToGrantedMap: Map<String, Boolean> ->
             if (permissionToGrantedMap.values.all { it }) {
-                viewModel.permissionsGranted()
+                viewModel.permissionsGranted(requireContext())
             } else {
                 viewModel.permissionsDenied()
             }

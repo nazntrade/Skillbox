@@ -138,19 +138,17 @@ class VideosRepository(
 
     private suspend fun downloadVideo(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
-            kotlin.runCatching {
-                try {
-                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        Networking.api
-                            .getFile(url)
-                            .byteStream()
-                            .use { inputStream ->
-                                inputStream.copyTo(outputStream)
-                            }
-                    }
-                } catch (t: Throwable) {
-                    context.contentResolver.delete(uri, null, null)
+            try {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    Networking.api
+                        .getFile(url)
+                        .byteStream()
+                        .use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
                 }
+            } catch (t: Throwable) {
+                context.contentResolver.delete(uri, null, null)
             }
         }
     }
