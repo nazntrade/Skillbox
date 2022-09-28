@@ -3,6 +3,8 @@ package com.skillbox.hw_scopedstorage.presentation.addVideo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
 import com.skillbox.hw_scopedstorage.utils.toast
+
 
 //
 // BottomSheetDialogFragment() for popup View on main screen
@@ -44,6 +47,8 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.saveButton.isEnabled = false
+        binding.saveCustomDirButton.isEnabled = false
         bindViewModel()
 
         //select dir
@@ -71,20 +76,41 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun bindViewModel() {
-        //select dir
+
+        binding.urlTextField.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (s.isNotEmpty()) {
+                    binding.saveButton.isEnabled = true
+                    binding.saveCustomDirButton.isEnabled = true
+                }
+            }
+        })
+
+//select dir
         binding.saveCustomDirButton.setOnClickListener {
             val name = binding.nameTextField.editText?.text?.toString().orEmpty()
             selectVideoDirectoryLauncher.launch(name)
         }
+
         binding.saveButton.setOnClickListener {
             val name = binding.nameTextField.editText?.text?.toString().orEmpty()
             val url = binding.urlTextField.editText?.text?.toString().orEmpty()
             viewModel.saveVideo(name, url)
         }
+
         binding.saveSampleVideoButton.setOnClickListener {
             viewModel.saveVideo(
-                viewModel.sampleRandomVideoViewModel.sampleUrl,
-                viewModel.sampleRandomVideoViewModel.sampleName
+                viewModel.sampleVideoNamesViewModel.random() + (2..100).random(),
+                viewModel.sampleVideoLinksViewModel.random()
             )
         }
 

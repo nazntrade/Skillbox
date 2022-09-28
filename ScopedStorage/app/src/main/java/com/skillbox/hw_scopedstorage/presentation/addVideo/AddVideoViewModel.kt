@@ -19,8 +19,10 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     val toastLiveData: LiveData<Int>
         get() = toastSingleLiveEvent
 
-    val sampleRandomVideoViewModel
-        get() = videosRepository.sampleRandomVideosRepository
+    val sampleVideoNamesViewModel
+        get() = videosRepository.listNames
+    val sampleVideoLinksViewModel
+        get() = videosRepository.listLinks
 
     private val saveSuccessSingleLiveEvent = SingleLiveEvent<Unit>()
     val saveSuccessLiveData: LiveData<Unit>
