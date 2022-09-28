@@ -89,7 +89,7 @@
         android:id="@+id/contentGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="urlTextField,saveButton,saveCustomDirButton,nameTextField" />
+        app:constraint_referenced_ids="urlTextField, saveSampleVideoButton,saveButton,saveCustomDirButton,nameTextField" />
 
     <ProgressBar
         android:id="@+id/progressBar"

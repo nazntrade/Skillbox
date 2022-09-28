@@ -23,24 +23,25 @@ class VideosRepository(
 
 //    private lateinit var sharedPreferences: SharedPreferences
 
-    val sampleVideosRepository = listOf(
-        SampleVideo(
-            "simpleVideo1",
-            "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-        ),
-        SampleVideo(
-            "simpleVideo2",
-            "https://download.samplelib.com/mp4/sample-5s.mp4"
-        ),
-        SampleVideo(
-            "simpleVideo3",
-            "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
-        ),
-        SampleVideo(
-            "simpleVideo4",
-            "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
-        ),
+    private val sampleVideo1 = SampleVideo(
+        "simpleVideo1",
+        "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
     )
+    private val sampleVideo2 = SampleVideo(
+        "simpleVideo2",
+        "https://download.samplelib.com/mp4/sample-5s.mp4"
+    )
+    private val sampleVideo3 = SampleVideo(
+        "simpleVideo3",
+        "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
+    )
+    private val sampleVideo4 = SampleVideo(
+        "simpleVideo4",
+        "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
+    )
+
+    val sampleRandomVideosRepository =
+        listOf(sampleVideo1, sampleVideo2, sampleVideo3, sampleVideo4).random()
 
     @SuppressLint("Range")
     suspend fun getVideo(): List<Video> {
