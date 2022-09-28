@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.skillbox.hw_scopedstorage.data.SampleVideo
 import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
 import com.skillbox.hw_scopedstorage.utils.toast
 
@@ -80,6 +81,11 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
             val name = binding.nameTextField.editText?.text?.toString().orEmpty()
             val url = binding.urlTextField.editText?.text?.toString().orEmpty()
             viewModel.saveVideo(name, url)
+        }
+        binding.saveSampleVideoButton.setOnClickListener {
+            viewModel.sampleVideosViewModel.forEach { sampleVideo ->
+                viewModel.saveVideo(sampleVideo.sampleUrl, sampleVideo.sampleName)
+            }
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner, ::setLoading)

@@ -7,6 +7,7 @@ import android.app.RemoteAction
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.FileUtils
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -24,7 +25,7 @@ import com.skillbox.hw_scopedstorage.utils.ViewBindingFragment
 import com.skillbox.hw_scopedstorage.utils.autoCleared
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import com.skillbox.hw_scopedstorage.utils.toast
-import timber.log.Timber
+
 
 //since this time binding only this. and + file: ViewBindingFragment
 class VideoListFragment :
@@ -44,7 +45,7 @@ class VideoListFragment :
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -90,6 +91,7 @@ class VideoListFragment :
         findNavController().navigate(directions)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun bindViewModel() {
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
         viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
@@ -149,7 +151,7 @@ class VideoListFragment :
         }
     }
 
-    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun handleRecoverableAction(action: RemoteAction) {
         val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
             .build()

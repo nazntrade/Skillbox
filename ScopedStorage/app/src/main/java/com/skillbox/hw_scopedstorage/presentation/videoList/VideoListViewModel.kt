@@ -60,19 +60,8 @@ class VideoListViewModel(
         }
     }
 
-    private fun initExistedVideo(requireContext: Context) {
-        viewModelScope.launch {
-            try {
-                videoRepository.initExistedVideo(requireContext)
-            } catch (t: Throwable) {
-                Timber.e(t, "main screen error")
-            }
-        }
-    }
-
     fun permissionsGranted(requireContext: Context) {
         loadVideo()
-        initExistedVideo(requireContext)
         permissionsGrantedMutableLiveData.postValue(true)
     }
 

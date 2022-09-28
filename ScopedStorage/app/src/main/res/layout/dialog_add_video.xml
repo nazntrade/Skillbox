@@ -59,7 +59,7 @@
         android:id="@+id/saveButton"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dimen_16"
+        android:layout_marginVertical="@dimen/dimen_8"
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,11 +69,21 @@
         android:id="@+id/saveCustomDirButton"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dimen_16"
+        android:layout_marginVertical="@dimen/dimen_4"
         android:text="@string/saveCustom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/saveButton" />
+
+    <Button
+        android:id="@+id/saveSampleVideoButton"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dimen_4"
+        android:text="@string/saveSampleVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveCustomDirButton" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/contentGroup"

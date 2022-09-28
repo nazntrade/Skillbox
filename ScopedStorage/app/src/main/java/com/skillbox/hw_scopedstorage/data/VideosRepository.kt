@@ -4,14 +4,12 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
-import android.content.SharedPreferences
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,46 +21,26 @@ class VideosRepository(
 
     private var observer: ContentObserver? = null
 
-    private lateinit var sharedPreferences: SharedPreferences
+//    private lateinit var sharedPreferences: SharedPreferences
 
-    private val name1 = "simpleVideo1"
-    private val url1 =
-        "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
-    private val name2 = "simpleVideo2"
-    private val url2 = "https://download.samplelib.com/mp4/sample-5s.mp4"
-    private val name3 = "simpleVideo3"
-    private val url3 =
-        "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
-    private val name4 = "simpleVideo4"
-    private val url4 =
-        "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
-
-    suspend fun initExistedVideo(requireContext: Context) {
-        withContext(Dispatchers.IO) {
-            sharedPreferences =
-                requireContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-            try {
-                val sharedPrefExistedValue =
-                    sharedPreferences.getBoolean("first_run", true)
-                if (sharedPrefExistedValue) {
-                    Timber.tag("first_run: ").d("true")
-                    withContext(Dispatchers.IO) {
-
-                        saveVideo(name3, url3)
-                        saveVideo(name4, url4)
-                        saveVideo(name2, url2)
-                        saveVideo(name1, url1)
-                    }
-
-                    sharedPreferences.edit()
-                        .putBoolean("first_run", false)
-                        .apply()
-                }
-            } catch (t: Throwable) {
-
-            }
-        }
-    }
+    val sampleVideosRepository = listOf(
+        SampleVideo(
+            "simpleVideo1",
+            "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+        ),
+        SampleVideo(
+            "simpleVideo2",
+            "https://download.samplelib.com/mp4/sample-5s.mp4"
+        ),
+        SampleVideo(
+            "simpleVideo3",
+            "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
+        ),
+        SampleVideo(
+            "simpleVideo4",
+            "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
+        ),
+    )
 
     @SuppressLint("Range")
     suspend fun getVideo(): List<Video> {
@@ -148,6 +126,7 @@ class VideosRepository(
                         }
                 }
             } catch (t: Throwable) {
+                Timber.e(t)
                 context.contentResolver.delete(uri, null, null)
             }
         }
@@ -179,7 +158,7 @@ class VideosRepository(
         observer?.let { context.contentResolver.unregisterContentObserver(it) }
     }
 
-    companion object {
-        const val SHARED_PREFS_NAME = "shared_pref"
-    }
+//    companion object {
+//        const val SHARED_PREFS_NAME = "shared_pref"
+//    }
 }
