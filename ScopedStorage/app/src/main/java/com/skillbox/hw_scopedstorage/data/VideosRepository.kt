@@ -6,7 +6,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
@@ -21,19 +20,13 @@ class VideosRepository(
 
     private var observer: ContentObserver? = null
 
-    val listNames = listOf(
-        "sampleVideo1",
-        "sampleVideo2",
-        "sampleVideo3",
-        "sampleVideo4",
-        "sampleVideo5"
-    )
-    val listLinks = listOf(
+    val sampleName = "videoSample" + (1..999).random()
+    val sampleLink = listOf(
         "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
         "https://download.samplelib.com/mp4/sample-5s.mp4",
         "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4",
         "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
-    )
+    ).random()
 
     @SuppressLint("Range")
     suspend fun getVideo(): List<Video> {

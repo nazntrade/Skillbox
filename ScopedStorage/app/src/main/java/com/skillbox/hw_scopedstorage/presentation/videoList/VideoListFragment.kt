@@ -1,13 +1,11 @@
 package com.skillbox.hw_scopedstorage.presentation.videoList
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.RemoteAction
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.FileUtils
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -62,7 +60,7 @@ class VideoListFragment :
 
     override fun onResume() {
         super.onResume()
-        viewModel.updatePermissionState(hasPermission(), requireContext())// PERMISSIONS
+        viewModel.updatePermissionState(hasPermission())// PERMISSIONS
     }
 
     private fun initCallbacks() {
@@ -111,7 +109,7 @@ class VideoListFragment :
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissionToGrantedMap: Map<String, Boolean> ->
             if (permissionToGrantedMap.values.all { it }) {
-                viewModel.permissionsGranted(requireContext())
+                viewModel.permissionsGranted()
             } else {
                 viewModel.permissionsDenied()
             }

@@ -84,6 +84,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
                 count: Int, after: Int
             ) {
             }
+
             override fun onTextChanged(
                 s: CharSequence, start: Int,
                 before: Int, count: Int
@@ -95,7 +96,6 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
             }
         })
 
-//select dir
         binding.saveCustomDirButton.setOnClickListener {
             val name = binding.nameTextField.editText?.text?.toString().orEmpty()
             selectVideoDirectoryLauncher.launch(name)
@@ -109,8 +109,8 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
 
         binding.saveSampleVideoButton.setOnClickListener {
             viewModel.saveVideo(
-                viewModel.sampleVideoNamesViewModel.random() + (2..100).random(),
-                viewModel.sampleVideoLinksViewModel.random()
+                viewModel.sampleVideoNameViewModel,
+                viewModel.sampleVideoLinksViewModel
             )
         }
 

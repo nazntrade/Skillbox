@@ -3,10 +3,6 @@ package com.skillbox.hw_scopedstorage.presentation.videoList
 import android.app.Application
 import android.app.RecoverableSecurityException
 import android.app.RemoteAction
-import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -45,9 +41,9 @@ class VideoListViewModel(
     val recoverableActionLiveData: LiveData<RemoteAction>
         get() = recoverableActionMutableLiveData
 
-    fun updatePermissionState(isGranted: Boolean, requireContext: Context) {
+    fun updatePermissionState(isGranted: Boolean) {
         if (isGranted) {
-            permissionsGranted(requireContext)
+            permissionsGranted()
         } else {
             permissionsDenied()
         }
@@ -60,7 +56,7 @@ class VideoListViewModel(
         }
     }
 
-    fun permissionsGranted(requireContext: Context) {
+    fun permissionsGranted() {
         loadVideo()
         permissionsGrantedMutableLiveData.postValue(true)
     }
