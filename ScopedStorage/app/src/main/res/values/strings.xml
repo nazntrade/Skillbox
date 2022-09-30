@@ -11,5 +11,6 @@
     <string name="load_list_error">Load list error</string>
     <string name="video_delete_error">Video delete error</string>
     <string name="video_add_error">Video save error</string>
+    <string name="videoSample_add_error">VideoSample save error</string>
 
 </resources>

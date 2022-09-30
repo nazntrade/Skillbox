@@ -1,5 +1,6 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
+import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,9 +14,12 @@ import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
 import com.skillbox.hw_scopedstorage.utils.toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 //
@@ -108,10 +112,9 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         }
 
         binding.saveSampleVideoButton.setOnClickListener {
-            viewModel.saveVideo(
-                viewModel.sampleVideoNameViewModel,
-                viewModel.sampleVideoLinksViewModel
-            )
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.saveSampleVideo()
+            }
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner, ::setLoading)

@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
@@ -13,20 +14,30 @@ import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.io.File
+import java.util.*
+import kotlin.coroutines.coroutineContext
 
 class VideosRepository(
     private val context: Context
 ) {
 
     private var observer: ContentObserver? = null
+    private lateinit var myNewFile: File
 
-    val sampleName = "videoSample" + (1..999).random()
-    val sampleLink = listOf(
-        "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-        "https://download.samplelib.com/mp4/sample-5s.mp4",
-        "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4",
-        "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
-    ).random()
+    val listSampleVideos = listOf(
+        SampleVideo(
+            "sampleVideo1",
+            "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+        ),
+        SampleVideo(
+            "sampleVideo2",
+            "https://download.samplelib.com/mp4/sample-5s.mp4"
+        ),
+        SampleVideo(
+            "sampleVideo3",
+            "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
+        ))
 
     @SuppressLint("Range")
     suspend fun getVideo(): List<Video> {
@@ -57,10 +68,42 @@ class VideosRepository(
     }
 
     suspend fun saveVideo(name: String, url: String) {
+        if (haveQ()) {
+            withContext(Dispatchers.IO) {
+                val videoUri = saveVideoDetails(name)
+                downloadVideo(url, videoUri)
+                makeVideoVisible(videoUri)
+            }
+        } else {
+            saveVideoLowerAndroidQ(name, url)
+        }
+    }
+
+    private suspend fun saveVideoLowerAndroidQ(name: String, url: String) {
         withContext(Dispatchers.IO) {
-            val videoUri = saveVideoDetails(name)
-            downloadVideo(url, videoUri)
-            makeVideoVisible(videoUri)
+//            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
+//            val myNewFolder = requireContext.getExternalFilesDir("myNewFolder")
+            val absolutePath =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+
+            val path = absolutePath.substring(0, absolutePath.length - 5) + "/Coutloot/"
+            val filePath = File(path)
+            myNewFile = File(path, name)
+            if (!myNewFile.exists())
+                myNewFile.mkdir()
+            try {
+                myNewFile.outputStream().use { fileOutputStream ->
+                    Networking.api
+                        .getFile(url)
+                        .byteStream()
+                        .use { inputStream ->
+                            inputStream.copyTo(fileOutputStream)
+                        }
+                }
+            } catch (t: Throwable) {
+                myNewFile.delete()
+            }
+
         }
     }
 
@@ -71,14 +114,9 @@ class VideosRepository(
     }
 
     private fun saveVideoDetails(name: String): Uri {
-        val volume =
-            if (haveQ()) {
-                MediaStore.VOLUME_EXTERNAL_PRIMARY
-            } else {
-                MediaStore.VOLUME_EXTERNAL
-            }
 
-        val videoCollectionUri = MediaStore.Video.Media.getContentUri(volume)
+        val videoCollectionUri =
+            MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
         val videoDetails = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
             put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")

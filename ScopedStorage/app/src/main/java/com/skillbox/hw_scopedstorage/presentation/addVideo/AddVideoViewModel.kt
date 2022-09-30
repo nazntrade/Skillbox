@@ -4,11 +4,15 @@ import android.app.Application
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.data.VideosRepository
 import com.skillbox.hw_scopedstorage.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
@@ -19,11 +23,6 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     val toastLiveData: LiveData<Int>
         get() = toastSingleLiveEvent
 
-    val sampleVideoNameViewModel
-        get() = videosRepository.sampleName
-    val sampleVideoLinksViewModel
-        get() = videosRepository.sampleLink
-
     private val saveSuccessSingleLiveEvent = SingleLiveEvent<Unit>()
     val saveSuccessLiveData: LiveData<Unit>
         get() = saveSuccessSingleLiveEvent
@@ -31,6 +30,25 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
     private val loadingMutableLiveData = MutableLiveData(false)
     val loadingLiveData: LiveData<Boolean>
         get() = loadingMutableLiveData
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    suspend fun saveSampleVideo() {
+        videosRepository.listSampleVideos.forEach { sampleVideo ->
+            withContext(viewModelScope.coroutineContext) {
+                try {
+                    loadingMutableLiveData.postValue(true)
+                    videosRepository.saveVideo(
+                        sampleVideo.name,
+                        sampleVideo.url
+                    )
+                } catch (t: Throwable) {
+                    Timber.e(t)
+                    toastSingleLiveEvent.postValue(R.string.videoSample_add_error)
+                }
+            }
+            loadingMutableLiveData.postValue(false)
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun saveVideo(name: String, url: String) {
