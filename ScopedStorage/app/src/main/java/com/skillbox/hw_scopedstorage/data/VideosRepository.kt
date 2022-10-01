@@ -1,22 +1,22 @@
 package com.skillbox.hw_scopedstorage.data
 
 import android.annotation.SuppressLint
+import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
-import java.util.*
-import kotlin.coroutines.coroutineContext
+import java.io.FileOutputStream
+
 
 class VideosRepository(
     private val context: Context
@@ -37,7 +37,8 @@ class VideosRepository(
         SampleVideo(
             "sampleVideo3",
             "https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_1MB_MP4.mp4"
-        ))
+        )
+    )
 
     @SuppressLint("Range")
     suspend fun getVideo(): List<Video> {
@@ -67,43 +68,12 @@ class VideosRepository(
         return videoList
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
-        if (haveQ()) {
-            withContext(Dispatchers.IO) {
-                val videoUri = saveVideoDetails(name)
-                downloadVideo(url, videoUri)
-                makeVideoVisible(videoUri)
-            }
-        } else {
-            saveVideoLowerAndroidQ(name, url)
-        }
-    }
-
-    private suspend fun saveVideoLowerAndroidQ(name: String, url: String) {
         withContext(Dispatchers.IO) {
-//            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@withContext
-//            val myNewFolder = requireContext.getExternalFilesDir("myNewFolder")
-            val absolutePath =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
-
-            val path = absolutePath.substring(0, absolutePath.length - 5) + "/Coutloot/"
-            val filePath = File(path)
-            myNewFile = File(path, name)
-            if (!myNewFile.exists())
-                myNewFile.mkdir()
-            try {
-                myNewFile.outputStream().use { fileOutputStream ->
-                    Networking.api
-                        .getFile(url)
-                        .byteStream()
-                        .use { inputStream ->
-                            inputStream.copyTo(fileOutputStream)
-                        }
-                }
-            } catch (t: Throwable) {
-                myNewFile.delete()
-            }
-
+            val videoUri = saveVideoDetails(name)
+            downloadVideo(url, videoUri)
+            makeVideoVisible(videoUri)
         }
     }
 
@@ -113,11 +83,21 @@ class VideosRepository(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun saveVideoDetails(name: String): Uri {
 
+        val volume =
+            if (haveQ()) {
+                MediaStore.VOLUME_EXTERNAL_PRIMARY
+            } else {
+                MediaStore.VOLUME_EXTERNAL
+            }
+
         val videoCollectionUri =
-            MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            MediaStore.Video.Media.getContentUri(volume)
+
         val videoDetails = ContentValues().apply {
+            put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/" + "HwScopedStorage")
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
             put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
             if (haveQ()) {
@@ -129,7 +109,6 @@ class VideosRepository(
 
     private fun makeVideoVisible(videoUri: Uri) {
         if (haveQ().not()) return
-
         val videoDetails = ContentValues().apply {
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 0)
