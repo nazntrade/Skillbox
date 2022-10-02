@@ -10,6 +10,7 @@ import android.os.*
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -105,14 +106,14 @@ class VideosRepository(
     @RequiresApi(Build.VERSION_CODES.Q)
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
+            if (DOWNLOAD_DIR.exists().not()) {
+                DOWNLOAD_DIR.mkdir()
+            }
+
             val videoUri = createVideoUri(name, url)
-            /*val downloadedFile =*/ downloadVideo(url, videoUri)
+            downloadVideo(url, videoUri)
             makeVideoVisible(videoUri)
-//            if (haveQ().not()) {
-//
-//                // File(videoUri.path.toString())
-//                val finalUri: Uri? = copyFileToDownloads(downloadedFile)
-//            }
+
         }
     }
 
@@ -122,6 +123,7 @@ class VideosRepository(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun createVideoUri(name: String, url: String): Uri {
 
         val videoCollection =
@@ -143,23 +145,20 @@ class VideosRepository(
         return context.contentResolver.insert(videoCollection, videoDetails)!!
     }
 
-    private suspend fun downloadVideo(url: String, uri: Uri)/*: File */{
+    private suspend fun downloadVideo(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
             try {
-                if (haveQ().not()) {
-                    if (DOWNLOAD_DIR.exists().not()) {
-                        DOWNLOAD_DIR.mkdir()
-                    }
-                    newFile = File(DOWNLOAD_DIR, getFileName(url))
-                    newFile.outputStream().use { outputStream ->
-                        Networking.api
-                            .getFile(url)
-                            .byteStream()
-                            .use { inputStream ->
-                                inputStream.copyTo(outputStream)
-                            }
-                    }
-                } else {
+//                if (haveQ().not()) {
+//                    newFile = File(DOWNLOAD_DIR, getFileName(url))
+//                    newFile.outputStream().use { outputStream ->
+//                        Networking.api
+//                            .getFile(url)
+//                            .byteStream()
+//                            .use { inputStream ->
+//                                inputStream.copyTo(outputStream)
+//                            }
+//                    }
+//                } else {
                     context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                         Networking.api
                             .getFile(url)
@@ -168,13 +167,12 @@ class VideosRepository(
                                 inputStream.copyTo(outputStream)
                             }
                     }
-                }
+//                }
             } catch (t: Throwable) {
                 Timber.e(t)
                 context.contentResolver.delete(uri, null, null)
             }
         }
-//         return newFile
     }
 
     private fun makeVideoVisible(videoUri: Uri) {
@@ -186,37 +184,6 @@ class VideosRepository(
             }
         }
         context.contentResolver.update(videoUri, videoDetails, null, null)
-    }
-
-    private suspend fun copyFileToDownloads(downloadedFile: File): Uri? {
-        val resolver = context.contentResolver
-        return withContext(Dispatchers.IO) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val contentValues = ContentValues().apply {
-//                put(MediaStore.MediaColumns.DISPLAY_NAME, downloadedFile.name)
-//                put(MediaStore.MediaColumns.MIME_TYPE, getMimeType(downloadedFile))
-//                put(MediaStore.MediaColumns.SIZE, getFileSize(downloadedFile))
-                }
-                resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-            } else {
-                val authority = "${context.packageName}.provider"
-                val destinyFile = File(DOWNLOAD_DIR, downloadedFile.name)
-                FileProvider.getUriForFile(context, authority, destinyFile)
-            }?.also { downloadedUri ->
-                resolver.openOutputStream(downloadedUri).use { outputStream ->
-                    val brr = ByteArray(1024)
-                    var len: Int
-                    val bufferedInputStream =
-                        BufferedInputStream(FileInputStream(downloadedFile.absoluteFile))
-                    while ((bufferedInputStream.read(brr, 0, brr.size).also { len = it }) != -1) {
-                        outputStream?.write(brr, 0, len)
-                    }
-                    outputStream?.flush()
-                    bufferedInputStream.close()
-                }
-            }
-
-        }
     }
 
 
