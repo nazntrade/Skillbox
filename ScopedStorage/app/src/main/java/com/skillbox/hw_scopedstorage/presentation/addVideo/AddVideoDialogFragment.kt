@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.annotation.RequiresApi
@@ -94,8 +95,10 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
                 before: Int, count: Int
             ) {
                 if (s.isNotEmpty()) {
-                    binding.saveButton.isEnabled = true
-                    binding.saveCustomDirButton.isEnabled = true
+                    if (URLUtil.isValidUrl(binding.urlTextField.editText?.text?.toString())) {
+                        binding.saveButton.isEnabled = true
+                        binding.saveCustomDirButton.isEnabled = true
+                    }
                 }
             }
         })
