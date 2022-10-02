@@ -106,13 +106,13 @@ class VideosRepository(
     suspend fun saveVideo(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val videoUri = createVideoUri(name, url)
-            val downloadedFile = downloadVideo(url, videoUri)
+            /*val downloadedFile =*/ downloadVideo(url, videoUri)
             makeVideoVisible(videoUri)
-            if (haveQ().not()) {
-
-                // File(videoUri.path.toString())
-                val finalUri: Uri? = copyFileToDownloads(downloadedFile)
-            }
+//            if (haveQ().not()) {
+//
+//                // File(videoUri.path.toString())
+//                val finalUri: Uri? = copyFileToDownloads(downloadedFile)
+//            }
         }
     }
 
@@ -143,7 +143,7 @@ class VideosRepository(
         return context.contentResolver.insert(videoCollection, videoDetails)!!
     }
 
-    private suspend fun downloadVideo(url: String, uri: Uri): File {
+    private suspend fun downloadVideo(url: String, uri: Uri)/*: File */{
         withContext(Dispatchers.IO) {
             try {
                 if (haveQ().not()) {
@@ -174,7 +174,7 @@ class VideosRepository(
                 context.contentResolver.delete(uri, null, null)
             }
         }
-         return newFile
+//         return newFile
     }
 
     private fun makeVideoVisible(videoUri: Uri) {
