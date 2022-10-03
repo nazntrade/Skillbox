@@ -38,7 +38,6 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
                 try {
                     loadingMutableLiveData.postValue(true)
                     videosRepository.saveVideo(
-                        sampleVideo.name,
                         sampleVideo.url
                     )
                 } catch (t: Throwable) {
@@ -55,7 +54,7 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             loadingMutableLiveData.postValue(true)
             try {
-                videosRepository.saveVideo(name, url)
+                videosRepository.saveVideo(url)
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)

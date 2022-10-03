@@ -5,21 +5,19 @@ import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.database.ContentObserver
+import android.media.MediaMetadataRetriever
+import android.media.MediaMetadataRetriever.METADATA_KEY_DURATION
 import android.net.Uri
 import android.os.*
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.skillbox.hw_scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.use
 import timber.log.Timber
-import java.io.BufferedInputStream
 import java.io.File
-import java.io.FileInputStream
-
 
 class VideosRepository(
     private val context: Context
@@ -31,7 +29,7 @@ class VideosRepository(
     private val directoryDownloads =
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-    val DOWNLOAD_DIR = File(directoryDownloads, "ScopedStorageProject")
+    private val downloadDir = File(directoryDownloads, "ScopedStorageProject")
 
     val listSampleVideos = listOf(
         SampleVideo(
@@ -104,27 +102,40 @@ class VideosRepository(
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    suspend fun saveVideo(name: String, url: String) {
+    suspend fun saveVideo(url: String) {
         withContext(Dispatchers.IO) {
-            if (DOWNLOAD_DIR.exists().not()) {
-                DOWNLOAD_DIR.mkdir()
+            if (haveQ()) {
+                val videoUri = createVideoUri(url)
+                downloadVideoQ(url, videoUri)
+                makeVideoVisible(videoUri)
+            } else {
+                if (downloadDir.exists().not()) {
+                    downloadDir.mkdir()
+                }
+                downloadVideo(url, downloadDir.toUri())
+                createVideoUri(url)
             }
-
-            val videoUri = createVideoUri(name, url)
-            downloadVideo(url, videoUri)
-            makeVideoVisible(videoUri)
-
         }
     }
 
     suspend fun saveVideoToCustomDir(url: String, uri: Uri) {
         withContext(Dispatchers.IO) {
-            downloadVideo(url, uri)
+            downloadVideoQ(url, uri)
         }
     }
 
+    private fun File.getMediaDuration(context: Context): Long {
+        if (!exists()) return 0
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(context, Uri.parse(absolutePath))
+        val duration = retriever.extractMetadata(METADATA_KEY_DURATION)
+        retriever.release()
+
+        return duration?.toLongOrNull()?.div(1000) ?: 0
+    }
+
     @RequiresApi(Build.VERSION_CODES.Q)
-    private fun createVideoUri(name: String, url: String): Uri {
+    private fun createVideoUri(url: String): Uri {
 
         val videoCollection =
             if (haveQ()) {
@@ -137,37 +148,49 @@ class VideosRepository(
 
         val videoDetails = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, getFileName(url))
+            put(MediaStore.Video.Media.TITLE, getFileName(url))
             put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
+            } else {
+                put(MediaStore.Video.Media.DATA, newFile.absolutePath)
+                put(MediaStore.Video.Media.DURATION, newFile.getMediaDuration(context))
             }
         }
         return context.contentResolver.insert(videoCollection, videoDetails)!!
     }
 
-    private suspend fun downloadVideo(url: String, uri: Uri) {
+    private suspend fun downloadVideo(url: String, uri: Uri): File {
         withContext(Dispatchers.IO) {
             try {
-//                if (haveQ().not()) {
-//                    newFile = File(DOWNLOAD_DIR, getFileName(url))
-//                    newFile.outputStream().use { outputStream ->
-//                        Networking.api
-//                            .getFile(url)
-//                            .byteStream()
-//                            .use { inputStream ->
-//                                inputStream.copyTo(outputStream)
-//                            }
-//                    }
-//                } else {
-                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        Networking.api
-                            .getFile(url)
-                            .byteStream()
-                            .use { inputStream ->
-                                inputStream.copyTo(outputStream)
-                            }
-                    }
-//                }
+                newFile = File(downloadDir, getFileName(url))
+                newFile.outputStream().use { outputStream ->
+                    Networking.api
+                        .getFile(url)
+                        .byteStream()
+                        .use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
+                }
+            } catch (t: Throwable) {
+                Timber.e(t)
+                context.contentResolver.delete(uri, null, null)
+            }
+        }
+        return newFile
+    }
+
+    private suspend fun downloadVideoQ(url: String, uri: Uri) {
+        withContext(Dispatchers.IO) {
+            try {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    Networking.api
+                        .getFile(url)
+                        .byteStream()
+                        .use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
+                }
             } catch (t: Throwable) {
                 Timber.e(t)
                 context.contentResolver.delete(uri, null, null)
@@ -185,7 +208,6 @@ class VideosRepository(
         }
         context.contentResolver.update(videoUri, videoDetails, null, null)
     }
-
 
     suspend fun deleteVideo(id: Long) {
         withContext(Dispatchers.IO) {
@@ -224,9 +246,4 @@ class VideosRepository(
             throw IllegalArgumentException("Url is not valid, url: $url") //or change on more smart
         }
     }
-
-
-//    companion object {
-//        const val SHARED_PREFS_NAME = "shared_pref"
-//    }
 }

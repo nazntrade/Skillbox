@@ -50,8 +50,8 @@ class VideoAdapterDelegate(
             currentVideoId = item.id
             with(binding) {
                 videoNameTextView.text = item.name
-                sizeTextView.text = "${item.size} bytes"
-                durationTextView.text = "${item.duration} "
+                sizeTextView.text = "${item.size / 1048576} Mb"
+                durationTextView.text = "${item.duration} sec"
 
                 Glide.with(videoImageView)
                     .load(item.uri)

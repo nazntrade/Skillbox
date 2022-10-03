@@ -1,6 +1,5 @@
 package com.skillbox.hw_scopedstorage.presentation.addVideo
 
-import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,8 +20,6 @@ import com.skillbox.hw_scopedstorage.databinding.DialogAddVideoBinding
 import com.skillbox.hw_scopedstorage.utils.toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-
 //
 // BottomSheetDialogFragment() for popup View on main screen
 //
