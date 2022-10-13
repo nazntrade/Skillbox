@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">hw_ScopedStorage</string>
+    <string name="video_list_grant_permission">Grant permission</string>
+    <string name="add_video">Add video</string>
+    <string name="video_name">Video name</string>
+    <string name="video_url">video URL</string>
+    <string name="save">SAVE</string>
+    <string name="saveCustom">SAVE Custom Dir</string>
+    <string name="saveSampleVideo">SAVE random Sample Video</string>
+    <string name="toolBarTitle">Video files</string>
+    <string name="load_list_error">Load list error</string>
+    <string name="video_delete_error">Video delete error</string>
+    <string name="video_add_error">Video save error</string>
+    <string name="videoSample_add_error">VideoSample save error</string>
+
+</resources>

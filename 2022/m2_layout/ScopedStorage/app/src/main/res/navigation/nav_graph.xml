@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/videoListFragment">
+
+    <fragment
+        android:id="@+id/videoListFragment"
+        android:name="com.skillbox.hw_scopedstorage.presentation.videoList.VideoListFragment"
+        android:label="VideoListFragment"
+        tools:layout="@layout/fragment_video_list">
+        <action
+            android:id="@+id/action_videoListFragment_to_addVideoDialogFragment"
+            app:destination="@id/addVideoDialogFragment" />
+        <action
+            android:id="@+id/action_videoListFragment_to_playVideoFragment"
+            app:destination="@id/playVideoFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addVideoDialogFragment"
+        android:name="com.skillbox.hw_scopedstorage.presentation.addVideo.AddVideoDialogFragment"
+        android:label="AddVideoDialogFragment"
+        tools:layout="@layout/dialog_add_video" />
+    <fragment
+        android:id="@+id/playVideoFragment"
+        android:name="com.skillbox.hw_scopedstorage.presentation.playVideo.PlayVideoFragment"
+        android:label="PlayVideoFragment"
+        tools:layout="@layout/fragment_play_video">
+        <argument
+            android:name="clickedVideo"
+            app:argType="com.skillbox.hw_scopedstorage.data.Video" />
+    </fragment>
+</navigation>
