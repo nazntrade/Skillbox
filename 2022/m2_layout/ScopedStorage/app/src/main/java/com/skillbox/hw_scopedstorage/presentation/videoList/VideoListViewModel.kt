@@ -12,6 +12,10 @@ import com.skillbox.hw_scopedstorage.data.Video
 import com.skillbox.hw_scopedstorage.data.VideosRepository
 import com.skillbox.hw_scopedstorage.utils.SingleLiveEvent
 import com.skillbox.hw_scopedstorage.utils.haveQ
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -33,9 +37,12 @@ class VideoListViewModel(
     val toastLiveData: LiveData<Int>
         get() = toastSingleLiveEvent
 
-    private val videoMutableLiveData = MutableLiveData<List<Video>>()
-    val videoLiveData: LiveData<List<Video>>
-        get() = videoMutableLiveData
+    // I'm trying to use Flow
+    //
+    private val _videoFlow = MutableStateFlow<List<Video>?>(null)
+    val videoFlow = _videoFlow.asStateFlow()
+    //
+    //
 
     private val recoverableActionMutableLiveData = MutableLiveData<RemoteAction>()
     val recoverableActionLiveData: LiveData<RemoteAction>
@@ -69,10 +76,10 @@ class VideoListViewModel(
         viewModelScope.launch {
             try {
                 val video = videoRepository.getVideo()
-                videoMutableLiveData.postValue(video)
+                _videoFlow.value = video
             } catch (t: Throwable) {
                 Timber.e(t)
-                videoMutableLiveData.postValue(emptyList())
+                _videoFlow.value = emptyList()
                 toastSingleLiveEvent.postValue(R.string.load_list_error)
             }
         }

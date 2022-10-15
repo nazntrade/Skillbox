@@ -19,9 +19,9 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
 
     private val videosRepository = VideosRepository(app)
 
-    private val toastSingleLiveEvent = SingleLiveEvent<Int>()
-    val toastLiveData: LiveData<Int>
-        get() = toastSingleLiveEvent
+    private val _toastSingleLiveEvent = SingleLiveEvent<Int>()
+    val toastStateFlow: LiveData<Int>
+        get() = _toastSingleLiveEvent
 
     private val saveSuccessSingleLiveEvent = SingleLiveEvent<Unit>()
     val saveSuccessLiveData: LiveData<Unit>
@@ -42,7 +42,7 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
                     )
                 } catch (t: Throwable) {
                     Timber.e(t)
-                    toastSingleLiveEvent.postValue(R.string.videoSample_add_error)
+                    _toastSingleLiveEvent.postValue(R.string.videoSample_add_error)
                 }
             }
             loadingMutableLiveData.postValue(false)
@@ -58,7 +58,7 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)
-                toastSingleLiveEvent.postValue(R.string.video_add_error)
+                _toastSingleLiveEvent.postValue(R.string.video_add_error)
             } finally {
                 loadingMutableLiveData.postValue(false)
             }
@@ -73,7 +73,7 @@ class AddVideoViewModel(app: Application) : AndroidViewModel(app) {
                 saveSuccessSingleLiveEvent.postValue(Unit)
             } catch (t: Throwable) {
                 Timber.e(t)
-                toastSingleLiveEvent.postValue(R.string.video_add_error)
+                _toastSingleLiveEvent.postValue(R.string.video_add_error)
             } finally {
                 loadingMutableLiveData.postValue(false)
             }

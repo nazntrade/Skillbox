@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.skillbox.hw_scopedstorage.R
 import com.skillbox.hw_scopedstorage.data.Video
@@ -90,8 +91,17 @@ class VideoListFragment :
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindViewModel() {
+
+        // I'm trying to use Flow
+        //
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.videoFlow.collect { video ->
+                videoAdapter.items = video }
+        }
+        //
+        //
+
         viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
-        viewModel.videoLiveData.observe(viewLifecycleOwner) { videoAdapter.items = it }
         viewModel.permissionsGrantedLiveData.observe(viewLifecycleOwner, ::updatePermissionUi)
         viewModel.recoverableActionLiveData.observe(viewLifecycleOwner, ::handleRecoverableAction)
     }

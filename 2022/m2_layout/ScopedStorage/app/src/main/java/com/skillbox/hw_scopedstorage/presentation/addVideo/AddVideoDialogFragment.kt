@@ -118,7 +118,7 @@ class AddVideoDialogFragment : BottomSheetDialogFragment() {
         }
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner, ::setLoading)
-        viewModel.toastLiveData.observe(viewLifecycleOwner) { toast(it) }
+        viewModel.toastStateFlow.observe(viewLifecycleOwner) { toast(it) }
         viewModel.saveSuccessLiveData.observe(viewLifecycleOwner) { dismiss() }
     }
 
