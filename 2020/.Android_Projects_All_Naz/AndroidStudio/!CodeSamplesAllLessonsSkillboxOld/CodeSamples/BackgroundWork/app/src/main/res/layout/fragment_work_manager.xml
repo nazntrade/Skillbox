@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/downloadUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Url to download" />
+
+    <Button
+        android:id="@+id/startDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download" />
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/cancelDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel download" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/downloadProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

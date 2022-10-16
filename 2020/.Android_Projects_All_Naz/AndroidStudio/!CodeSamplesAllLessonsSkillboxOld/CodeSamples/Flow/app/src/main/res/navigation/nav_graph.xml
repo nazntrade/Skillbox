@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="ru.skillbox.flow.MenuFragment"
+        android:label="MenuFragment" >
+        <action
+            android:id="@+id/action_menuFragment_to_flowBasicFragment"
+            app:destination="@id/flowBasicFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_flowOperatorsFragment"
+            app:destination="@id/flowOperatorsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flowBasicFragment"
+        android:name="ru.skillbox.flow.FlowBasicFragment"
+        android:label="FlowBasicFragment" />
+    <fragment
+        android:id="@+id/flowOperatorsFragment"
+        android:name="ru.skillbox.flow.FlowOperatorsFragment"
+        android:label="FlowOperatorsFragment" />
+</navigation>

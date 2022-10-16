@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">List13</string>
+    <string name="detail_info">Детальная информация по пользователю с идентификатором:</string>
+</resources>

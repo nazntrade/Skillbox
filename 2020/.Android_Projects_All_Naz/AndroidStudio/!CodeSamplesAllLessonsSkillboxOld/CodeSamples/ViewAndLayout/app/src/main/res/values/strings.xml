@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SkillboxAndroid</string>
+    <string name="text_view">text view</string>
+    <string name="name_input_hint">Введите свое имя</string>
+    <string name="hello_template">Привет %1$s</string>
+    <string name="clear_button_text">Очистить</string>
+    <string name="make_long_operation">Выполнить операцию</string>
+    <string name="button_add">Добавить</string>
+</resources>

@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Coroutines</string>
-    <string name="cancel">Cancel</string>
-    <string name="search_input_hint">Введите пользователя</string>
-    <string name="search_button">Искать</string>
-</resources>
