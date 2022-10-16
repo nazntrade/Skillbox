@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.skillbox.hw_m2_layout'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.skillbox.hw_m2_layout"
         minSdk 27
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -30,7 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    
+    buildFeatures {
+        viewBinding true
+    }
+
 }
 
 dependencies {

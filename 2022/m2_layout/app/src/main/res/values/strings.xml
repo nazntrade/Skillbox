@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">hw_m2_layout</string>
+    <string name="somebutton">someButton</string>
 </resources>
