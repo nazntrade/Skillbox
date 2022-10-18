@@ -1,4 +1,4 @@
-package com.example.skillbox_hw_quiz.quiz
+package com.example.skillbox_hw_quiz.data
 
 object QuizStorage {
     fun getQuiz(locale: Locale): Quiz = when (locale) {
