@@ -22,7 +22,9 @@ class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBin
 
     private fun navigation() {
         binding.quizButton.setOnClickListener {
-            findNavController().navigate(R.id.action_startFragment_to_questionsFragment)
+            val directions =
+                StartFragmentDirections.actionStartFragmentToQuestionsFragment()
+            findNavController().navigate(directions)
         }
     }
 }

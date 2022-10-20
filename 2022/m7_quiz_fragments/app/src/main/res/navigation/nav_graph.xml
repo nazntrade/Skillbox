@@ -9,7 +9,7 @@
         android:id="@+id/startFragment"
         android:name="com.example.skillbox_hw_quiz.ui.main.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_questionsFragment"
             app:destination="@id/questionsFragment" />
@@ -17,7 +17,8 @@
     <fragment
         android:id="@+id/questionsFragment"
         android:name="com.example.skillbox_hw_quiz.ui.questions.QuestionsFragment"
-        android:label="QuestionsFragment" >
+        android:label="QuestionsFragment"
+        tools:layout="@layout/fragment_questions">
         <action
             android:id="@+id/action_questionsFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
@@ -25,5 +26,16 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.skillbox_hw_quiz.ui.result.ResultFragment"
-        android:label="ResultFragment" />
+        android:label="ResultFragment"
+        tools:layout="@layout/fragment_results">
+        <action
+            android:id="@+id/action_resultFragment_to_startFragment"
+            app:destination="@id/startFragment"
+
+            app:popUpTo="@+id/startFragment"
+            app:popUpToInclusive="true" />
+        <!--app:popUpTo="@+id/startFragment"
+            app:popUpToInclusive="true"
+            this code in order not to add TO BACKSTACK-->
+    </fragment>
 </navigation>
