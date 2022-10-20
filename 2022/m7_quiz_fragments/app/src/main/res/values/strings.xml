@@ -3,4 +3,5 @@
     <string name="quiz">Quiz</string>
     <string name="questions">Questions</string>
     <string name="result">Result</string>
+    <string name="finish">finish</string>
 </resources>

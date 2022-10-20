@@ -5,38 +5,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16"
+        android:textSize="16sp"
+        android:fontFamily="serif"
+        tools:text="@tools:sample/full_names"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/dimen_16"
+        app:layout_constraintTop_toBottomOf ="@id/questionTextView"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/Button1"
+            android:id="@+id/radioButton1"
+            tools:text="@tools:sample/full_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
-            android:id="@+id/Button2"
+            android:id="@+id/radioButton2"
+            tools:text="@tools:sample/full_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
-            android:id="@+id/Button3"
+            android:id="@+id/radioButton3"
+            tools:text="@tools:sample/full_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
-            android:id="@+id/Button4"
+            android:id="@+id/radioButton4"
+            tools:text="@tools:sample/full_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </RadioGroup>
-
-    <TextView
-        android:id="@+id/textViewToQuestion1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="@tools:sample/lorem"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
