@@ -34,6 +34,9 @@
 
             app:popUpTo="@+id/startFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="args"
+            app:argType="string" />
         <!--app:popUpTo="@+id/startFragment"
             app:popUpToInclusive="true"
             this code in order not to add TO BACKSTACK-->

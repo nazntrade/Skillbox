@@ -17,11 +17,25 @@ class QuestionViewModel(app: Application) : AndroidViewModel(app) {
     private val _quizFlow = MutableStateFlow<Quiz?>(null)
     val quizFlow = _quizFlow.asStateFlow()
 
+    private val _rationaleFlow = MutableStateFlow<String?>(null)
+    val rationaleFlow = _rationaleFlow.asStateFlow()
+
     fun loadQuiz() {
         viewModelScope.launch {
             try {
                 val quiz = quizRepository.quiz
                 _quizFlow.value = quiz
+            } catch (t: Throwable) {
+                Timber.e(t)
+            }
+        }
+    }
+
+    fun getAnswer(answers: List<Int>) {
+        viewModelScope.launch {
+            try {
+                val rationaleRepository = quizRepository.getRationale(answers)
+                _rationaleFlow.value = rationaleRepository
             } catch (t: Throwable) {
                 Timber.e(t)
             }

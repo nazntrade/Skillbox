@@ -12,4 +12,7 @@ class QuizRepository(private val context: Context) {
         }
     }
 
+    fun getRationale(answers: List<Int>): String {
+       return QuizStorage.answer(quiz, answers)
+    }
 }
