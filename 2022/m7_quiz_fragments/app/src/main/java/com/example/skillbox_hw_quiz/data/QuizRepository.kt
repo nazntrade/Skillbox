@@ -1,9 +1,8 @@
 package com.example.skillbox_hw_quiz.data
 
-import android.content.Context
 import java.util.*
 
-class QuizRepository(private val context: Context) {
+class QuizRepository {
 
     val quiz = when (Locale.getDefault().language) {
         "ru" -> QuizStorage.getQuiz(locale = QuizStorage.Locale.Ru)
@@ -13,6 +12,6 @@ class QuizRepository(private val context: Context) {
     }
 
     fun getRationale(answers: List<Int>): String {
-       return QuizStorage.answer(quiz, answers)
+        return QuizStorage.answer(quiz, answers)
     }
 }

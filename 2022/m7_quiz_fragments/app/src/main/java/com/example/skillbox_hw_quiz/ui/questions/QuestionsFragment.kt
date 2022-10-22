@@ -2,22 +2,36 @@ package com.example.skillbox_hw_quiz.ui.questions
 
 import android.os.Bundle
 import android.view.View
+import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.skillbox_hw_quiz.R
 import com.example.skillbox_hw_quiz.databinding.FragmentQuestionsBinding
+import com.example.skillbox_hw_quiz.databinding.ItemQuestionBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
 
 class QuestionsFragment :
     ViewBindingFragment<FragmentQuestionsBinding>(FragmentQuestionsBinding::inflate) {
 
     private val viewModel: QuestionViewModel by viewModels()
-    private val answersIndex = mutableListOf<Int>()
+    private lateinit var radioGroup1: ItemQuestionBinding
+    private lateinit var radioGroup2: ItemQuestionBinding
+    private lateinit var radioGroup3: ItemQuestionBinding
+    private lateinit var radioGroupList: List<RadioGroup>
+    private val indexList = mutableListOf<Int>()
+    private lateinit var rationale: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        radioGroup1 = binding.radioGroup1
+        radioGroup2 = binding.radioGroup2
+        radioGroup3 = binding.radioGroup3
+        radioGroupList = listOf(
+            radioGroup1.radioGroup,
+            radioGroup2.radioGroup,
+            radioGroup3.radioGroup
+        )
         initToolBar()
         initQuestionnaire()
         getResult()
@@ -31,13 +45,7 @@ class QuestionsFragment :
     }
 
     private fun initQuestionnaire() {
-
-        val radioGroup1 = binding.radioGroup1
-        val radioGroup2 = binding.radioGroup2
-        val radioGroup3 = binding.radioGroup3
-
         viewModel.loadQuiz()
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.quizFlow.collect { quiz ->
                 quiz?.let { safeQuiz ->
@@ -62,41 +70,32 @@ class QuestionsFragment :
     }
 
     private fun getResult() {
-
-        val radioGroup1 = binding.radioGroup1
-        val radioGroup2 = binding.radioGroup2
-        val radioGroup3 = binding.radioGroup3
-
-        var argsToResult = "a"
-
-        val radioButtonID: Int = radioGroup1.radioGroup.checkedRadioButtonId
-        val radioButton: View = radioGroup1.radioGroup.findViewById(radioButtonID)
-        val idx: Int = radioGroup1.radioGroup.indexOfChild(radioButton)
-
-
-        answersIndex.add(idx)
-        binding.answerButton.isEnabled = true
-        viewModel.getAnswer(answersIndex)
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.rationaleFlow.collect { rationale ->
-                rationale?.let { safeRationale ->
-                    argsToResult = safeRationale
-                }
+        radioGroupList.forEach { objectRadioGroup ->
+            objectRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+                val radioButton: View = group.findViewById(checkedId)
+                val idx: Int = group.indexOfChild(radioButton)
+                indexList.add(idx)
             }
         }
 
         binding.answerButton.setOnClickListener {
+            rationale = viewModel.getAnswers(indexList)
             val directions =
                 QuestionsFragmentDirections.actionQuestionsFragmentToResultFragment(
-                    argsToResult
+                    rationale
                 )
-            if (argsToResult.isNotEmpty()) {
-                findNavController().navigate(directions)
-                radioGroup1.radioGroup.clearCheck()
-                radioGroup2.radioGroup.clearCheck()
-                radioGroup3.radioGroup.clearCheck()
-            }
+            findNavController().navigate(directions)
         }
     }
-}
 
+    override fun onResume() {
+        super.onResume()
+        radioGroupList.forEach { objectRadioGroup ->
+            objectRadioGroup.setOnCheckedChangeListener(null)
+        }
+        radioGroupList.forEach { it.clearCheck() }
+        getResult()
+        indexList.clear()
+        rationale = ""
+    }
+}

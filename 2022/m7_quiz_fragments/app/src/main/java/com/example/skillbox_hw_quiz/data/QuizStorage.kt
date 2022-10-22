@@ -9,7 +9,7 @@ object QuizStorage {
     fun answer(quiz: Quiz, answers: List<Int>): String = quiz
         .questions
         .zip(answers) { question, index -> question.feedback[index] }
-        .joinToString(separator = " ")
+        .joinToString(separator = "\n")
 
     enum class Locale {
         Ru, En
@@ -64,7 +64,6 @@ object QuizStorage {
             ),
         )
     }
-
 
     private val quizEn = object : Quiz {
         override val questions: List<Question> = listOf(

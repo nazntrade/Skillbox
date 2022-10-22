@@ -4,4 +4,5 @@
     <string name="questions">Questions</string>
     <string name="result">Result</string>
     <string name="finish">finish</string>
+    <string name="you_didn_t_answer_the_questions">You didn\'t answer the questions.</string>
 </resources>

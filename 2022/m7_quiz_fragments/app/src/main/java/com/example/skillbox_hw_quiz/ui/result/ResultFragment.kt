@@ -2,12 +2,9 @@ package com.example.skillbox_hw_quiz.ui.result
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.skillbox_hw_quiz.R
-import com.example.skillbox_hw_quiz.data.Quiz
 import com.example.skillbox_hw_quiz.databinding.FragmentResultsBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
 
@@ -15,7 +12,6 @@ class ResultFragment :
     ViewBindingFragment<FragmentResultsBinding>(FragmentResultsBinding::inflate) {
 
     private val incomingArgs: ResultFragmentArgs by navArgs()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +29,11 @@ class ResultFragment :
     }
 
     private fun initAnswers() {
-        binding.resultFragmentTextView.text = incomingArgs.args
+        if (incomingArgs.args.isNotEmpty()) {
+            binding.resultFragmentTextView.text = incomingArgs.args
+        } else {
+            binding.resultFragmentTextView.setText(R.string.you_didn_t_answer_the_questions)
+        }
     }
 
     private fun finishTestAndCloseResults() {

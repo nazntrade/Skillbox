@@ -12,13 +12,10 @@ import timber.log.Timber
 
 class QuestionViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val quizRepository = QuizRepository(app)
+    private val quizRepository = QuizRepository()
 
     private val _quizFlow = MutableStateFlow<Quiz?>(null)
     val quizFlow = _quizFlow.asStateFlow()
-
-    private val _rationaleFlow = MutableStateFlow<String?>(null)
-    val rationaleFlow = _rationaleFlow.asStateFlow()
 
     fun loadQuiz() {
         viewModelScope.launch {
@@ -31,16 +28,9 @@ class QuestionViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun getAnswer(answers: List<Int>) {
-        viewModelScope.launch {
-            try {
-                val rationaleRepository = quizRepository.getRationale(answers)
-                _rationaleFlow.value = rationaleRepository
-            } catch (t: Throwable) {
-                Timber.e(t)
-            }
-        }
+    fun getAnswers(answers: List<Int>): String {
+        return quizRepository.getRationale(answers)
     }
-
-
 }
+
+
