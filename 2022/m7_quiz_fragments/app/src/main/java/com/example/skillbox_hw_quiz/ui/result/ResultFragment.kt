@@ -2,6 +2,7 @@ package com.example.skillbox_hw_quiz.ui.result
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.skillbox_hw_quiz.R
@@ -37,9 +38,15 @@ class ResultFragment :
     }
 
     private fun finishTestAndCloseResults() {
+        val directions =
+            ResultFragmentDirections.actionResultFragmentToStartFragment()
+
         binding.finishButton.setOnClickListener {
-            val directions =
-                ResultFragmentDirections.actionResultFragmentToStartFragment()
+            findNavController().navigate(directions)
+        }
+
+        // to handle back button
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(directions)
         }
     }
