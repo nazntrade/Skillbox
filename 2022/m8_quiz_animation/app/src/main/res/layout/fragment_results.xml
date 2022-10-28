@@ -21,15 +21,16 @@
         android:layout_margin="@dimen/dimen_32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar"
-        tools:text="@tools:sample/lorem/random" />
+        tools:text="@tools:sample/lorem" />
 
     <Button
         android:id="@+id/finishButton"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16"
         android:text="@string/finish"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/layer1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resultFragmentTextView" />
 

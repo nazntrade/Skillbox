@@ -25,7 +25,11 @@
         tools:layout="@layout/fragment_questions">
         <action
             android:id="@+id/action_questionsFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/slide_anim_in_to_left"
+            app:exitAnim="@anim/slide_anim_out_to_left"
+            app:popEnterAnim="@anim/slide_pop_in_to_tight"
+            app:popExitAnim="@anim/slide_pop_out_to_right" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"

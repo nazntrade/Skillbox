@@ -16,13 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/quizButton"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="100dp"
         android:text="@string/quiz"
-        android:textSize="30sp"
-        android:background="@drawable/rounded_corner"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="35sp"
+        android:background="@drawable/mix_ripple_corner_radius_gradient"
         android:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
