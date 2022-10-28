@@ -1,8 +1,12 @@
 package com.example.skillbox_hw_quiz.ui.questions
 
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.Transition
+import android.transition.TransitionManager
 import android.view.View
 import android.widget.RadioGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -10,6 +14,7 @@ import com.example.skillbox_hw_quiz.R
 import com.example.skillbox_hw_quiz.databinding.FragmentQuestionsBinding
 import com.example.skillbox_hw_quiz.databinding.ItemQuestionBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
+
 
 class QuestionsFragment :
     ViewBindingFragment<FragmentQuestionsBinding>(FragmentQuestionsBinding::inflate) {
@@ -27,6 +32,8 @@ class QuestionsFragment :
         radioGroup1 = binding.radioGroup1
         radioGroup2 = binding.radioGroup2
         radioGroup3 = binding.radioGroup3
+        radioGroup2.radioGroup.isGone = true
+        radioGroup3.radioGroup.isGone = true
         radioGroupList = listOf(
             radioGroup1.radioGroup,
             radioGroup2.radioGroup,
@@ -69,9 +76,21 @@ class QuestionsFragment :
         }
     }
 
+    private fun toggle(radioGroup: RadioGroup) {
+        val transition: Transition = Fade()
+        transition.duration = 1000
+        transition.addTarget(radioGroup)
+        TransitionManager.beginDelayedTransition(binding.root, transition)
+        radioGroup.isGone = false
+    }
+
     private fun getResult() {
         radioGroupList.forEach { objectRadioGroup ->
             objectRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+                when (group) {
+                    radioGroup1.radioGroup -> toggle(radioGroup2.radioGroup)
+                    radioGroup2.radioGroup -> toggle(radioGroup3.radioGroup)
+                }
                 val radioButton: View = group.findViewById(checkedId)
                 val idx: Int = group.indexOfChild(radioButton)
                 indexList.add(idx)
