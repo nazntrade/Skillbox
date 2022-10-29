@@ -18,7 +18,7 @@ object QuizStorage {
     private val quizRu = object : Quiz {
         override val questions: List<Question> = listOf(
             Question(
-                question = "Как тебе наш Android курс?",
+                question = "1. Как тебе наш Android курс?",
                 answers = listOf(
                     "на 2",
                     "на 3",
@@ -33,7 +33,7 @@ object QuizStorage {
                 ),
             ),
             Question(
-                question = "Порекомендуешь его друзьям?",
+                question = "2. Порекомендуешь его друзьям?",
                 answers = listOf(
                     "Обзательно",
                     "Уже порекомендовал",
@@ -48,7 +48,7 @@ object QuizStorage {
                 ),
             ),
             Question(
-                question = "Пользовался ли ты обратной связью?",
+                question = "3. Пользовался ли ты обратной связью?",
                 answers = listOf(
                     "Да",
                     "Еще нет, но сейчас воспользуюсь",
@@ -68,7 +68,7 @@ object QuizStorage {
     private val quizEn = object : Quiz {
         override val questions: List<Question> = listOf(
             Question(
-                question = "Please, Rate Android course?",
+                question = "1. Please, Rate Android course?",
                 answers = listOf(
                     "F",
                     "C",
@@ -83,7 +83,7 @@ object QuizStorage {
                 ),
             ),
             Question(
-                question = "Do you want to recommend us to your friends?",
+                question = "2. Do you want to recommend us to your friends?",
                 answers = listOf(
                     "Sure",
                     "Already recommend",
@@ -98,7 +98,7 @@ object QuizStorage {
                 ),
             ),
             Question(
-                question = "Did you use the course feedback?",
+                question = "3. Did you use the course feedback?",
                 answers = listOf(
                     "Yes",
                     "Not yet, but now I will use it",

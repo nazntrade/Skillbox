@@ -2,12 +2,19 @@ package com.example.skillbox_hw_quiz.ui.result
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.activity.addCallback
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.skillbox_hw_quiz.R
 import com.example.skillbox_hw_quiz.databinding.FragmentResultsBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
+
 
 class ResultFragment :
     ViewBindingFragment<FragmentResultsBinding>(FragmentResultsBinding::inflate) {
@@ -27,6 +34,18 @@ class ResultFragment :
         toolbar.title = getString(R.string.result)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        animateToolBar(toolbar)
+    }
+
+    private fun animateToolBar(toolbar: Toolbar) {
+        val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.animation_toolbar)
+        animation.reset()
+        // Repeat animation infinitely
+        animation.repeatCount = Animation.INFINITE
+        // Reverse animation at the end so the button will fade back in
+        animation.repeatMode = Animation.REVERSE
+        toolbar.clearAnimation()
+        toolbar.startAnimation(animation)
     }
 
     private fun initAnswers() {
@@ -38,10 +57,13 @@ class ResultFragment :
     }
 
     private fun finishTestAndCloseResults() {
+        val finishButton = binding.finishButton
+        animateButton(finishButton)
+
         val directions =
             ResultFragmentDirections.actionResultFragmentToStartFragment()
 
-        binding.finishButton.setOnClickListener {
+        finishButton.setOnClickListener {
             findNavController().navigate(directions)
         }
 
@@ -49,5 +71,18 @@ class ResultFragment :
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(directions)
         }
+    }
+
+    private fun animateButton(finishButton: AppCompatButton) {
+        val animation: Animation =
+            AlphaAnimation(1f, 0f) // Change alpha from fully visible to invisible
+        animation.duration = 500 // duration - half a second
+        // do not alter animation rate
+        animation.interpolator = LinearInterpolator()
+        // Repeat animation infinitely
+        animation.repeatCount = Animation.INFINITE
+        // Reverse animation at the end so the button will fade back in
+        animation.repeatMode = Animation.REVERSE
+        finishButton.startAnimation(animation)
     }
 }
