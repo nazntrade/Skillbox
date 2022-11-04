@@ -1,7 +1,6 @@
 package com.example.skillbox_hw_quiz.ui.main
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.Transition
@@ -12,15 +11,17 @@ import androidx.navigation.fragment.findNavController
 import com.example.skillbox_hw_quiz.R
 import com.example.skillbox_hw_quiz.databinding.FragmentStartBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
-import java.time.LocalDateTime
-import java.time.ZoneId
+import com.google.android.material.snackbar.Snackbar
+import java.time.LocalDate
 
 class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBinding::inflate) {
+
+    private var selectedDate: LocalDate? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.quizButton.isGone= true
+        binding.quizButton.isGone = true
         initToolBar()
         initDateOfBirth()
         navigation()
@@ -33,28 +34,27 @@ class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBin
 
     private fun initDateOfBirth() {
         binding.birthdayDateButton.setOnClickListener {
-            val currentDateTime = LocalDateTime.now()
-            DatePickerDialog(
-                requireContext(), { _, year, month, dayOfMonth ->
-                    TimePickerDialog(
-                        requireContext(), { _, hourOfDay, minute ->
-                            val zonedDateTime =
-                                LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
-                                    .atZone(ZoneId.systemDefault())
-                            selectedMessageInstant = zonedDateTime.toInstant()
-                            dateLocationMessages[position].createdAt =
-                                selectedMessageInstant ?: Instant.now()
-                            dateLocationMessageAdapter?.notifyItemChanged(position)
-                        },
-                        currentDateTime.hour,
-                        currentDateTime.minute,
-                        true
+            if (selectedDate == null) {
+                selectedDate = LocalDate.now()
+            }
+            val dialog = DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
+                    Snackbar.make(
+                        binding.birthdayDateButton,
+                        "Your date of birth is $selectedDate",
+                        Snackbar.LENGTH_LONG
                     ).show()
                 },
-                currentDateTime.year,
-                currentDateTime.month.value - 1,
-                currentDateTime.dayOfMonth
-            ).show()
+                selectedDate?.year!!,
+                selectedDate!!.month.value - 1,
+                selectedDate!!.dayOfMonth
+            )
+            dialog.apply {
+                setTitle(R.string.your_birthday)
+                show()
+            }
             toggleQuizButton()
         }
     }
