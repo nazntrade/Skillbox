@@ -9,10 +9,14 @@ import android.view.View
 import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import com.example.skillbox_hw_quiz.R
+import com.example.skillbox_hw_quiz.data.QuizStorage
 import com.example.skillbox_hw_quiz.databinding.FragmentStartBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
 import com.google.android.material.snackbar.Snackbar
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBinding::inflate) {
 
@@ -37,25 +41,26 @@ class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBin
             if (selectedDate == null) {
                 selectedDate = LocalDate.now()
             }
-            val dialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
                     selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
+//                    var dtf = DateTimeFormatter.ofPattern("dd, MM, yyyy", Locale.)
                     Snackbar.make(
                         binding.birthdayDateButton,
-                        "Your date of birth is $selectedDate",
+                        getString(R.string.selected_date) + " " + selectedDate,
                         Snackbar.LENGTH_LONG
                     ).show()
+                    toggleQuizButton()
                 },
                 selectedDate?.year!!,
                 selectedDate!!.month.value - 1,
                 selectedDate!!.dayOfMonth
             )
-            dialog.apply {
+            datePickerDialog.apply {
                 setTitle(R.string.your_birthday)
                 show()
             }
-            toggleQuizButton()
         }
     }
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HW9_quiz</string>
+    <string name="quiz">Опрос</string>
+    <string name="questions">Вопросы</string>
+    <string name="result">Результаты</string>
+    <string name="finish">Завершить</string>
+    <string name="you_didn_t_answer_the_questions">Вы не ответили на вопросы</string>
+    <string name="your_birthday">Дата Вашего рождения</string>
+    <string name="selected_date">"Вы выбрали дату рождения: "</string>
+
+</resources>
