@@ -9,14 +9,13 @@ import android.view.View
 import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import com.example.skillbox_hw_quiz.R
-import com.example.skillbox_hw_quiz.data.QuizStorage
 import com.example.skillbox_hw_quiz.databinding.FragmentStartBinding
 import com.example.skillbox_hw_quiz.utils.ViewBindingFragment
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBinding::inflate) {
 
@@ -45,10 +44,12 @@ class StartFragment : ViewBindingFragment<FragmentStartBinding>(FragmentStartBin
                 requireContext(),
                 { _, year, month, dayOfMonth ->
                     selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
-//                    var dtf = DateTimeFormatter.ofPattern("dd, MM, yyyy", Locale.)
+                    val date: Date = java.sql.Date.valueOf(selectedDate.toString())
+                    val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                    val formattedDate = dateFormatter.format(date)
                     Snackbar.make(
                         binding.birthdayDateButton,
-                        getString(R.string.selected_date) + " " + selectedDate,
+                        getString(R.string.selected_date) + " " + formattedDate,
                         Snackbar.LENGTH_LONG
                     ).show()
                     toggleQuizButton()
