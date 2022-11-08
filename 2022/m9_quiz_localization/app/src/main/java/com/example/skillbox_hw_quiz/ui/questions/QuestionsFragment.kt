@@ -25,7 +25,7 @@ class QuestionsFragment :
     private lateinit var radioGroup2: ItemQuestionBinding
     private lateinit var radioGroup3: ItemQuestionBinding
     private lateinit var radioGroupList: List<RadioGroup>
-    private lateinit var ansverButton: Button
+    private lateinit var answerButton: Button
     private val indexList = mutableListOf<Int>()
     private lateinit var rationale: String
 
@@ -34,10 +34,10 @@ class QuestionsFragment :
         radioGroup1 = binding.radioGroup1
         radioGroup2 = binding.radioGroup2
         radioGroup3 = binding.radioGroup3
-        ansverButton = binding.answerButton
+        answerButton = binding.answerButton
         radioGroup2.radioGroup.isGone = true
         radioGroup3.radioGroup.isGone = true
-        ansverButton.isEnabled = false
+        answerButton.isEnabled = false
         radioGroupList = listOf(
             radioGroup1.radioGroup,
             radioGroup2.radioGroup,
@@ -94,7 +94,7 @@ class QuestionsFragment :
                 when (group) {
                     radioGroup1.radioGroup -> toggle(radioGroup2.radioGroup)
                     radioGroup2.radioGroup -> toggle(radioGroup3.radioGroup)
-                    radioGroup3.radioGroup -> ansverButton.isEnabled = true
+                    radioGroup3.radioGroup -> answerButton.isEnabled = true
                 }
                 val radioButton: View = group.findViewById(checkedId)
                 val idx: Int = group.indexOfChild(radioButton)
@@ -118,7 +118,7 @@ class QuestionsFragment :
             objectRadioGroup.setOnCheckedChangeListener(null)
         }
         radioGroupList.forEach { it.clearCheck() }
-        ansverButton.isEnabled = false
+        answerButton.isEnabled = false
         getResult()
         indexList.clear()
         rationale = ""
