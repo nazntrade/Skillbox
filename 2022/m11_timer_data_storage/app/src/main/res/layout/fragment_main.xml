@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.MainFragment"
     android:padding="@dimen/dimen_32"
     android:orientation="vertical"
-    android:layout_height="match_parent" android:layout_width="match_parent"
-    >
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <EditText
         android:id="@+id/editTextField"
@@ -16,7 +15,7 @@
         android:hint="@string/to_type_something" />
 
     <Button
-        android:id="@+id/downloadButton"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
@@ -24,7 +23,7 @@
         android:text="@string/save" />
 
     <Button
-        android:id="@+id/soundButton"
+        android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_margin="@dimen/dimen_16"
         android:layout_height="wrap_content"
@@ -32,9 +31,10 @@
         android:text="@string/clear" />
 
     <TextView
-        android:id="@+id/savedMessage"
+        android:id="@+id/savedDataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="26sp"
         tools:text="@tools:sample/lorem"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dimen_32" />
