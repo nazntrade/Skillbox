@@ -1,10 +1,10 @@
-package com.skillbox.m16_architecture.data
+package com.skillbox.m16_architecture.data.entity
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Entertainment(
+interface UsefulActivity{
     @Json(name = "activity")
     val activity: String
-)
+}

@@ -1,5 +1,6 @@
-package com.skillbox.m16_architecture.data
+package com.skillbox.m16_architecture.data.network
 
+import com.skillbox.m16_architecture.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +13,7 @@ object Retrofit {
         .build()
 
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://www.boredapi.com/api/")
+        .baseUrl(Constants.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .client(okHttpClient)
         .build()

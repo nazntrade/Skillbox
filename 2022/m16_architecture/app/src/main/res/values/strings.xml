@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">m16_architecture</string>
     <string name="get_doing">get doing</string>
-    <string name="got_bored_click_the_button_to_do_something">Got bored? Click the button to do something.</string>
+    <string name="got_bored_click_the_button">Got bored? Click the button.</string>
 </resources>
