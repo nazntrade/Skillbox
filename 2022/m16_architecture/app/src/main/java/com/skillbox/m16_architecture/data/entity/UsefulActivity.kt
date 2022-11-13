@@ -4,7 +4,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-interface UsefulActivity{
+data class UsefulActivity(
     @Json(name = "activity")
     val activity: String
-}
+
+)
