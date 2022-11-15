@@ -1,26 +1,27 @@
 package com.skillbox.m16_architecture.presetation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.m16_architecture.data.BoredRepository
-import com.skillbox.m16_architecture.data.entity.UsefulActivity
+import com.skillbox.m16_architecture.domain.GetUsefulActivityUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class BoredViewModel(app: Application) : AndroidViewModel(app) {
-    private val repository = BoredRepository(app)
+class BoredViewModel @Inject constructor(
+    private val getUsefulActivityUseCase: GetUsefulActivityUseCase
+) : ViewModel() {
 
-    private val _usefulActivityStateFlow = MutableStateFlow<UsefulActivity?>(null)
-    val usefulActivityStateFlow = _usefulActivityStateFlow.asStateFlow()
+    private val _usefulActivityTextFlow = MutableStateFlow("")
+    val usefulActivityTextFlow = _usefulActivityTextFlow.asStateFlow()
 
     fun getUsefulActivity() {
         viewModelScope.launch {
             try {
-                _usefulActivityStateFlow.value = repository.getUsefulActivity()
-            } catch (t : Throwable) {
+                val someDoing = getUsefulActivityUseCase.execute()
+                _usefulActivityTextFlow.value = someDoing.activity
+            } catch (t: Throwable) {
                 Timber.e(t)
             }
         }

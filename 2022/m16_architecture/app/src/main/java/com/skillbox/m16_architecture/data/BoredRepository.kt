@@ -1,16 +1,12 @@
 package com.skillbox.m16_architecture.data
 
-import android.content.Context
-import com.skillbox.m16_architecture.data.network.Networking
-import com.skillbox.m16_architecture.data.entity.UsefulActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.skillbox.m16_architecture.entity.UsefulActivity
+import javax.inject.Inject
 
-class BoredRepository(context: Context) {
-
+class BoredRepository @Inject constructor(
+    private val usefulActivityDataSource: UsefulActivityDataSource
+) {
     suspend fun getUsefulActivity(): UsefulActivity {
-        return withContext(Dispatchers.IO) {
-            Networking.boredApi.getUsefulActivity()
-        }
+        return usefulActivityDataSource.loadActivity()
     }
 }

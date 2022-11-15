@@ -9,5 +9,5 @@
         android:id="@+id/boredFragment"
         android:name="com.skillbox.m16_architecture.presetation.BoredFragment"
         android:label="BoredFragment"
-        tools:layout="@layout/fragment_bored"/>
+        tools:layout="@layout/fragment_bored" />
 </navigation>

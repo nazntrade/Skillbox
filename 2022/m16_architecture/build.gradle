@@ -7,6 +7,8 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
+        //for hilt
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.44.2"
     }
 }
 

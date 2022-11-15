@@ -6,10 +6,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.skillbox.m16_architecture.R
 import com.skillbox.m16_architecture.databinding.FragmentBoredBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BoredFragment : ViewBindingFragment<FragmentBoredBinding>(FragmentBoredBinding::inflate) {
 
-    private val viewModel: BoredViewModel by viewModels()
+    @Inject
+    lateinit var boredViewModelFactory: BoredViewModelFactory
+    private val viewModel: BoredViewModel by viewModels {
+        boredViewModelFactory
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -19,7 +26,7 @@ class BoredFragment : ViewBindingFragment<FragmentBoredBinding>(FragmentBoredBin
         printUsefulActivity()
     }
 
-    private fun initToolbar(){
+    private fun initToolbar() {
         binding.appBar.toolBar.title = getString(R.string.got_bored_click_the_button)
     }
 
@@ -31,8 +38,8 @@ class BoredFragment : ViewBindingFragment<FragmentBoredBinding>(FragmentBoredBin
 
     private fun printUsefulActivity() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.usefulActivityStateFlow.collect { usefulActivity ->
-                binding.textView.text = usefulActivity?.activity
+            viewModel.usefulActivityTextFlow.collect { usefulActivityText ->
+                binding.textView.text = usefulActivityText
             }
         }
     }
