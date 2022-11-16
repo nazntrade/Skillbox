@@ -9,13 +9,29 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9b94e14-964a-4c16-b710-56a6010a8bbb" name="Changes" comment="" />
+    <list default="true" id="c9b94e14-964a-4c16-b710-56a6010a8bbb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/java/com/skillbox/m16_architecture/presetation/ViewBindingFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/drawable/mix_ripple_corner_radius_gradient.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/layout/fragment_bored.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../2020/JsonAndRetrofit/Moshi/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../2020/JsonAndRetrofit/Moshi/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../2020/JsonAndRetrofit/Retrofit/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../2020/JsonAndRetrofit/Retrofit/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../2020/JsonAndRetrofit/Retrofit/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../2020/JsonAndRetrofit/Retrofit/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/app/src/main/java/com/skillbox/m16_architecture/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/java/com/skillbox/m16_architecture/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m16_architecture/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../m16_architecture/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\naznt\.android\avd\Pixel_3a_API_31.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\naznt\.android\avd\Pixel_2_API_28.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
