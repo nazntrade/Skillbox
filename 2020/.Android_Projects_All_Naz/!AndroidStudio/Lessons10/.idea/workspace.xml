@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="01cfab67-11a4-4ac7-a8e3-36408a76ad65" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../ActivityLifecycle/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ActivityLifecycle/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ActivityLifecycle/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ActivityLifecycle/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ActivityLifecycle/app/src/main/java/com/skillbox/homework12_12_Activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ActivityLifecycle/app/src/main/java/com/skillbox/homework12_12_Activity/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ActivityLifecycle/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ActivityLifecycle/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ActivityLifecycle/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ActivityLifecycle/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lesson12_Activity/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lesson12_Activity/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lesson12_Activity/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lesson12_Activity/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lesson12_Activity/app/src/main/java/com/example/lesson12_activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Lesson12_Activity/app/src/main/java/com/example/lesson12_activity/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\naznt\.android\avd\Pixel_5_API_30.avd]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+        <option value="layoutResourceFile_vertical" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1wnGcKedql2s5vlaFbPKkiQq6bg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="VirtualDevicePath@C:\Users\naznt\.android\avd\Pixel_3a_API_30_x86.avd" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-08-16T09:09:05.512318400Z" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="ignore.preview.features.used" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.XML" />
+  </component>
+  <component name="PsdUISettings">
+    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="Lessons10.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="01cfab67-11a4-4ac7-a8e3-36408a76ad65" name="Default Changelist" comment="" />
+      <created>1629087016625</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1629087016625</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="452" y="100" width="1016" height="910" key="#Intentions" timestamp="1629088688991">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="452" y="100" width="1016" height="910" key="#Intentions/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629088688991" />
+    <state x="669" y="306" key="#Notifications" timestamp="1629360988989">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="669" y="306" key="#Notifications/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629360988989" />
+    <state x="358" y="208" key="#PSD" timestamp="1629098931308">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="358" y="208" key="#PSD/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629098931308" />
+    <state x="708" y="171" key="#com.intellij.ide.util.MemberChooser" timestamp="1629094559671">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="708" y="171" key="#com.intellij.ide.util.MemberChooser/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629094559671" />
+    <state x="92" y="92" width="1736" height="866" key="AVDManager" timestamp="1629262591146">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="92" y="92" width="1736" height="866" key="AVDManager/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629262591146" />
+    <state x="537" y="270" width="846" height="505" key="AndroidCreateResourceFileDialog" timestamp="1629110726333">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="537" y="270" width="846" height="505" key="AndroidCreateResourceFileDialog/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629110726333" />
+    <state x="779" y="267" key="AndroidCreateXmlResourceDialog" timestamp="1629360743716">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="779" y="267" key="AndroidCreateXmlResourceDialog/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629360743716" />
+    <state x="687" y="-860" key="FileChooserDialogImpl" timestamp="1629796223633">
+      <screen x="0" y="-1080" width="1920" height="1050" />
+    </state>
+    <state x="687" y="-860" key="FileChooserDialogImpl/0.-1080.1920.1050/0.0.1920.1050@0.-1080.1920.1050" timestamp="1629796223633" />
+    <state x="687" y="220" key="FileChooserDialogImpl/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629363070587" />
+    <state x="351" y="83" key="SettingsEditor" timestamp="1629087949234">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="351" y="83" key="SettingsEditor/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629087949234" />
+    <state x="605" y="27" width="710" height="996" key="find.popup" timestamp="1629092965956">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="605" y="27" width="710" height="996" key="find.popup/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629092965956" />
+    <state x="539" y="15" width="840" height="1034" key="search.everywhere.popup" timestamp="1629110414807">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="539" y="15" width="840" height="1034" key="search.everywhere.popup/0.-1080.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1629110414807" />
+  </component>
+</project>

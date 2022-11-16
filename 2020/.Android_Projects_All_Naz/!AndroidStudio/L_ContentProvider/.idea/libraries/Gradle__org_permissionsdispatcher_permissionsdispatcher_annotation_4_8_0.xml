@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.permissionsdispatcher:permissionsdispatcher-annotation:4.8.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.permissionsdispatcher/permissionsdispatcher-annotation/4.8.0/3c886174898630b7c7ccc27e81946dfb7ee044c5/permissionsdispatcher-annotation-4.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.permissionsdispatcher/permissionsdispatcher-annotation/4.8.0/f83d0b1b07630b57f947174a66374ac873737423/permissionsdispatcher-annotation-4.8.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.permissionsdispatcher/permissionsdispatcher-annotation/4.8.0/34c82ef4fa5a60b4937a668a0a5a1f8d4cf81e93/permissionsdispatcher-annotation-4.8.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
