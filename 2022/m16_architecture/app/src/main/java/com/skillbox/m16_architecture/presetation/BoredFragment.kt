@@ -14,6 +14,7 @@ class BoredFragment : ViewBindingFragment<FragmentBoredBinding>(FragmentBoredBin
 
     @Inject
     lateinit var boredViewModelFactory: BoredViewModelFactory
+    
     private val viewModel: BoredViewModel by viewModels {
         boredViewModelFactory
     }
