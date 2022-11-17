@@ -20,21 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f38fe579-0968-44bd-951f-c675be5eff37" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../2020/.Android_Projects_All_Naz/!AndroidStudio/Libraries.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../2020/.Android_Projects_All_Naz/!AndroidStudio/Libraries.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/BoredRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/BoredRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/entity/UsefulActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/entity/UsefulActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/network/BoredApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/network/BoredApi.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/network/Retrofit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/network/Retrofit.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/domain/GetUsefulActivityUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/domain/GetUsefulActivityUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/UsefulActivityDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/UsefulActivityDto.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredViewModelFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredViewModelFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/.idea/gradle.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
