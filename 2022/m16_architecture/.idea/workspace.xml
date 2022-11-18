@@ -21,9 +21,13 @@
   <component name="ChangeListManager">
     <list default="true" id="f38fe579-0968-44bd-951f-c675be5eff37" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/UsefulActivityDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/data/UsefulActivityDto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m16_architecture/presetation/BoredFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m19_location/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
