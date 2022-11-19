@@ -1,14 +1,13 @@
 package com.skillbox.m19_location.data
 
+import com.skillbox.m19_location.data.models.GeometryModel
+import com.skillbox.m19_location.data.models.PropertiesModel
 import com.skillbox.m19_location.entity.Attractions
 //Dbo for dataBase
 //Dto Data Transfer Object. For convert Interface and transfer deserialization Gson
 class AttractionsDto(
-    override val activity: String,
     override val type: String,
-    override val participants: Int,
-    override val price: Float,
-    override val link: String,
-    override val key: Long,
-    override val accessibility: Float
+    override val id: Long,
+    override val geometryModel: GeometryModel,
+    override val properties: PropertiesModel
 ) : Attractions // Interface

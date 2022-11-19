@@ -1,11 +1,11 @@
 package com.skillbox.m19_location.entity
 
+import com.skillbox.m19_location.data.models.GeometryModel
+import com.skillbox.m19_location.data.models.PropertiesModel
+
 interface Attractions {
-    val activity: String
     val type: String
-    val participants: Int
-    val price: Float
-    val link: String
-    val key: Long
-    val accessibility: Float
+    val id: Long
+    val geometryModel: GeometryModel
+    val properties: PropertiesModel
 }

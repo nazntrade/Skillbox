@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.skillbox.m16_architecture.R
-import com.skillbox.m16_architecture.databinding.FragmentBoredBinding
+import com.skillbox.m19_location.databinding.FragmentAttractionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AttractionFragment : ViewBindingFragment<FragmentBoredBinding>(FragmentBoredBinding::inflate) {
+class AttractionFragment : ViewBindingFragment<FragmentAttractionBinding>(FragmentAttractionBinding::inflate) {
 
     @Inject
     lateinit var attractionViewModelFactory: AttractionViewModelFactory
@@ -23,24 +22,24 @@ class AttractionFragment : ViewBindingFragment<FragmentBoredBinding>(FragmentBor
         super.onViewCreated(view, savedInstanceState)
 
         initToolbar()
-        getUsefulActivity()
+        getAttractions()
         printUsefulActivity()
     }
 
     private fun initToolbar() {
-        binding.appBar.toolBar.title = getString(R.string.got_bored_click_the_button)
+//        binding.appBar.toolBar.title = getString(R.string.got_bored_click_the_button)
     }
 
-    private fun getUsefulActivity() {
-        binding.button.setOnClickListener {
-            viewModel.getUsefulActivity()
+    private fun getAttractions() {
+        binding.getAttractions.setOnClickListener {
+            viewModel.getAttractions()
         }
     }
 
     private fun printUsefulActivity() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.usefulActivityTextFlow.collect { usefulActivityText ->
-                binding.textView.text = usefulActivityText
+            viewModel.attractionsFlow.collect { usefulActivityText ->
+//                binding.textView.text = usefulActivityText
             }
         }
     }

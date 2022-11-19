@@ -6,7 +6,7 @@ import javax.inject.Inject
 class AttractionsRepository @Inject constructor(
     private val attractionsDataSource: AttractionsDataSource
 ) {
-    suspend fun getAttractions(): Attractions {
+    suspend fun getAttractions(): List<AttractionsDto> {
         return attractionsDataSource.loadActivity()
     }
 }
