@@ -3,6 +3,7 @@ package com.skillbox.m19_location.presetation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.m19_location.domain.GetAttractionsUseCase
+import com.skillbox.m19_location.entity.Attractions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -13,14 +14,14 @@ class AttractionViewModel @Inject constructor(
     private val getAttractionsUseCase: GetAttractionsUseCase
 ) : ViewModel() {
 
-    private val _usefulActivityTextFlow = MutableStateFlow("")
-    val usefulActivityTextFlow = _usefulActivityTextFlow.asStateFlow()
+    private val _attractionsFlow = MutableStateFlow<List<Attractions>?>(null)
+    val attractionsFlow = _attractionsFlow.asStateFlow()
 
-    fun getUsefulActivity() {
+    fun getAttractions() {
         viewModelScope.launch {
             try {
-                val someDoing = getAttractionsUseCase.execute()
-                _usefulActivityTextFlow.value = someDoing.activity
+                val getAttractions = getAttractionsUseCase.execute()
+                _attractionsFlow.value = getAttractions
             } catch (t: Throwable) {
                 Timber.e(t)
             }
