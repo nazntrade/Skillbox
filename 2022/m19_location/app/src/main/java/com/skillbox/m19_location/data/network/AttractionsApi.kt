@@ -7,13 +7,12 @@ import retrofit2.http.*
 
 interface AttractionsApi {
 
-    @GET("en/places/radius?radius=5000&lon={lon}&lat={lat}&apikey={apikey}")
+    @GET("en/places/radius")
     suspend fun getAttractions(
-        @Path("lon") lon: Double,
-        @Path("lat") lat: Double,
-        @Path("apikey") apikey: String
+        @Query("radius") radius: Int,
+        @Query("lon") lon: Double,
+        @Query("lat") lat: Double,
+        @Query("apikey") apikey: String
 
-    ): List<AttractionModel>
-
-
+    ): ServerItemsWrapper<AttractionModel>
 }

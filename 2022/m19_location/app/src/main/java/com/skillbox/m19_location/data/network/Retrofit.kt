@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Retrofit {
 
@@ -14,7 +15,7 @@ object Retrofit {
 
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create()) // GsonConverterFactory.create() in place of MoshiConverterFactory.create()
+        .addConverterFactory(MoshiConverterFactory.create()) // GsonConverterFactory.create() in place of MoshiConverterFactory.create()
         .client(okHttpClient)
         .build()
 }
