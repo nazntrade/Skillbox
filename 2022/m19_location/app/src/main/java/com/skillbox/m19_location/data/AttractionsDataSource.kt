@@ -6,18 +6,18 @@ import javax.inject.Inject
 
 class AttractionsDataSource @Inject constructor() {
     suspend fun loadActivity(): List<AttractionsDto> {
-        val attractionsDtoList = listOf<AttractionsDto>()
+        val attractionsDtoList = mutableListOf<AttractionsDto>()
         val dataFromApi =
             Networking.attractionsApi.getAttractions(5000,-79.0538864, 43.0974998, Constants.API_KEY)
 
-        dataFromApi.items.forEach {
+        dataFromApi.features.forEach {
             val attraction = AttractionsDto(
-                it.type,
-                it.id,
-                it.geometry,
-                it.properties
+               type = it.type,
+               id = it.id,
+               geometryModel = it.geometry,
+                properties = it.properties
             )
-            attractionsDtoList + attraction
+            attractionsDtoList += attraction
         }
 
         return attractionsDtoList
