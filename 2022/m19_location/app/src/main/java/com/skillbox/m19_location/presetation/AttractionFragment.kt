@@ -39,7 +39,7 @@ class AttractionFragment : ViewBindingFragment<FragmentAttractionBinding>(Fragme
     private fun printUsefulActivity() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.attractionsFlow.collect { usefulActivityText ->
-//                binding.textView.text = usefulActivityText
+                binding.textViewTest.text = usefulActivityText.toString()
             }
         }
     }

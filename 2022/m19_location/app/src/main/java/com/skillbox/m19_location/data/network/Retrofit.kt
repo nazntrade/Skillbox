@@ -15,7 +15,7 @@ object Retrofit {
 
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create()) // GsonConverterFactory.create() in place of MoshiConverterFactory.create()
+        .addConverterFactory(GsonConverterFactory.create()) // GsonConverterFactory.create() in place of MoshiConverterFactory.create()
         .client(okHttpClient)
         .build()
 }

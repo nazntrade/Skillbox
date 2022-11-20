@@ -20,8 +20,8 @@ class AttractionViewModel @Inject constructor(
     fun getAttractions() {
         viewModelScope.launch {
             try {
-                val getAttractions = getAttractionsUseCase.execute()
-                _attractionsFlow.value = getAttractions
+                val attractions = getAttractionsUseCase.execute()
+                _attractionsFlow.value = attractions
             } catch (t: Throwable) {
                 Timber.e(t)
             }
