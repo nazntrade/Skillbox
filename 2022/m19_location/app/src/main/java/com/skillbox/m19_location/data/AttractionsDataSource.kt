@@ -8,9 +8,9 @@ class AttractionsDataSource @Inject constructor() {
     suspend fun loadActivity(): List<AttractionsDto> {
         val attractionsDtoList = listOf<AttractionsDto>()
         val dataFromApi =
-            Networking.attractionsApi.getAttractions(-79.0538864, 43.0974998, Constants.API_KEY)
+            Networking.attractionsApi.getAttractions(5000,-79.0538864, 43.0974998, Constants.API_KEY)
 
-        dataFromApi.forEach {
+        dataFromApi.items.forEach {
             val attraction = AttractionsDto(
                 it.type,
                 it.id,
