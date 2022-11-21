@@ -5,19 +5,25 @@ import com.skillbox.m19_location.utils.Constants
 import javax.inject.Inject
 
 class AttractionsDataSource @Inject constructor() {
-    suspend fun loadActivity(): List<AttractionsDto> {
+    suspend fun loadAttractions(): List<AttractionsDto> {
         val attractionsDtoList = mutableListOf<AttractionsDto>()
         val dataFromApi =
-            Networking.attractionsApi.getAttractions(5000,-79.0538864, 43.0974998, Constants.API_KEY)
-
-        dataFromApi.features.forEach {
-            val attraction = AttractionsDto(
-               type = it.type,
-               id = it.id,
-               geometryModel = it.geometry,
-                properties = it.properties
+            Networking.attractionsApi.getAttractions(
+                1000,
+                -79.0538864,
+                43.0974998,
+                Constants.API_KEY
             )
-            attractionsDtoList += attraction
+
+        dataFromApi.features.forEach { attractionModel ->
+            attractionsDtoList.add(
+                AttractionsDto(
+                    type = attractionModel.type,
+                    id = attractionModel.id,
+                    geometryModel = attractionModel.geometry,
+                    properties = attractionModel.properties
+                )
+            )
         }
 
         return attractionsDtoList

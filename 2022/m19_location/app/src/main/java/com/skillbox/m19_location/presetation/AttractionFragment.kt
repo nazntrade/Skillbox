@@ -38,8 +38,8 @@ class AttractionFragment : ViewBindingFragment<FragmentAttractionBinding>(Fragme
 
     private fun printUsefulActivity() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.attractionsFlow.collect { usefulActivityText ->
-                binding.textViewTest.text = usefulActivityText.toString()
+            viewModel.attractionsFlow.collect { attractionsFlow ->
+                binding.textViewTest.text = attractionsFlow.toString()
             }
         }
     }
