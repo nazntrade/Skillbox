@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">m19_location</string>
+    <string name="attractions_nearby">Attractions nearby</string>
+    <string name="radius">Enter radius for search</string>
 </resources>

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetAttractionsUseCase @Inject constructor(
     private val attractionsRepository: AttractionsRepository
 ) {
-    suspend fun execute(): List<AttractionsDto> {
-        return attractionsRepository.getAttractions()
+    suspend fun execute(radius: Int, lon: Double, lat: Double): List<AttractionsDto> {
+        return attractionsRepository.getAttractions(radius, lon, lat)
     }
 }
