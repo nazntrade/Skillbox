@@ -17,10 +17,10 @@ class AttractionViewModel @Inject constructor(
     private val _attractionsFlow = MutableStateFlow<List<Attractions>?>(null)
     val attractionsFlow = _attractionsFlow.asStateFlow()
 
-    fun getAttractions() {
+    fun getAttractions(radius: Int, lon: Double, lat: Double) {
         viewModelScope.launch {
             try {
-                val attractions = getAttractionsUseCase.execute()
+                val attractions = getAttractionsUseCase.execute(radius, lon, lat)
                 _attractionsFlow.value = attractions
             } catch (t: Throwable) {
                 Timber.e(t)

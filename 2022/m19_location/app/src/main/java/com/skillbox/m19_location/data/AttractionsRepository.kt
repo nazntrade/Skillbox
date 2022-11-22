@@ -1,11 +1,13 @@
 package com.skillbox.m19_location.data
 
+import com.skillbox.m19_location.utils.Constants
 import javax.inject.Inject
 
 class AttractionsRepository @Inject constructor(
     private val attractionsDataSource: AttractionsDataSource
 ) {
-    suspend fun getAttractions(): List<AttractionsDto> {
-        return attractionsDataSource.loadAttractions()
+
+    suspend fun getAttractions(radius: Int, lon: Double, lat: Double): List<AttractionsDto> {
+        return attractionsDataSource.loadAttractions(radius, lon, lat, Constants.API_KEY)
     }
 }
