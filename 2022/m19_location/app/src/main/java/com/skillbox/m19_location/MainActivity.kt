@@ -1,4 +1,4 @@
-package com.skillbox.m16_architecture
+package com.skillbox.m19_location
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
