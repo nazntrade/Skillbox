@@ -26,7 +26,6 @@ class AttractionsDataSource @Inject constructor() {
                 )
             )
         }
-
         return attractionsDtoList
     }
 }

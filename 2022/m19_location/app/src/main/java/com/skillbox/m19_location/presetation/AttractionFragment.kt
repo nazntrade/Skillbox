@@ -16,6 +16,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.skillbox.m19_location.R
 import com.skillbox.m19_location.databinding.FragmentAttractionBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,9 +29,11 @@ class AttractionFragment :
 
     @Inject
     lateinit var attractionViewModelFactory: AttractionViewModelFactory
+
     private val viewModel: AttractionViewModel by viewModels {
         attractionViewModelFactory
     }
+
     private lateinit var fusedClient: FusedLocationProviderClient
 
     private val launcher = registerForActivityResult(
@@ -41,26 +45,26 @@ class AttractionFragment :
     }
 
     private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(result: LocationResult) {
-            getAttractions(result)
+        override fun onLocationResult(locationResult: LocationResult) {
+            val myLat = locationResult.lastLocation!!.latitude
+            val myLon = locationResult.lastLocation!!.longitude
+            getAttractions(myLat, myLon)
         }
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initToolbar()
-
-        fusedClient =
-            LocationServices.getFusedLocationProviderClient(requireActivity().applicationContext) // ???
-
+        fusedClient = LocationServices.getFusedLocationProviderClient(
+            requireActivity().applicationContext
+        )
         showAttractionsNearby()
     }
 
     override fun onStart() {
         super.onStart()
         checkPermissions()
-
     }
 
     private fun initToolbar() {
@@ -70,7 +74,7 @@ class AttractionFragment :
     private fun checkPermissions() {
         if (REQUIRED_PERMISSIONS.all { permission ->
                 ContextCompat.checkSelfPermission(
-                    requireContext(),                        // ??? context
+                    requireContext(),
                     permission
                 ) == PackageManager.PERMISSION_GRANTED
             }) {
@@ -94,18 +98,25 @@ class AttractionFragment :
         )
     }
 
-    private fun getAttractions(result: LocationResult) {
-        val lon = result.lastLocation?.longitude
-        val lat = result.lastLocation?.latitude
-
-        binding.myCoordinatesTextView.text = result.lastLocation.toString()
+    private fun getAttractions(myLat: Double, myLon: Double) {
+        getMap(myLat,myLon)
 
         binding.getAttractionsButton.setOnClickListener {
-            //-79.0538864,
-            //43.0974998,
-            val radius = binding.editTextField.text.toString().toInt()
-            if (lon != null && lat != null) {
-                viewModel.getAttractions(radius, lon, lat)
+            val radius = binding.editTextField.text
+            if (radius.isNotEmpty()) {
+                viewModel.getAttractions(radius.toString().toInt(), myLon, myLat)
+            }
+        }
+    }
+
+    private fun getMap(myLat: Double, myLon: Double) {
+        viewModel.getMap(myLat, myLon)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.mapFlow.collect { mapCallback ->
+                if (mapCallback != null) {
+                    mapFragment?.getMapAsync(mapCallback)
+                }
             }
         }
     }
@@ -114,6 +125,11 @@ class AttractionFragment :
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.attractionsFlow.collect { attractionsFlow ->
                 binding.attractionsTextView.text = attractionsFlow.toString()
+                attractionsFlow?.forEach {
+                    val lat = it.geometryModel.coordinates[0]
+                    val lon = it.geometryModel.coordinates[1]
+                    viewModel.getMap(lat, lon)
+                }
             }
         }
     }
