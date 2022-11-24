@@ -60,7 +60,6 @@ class AttractionFragment :
         fusedClient = LocationServices.getFusedLocationProviderClient(
             requireActivity().applicationContext
         )
-        showAttractionsNearby()
     }
 
     override fun onStart() {
@@ -128,9 +127,6 @@ class AttractionFragment :
                 }
             }
         }
-    }
-
-    private fun showAttractionsNearby() {
     }
 
     override fun onStop() {
