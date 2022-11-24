@@ -3,6 +3,7 @@ package com.skillbox.m19_location.presetation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
 import com.skillbox.m19_location.domain.GetAttractionsUseCase
 import com.skillbox.m19_location.domain.GetMapUseCase
 import com.skillbox.m19_location.entity.Attractions
@@ -23,10 +24,10 @@ class AttractionViewModel @Inject constructor(
     private val _mapFlow = MutableStateFlow<OnMapReadyCallback?>(null)
     val mapFlow = _mapFlow.asStateFlow()
 
-    fun getMap(myLat: Double, myLon: Double) {
+    fun getMap(myCoordinates: LatLng, attractions: List<Attractions>) {
         viewModelScope.launch {
             try {
-                _mapFlow.value = getMapUseCase.execute(myLat, myLon)
+                _mapFlow.value = getMapUseCase.execute(myCoordinates, attractions)
             } catch (t: Throwable) {
                 Timber.e(t)
             }

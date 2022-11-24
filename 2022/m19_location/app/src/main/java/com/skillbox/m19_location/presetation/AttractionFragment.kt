@@ -20,6 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.skillbox.m19_location.R
 import com.skillbox.m19_location.databinding.FragmentAttractionBinding
+import com.skillbox.m19_location.entity.Attractions
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -99,7 +100,7 @@ class AttractionFragment :
     }
 
     private fun getAttractions(myLat: Double, myLon: Double) {
-        getMap(myLat,myLon)
+        val myCoordinates = LatLng(myLat, myLon)
 
         binding.getAttractionsButton.setOnClickListener {
             val radius = binding.editTextField.text
@@ -107,10 +108,18 @@ class AttractionFragment :
                 viewModel.getAttractions(radius.toString().toInt(), myLon, myLat)
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.attractionsFlow.collect { attractions ->
+                if (attractions != null) {
+                    getMap(myCoordinates, attractions)
+                }
+            }
+        }
     }
 
-    private fun getMap(myLat: Double, myLon: Double) {
-        viewModel.getMap(myLat, myLon)
+    private fun getMap(myCoordinates: LatLng, attractions: List<Attractions>) {
+        viewModel.getMap(myCoordinates, attractions)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.mapFlow.collect { mapCallback ->
@@ -122,16 +131,6 @@ class AttractionFragment :
     }
 
     private fun showAttractionsNearby() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.attractionsFlow.collect { attractionsFlow ->
-                binding.attractionsTextView.text = attractionsFlow.toString()
-                attractionsFlow?.forEach {
-                    val lat = it.geometryModel.coordinates[0]
-                    val lon = it.geometryModel.coordinates[1]
-                    viewModel.getMap(lat, lon)
-                }
-            }
-        }
     }
 
     override fun onStop() {
