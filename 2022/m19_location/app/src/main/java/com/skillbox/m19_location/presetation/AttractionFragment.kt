@@ -16,8 +16,12 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.skillbox.m19_location.R
 import com.skillbox.m19_location.databinding.FragmentAttractionBinding
 import com.skillbox.m19_location.entity.Attractions
@@ -53,10 +57,8 @@ class AttractionFragment :
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
         fusedClient = LocationServices.getFusedLocationProviderClient(
             requireActivity().applicationContext
         )
@@ -65,10 +67,6 @@ class AttractionFragment :
     override fun onStart() {
         super.onStart()
         checkPermissions()
-    }
-
-    private fun initToolbar() {
-        binding.appBar.toolBar.title = getString(R.string.attractions_nearby)
     }
 
     private fun checkPermissions() {
@@ -99,33 +97,45 @@ class AttractionFragment :
     }
 
     private fun getAttractions(myLat: Double, myLon: Double) {
-        val myCoordinates = LatLng(myLat, myLon)
-
-        binding.getAttractionsButton.setOnClickListener {
-            val radius = binding.editTextField.text
-            if (radius.isNotEmpty()) {
-                viewModel.getAttractions(radius.toString().toInt(), myLon, myLat)
-            }
-        }
-
+        val myLocation = LatLng(myLat, myLon)
+        viewModel.getAttractions(myLon, myLat)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.attractionsFlow.collect { attractions ->
                 if (attractions != null) {
-                    getMap(myCoordinates, attractions)
+                    getMap(myLocation, attractions)
                 }
             }
         }
     }
 
-    private fun getMap(myCoordinates: LatLng, attractions: List<Attractions>) {
-        viewModel.getMap(myCoordinates, attractions)
+    @SuppressLint("MissingPermission")
+    private fun getMap(myLocation: LatLng, attractions: List<Attractions>) {
+        val mapCallback = OnMapReadyCallback { googleMap ->
+            with(googleMap.uiSettings) {
+                isZoomControlsEnabled = true
+                isMyLocationButtonEnabled = true
+            }
+
+            googleMap.isMyLocationEnabled = true
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
+
+            attractions.forEach {
+                val dist = it.properties.dist
+                val lat = it.geometryModel.coordinates[1]
+                val lon = it.geometryModel.coordinates[0]
+                val title = it.properties.name
+                val attractionsCoordinates = LatLng(lat, lon)
+                googleMap.addMarker(MarkerOptions()
+                    .position(attractionsCoordinates)
+                    .title(title)
+                    .snippet("Distance: ${dist.toInt()}m")
+                )
+            }
+        }
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.mapFlow.collect { mapCallback ->
-                if (mapCallback != null) {
-                    mapFragment?.getMapAsync(mapCallback)
-                }
-            }
+            mapFragment?.getMapAsync(mapCallback)
         }
     }
 
