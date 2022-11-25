@@ -21,15 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f38fe579-0968-44bd-951f-c675be5eff37" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/data/AttractionsRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/data/AttractionsRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/data/CurrentCoordinatesRepository.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/data/MapDataSource.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/domain/GetAttractionsUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/domain/GetAttractionsUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/domain/GetMapUseCase.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/presetation/AttractionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/presetation/AttractionFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/presetation/AttractionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/presetation/AttractionViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/java/com/skillbox/m19_location/presetation/DetailedFragment.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../m19_location/app/src/main/res/layout/fragment_attraction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m19_location/app/src/main/res/layout/fragment_attraction.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -16,15 +16,11 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.skillbox.m19_location.R
 import com.skillbox.m19_location.databinding.FragmentAttractionBinding
-import com.skillbox.m19_location.entity.Attractions
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -49,11 +45,26 @@ class AttractionFragment :
         }
     }
 
+    private var map: GoogleMap? = null
+    private var locationListener: LocationSource.OnLocationChangedListener? = null
+
     private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            val myLat = locationResult.lastLocation!!.latitude
-            val myLon = locationResult.lastLocation!!.longitude
-            getAttractions(myLat, myLon)
+        @SuppressLint("MissingPermission")
+        override fun onLocationResult(locResult: LocationResult) {
+            locResult.lastLocation?.let { location ->
+                locationListener?.onLocationChanged(location)
+                val lat = location.latitude
+                val lon = location.longitude
+                map?.isMyLocationEnabled = true
+                map?.animateCamera(
+                    CameraUpdateFactory
+                        .newLatLngZoom(
+                            LatLng(lat, lon),
+                            15f
+                        )
+                )
+                getAttractions(lat, lon)
+            }
         }
     }
 
@@ -62,6 +73,7 @@ class AttractionFragment :
         fusedClient = LocationServices.getFusedLocationProviderClient(
             requireActivity().applicationContext
         )
+        getMap()
     }
 
     override fun onStart() {
@@ -86,7 +98,7 @@ class AttractionFragment :
     private fun startLocation() {
         val request = LocationRequest.Builder(
             Priority.PRIORITY_BALANCED_POWER_ACCURACY,
-            5000
+            60000
         ).build()
 
         fusedClient.requestLocationUpdates(
@@ -97,40 +109,36 @@ class AttractionFragment :
     }
 
     private fun getAttractions(myLat: Double, myLon: Double) {
-        val myLocation = LatLng(myLat, myLon)
         viewModel.getAttractions(myLon, myLat)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.attractionsFlow.collect { attractions ->
-                if (attractions != null) {
-                    getMap(myLocation, attractions)
+                attractions?.forEach {
+                    val dist = it.properties.dist
+                    val lat = it.geometryModel.coordinates[1]
+                    val lon = it.geometryModel.coordinates[0]
+                    val title = it.properties.name
+                    val attractionsCoordinates = LatLng(lat, lon)
+                    map?.addMarker(
+                        MarkerOptions()
+                            .position(attractionsCoordinates)
+                            .title(title)
+                            .snippet("Distance: ${dist.toInt()}m")
+                    )
                 }
             }
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun getMap(myLocation: LatLng, attractions: List<Attractions>) {
+    private fun getMap(
+    ) {
         val mapCallback = OnMapReadyCallback { googleMap ->
-            with(googleMap.uiSettings) {
-                isZoomControlsEnabled = true
-                isMyLocationButtonEnabled = true
+            map = googleMap
+            with(map?.uiSettings) {
+                this?.isZoomControlsEnabled = true
+                this?.isMyLocationButtonEnabled = true
             }
-
-            googleMap.isMyLocationEnabled = true
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
-
-            attractions.forEach {
-                val dist = it.properties.dist
-                val lat = it.geometryModel.coordinates[1]
-                val lon = it.geometryModel.coordinates[0]
-                val title = it.properties.name
-                val attractionsCoordinates = LatLng(lat, lon)
-                googleMap.addMarker(MarkerOptions()
-                    .position(attractionsCoordinates)
-                    .title(title)
-                    .snippet("Distance: ${dist.toInt()}m")
-                )
-            }
+            map?.mapType = GoogleMap.MAP_TYPE_HYBRID
         }
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
