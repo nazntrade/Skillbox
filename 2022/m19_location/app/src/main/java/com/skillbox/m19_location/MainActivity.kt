@@ -2,7 +2,6 @@ package com.skillbox.m19_location
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.skillbox.m19_location.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
