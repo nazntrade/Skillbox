@@ -4,18 +4,14 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -55,14 +51,7 @@ class AttractionFragment :
                 locationListener?.onLocationChanged(location)
                 val lat = location.latitude
                 val lon = location.longitude
-                map?.isMyLocationEnabled = true
-                map?.animateCamera(
-                    CameraUpdateFactory
-                        .newLatLngZoom(
-                            LatLng(lat, lon),
-                            15f
-                        )
-                )
+                moveAnimateCameraToPoint(lat, lon)
                 getAttractions(lat, lon)
             }
         }
@@ -92,20 +81,33 @@ class AttractionFragment :
         } else {
             launcher.launch(REQUIRED_PERMISSIONS)
         }
+
     }
 
     @SuppressLint("MissingPermission")
     private fun startLocation() {
         val request = LocationRequest.Builder(
             Priority.PRIORITY_BALANCED_POWER_ACCURACY,
-            60000
-        ).build()
+            5000
+        ).setMinUpdateDistanceMeters(200f).build() // do this to order to reduce requests to server
 
         fusedClient.requestLocationUpdates(
             request,
             locationCallback,
             Looper.getMainLooper()
         )
+    }
+
+    private fun moveAnimateCameraToPoint(lat: Double, lon: Double) {
+        Handler(Looper.getMainLooper()).postDelayed({ // Do this for smooth usability
+            map?.animateCamera(
+                CameraUpdateFactory
+                    .newLatLngZoom(
+                        LatLng(lat, lon),
+                        14f
+                    )
+            )
+        }, 1000)
     }
 
     private fun getAttractions(myLat: Double, myLon: Double) {
@@ -139,6 +141,7 @@ class AttractionFragment :
                 this?.isMyLocationButtonEnabled = true
             }
             map?.mapType = GoogleMap.MAP_TYPE_HYBRID
+            map?.isMyLocationEnabled = true
         }
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?

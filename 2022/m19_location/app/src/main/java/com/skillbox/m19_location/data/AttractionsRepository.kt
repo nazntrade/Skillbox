@@ -7,7 +7,7 @@ class AttractionsRepository @Inject constructor(
     private val attractionsDataSource: AttractionsDataSource
 ) {
     suspend fun getAttractions(lon: Double, lat: Double): List<AttractionsDto> {
-        val radius = 1000
+        val radius = 2000
         return attractionsDataSource.loadAttractions(radius, lon, lat, Constants.API_KEY)
     }
 }

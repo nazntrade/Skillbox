@@ -9,5 +9,5 @@
         android:id="@+id/attractionFragment"
         android:name="com.skillbox.m19_location.presetation.AttractionFragment"
         android:label="AttractionFragment"
-        tools:layout="@layout/fragment_attraction"/>
+        tools:layout="@layout/fragment_attraction" />
 </navigation>
