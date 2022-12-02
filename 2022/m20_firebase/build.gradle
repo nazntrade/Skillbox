@@ -2,6 +2,7 @@
 buildscript {
     ext.kotlin_version = '1.7.20'
     repositories {
+        google()
         mavenCentral()
     }
     dependencies {
@@ -9,6 +10,11 @@ buildscript {
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
         //for hilt
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.44.2"
+        //Firebase
+        classpath 'com.google.gms:google-services:4.3.14'
+        // Add the dependency for the Crashlytics Gradle plugin
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+
     }
 }
 

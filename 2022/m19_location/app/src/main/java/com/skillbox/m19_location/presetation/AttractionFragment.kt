@@ -51,6 +51,7 @@ class AttractionFragment :
                 locationListener?.onLocationChanged(location)
                 val lat = location.latitude
                 val lon = location.longitude
+                map?.isMyLocationEnabled = true
                 moveAnimateCameraToPoint(lat, lon)
                 getAttractions(lat, lon)
             }
@@ -141,7 +142,6 @@ class AttractionFragment :
                 this?.isMyLocationButtonEnabled = true
             }
             map?.mapType = GoogleMap.MAP_TYPE_HYBRID
-            map?.isMyLocationEnabled = true
         }
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?

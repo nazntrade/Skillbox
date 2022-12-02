@@ -2,6 +2,7 @@ package com.skillbox.m20_firebase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.skillbox.m19_location.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

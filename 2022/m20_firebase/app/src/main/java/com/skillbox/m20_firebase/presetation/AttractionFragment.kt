@@ -15,8 +15,9 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.skillbox.m20_firebase.R
-import com.skillbox.m20_firebase.databinding.FragmentAttractionBinding
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.skillbox.m19_location.R
+import com.skillbox.m19_location.databinding.FragmentAttractionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -51,6 +52,7 @@ class AttractionFragment :
                 locationListener?.onLocationChanged(location)
                 val lat = location.latitude
                 val lon = location.longitude
+                map?.isMyLocationEnabled = true
                 moveAnimateCameraToPoint(lat, lon)
                 getAttractions(lat, lon)
             }
@@ -63,6 +65,15 @@ class AttractionFragment :
             requireActivity().applicationContext
         )
         getMap()
+        provokeCrash()
+    }
+
+    private fun provokeCrash() {
+        // For test Crashlytics
+        binding.crashButton.setOnClickListener {
+            FirebaseCrashlytics.getInstance().log("This is log message for crashlytics")
+            throw RuntimeException("Test Crash") // Force a crash fot Crashlytics
+        }
     }
 
     override fun onStart() {
@@ -141,7 +152,6 @@ class AttractionFragment :
                 this?.isMyLocationButtonEnabled = true
             }
             map?.mapType = GoogleMap.MAP_TYPE_HYBRID
-            map?.isMyLocationEnabled = true
         }
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?

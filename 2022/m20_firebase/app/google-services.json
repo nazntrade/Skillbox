@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502754752009",
+    "project_id": "first-firebase-project-5a409",
+    "storage_bucket": "first-firebase-project-5a409.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502754752009:android:b67f9809a75a150e1e6ad8",
+        "android_client_info": {
+          "package_name": "com.skillbox.m20_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502754752009-dpblmqvv0d8lr37886v1chfbttiqehf0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcRBxRA5kEiW9nXRdccpAH5JZmSwWq4ME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502754752009-dpblmqvv0d8lr37886v1chfbttiqehf0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

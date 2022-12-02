@@ -3,6 +3,7 @@ package com.skillbox.m20_firebase
 import android.app.Application
 import android.os.StrictMode
 import dagger.hilt.android.HiltAndroidApp
+import com.skillbox.m19_location.BuildConfig
 import timber.log.Timber
 
 @HiltAndroidApp

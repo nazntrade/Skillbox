@@ -13,7 +13,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4886d503-11ee-4856-9984-51fade8fa179" name="Changes" comment="" />
+    <list default="true" id="4886d503-11ee-4856-9984-51fade8fa179" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m19_location/presetation/AttractionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skillbox/m19_location/presetation/AttractionFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/app/src/main/java/com/skillbox/m20_firebase/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/app/src/main/java/com/skillbox/m20_firebase/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/app/src/main/java/com/skillbox/m20_firebase/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/app/src/main/java/com/skillbox/m20_firebase/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/app/src/main/java/com/skillbox/m20_firebase/presetation/AttractionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/app/src/main/java/com/skillbox/m20_firebase/presetation/AttractionFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../m20_firebase/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../m20_firebase/build.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
