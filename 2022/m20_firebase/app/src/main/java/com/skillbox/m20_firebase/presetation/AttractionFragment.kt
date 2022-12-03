@@ -2,12 +2,17 @@ package com.skillbox.m20_firebase.presetation
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +23,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.skillbox.m19_location.R
 import com.skillbox.m19_location.databinding.FragmentAttractionBinding
+import com.skillbox.m20_firebase.App
+import com.skillbox.m20_firebase.MainActivity
+import com.skillbox.m20_firebase.entity.Attractions
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -68,8 +76,8 @@ class AttractionFragment :
         provokeCrash()
     }
 
+    // For test Firebase Crashlytics
     private fun provokeCrash() {
-        // For test Crashlytics
         binding.crashButton.setOnClickListener {
             FirebaseCrashlytics.getInstance().log("This is log message for crashlytics")
             throw RuntimeException("Test Crash") // Force a crash fot Crashlytics
@@ -138,8 +146,38 @@ class AttractionFragment :
                             .snippet("Distance: ${dist.toInt()}m")
                     )
                 }
+
+                // Create notification
+                if (attractions != null) {
+                    createNotification(attractions)
+                }
             }
         }
+    }
+
+    // Create notification
+    private fun createNotification(attractions: List<Attractions>?) {
+
+        //to open something when user tap on notification
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getActivity(
+                requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
+
+        val notification = NotificationCompat.Builder(requireContext(), App.NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_attractions)
+            .setContentTitle("Attractions")
+            .setContentText("You have got ${attractions?.size} new attractions.")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent) //for tap on notification
+            .setAutoCancel(true)
+            .build()
+
+        NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
     }
 
     @SuppressLint("MissingPermission")
@@ -170,5 +208,6 @@ class AttractionFragment :
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
+        private const val NOTIFICATION_ID = 9999
     }
 }
