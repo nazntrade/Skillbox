@@ -3,13 +3,16 @@ package com.skillbox.m20_firebase.presetation
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -20,13 +23,16 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.messaging.FirebaseMessaging
 import com.skillbox.m19_location.R
 import com.skillbox.m19_location.databinding.FragmentAttractionBinding
 import com.skillbox.m20_firebase.App
 import com.skillbox.m20_firebase.MainActivity
 import com.skillbox.m20_firebase.entity.Attractions
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -74,6 +80,12 @@ class AttractionFragment :
         )
         getMap()
         provokeCrash()
+        getTokenForFirebaseMessaging()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        checkPermissions()
     }
 
     // For test Firebase Crashlytics
@@ -84,9 +96,22 @@ class AttractionFragment :
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        checkPermissions()
+    //FirebaseTestMessaging
+    private fun getTokenForFirebaseMessaging() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Timber.tag(TAG).w(task.exception, "Fetching FCM registration token failed")
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = "Registration token Firebase: $token"
+            Timber.tag(TAG).d(msg)
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun checkPermissions() {

@@ -4,4 +4,5 @@
     <string name="radius">Enter radius for search</string>
     <string name="google_maps_key">AIzaSyCofB-cxBOTOsGJMct5zq-l0s8oMIlCYgQ</string>
     <string name="provoke_a_crash">crash</string>
+    <string name="msg_token_fmt">Token Firebase</string>
 </resources>
