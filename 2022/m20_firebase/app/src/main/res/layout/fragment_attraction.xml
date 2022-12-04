@@ -25,6 +25,6 @@
         android:layout_margin="@dimen/dimen_16"
         android:text="@string/provoke_a_crash"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

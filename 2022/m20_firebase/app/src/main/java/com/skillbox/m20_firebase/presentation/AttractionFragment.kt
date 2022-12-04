@@ -1,4 +1,4 @@
-package com.skillbox.m20_firebase.presetation
+package com.skillbox.m20_firebase.presentation
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -96,7 +95,7 @@ class AttractionFragment :
         }
     }
 
-    //FirebaseTestMessaging
+    //FirebaseMessaging
     private fun getTokenForFirebaseMessaging() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -172,7 +171,7 @@ class AttractionFragment :
                     )
                 }
 
-                // Create notification
+                // Create offline notification
                 if (attractions != null) {
                     createNotification(attractions)
                 }
@@ -180,7 +179,7 @@ class AttractionFragment :
         }
     }
 
-    // Create notification
+    // Create offline notification
     private fun createNotification(attractions: List<Attractions>?) {
 
         //to open something when user tap on notification
@@ -233,6 +232,6 @@ class AttractionFragment :
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-        private const val NOTIFICATION_ID = 9999
+        const val NOTIFICATION_ID = 9999
     }
 }

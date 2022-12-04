@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/attractionFragment"
-        android:name="com.skillbox.m20_firebase.presetation.AttractionFragment"
+        android:name="com.skillbox.m20_firebase.presentation.AttractionFragment"
         android:label="AttractionFragment"
         tools:layout="@layout/fragment_attraction" />
 </navigation>

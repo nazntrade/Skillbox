@@ -1,4 +1,4 @@
-package com.skillbox.m20_firebase.presetation
+package com.skillbox.m20_firebase.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
