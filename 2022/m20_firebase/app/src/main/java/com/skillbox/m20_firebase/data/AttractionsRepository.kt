@@ -8,6 +8,11 @@ class AttractionsRepository @Inject constructor(
 ) {
     suspend fun getAttractions(lon: Double, lat: Double): List<AttractionsDto> {
         val radius = 2000
-        return attractionsDataSource.loadAttractions(radius, lon, lat, Constants.API_KEY)
+        return attractionsDataSource.loadAttractions(
+            radius,
+            lon,
+            lat,
+            Constants.OPEN_TRIP_MAP_1 + Constants.OPEN_TRIP_MAP_2 + Constants.OPEN_TRIP_MAP_3
+        )
     }
 }

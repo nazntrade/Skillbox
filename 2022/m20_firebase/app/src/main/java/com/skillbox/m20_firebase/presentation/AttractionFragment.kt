@@ -13,6 +13,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -180,6 +181,7 @@ class AttractionFragment :
     }
 
     // Create offline notification
+    @SuppressLint("MissingPermission")//this annotation only this project. for sdk33 need to add request permission android.permission.POST_NOTIFICATIONS
     private fun createNotification(attractions: List<Attractions>?) {
 
         //to open something when user tap on notification
@@ -230,7 +232,7 @@ class AttractionFragment :
     companion object {
         private val REQUIRED_PERMISSIONS: Array<String> = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
         )
         const val NOTIFICATION_ID = 9999
     }
