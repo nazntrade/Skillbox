@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="film_details_episode_count">
+        <item quantity="one">%d серия</item>
+        <item quantity="two">%d серии</item>
+        <item quantity="few">%d серии</item>
+        <item quantity="many">%d серий</item>
+        <item quantity="other">%d серий</item>
+    </plurals>
+</resources>

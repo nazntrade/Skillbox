@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">SkillCinema</string>
+    <string name="bottom_menu_home">Главная</string>
+    <string name="bottom_menu_search">Поиск</string>
+    <string name="bottom_menu_profile">Профиль</string>
+
+    <!-- Intro fragments -->
+    <string name="intro_btn_skip">Пропустить</string>
+    <string name="intro_first_description">Узнавай\nо премьерах</string>
+    <string name="intro_description_second">Создавай\nколлекции</string>
+    <string name="intro_description_third">Делись\nс друзьями</string>
+    <string name="intro_btn_to_work">Начать работу</string>
+
+    <!-- Home fragment -->
+    <string name="btn_show_all_top">Все</string>
+    <string name="btn_show_all_end">Показать все</string>
+    <string name="btn_try_again">Поптобовать ещё раз…</string>
+
+    <!-- Film detail fragment -->
+    <string name="label_film_actors">В фильме снимались</string>
+    <string name="label_film_makers">Над фильмом работали</string>
+    <string name="label_film_gallery">Галерея</string>
+    <string name="label_film_similar">Похожие фильмы</string>
+    <string name="seasons_episodes_count">%s, %s</string>
+    <string name="placeholder_series_start_year">_</string>
+    <string name="placeholder_series_end_year">н.в.</string>
+
+    <!-- Staff detail fragment -->
+    <string name="staff_detail_filmography_label">Фильмография</string>
+    <string name="staff_detail_best_label">Лучшее</string>
+    <string name="staff_detail_filmography_all">К списку</string>
+
+    <!-- Gallery full fragment -->
+    <string name="title_gallery">Галерея</string>
+    <string name="chip_name">%s %d</string>
+
+    <!-- Series seasons/episodes fragment -->
+    <string name="label_series_seasons">Сезоны и серии</string>
+    <string name="label_season_episodes_count">Сезон</string>
+    <string name="season_episode_name">%d серия. %s</string>
+    <string name="season_chip_name">%d</string>
+    <string name="episodes_count">%d сезон, %s</string>
+    <string name="label_filmography">Фильмография</string>
+    <string name="search_edittext_hint">Фильмы, актёры, режиссёры</string>
+
+    <!-- Search fragment -->
+    <string name="search_not_found">К сожалению, по Вашему\nничего не найдено</string>
+
+    <!-- Search setting fragment -->
+    <string name="search_settings_title">Настройки поиска</string>
+    <string name="search_settings_label_show">Показывать</string>
+    <string name="search_settings_radio_all">Все</string>
+    <string name="search_settings_radio_films">Фильмы</string>
+    <string name="search_settings_radio_series">Сериалы</string>
+    <string name="search_settings_rating_text">от %d до %d</string>
+    <string name="search_settings_country_label">Страна</string>
+    <string name="search_settings_genre_label">Жанр</string>
+    <string name="search_settings_rating_label">Рейтинг</string>
+    <string name="search_settings_year_label">Год</string>
+    <string name="search_settings_radio_popular">Популярность</string>
+    <string name="search_settings_radio_rating">Рейтинг</string>
+    <string name="search_settings_radio_date">Дата</string>
+    <string name="search_settings_sorting_label">Сортировать</string>
+    <string name="search_filters_country_choose">Выберете страну</string>
+    <string name="search_filters_countries_default">Все страны</string>
+    <string name="search_filters_genres_default">Все жанры</string>
+
+</resources>
