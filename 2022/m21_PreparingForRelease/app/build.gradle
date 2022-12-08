@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.skillbox.m21_preparingforrelease'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.skillbox.m21_preparingforrelease"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -18,9 +18,15 @@ android {
     }
 
     buildTypes {
+        def SERVER_URL = "SERVER_URL"
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", SERVER_URL, '"https://myserver.com/api"'
+
+        }
+        debug {
+            buildConfigField "String", SERVER_URL, '"https://test.myserver.com/api"'
         }
     }
     compileOptions {
@@ -30,11 +36,29 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    flavorDimensions 'mode'
+    def FREE = "FREE"
+    productFlavors {
+        demo {
+            dimension 'mode'
+            applicationIdSuffix '.demo'
+            buildConfigField "Boolean", FREE, 'true'
+        }
+        full {
+            dimension 'mode'
+            buildConfigField "Boolean", FREE, 'false'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
