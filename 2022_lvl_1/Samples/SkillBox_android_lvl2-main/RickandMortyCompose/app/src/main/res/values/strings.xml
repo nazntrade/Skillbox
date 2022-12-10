@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Rick and Morty</string>
+
+    <string name="title_last_location">Last known location:</string>
+    <string name="title_first_seen">First seen in:</string>
+    <string name="title_status">Status:</string>
+    <string name="title_species_gender">Species and gender:</string>
+    <string name="status_line">%s - %s</string>
+    <string name="label_episodes">List of episodes in which this character appeared:</string>
+    <string name="title_episodes">Episodes:</string>
+
+    <string name="reload">Try again…</string>
+
+    <string name="dialog_title">Please, set filter params</string>
+    <string name="label_filter_status">Filter by status</string>
+    <string name="label_filter_gender">Filter by gender</string>
+    <string name="label_status_alive">Alive</string>
+    <string name="status_alive">Alive</string>
+    <string name="label_status_dead">Dead</string>
+    <string name="status_dead">Dead</string>
+    <string name="label_gender_male">Male</string>
+    <string name="gender_male">Male</string>
+    <string name="label_gender_female">Female</string>
+    <string name="gender_female">Female</string>
+    <string name="label_gender_genderless">Genderless</string>
+    <string name="gender_genderless">Genderless</string>
+    <string name="label_gender_unknown">Unknown</string>
+    <string name="gender_unknown">Unknown</string>
+    <string name="btn_filter_title">FILTER</string>
+    <string name="btn_clear_filter">Clear filter</string>
+</resources>
