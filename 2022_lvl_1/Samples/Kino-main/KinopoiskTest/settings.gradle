@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Kinopoisk Test"
+include ':app'
+include ':feature_home'
+include ':core'
+include ':di'
+include ':feature_search'
+include ':feature_profile'
+include ':feature_details'
+include ':feature_onboarding'
+include ':feature_database'
+include ':feature_yearpicker'
+include ':common_domain'

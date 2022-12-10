@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card"
+    android:layout_width="111dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="156dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/next_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:elevation="7dp"
+            android:background="@null"
+            android:src="@drawable/ic_next_show"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/next_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:elevation="7dp"
+            android:maxLines="2"
+            android:text="@string/show_all"
+            android:textColor="@color/title_text_color"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/ooops"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:elevation="7dp"
+            android:maxLines="2"
+            android:visibility="gone"
+            android:text="@string/ooops_n"
+            android:textColor="@color/title_text_color"
+           />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_rating"
+            android:elevation="7dp"
+            android:fontFamily="@font/graphik_regular"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/rating_text_color_white"
+            android:textSize="5sp"
+            tools:text="7.8" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="4dp">
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <View
+                android:id="@+id/fg_Look"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_gradient"
+                android:backgroundTint="@color/purple_1"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/icon_look"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_look"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/films_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/graphik_medium"
+        android:maxLines="2"
+        android:textColor="@color/title_text_color"
+        android:textSize="14sp"
+        tools:text="Близкие" />
+
+    <TextView
+        android:id="@+id/genre_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/graphik_regular"
+        android:maxLines="2"
+        android:textColor="@color/subtitle_text_color"
+        android:textSize="12sp"
+        tools:text="драма" />
+
+</LinearLayout>

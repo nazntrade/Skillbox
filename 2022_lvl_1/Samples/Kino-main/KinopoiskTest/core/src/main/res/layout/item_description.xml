@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    android:id="@+id/anim_layout"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/short_description"
+        tools:text="Жизнь Томаса Андерсона разделена на две части:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:textColor="@color/title_text_color"
+        android:fontFamily="@font/graphik_bold"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/description"
+        tools:text="Хакер Нео узнает, что его мир — виртуальный. Выдающийся экшен, доказавший, что зрелищное кино может быть умным"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:textColor="@color/title_text_color"
+        android:fontFamily="@font/graphik_light"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_marginTop="10dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/navigate"
+    tools:context=".presentation.homepage.presentation.home_fragment.HomeFragment">
+
+    <TextView
+        android:id="@+id/name_project"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/name_project"
+        android:fontFamily="@font/graphik_medium"
+        android:textColor="@color/title_text_color"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:indeterminateTint="@color/purple_1"
+        android:layout_gravity="center"/>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/category_recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="4dp"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    android:orientation="vertical"
+    tools:listitem="@layout/item_category"/>
+
+
+</LinearLayout>

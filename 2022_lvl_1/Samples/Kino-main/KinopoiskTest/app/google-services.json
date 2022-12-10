@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780284980188",
+    "project_id": "skill-cinema",
+    "storage_bucket": "skill-cinema.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780284980188:android:6f4783fa805e00b881bd19",
+        "android_client_info": {
+          "package_name": "com.example.kinopoisktest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780284980188-0uejdi17pli1p0fjhoa748f0c6liclgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxPne0GnzVQySjiVhX3VLz5lprDL4tPd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780284980188-0uejdi17pli1p0fjhoa748f0c6liclgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

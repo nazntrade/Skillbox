@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name_project">Skillcinema</string>
+    <string name="premieres">Премьеры</string>
+    <string name="show_all">Показать все</string>
+    <string name="All">Всё</string>
+    <string name="films_in_actor">Фильмография</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Пропустить</string>
+    <string name="text_one">Узнавай\nо премьерах</string>
+
+</resources>

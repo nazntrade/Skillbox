@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layoutDescription="@xml/fragment_film_info_scene"
+    tools:context="com.example.feature_details.presentation.films_details.details.FilmInfoFragment"
+    android:id="@+id/containerAnimation">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:paddingStart="17dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_text_color"
+        android:textSize="12sp"
+        android:fontFamily="@font/graphik_medium"
+        app:layout_constraintBottom_toBottomOf="@+id/back_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/back_arrow"
+        tools:text="Matrx" />
+
+    <include
+        android:id="@+id/newPoster"
+        layout="@layout/item_poster_info"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detail_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPoster" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

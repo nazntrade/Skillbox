@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card"
+    android:layout_width="111dp"
+    android:layout_height="194dp"
+    android:gravity="center"
+    android:layout_marginHorizontal="4dp"
+    android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/next_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:elevation="7dp"
+            android:background="@null"
+            android:src="@drawable/ic_next_show" />
+
+        <TextView
+            android:id="@+id/next_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:elevation="7dp"
+            android:maxLines="2"
+            android:text="@string/show_all"
+            android:textColor="@color/title_text_color" />
+
+
+</LinearLayout>

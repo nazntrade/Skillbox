@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="132dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="4dp">
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="6dp"
+                android:background="@drawable/bg_rating"
+                android:backgroundTint="@color/rating_text_color_white"
+                android:elevation="7dp"
+                android:fontFamily="@font/graphik_regular"
+                android:gravity="center"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="2dp"
+                android:textColor="@color/black"
+                android:textSize="5sp"
+                tools:text="7.8" />
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graphik_bold"
+            android:textColor="@color/title_text_color"
+            android:textSize="16sp"
+            tools:text="Топи" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/graphik_light"
+            android:textColor="@color/title_text_color"
+            android:textSize="12sp"
+            tools:text="2021. триллер" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

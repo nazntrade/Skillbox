@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="5dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graphik_bold"
+            android:padding="26dp"
+            android:text="Введите имя категории"
+            android:textColor="@color/title_text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="26dp"
+            android:src="@drawable/ic_close" />
+
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:hint="Придумайте нащвание для вашей новой коллекции"/>
+
+    <Button
+        android:id="@+id/positive_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:layout_gravity="end"
+        android:layout_margin="24dp"
+        android:backgroundTint="@color/purple_1"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/rating_text_color_white"
+        android:text="Готово"/>
+
+</LinearLayout>

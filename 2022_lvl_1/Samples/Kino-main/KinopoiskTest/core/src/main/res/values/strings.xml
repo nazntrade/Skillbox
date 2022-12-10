@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="All">Все</string>
+    <string name="error">Ошибка!</string>
+    <string name="text_error">Во время обработки запроса\nпроизошла ошибка</string>
+    <string name="text_error_search">К сожалению, по вашему запросу\nничего не найдено</string>
+    <string name="ooops">Ooops! К сожелениию по данному запроссу ничкегоне найденно</string>
+    <string name="ooops_n">Ooops!\n Нет Данных</string>
+
+    <plurals name="films">
+        <item quantity="zero">%1$d фильмов</item>
+        <item quantity="one">%1$d фильм</item>
+        <item quantity="two">%1$d фильма</item>
+        <item quantity="few">%1$d фильма</item>
+        <item quantity="many">%1$d фильма</item>
+        <item quantity="other">%1$d фильмов</item>
+    </plurals>
+</resources>
+
