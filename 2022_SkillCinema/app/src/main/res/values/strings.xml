@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BeckerSkillCinema</string>
+    <string name="skip">Пропустить</string>
+    <string name="name_project">Skillcinema</string>
+    <string name="best">Лучшее</string>
+    <string name="show_all">Показать все</string>
+
+
 </resources>

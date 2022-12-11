@@ -2,13 +2,12 @@
 
 (https://kinopoiskapiunofficial.tech/)**
 
-
 #### Стек технологий
 - Многомодульность
 - MVVM
 - Kotlin Coroutines
 - Flow
-- Retroffit 2
+- Retrofit 2
 - Room
 - Navigation component (Для передачи данных между фрагментами использовал SavedStateHandle)
 - Koin
