@@ -3,23 +3,27 @@ package com.becker.beckerSkillCinema.utils
 object Constants {
 
     const val BASE_URL = "https://kinopoiskapiunofficial.tech/"
-    const val API_KEY3 = "c92f9a94-f068-435f-855b-a5acff019cc5"
-    const val API_KEY4 = "8c5cddf6-0364-4744-a57b-5d13c7f48063"
-    const val API_KEY0 = "70e0059c-0587-4549-9cbf-8a9c5c4143f6"
-    const val API_KEY2 = "2c7d0bf6-864e-4403-a497-85dde3bc1c16"
-    const val API_KEY5 = "4afdb41e-920d-4f23-bb5b-ff9015206a1b"
-    const val API_KEY6 = "ca3b0d40-c9dc-4950-b32f-d4e29e560d62"
-    const val API_KEY7 = "b317ee48-fb96-4de5-9fd6-eb95d9598322"
-    const val API_KEY8 = "187344d2-c8a5-43e9-82e5-f574f97cc045"
 
+    val KINOPOISKACCESSRIGHT = listOf(
+        "70e0059c-0587-4549-9cbf-8a9c5c4143f6",
+        "2c7d0bf6-864e-4403-a497-85dde3bc1c16",
+        "c92f9a94-f068-435f-855b-a5acff019cc5",
+        "8c5cddf6-0364-4744-a57b-5d13c7f48063",
+        "4afdb41e-920d-4f23-bb5b-ff9015206a1b",
+        "ca3b0d40-c9dc-4950-b32f-d4e29e560d62",
+        "b317ee48-fb96-4de5-9fd6-eb95d9598322",
+        "187344d2-c8a5-43e9-82e5-f574f97cc045",
+        "5d6e59d8-d24e-45f8-95c9-b5b07cb478da",
+        "b9ebd173-2eb5-4bfd-b6e9-3226369f0a43",
+        "00ec3c68-8c85-4bd5-8508-024db2f99a4c",
+        "f746dfa5-8093-401b-8df2-e84042f3dc96",
+        "ffcd0204-2065-4214-b6ae-aa29f5fe4003",
+        "20c3f30c-7ba7-4417-9c72-4975ac6091c6",
+        "f8b0f389-e491-48d0-8794-240a6d0bc635",
+        "310f1d28-9363-42cf-be67-94a3ea2424ca"
+    ).random()
 
-    const val API_KEY9 = "5d6e59d8-d24e-45f8-95c9-b5b07cb478da"
-    const val API_KEY10 = "b9ebd173-2eb5-4bfd-b6e9-3226369f0a43"
-    const val API_KEY11 = "00ec3c68-8c85-4bd5-8508-024db2f99a4c"
-    const val API_KEY12 = "f746dfa5-8093-401b-8df2-e84042f3dc96"
-    const val API_KEY13 = "ffcd0204-2065-4214-b6ae-aa29f5fe4003"
-    const val API_KEY14 = "4f59c6e4-9f98-4f99-a7a2-e1ac2bd61d0f"  // на крайний случай
-
+    const val SHARED_PREFS_NAME = "onBoarding"
 
     const val TEST_APIKEY = "70e0059c-0587-4549-9cbf-8a9c5c4143f6"
 

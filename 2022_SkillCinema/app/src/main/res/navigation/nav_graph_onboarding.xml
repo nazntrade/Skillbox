@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/onBoardingFragment">
+
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.onBoarding.OnBoardingFragment"
+        tools:layout="@layout/item_onboarding"
+        android:label="OnBoardingFragment">
+        <action
+            android:id="@+id/action_onBoardingFragment_to_mainFragment"
+            app:popUpTo="@id/onBoardingFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main"/>
+
+</navigation>

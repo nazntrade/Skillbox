@@ -27,6 +27,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/intro_first_description" />
+        tools:text="@string/onboarding_description_first" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

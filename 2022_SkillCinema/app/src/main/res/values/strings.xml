@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">BeckerSkillCinema</string>
-    <string name="skip">Пропустить</string>
     <string name="name_project">Skillcinema</string>
-    <string name="best">Лучшее</string>
-    <string name="show_all">Показать все</string>
+
+    <!--bottom menu-->
+    <string name="bottom_menu_home">Главная</string>
+    <string name="bottom_menu_search">Поиск</string>
+    <string name="bottom_menu_profile">Профиль</string>
+
+    <!--onbording-->
+    <string name="onboarding_btn_skip">Пропустить</string>
+    <string name="onboarding_description_first">Узнавай\nо премьерах</string>
+    <string name="onboarding_description_second">Создавай\nколлекции</string>
+    <string name="onboarding_description_third">Делись\nс друзьями</string>
+
+    <!-- Home fragment -->
+    <string name="btn_show_all_top">Все</string>
+    <string name="btn_show_all_end">Показать все</string>
+    <string name="btn_try_again">Поптобовать ещё раз…</string>
 
 
 </resources>
