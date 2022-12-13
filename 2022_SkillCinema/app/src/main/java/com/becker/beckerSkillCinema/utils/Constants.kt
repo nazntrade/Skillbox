@@ -23,7 +23,7 @@ object Constants {
         "310f1d28-9363-42cf-be67-94a3ea2424ca"
     ).random()
 
-    const val SHARED_PREFS_NAME = "onBoarding"
+    const val SHARED_PREFS_NAME = "onBoardingFirstRun"
 
     const val TEST_APIKEY = "70e0059c-0587-4549-9cbf-8a9c5c4143f6"
 

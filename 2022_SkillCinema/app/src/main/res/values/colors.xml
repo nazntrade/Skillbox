@@ -15,4 +15,9 @@
 
     <color name="divider">#A1A1A5</color>
 
+    // Film details
+    <color name="detail_on_poster_color">#B5B5C9</color>
+    <color name="button_back_forward">#3D3BFF</color>
+
+
 </resources>

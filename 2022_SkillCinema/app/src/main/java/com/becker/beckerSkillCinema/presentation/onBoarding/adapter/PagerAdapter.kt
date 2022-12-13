@@ -15,8 +15,8 @@ class PagerAdapter(
 
     override fun onBindViewHolder(holder: OnBoardingViewHolder, position: Int) {
         holder.binding.apply {
-            introImage.setImageResource(items[position].imageId)
-            introMessage.text = items[position].message
+            onboardingImage.setImageResource(items[position].imageId)
+            onboardingMessage.text = items[position].message
         }
     }
 

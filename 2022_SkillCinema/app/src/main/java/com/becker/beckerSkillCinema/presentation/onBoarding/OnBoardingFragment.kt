@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.OnBoardingResources
@@ -18,6 +19,17 @@ class OnBoardingFragment :
     ViewBindingFragment<FragmentOnboardingBinding>(FragmentOnboardingBinding::inflate) {
 
     private lateinit var adapter: PagerAdapter
+
+    //I intercept the back button and exit the application
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +58,7 @@ class OnBoardingFragment :
     private fun onBoardingFinished() {
         val sharedPref = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putBoolean("Finished", true)
+        editor.putBoolean("FirstRun", false)
         editor.apply()
         findNavController().navigate(R.id.action_onBoardingFragment_to_mainFragment)
     }
