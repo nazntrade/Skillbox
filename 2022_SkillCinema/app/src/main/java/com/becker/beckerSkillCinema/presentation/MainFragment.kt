@@ -12,16 +12,16 @@ import com.becker.beckerSkillCinema.databinding.FragmentMainBinding
 
 class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
-    // I intercept the back button and exit the application
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
+//    // I intercept the back button and exit the application
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                requireActivity().finish()
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//    }
 
     private lateinit var navController: NavController
 
@@ -36,8 +36,12 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
 
     }
 
+    //  BottomNavigationView
+    //  https://m2.material.io/components/bottom-navigation/android#using-bottom-navigation
     private fun setBottomNavigation() {
+
         binding.bottomNavigation.setupWithNavController(navController)
+
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
@@ -55,6 +59,4 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
             }
         }
     }
-
-
 }

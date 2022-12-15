@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_main"
     app:startDestination="@id/onBoardingFragment">
 
     <fragment
@@ -20,6 +19,6 @@
         android:id="@+id/mainFragment"
         android:name="com.becker.beckerSkillCinema.presentation.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main" />
 
 </navigation>

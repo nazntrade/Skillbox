@@ -17,6 +17,7 @@
     <string name="btn_show_all_top">Все</string>
     <string name="btn_show_all_end">Показать все</string>
     <string name="btn_try_again">Поптобовать ещё раз…</string>
+    <string name="tabsDescriptions">here the indicator</string>
 
 
 </resources>

@@ -19,7 +19,7 @@
         android:id="@+id/onboarding_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="@dimen/dimen_26"
         android:layout_marginBottom="121.76dp"
         android:gravity="start"
         android:textColor="@color/black"

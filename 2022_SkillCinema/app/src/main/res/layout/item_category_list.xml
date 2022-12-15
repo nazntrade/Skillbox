@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingBottom="16dp"
+    android:paddingBottom="@dimen/dimen_16"
     android:layout_height="wrap_content">
 
     <TextView
@@ -20,7 +20,7 @@
         android:id="@+id/tv_title_show_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="@dimen/dimen_26"
         android:fontFamily="@font/graphik_light"
         android:text="@string/btn_show_all_top"
         android:textColor="#3D3BFF"
@@ -32,7 +32,7 @@
         android:id="@+id/film_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/dimen_24"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/title_category"

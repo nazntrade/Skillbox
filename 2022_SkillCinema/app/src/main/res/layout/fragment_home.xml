@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="8dp"
-    android:paddingEnd="0dp">
+    android:paddingStart="@dimen/dimen_8"
+    android:paddingEnd="@dimen/dimen_0">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/banner_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:paddingBottom="8dp"
+        android:layout_marginTop="@dimen/dimen_26"
+        android:paddingBottom="@dimen/dimen_8"
         android:src="@drawable/banner_app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,8 +20,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/dimen_24"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progress_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dimen_0"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/banner_app_name">

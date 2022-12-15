@@ -20,16 +20,16 @@ class OnBoardingFragment :
 
     private lateinit var adapter: PagerAdapter
 
-    //I intercept the back button and exit the application
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
+//    //I intercept the back button and exit the application
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                requireActivity().finish()
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +47,11 @@ class OnBoardingFragment :
                 imageId = R.drawable.wfh_8
             )
         )
+
+//       ViewPager2
+//       https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2
+//       https://go.skillbox.ru/education/course/android-dev-1/bf29e0a9-bd4e-4e07-bf34-62f468131ac0/videolesson
+
         adapter = PagerAdapter(listOnboarding)
         binding.onboardingViewpager.adapter = adapter
         TabLayoutMediator(binding.tab, binding.onboardingViewpager) { _, _ -> }.attach()
@@ -56,7 +61,8 @@ class OnBoardingFragment :
     }
 
     private fun onBoardingFinished() {
-        val sharedPref = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+        val sharedPref =
+            requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("FirstRun", false)
         editor.apply()

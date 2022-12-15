@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="111dp"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="4dp">
+    android:paddingHorizontal="@dimen/dimen_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/show_all"
@@ -16,8 +16,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_arrow_show_all"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/dimen_32"
+            android:layout_height="@dimen/dimen_32"
             android:background="@drawable/bg_rating"
             android:backgroundTint="@color/white"
             android:src="@drawable/arrow_right"
@@ -30,7 +30,7 @@
             android:id="@+id/tv_show_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dimen_8"
             android:elevation="7dp"
             android:text="@string/btn_show_all_end"
             android:textColor="@color/black"
@@ -52,7 +52,7 @@
             android:id="@+id/item_film_card"
             android:layout_width="match_parent"
             android:layout_height="156dp"
-            app:cardCornerRadius="4dp"
+            app:cardCornerRadius="@dimen/dimen_4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -70,8 +70,8 @@
                 android:layout_width="17dp"
                 android:layout_height="9.91dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
+                android:layout_marginTop="@dimen/dimen_6"
+                android:layout_marginEnd="@dimen/dimen_6"
                 android:background="@drawable/bg_rating"
                 android:gravity="center"
                 android:textColor="@color/white"
@@ -82,12 +82,12 @@
 
         <TextView
             android:id="@+id/item_film_name"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="start"
             android:maxLines="2"
-            android:paddingTop="8dp"
+            android:paddingTop="@dimen/dimen_8"
             android:textColor="#272727"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/item_film_card"
@@ -97,11 +97,11 @@
 
         <TextView
             android:id="@+id/item_film_genre"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"
+            android:paddingTop="@dimen/dimen_2"
             android:maxLines="2"
-            android:textColor="#838390"
+            android:textColor="@color/grey2"
             app:layout_constraintEnd_toEndOf="@id/item_film_card"
             app:layout_constraintStart_toStartOf="@id/item_film_card"
             app:layout_constraintTop_toBottomOf="@id/item_film_name"

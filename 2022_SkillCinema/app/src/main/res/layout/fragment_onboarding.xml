@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_26"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="@dimen/dimen_70"
         android:contentDescription="@string/app_name"
         android:src="@drawable/banner_app_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,15 +18,18 @@
         android:id="@+id/btn_onboarding_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="@dimen/dimen_70"
         android:layout_marginEnd="@dimen/dimen_26"
         android:background="@color/white"
         android:elevation="1dp"
         android:text="@string/onboarding_btn_skip"
-        android:textColor="#656565"
+        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    ViewPager2-->
+    <!--    https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2-->
+    <!--    https://go.skillbox.ru/education/course/android-dev-1/bf29e0a9-bd4e-4e07-bf34-62f468131ac0/videolesson-->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/onboarding_viewpager"
         android:layout_width="match_parent"
@@ -39,6 +42,7 @@
         android:layout_marginStart="@dimen/dimen_26"
         android:layout_marginEnd="@dimen/dimen_26"
         android:layout_marginBottom="@dimen/dimen_32"
+        android:contentDescription="@string/tabsDescriptions"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tabBackground="@drawable/onboard_dot_default"

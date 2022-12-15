@@ -2,14 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
+        android:enabled="true"
         android:icon="@drawable/menu_home"
-        android:title="@string/bottom_menu_home"  />
+        android:title="@string/bottom_menu_home" />
     <item
         android:id="@+id/search"
+        android:enabled="true"
         android:icon="@drawable/menu_search"
         android:title="@string/bottom_menu_search" />
     <item
         android:id="@+id/profile"
+        android:enabled="true"
         android:icon="@drawable/menu_profile"
         android:title="@string/bottom_menu_profile" />
+
+    <!--    https://m2.material.io/components/bottom-navigation/android#using-bottom-navigation-->
 </menu>
