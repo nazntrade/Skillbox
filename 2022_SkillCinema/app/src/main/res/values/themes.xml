@@ -15,7 +15,7 @@
     </style>
 
     <style name="OnPosterDetail">
-        <item name="android:fontFamily">@font/graphik_bold</item>
+        <item name="android:fontFamily">@font/graphic_bold</item>
         <item name="android:textColor">@color/detail_on_poster_color</item>
         <item name="android:textSize">12sp</item>
     </style>

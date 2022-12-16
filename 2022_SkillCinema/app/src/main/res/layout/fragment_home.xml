@@ -32,7 +32,6 @@
         android:id="@+id/progress_group"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/banner_app_name">
 
@@ -49,6 +48,7 @@
             android:id="@+id/loading_refresh_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/btn_try_again"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

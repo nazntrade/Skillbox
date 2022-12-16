@@ -7,7 +7,7 @@
     <string name="bottom_menu_search">Поиск</string>
     <string name="bottom_menu_profile">Профиль</string>
 
-    <!--onbording-->
+    <!--onboarding-->
     <string name="onboarding_btn_skip">Пропустить</string>
     <string name="onboarding_description_first">Узнавай\nо премьерах</string>
     <string name="onboarding_description_second">Создавай\nколлекции</string>
@@ -17,7 +17,7 @@
     <string name="btn_show_all_top">Все</string>
     <string name="btn_show_all_end">Показать все</string>
     <string name="btn_try_again">Поптобовать ещё раз…</string>
-    <string name="tabsDescriptions">here the indicator</string>
+    <string name="tabsDescriptions">here the indicator pages</string>
 
 
 </resources>

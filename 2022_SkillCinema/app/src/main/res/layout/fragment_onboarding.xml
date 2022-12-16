@@ -36,7 +36,7 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab"
+        android:id="@+id/tab_layout"
         android:layout_width="@dimen/dimen_60"
         android:layout_height="15dp"
         android:layout_marginStart="@dimen/dimen_26"

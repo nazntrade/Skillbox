@@ -2,9 +2,7 @@ package com.becker.beckerSkillCinema.presentation.onBoarding
 
 import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.OnBoardingResources
@@ -48,13 +46,13 @@ class OnBoardingFragment :
             )
         )
 
-//       ViewPager2
+//       Creating ViewPager2 with TabLayout
 //       https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2
 //       https://go.skillbox.ru/education/course/android-dev-1/bf29e0a9-bd4e-4e07-bf34-62f468131ac0/videolesson
 
         adapter = PagerAdapter(listOnboarding)
         binding.onboardingViewpager.adapter = adapter
-        TabLayoutMediator(binding.tab, binding.onboardingViewpager) { _, _ -> }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.onboardingViewpager) { _, _ -> }.attach()
 
         binding.btnOnboardingSkip.setOnClickListener { onBoardingFinished() }
 

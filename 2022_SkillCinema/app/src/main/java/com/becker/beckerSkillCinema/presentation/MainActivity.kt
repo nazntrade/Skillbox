@@ -20,15 +20,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // navigation in Activity
         val navHost =
             supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         val navController = navHost.navController
 
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
         sharedPref = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-        val finishedOnBoarding = sharedPref.getBoolean("FirstRun", true)
+        val firstRun = sharedPref.getBoolean("FirstRun", true)
 
-        if (finishedOnBoarding) {
+        if (firstRun) {
             navController.navigate(R.id.onBoardingFragment)
         } else {
             navController.navigate(R.id.mainFragment)

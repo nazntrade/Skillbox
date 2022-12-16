@@ -28,10 +28,6 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navHost =
-            childFragmentManager.findFragmentById(R.id.working_container) as NavHostFragment
-        navController = navHost.navController
-
         setBottomNavigation()
 
     }
@@ -39,6 +35,10 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
     //  BottomNavigationView
     //  https://m2.material.io/components/bottom-navigation/android#using-bottom-navigation
     private fun setBottomNavigation() {
+        //to put(navigate) certain fragments in our container
+        val navHost =
+            childFragmentManager.findFragmentById(R.id.working_container) as NavHostFragment
+        navController = navHost.navController
 
         binding.bottomNavigation.setupWithNavController(navController)
 
