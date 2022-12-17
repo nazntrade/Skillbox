@@ -21,6 +21,7 @@
     stating that you want this to be the NavHost
     that intercepts and
     works as the back button on your device.
+    this place for menu. false - menu dont add to backstack
     -->
 
     <!--BottomNavigation-->

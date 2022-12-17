@@ -2,7 +2,10 @@ package com.becker.beckerSkillCinema.presentation.onBoarding
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.OnBoardingResources
@@ -11,23 +14,13 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.onBoarding.adapter.PagerAdapter
 import com.becker.beckerSkillCinema.utils.Constants.SHARED_PREFS_NAME
 import com.google.android.material.tabs.TabLayoutMediator
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OnBoardingFragment :
     ViewBindingFragment<FragmentOnboardingBinding>(FragmentOnboardingBinding::inflate) {
 
     private lateinit var adapter: PagerAdapter
-
-//    //I intercept the back button and exit the application
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                requireActivity().finish()
-//            }
-//        }
-//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,11 +52,18 @@ class OnBoardingFragment :
     }
 
     private fun onBoardingFinished() {
-        val sharedPref =
-            requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putBoolean("FirstRun", false)
-        editor.apply()
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
+            val sharedPref =
+                requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+            try {
+                val editor = sharedPref.edit()
+                editor.putBoolean("FirstRun", false)
+                editor.apply()
+            } catch (t: Throwable) {
+
+            }
+        }
         findNavController().navigate(R.id.action_onBoardingFragment_to_mainFragment)
     }
 
