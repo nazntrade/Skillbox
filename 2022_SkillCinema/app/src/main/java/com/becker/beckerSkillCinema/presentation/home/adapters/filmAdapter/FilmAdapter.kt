@@ -1,8 +1,10 @@
 package com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.Genre
@@ -14,7 +16,7 @@ class FilmAdapter(
     private val maxListSize: Int,
     private val clickNextButton: () -> Unit,
     private val clickFilms: (filmId: Int) -> Unit
-) : ListAdapter<HomeItem, FilmAdapter.FilmViewHolder>(DiffFilm()) {
+) : ListAdapter<HomeItem, FilmAdapter.FilmViewHolder>(FilmDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FilmViewHolder(
         ItemFilmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,6 +27,17 @@ class FilmAdapter(
             holder.bindNextShow { clickNextButton() }
         } else {
             holder.bindItem(getItem(position)) { clickFilms(it) }
+        }
+    }
+
+    class FilmDiffUtilCallback : DiffUtil.ItemCallback<HomeItem>() {
+        override fun areItemsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
+           return oldItem.filmId == newItem.filmId
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
+            return oldItem == newItem
         }
     }
 

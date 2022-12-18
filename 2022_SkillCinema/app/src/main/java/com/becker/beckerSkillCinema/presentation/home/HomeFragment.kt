@@ -13,7 +13,7 @@ import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.C
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-//    https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
+// https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
     private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var categoryAdapter: CategoryAdapter
@@ -26,12 +26,16 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
         categoryObserve()
     }
 
-
     private fun categoryObserve() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.homePageList.collect {
+            viewModel.homePageFilmList.collect { homeLists ->
                 categoryAdapter =
-                    CategoryAdapter(20, it, { onClickShowAllButton(it) }, { onClickFilm(it) })
+                    CategoryAdapter(
+                        20,
+                        homeLists,
+                        { onClickShowAllButton(it) },
+                        { onClickFilm(it) })
+
                 binding.categoryList.adapter = categoryAdapter
             }
         }
@@ -53,7 +57,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
                 when (state) {
                     is StateLoading.Loading -> {
                         binding.progressGroup.isVisible = true
-                        binding.loadingProgress.isVisible = true
+                        binding.loadingProgressBar.isVisible = true
                         binding.loadingRefreshBtn.isVisible = false
                         binding.categoryList.isVisible = false
                     }
@@ -63,7 +67,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
                     }
                     else -> {
                         binding.progressGroup.isVisible = true
-                        binding.loadingProgress.isVisible = false
+                        binding.loadingProgressBar.isVisible = false
                         binding.loadingRefreshBtn.isVisible = true
                         binding.categoryList.isVisible = false
                         binding.loadingRefreshBtn.setOnClickListener { viewModel.getFilmsByCategories() }

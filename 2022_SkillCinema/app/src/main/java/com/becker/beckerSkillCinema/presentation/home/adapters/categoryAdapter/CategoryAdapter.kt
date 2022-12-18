@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.CategoriesFilms
+import com.becker.beckerSkillCinema.data.HomeList
 import com.becker.beckerSkillCinema.databinding.ItemCategoryListBinding
-import com.becker.beckerSkillCinema.presentation.home.HomeViewModel
 import com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter.FilmAdapter
 
 class CategoryAdapter(
     private val maxListSize: Int,
-    private val category: List<HomeViewModel.Companion.HomeList>,
+    private val homeLists: List<HomeList>,
     private val clickNextButton: (category: CategoriesFilms) -> Unit,
     private val clickFilms: (filmId: Int) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -22,11 +22,15 @@ class CategoryAdapter(
     )
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bindItem(maxListSize, category[position], { clickNextButton(it) }, { clickFilms(it) }
+        holder.bindItem(
+            maxListSize,
+            homeLists[position],
+            { clickNextButton(it) },
+            { clickFilms(it) }
         )
     }
 
-    override fun getItemCount() = category.size
+    override fun getItemCount() = homeLists.size
 
     class CategoryViewHolder(
         private val binding: ItemCategoryListBinding
@@ -35,19 +39,25 @@ class CategoryAdapter(
 
         fun bindItem(
             maxListSize: Int,
-            item: HomeViewModel.Companion.HomeList,
+            itemHomeList: HomeList,
             clickNextButton: (category: CategoriesFilms) -> Unit,
             clickFilms: (filmId: Int) -> Unit
         ) {
             val filmAdapter =
-                FilmAdapter(maxListSize, { clickNextButton(item.category) }, { clickFilms(it) })
-            filmAdapter.submitList(item.filmList.shuffled())
+                FilmAdapter(
+                    maxListSize,
+                    { clickNextButton(itemHomeList.category) },
+                    { clickFilms(it) }
+                )
+            filmAdapter.submitList(itemHomeList.filmList.shuffled())
 
-            binding.titleCategory.text = item.category.text
+            binding.titleCategory.text = itemHomeList.category.text
             binding.filmList.adapter = filmAdapter
             binding.tvTitleShowAll.apply {
-                this.isInvisible = item.filmList.size < maxListSize
-                this.setOnClickListener { clickNextButton(item.category) }
+                if (itemHomeList.filmList.size < maxListSize) {
+                    this.isInvisible = true
+                }
+                this.setOnClickListener { clickNextButton(itemHomeList.category) }
             }
         }
     }

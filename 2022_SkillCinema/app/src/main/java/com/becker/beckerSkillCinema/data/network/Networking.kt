@@ -5,7 +5,7 @@ import retrofit2.create
 
 object Networking {
 
-    val attractionsApi: KinopoiskApi
+    val kinopoiskApi: KinopoiskApi
         get() = retrofit.create()
 //        get() = retrofit.create(KinopoiskApi::class.java)
 }

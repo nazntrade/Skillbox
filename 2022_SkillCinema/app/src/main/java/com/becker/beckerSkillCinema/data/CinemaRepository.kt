@@ -9,11 +9,11 @@ class CinemaRepository @Inject constructor() {
 
     // FragmentHome
     suspend fun getFilmsTop(topType: String, page: Int): List<HomeItem> {
-        return Networking.attractionsApi.getFilmsTop(type = topType, page = page).films
+        return Networking.kinopoiskApi.getFilmsTop(type = topType, page = page).films
     }
 
     suspend fun getFilmsPremier(year: Int, month: String): List<FilmPremier> {
-        return Networking.attractionsApi.getPremier(year, month).items
+        return Networking.kinopoiskApi.getPremier(year, month).items
     }
 
 

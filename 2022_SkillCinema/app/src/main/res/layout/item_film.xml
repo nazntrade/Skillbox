@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="156dp"
         android:elevation="7dp"
+        android:background="@color/grey3"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent">
 
