@@ -8,13 +8,14 @@ import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.presentation.StateLoading
-import com.becker.beckerSkillCinema.utils.converterInMonth
 import com.becker.beckerSkillCinema.utils.prepareToShow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.time.Month
 import java.util.*
 import javax.inject.Inject
 
@@ -23,10 +24,6 @@ class HomeViewModel @Inject constructor(
     private val getTopFilmsUseCase: GetTopFilmsUseCase,
     private val getPremierFilmUseCase: GetPremierFilmUseCase,
 ) : ViewModel() {
-
-//    init {
-//        getFilmsByCategories()
-//    }
 
     // FragmentHome
     private val _homePageList = MutableStateFlow<List<HomeList>>(emptyList())
@@ -38,8 +35,11 @@ class HomeViewModel @Inject constructor(
 
     fun getFilmsByCategories(
         year: Int = calendar.get(Calendar.YEAR),
-        month: String = (calendar.get(Calendar.MONTH) + 1).converterInMonth()
+        month: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
     ) {
+
+        Timber.d("CURRENT_MONTH: number: ${calendar.get(Calendar.MONTH) + 1}, name: $month")
+
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadCategoryState.value = StateLoading.Loading
@@ -77,6 +77,7 @@ class HomeViewModel @Inject constructor(
     // FragmentStaffDetail
 
     companion object {
+
         private val calendar = Calendar.getInstance()
 
         data class HomeList(

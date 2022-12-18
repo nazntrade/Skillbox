@@ -13,6 +13,7 @@ import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.C
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
+//    https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
     private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var categoryAdapter: CategoryAdapter

@@ -17,15 +17,12 @@ class CategoryAdapter(
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CategoryViewHolder(
-        ItemCategoryListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemCategoryListBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bindItem(
-            maxListSize,
-            category[position],
-            { clickNextButton(it) },
-            { clickFilms(it) }
+        holder.bindItem(maxListSize, category[position], { clickNextButton(it) }, { clickFilms(it) }
         )
     }
 
@@ -42,12 +39,12 @@ class CategoryAdapter(
             clickNextButton: (category: CategoriesFilms) -> Unit,
             clickFilms: (filmId: Int) -> Unit
         ) {
-            val adapter =
+            val filmAdapter =
                 FilmAdapter(maxListSize, { clickNextButton(item.category) }, { clickFilms(it) })
-            adapter.submitList(item.filmList.shuffled())
+            filmAdapter.submitList(item.filmList.shuffled())
 
             binding.titleCategory.text = item.category.text
-            binding.filmList.adapter = adapter
+            binding.filmList.adapter = filmAdapter
             binding.tvTitleShowAll.apply {
                 this.isInvisible = item.filmList.size < maxListSize
                 this.setOnClickListener { clickNextButton(item.category) }

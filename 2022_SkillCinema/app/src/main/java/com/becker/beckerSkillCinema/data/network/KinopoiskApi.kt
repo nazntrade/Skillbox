@@ -10,12 +10,6 @@ import retrofit2.http.Query
 
 interface KinopoiskApi {
 
-    // FragmentFilmDetail
-
-    // FragmentFilmDetail (series)
-
-    // FragmentStaffDetail
-
     // FragmentHome
     @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT2")
     @GET("v2.2/films/top")
@@ -35,6 +29,12 @@ interface KinopoiskApi {
         month: String
     ): ResponsePremier
 
+
+    // FragmentFilmDetail
+
+    // FragmentFilmDetail (series)
+
+    // FragmentStaffDetail
 
     // FragmentHome (TV_SERIES) & FragmentSearch
 

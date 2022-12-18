@@ -23,9 +23,6 @@ object Constants {
     const val KINOPOISKACCESSRIGHT15 = "f8b0f389-e491-48d0-8794-240a6d0bc635"
     const val KINOPOISKACCESSRIGHT16 = "310f1d28-9363-42cf-be67-94a3ea2424ca"
 
-
-    const val TEST_APIKEY = "70e0059c-0587-4549-9cbf-8a9c5c4143f6"
-
     const val PREMIERES = "api/v2.2/films/premieres"
     const val POPULAR = "api/v2.2/films/top"
     const val GET_FILTERS = "api/v2.2/films/filters"
