@@ -12,6 +12,12 @@ import com.becker.beckerSkillCinema.databinding.ItemFilmBinding
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.utils.loadImage
 
+// About ListAdapter and differences from RecyclerView.Adapter
+// https://stackoverflow.com/questions/66485821/list-adapter-vs-recycle-view-adapter
+// Documentations = https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
+//Recyclerview.Adapter - best if the list is static
+//ListAdapter - best if the list is dynamic
+
 class FilmAdapter(
     private val maxListSize: Int,
     private val clickNextButton: () -> Unit,
@@ -32,7 +38,7 @@ class FilmAdapter(
 
     class FilmDiffUtilCallback : DiffUtil.ItemCallback<HomeItem>() {
         override fun areItemsTheSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
-           return oldItem.filmId == newItem.filmId
+            return oldItem.filmId == newItem.filmId
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -41,15 +47,15 @@ class FilmAdapter(
         }
     }
 
-    class FilmViewHolder(private val binding: ItemFilmBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class FilmViewHolder(
+        private val binding: ItemFilmBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindNextShow(clickNextButton: () -> Unit) {
             binding.apply {
                 showAll.isInvisible = false
                 itemFilm.isInvisible = true
             }
-
             binding.btnArrowShowAll.setOnClickListener { clickNextButton() }
         }
 

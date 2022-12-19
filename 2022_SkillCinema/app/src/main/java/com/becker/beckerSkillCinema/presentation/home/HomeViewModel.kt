@@ -51,9 +51,9 @@ class HomeViewModel @Inject constructor(
                         ).toLimitTheNumberOfObjects(20)
                     ),
                     HomeList(
-                        category = CategoriesFilms.POPULAR,
+                        category = CategoriesFilms.POPULAR_100,
                         filmList = getTopFilmsUseCase.executeTopFilms(
-                            topType = TOP_TYPES.getValue(CategoriesFilms.POPULAR),
+                            topType = TOP_TYPES.getValue(CategoriesFilms.POPULAR_100),
                             page = 1
                         )
                     )

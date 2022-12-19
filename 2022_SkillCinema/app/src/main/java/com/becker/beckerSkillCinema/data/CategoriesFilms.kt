@@ -5,9 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 enum class CategoriesFilms(val text: String) : Parcelable {
-    BEST("ТОП-250"),
-    POPULAR("Популярное"),
+    BEST_250("ТОП-250"),
+    POPULAR_100("Популярное"),
     PREMIERS("Премьеры"),
-    AWAIT("Самые ожиаемые"),
+    MOST_AWAIT("Самые ожиаемые"),
     TV_SERIES("Сериалы")
 }

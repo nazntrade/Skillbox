@@ -43,13 +43,15 @@ class CategoryAdapter(
             clickNextButton: (category: CategoriesFilms) -> Unit,
             clickFilms: (filmId: Int) -> Unit
         ) {
+
+            //https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
             val filmAdapter =
                 FilmAdapter(
                     maxListSize,
                     { clickNextButton(itemHomeList.category) },
                     { clickFilms(it) }
                 )
-            filmAdapter.submitList(itemHomeList.filmList.shuffled())
+            filmAdapter.submitList(itemHomeList.filmList.shuffled()) // '.submitList' - standard option for ListAdapter
 
             binding.titleCategory.text = itemHomeList.category.text
             binding.filmList.adapter = filmAdapter
