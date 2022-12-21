@@ -38,7 +38,7 @@ interface KinopoiskApi {
         @Query("countries")
         countries: String,
         @Query("genres")
-        genres: String,
+        genres: Int?,
         @Query("order")
         order: String,
         @Query("type")

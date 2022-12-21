@@ -2,7 +2,7 @@ package com.becker.beckerSkillCinema.data
 
 data class ParamsFilterFilm(
     val countries: Map<Int, String> = emptyMap(),
-    val genres: Map<Int, String> = emptyMap(),
+    val genres: Int? = null,
     val order: String = "RATING",
     val type: String = "",
     val ratingFrom: Int = 0,

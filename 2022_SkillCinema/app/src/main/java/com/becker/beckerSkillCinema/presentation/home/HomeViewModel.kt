@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     private val getPremierFilmUseCase: GetPremierFilmUseCase,
     private val getFilmListUseCase: GetFilmListUseCase
 
-    ) : ViewModel() {
+) : ViewModel() {
 
     // FragmentHome
     private val _homePageFilmList = MutableStateFlow<List<HomeList>>(emptyList())
@@ -82,26 +82,39 @@ class HomeViewModel @Inject constructor(
                             page = 1
                         )
                     ),
-//                    HomeList(
-//                        category = CategoriesFilms.BIOGRAPHY,
-//                        filmList = getFilmListUseCase.executeFilmsByFilter(
-//                            filters = ParamsFilterFilm(
-//                                type = FILM_TYPE.getValue(CategoriesFilms.TV_SERIES),
-//                                ratingFrom = 7
-//                            ),
-//                            page = 1
-//                        )
-//                    ),
-//                    HomeList(
-//                        category = CategoriesFilms.SCIENCE_FICTION,
-//                        filmList = getFilmListUseCase.executeFilmsByFilter(
-//                            filters = ParamsFilterFilm(
-//                                type = FILM_TYPE.getValue(CategoriesFilms.TV_SERIES),
-//                                ratingFrom = 7
-//                            ),
-//                            page = 1
-//                        )
-//                    )
+                    HomeList(
+                        category = CategoriesFilms.BIOGRAPHY,
+                        filmList = getFilmListUseCase.executeFilmsByFilter(
+                            filters = ParamsFilterFilm(
+                                type = TOP_TYPES.getValue(CategoriesFilms.BIOGRAPHY),
+                                genres = GENRE_FOR_FILTER.getValue(CategoriesFilms.BIOGRAPHY),
+                                ratingFrom = 7
+                            ),
+                            page = 1
+                        )
+                    ),
+                    HomeList(
+                        category = CategoriesFilms.SCIENCE_FICTION,
+                        filmList = getFilmListUseCase.executeFilmsByFilter(
+                            filters = ParamsFilterFilm(
+                                type = TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION),
+                                genres = GENRE_FOR_FILTER.getValue(CategoriesFilms.SCIENCE_FICTION),
+                                ratingFrom = 7
+                            ),
+                            page = 1
+                        )
+                    ),
+                    HomeList(
+                        category = CategoriesFilms.CARTOONS,
+                        filmList = getFilmListUseCase.executeFilmsByFilter(
+                            filters = ParamsFilterFilm(
+                                type = TOP_TYPES.getValue(CategoriesFilms.CARTOONS),
+                                genres = GENRE_FOR_FILTER.getValue(CategoriesFilms.CARTOONS),
+                                ratingFrom = 7
+                            ),
+                            page = 1
+                        )
+                    )
                 )
                 _homePageFilmList.value = homeLists
                 _loadCategoryState.value = StateLoading.Success
