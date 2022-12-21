@@ -2,9 +2,8 @@ package com.becker.beckerSkillCinema.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.becker.beckerSkillCinema.data.CategoriesFilms
-import com.becker.beckerSkillCinema.data.HomeList
-import com.becker.beckerSkillCinema.data.TOP_TYPES
+import com.becker.beckerSkillCinema.data.*
+import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.presentation.StateLoading
@@ -23,7 +22,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getTopFilmsUseCase: GetTopFilmsUseCase,
     private val getPremierFilmUseCase: GetPremierFilmUseCase,
-) : ViewModel() {
+    private val getFilmListUseCase: GetFilmListUseCase
+
+    ) : ViewModel() {
 
     // FragmentHome
     private val _homePageFilmList = MutableStateFlow<List<HomeList>>(emptyList())
@@ -56,7 +57,51 @@ class HomeViewModel @Inject constructor(
                             topType = TOP_TYPES.getValue(CategoriesFilms.POPULAR_100),
                             page = 1
                         )
-                    )
+                    ),
+                    HomeList(
+                        category = CategoriesFilms.BEST_250,
+                        filmList = getTopFilmsUseCase.executeTopFilms(
+                            topType = TOP_TYPES.getValue(CategoriesFilms.BEST_250),
+                            page = 1
+                        )
+                    ),
+                    HomeList(
+                        category = CategoriesFilms.TV_SERIES,
+                        filmList = getFilmListUseCase.executeFilmsByFilter(
+                            filters = ParamsFilterFilm(
+                                type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES),
+                                ratingFrom = 7
+                            ),
+                            page = 1
+                        )
+                    ),
+                    HomeList(
+                        category = CategoriesFilms.MOST_AWAIT,
+                        filmList = getTopFilmsUseCase.executeTopFilms(
+                            topType = TOP_TYPES.getValue(CategoriesFilms.MOST_AWAIT),
+                            page = 1
+                        )
+                    ),
+//                    HomeList(
+//                        category = CategoriesFilms.BIOGRAPHY,
+//                        filmList = getFilmListUseCase.executeFilmsByFilter(
+//                            filters = ParamsFilterFilm(
+//                                type = FILM_TYPE.getValue(CategoriesFilms.TV_SERIES),
+//                                ratingFrom = 7
+//                            ),
+//                            page = 1
+//                        )
+//                    ),
+//                    HomeList(
+//                        category = CategoriesFilms.SCIENCE_FICTION,
+//                        filmList = getFilmListUseCase.executeFilmsByFilter(
+//                            filters = ParamsFilterFilm(
+//                                type = FILM_TYPE.getValue(CategoriesFilms.TV_SERIES),
+//                                ratingFrom = 7
+//                            ),
+//                            page = 1
+//                        )
+//                    )
                 )
                 _homePageFilmList.value = homeLists
                 _loadCategoryState.value = StateLoading.Success

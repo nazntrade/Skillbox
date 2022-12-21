@@ -41,7 +41,8 @@ val SORTING_PARAMS = listOf(
 )
 
 val FILM_TYPE = listOf(
-    "FILM",
+//    CategoriesFilms.BIOGRAPHY to "FILM",
+//    CategoriesFilms.SCIENCE_FICTION to "FILM",
     "TV_SHOW",
     "TV_SERIES",
     "MINI_SERIES",

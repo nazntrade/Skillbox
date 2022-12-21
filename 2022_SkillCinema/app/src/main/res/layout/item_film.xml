@@ -69,16 +69,17 @@
 
             <TextView
                 android:id="@+id/item_film_rating"
-                android:layout_width="17dp"
-                android:layout_height="10dp"
+                android:layout_width="20dp"
+                android:layout_height="13dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="@dimen/dimen_6"
                 android:layout_marginEnd="@dimen/dimen_6"
                 android:background="@drawable/bg_rating"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="6sp"
-                tools:text="7.8" />
+                android:textSize="9sp"
+                tools:text="7.8"
+                tools:ignore="SmallSp" />
         </androidx.cardview.widget.CardView>
 
         <TextView
