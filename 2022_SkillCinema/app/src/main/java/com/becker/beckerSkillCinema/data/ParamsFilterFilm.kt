@@ -7,7 +7,7 @@ data class ParamsFilterFilm(
     val type: String = "",
     val ratingFrom: Int = 0,
     val ratingTo: Int = 10,
-    val yearFrom: Int = 1800,
+    val yearFrom: Int = 1000,
     val yearTo: Int = 3000,
     val imdbId: String? = null,
     val keyword: String = ""

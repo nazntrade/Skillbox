@@ -34,8 +34,7 @@ class CategoryAdapter(
 
     class CategoryViewHolder(
         private val binding: ItemCategoryListBinding
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem(
             maxListSize: Int,
@@ -43,7 +42,6 @@ class CategoryAdapter(
             clickNextButton: (category: CategoriesFilms) -> Unit,
             clickFilms: (filmId: Int) -> Unit
         ) {
-
             //https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
             val filmAdapter =
                 FilmAdapter(

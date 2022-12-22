@@ -20,7 +20,8 @@ class CinemaRepository @Inject constructor() {
     // FragmentSearch
     suspend fun getFilmsByFilter(filters: ParamsFilterFilm, page: Int): ResponseByFilter {
         return Networking.kinopoiskApi.getFilmsByFilter(
-            countries = if (filters.countries.isNotEmpty()) filters.countries.keys.first().toString() else "",
+            countries = if (filters.countries.isNotEmpty()) filters.countries.keys.first() //????????????????????
+                .toString() else "",                                                       //????????????????????
             genres = filters.genres,
             order = filters.order,
             type = filters.type,
