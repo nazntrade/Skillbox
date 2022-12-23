@@ -16,47 +16,32 @@ interface KinopoiskApi {
     @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT2")
     @GET("v2.2/films/top")
     suspend fun getFilmsTop(
-        @Query("type")
-        type: String,
-        @Query("page")
-        page: Int
+        @Query("type") type: String,
+        @Query("page") page: Int
     ): ResponseTop
 
     @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT1")
     @GET("v2.2/films/premieres")
     suspend fun getPremier(
-        @Query("year")
-        year: Int,
-        @Query("month")
-        month: String
+        @Query("year") year: Int,
+        @Query("month") month: String
     ): ResponsePremier
 
     // FragmentHome (TV_SERIES) & FragmentSearch
     @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT3")
     @GET("v2.2/films/")
     suspend fun getFilmsByFilter(
-        @Query("countries")
-        countries: String,
-        @Query("genres")
-        genres: Int?,
-        @Query("order")
-        order: String,
-        @Query("type")
-        type: String,
-        @Query("ratingFrom")
-        ratingFrom: Int,
-        @Query("ratingTo")
-        ratingTo: Int,
-        @Query("yearFrom")
-        yearFrom: Int,
-        @Query("yearTo")
-        yearTo: Int,
-        @Query("imdbId")
-        imdbId: String?,
-        @Query("keyword")
-        keyword: String,
-        @Query("page")
-        page: Int
+        @Query("countries") countries: String,
+        @Query("genres") genres: Int?,
+        @Query("order") order: String,
+        @Query("type") type: String,
+        @Query("ratingFrom") ratingFrom: Int,
+        @Query("ratingTo") ratingTo: Int,
+        @Query("yearFrom") yearFrom: Int,
+        @Query("yearTo") yearTo: Int,
+        @Query("imdbId") imdbId: String?,
+        @Query("keyword") keyword: String,
+        @Query("page") page: Int
     ): ResponseByFilter
 
 

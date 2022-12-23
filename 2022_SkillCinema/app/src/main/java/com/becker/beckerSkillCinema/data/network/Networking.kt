@@ -7,5 +7,4 @@ object Networking {
 
     val kinopoiskApi: KinopoiskApi
         get() = retrofit.create()
-//        get() = retrofit.create(KinopoiskApi::class.java)
 }

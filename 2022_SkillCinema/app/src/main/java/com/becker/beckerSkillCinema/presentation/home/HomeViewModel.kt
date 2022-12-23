@@ -23,7 +23,6 @@ class HomeViewModel @Inject constructor(
     private val getTopFilmsUseCase: GetTopFilmsUseCase,
     private val getPremierFilmUseCase: GetPremierFilmUseCase,
     private val getFilmListUseCase: GetFilmListUseCase
-
 ) : ViewModel() {
 
     // FragmentHome
