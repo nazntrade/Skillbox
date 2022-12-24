@@ -5,8 +5,11 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentHomeBinding
+import com.becker.beckerSkillCinema.presentation.CinemaViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.CategoryAdapter
@@ -14,13 +17,18 @@ import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.C
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     // https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: CinemaViewModel by activityViewModels()
 
     private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mainFunction()
+        doOnSwipe()
+    }
+
+    private fun mainFunction() {
         viewModel.getFilmsByCategories()
         stateLoadingListener()
         categoryObserve()
@@ -33,7 +41,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
                     CategoryAdapter(
                         20,
                         homeLists,
-                        { onClickShowAllButton(it) },
+                        { categoriesFilms -> onClickShowAllButton(categoriesFilms) },
                         { onClickFilm(it) })
 
                 binding.categoryList.adapter = categoryAdapter
@@ -47,8 +55,8 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun onClickShowAllButton(category: CategoriesFilms) {
-//
-//
+        viewModel.setCurrentCategory(category)
+        findNavController().navigate(R.id.action_fragmentHome_to_fragmentAllFilms)
     }
 
     private fun stateLoadingListener() {
@@ -57,29 +65,39 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
                 when (state) {
                     is StateLoading.Loading -> {
                         binding.apply {
-                            progressGroup.isVisible = true
-                            loadingProgressBar.isVisible = true
-                            loadingRefreshBtn.isVisible = false
+                            progressGroupContainer.progressGroup.isVisible = true
+                            progressGroupContainer.loadingProgressBar.isVisible = true
+                            progressGroupContainer.loadingRefreshBtn.isVisible = false
                             categoryList.isVisible = false
                         }
                     }
                     is StateLoading.Success -> {
                         binding.apply {
-                            progressGroup.isVisible = false
+                            progressGroupContainer.progressGroup.isVisible = false
                             categoryList.isVisible = true
                         }
                     }
                     else -> {
                         binding.apply {
-                            progressGroup.isVisible = true
-                            loadingProgressBar.isVisible = false
-                            loadingRefreshBtn.isVisible = true
+                            progressGroupContainer.progressGroup.isVisible = true
+                            progressGroupContainer.loadingProgressBar.isVisible = false
+                            progressGroupContainer.loadingRefreshBtn.isVisible = true
                             categoryList.isVisible = false
-                            loadingRefreshBtn.setOnClickListener { viewModel.getFilmsByCategories() }
+                            progressGroupContainer
+                                .loadingRefreshBtn
+                                .setOnClickListener { viewModel.getFilmsByCategories() }
                         }
                     }
                 }
             }
+        }
+    }
+
+    private fun doOnSwipe() {
+        val swiperefresh = binding.swiperefresh
+        swiperefresh.setOnRefreshListener {
+            swiperefresh.isRefreshing = false
+            mainFunction()
         }
     }
 }

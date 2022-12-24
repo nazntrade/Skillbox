@@ -1,15 +1,22 @@
-package com.becker.beckerSkillCinema.presentation.home
+package com.becker.beckerSkillCinema.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.becker.beckerSkillCinema.data.*
 import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
-import com.becker.beckerSkillCinema.presentation.StateLoading
+import com.becker.beckerSkillCinema.entity.HomeItem
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allfilmadapter.AllFilmAdapter
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allfilmadapter.AllFilmPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitTheNumberOfObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -19,11 +26,15 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class CinemaViewModel @Inject constructor(
     private val getTopFilmsUseCase: GetTopFilmsUseCase,
     private val getPremierFilmUseCase: GetPremierFilmUseCase,
     private val getFilmListUseCase: GetFilmListUseCase
 ) : ViewModel() {
+
+    private val currentMonth: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
+    private val currentYear: Int = calendar.get(Calendar.YEAR)
+
 
     // FragmentHome
     private val _homePageFilmList = MutableStateFlow<List<HomeList>>(emptyList())
@@ -34,10 +45,8 @@ class HomeViewModel @Inject constructor(
 
     fun getFilmsByCategories(
         // ???????????????????????????????????????????????????????????????????????????????????????
-        year: Int = calendar.get(Calendar.YEAR),
-        month: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
     ) {
-        Timber.d("CURRENT_MONTH_TEST: number: ${calendar.get(Calendar.MONTH) + 1}, name: $month")
+        Timber.d("CURRENT_MONTH_TEST: number: ${calendar.get(Calendar.MONTH) + 1}, name: $currentMonth")
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -46,8 +55,8 @@ class HomeViewModel @Inject constructor(
                     HomeList(
                         category = CategoriesFilms.PREMIERS,
                         filmList = getPremierFilmUseCase.executePremieres(
-                            year = year,
-                            month = month
+                            year = currentYear,
+                            month = currentMonth
                         ).toLimitTheNumberOfObjects(20)
                     ),
                     HomeList(
@@ -124,6 +133,45 @@ class HomeViewModel @Inject constructor(
     }
 
     // FragmentAllFilms
+    private var allFilmAdapter: AllFilmAdapter = AllFilmAdapter { }
+
+    private lateinit var currentCategory: CategoriesFilms
+    fun setCurrentCategory(category: CategoriesFilms) {
+        currentCategory = category
+        if (allFilmAdapter.itemCount != 0) allFilmAdapter.refresh()
+    }
+
+    fun getCurrentCategory() = currentCategory
+
+    fun getAllFilmAdapter() = allFilmAdapter
+    fun setAllFilmAdapter(adapter: AllFilmAdapter) {
+        allFilmAdapter = adapter
+    }
+
+    val allFilmsByCategory: Flow<PagingData<HomeItem>> = Pager(
+        config = PagingConfig(pageSize = 20),
+        pagingSourceFactory = {
+            AllFilmPagingSource(
+                filterParams = currentParamsFilterFilm,
+                categoriesFilms = currentCategory,
+                year = calendar.get(Calendar.YEAR),
+                month = currentMonth,
+                getPremierFilmUseCase, getTopFilmsUseCase, getFilmListUseCase
+            )
+        }
+    ).flow.cachedIn(viewModelScope)
+
+//    val allSeries: Flow<PagingData<HomeItem>> = Pager(
+//        config = PagingConfig(pageSize = 20),
+//        pagingSourceFactory = {
+//            FilmsByFilterPagingSource(
+//                filters = ParamsFilterFilm(type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)),
+//                getFilmListUseCase = getFilmListUseCase
+//            )
+//        }
+//    ).flow.cachedIn(viewModelScope)
+
+
 
     // FragmentFilmDetail
 
@@ -133,5 +181,18 @@ class HomeViewModel @Inject constructor(
 
     companion object {
         private val calendar = Calendar.getInstance()
+
+        private var currentParamsFilterFilm = ParamsFilterFilm(
+            countries = emptyMap(),
+            genres = null,
+            order = "RATING",
+            type = "",
+            ratingFrom = 5,
+            ratingTo = 10,
+            yearFrom = 1000,
+            yearTo = 3000,
+            imdbId = null,
+            keyword = ""
+        )
     }
 }

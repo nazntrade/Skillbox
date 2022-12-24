@@ -8,17 +8,26 @@
         android:id="@+id/fragmentHome"
         android:name="com.becker.beckerSkillCinema.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentAllFilms"
+            app:destination="@id/fragmentAllFilms" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentSearch"
-        tools:layout="@layout/fragment_search"
         android:name="com.becker.beckerSkillCinema.presentation.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/fragmentProfile"
-        tools:layout="@layout/fragment_profile"
         android:name="com.becker.beckerSkillCinema.presentation.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/fragmentAllFilms"
+        android:name="com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilms"
+        android:label="FragmentAllFilms"
+        tools:layout="@layout/fragment_all_films" />
 </navigation>
