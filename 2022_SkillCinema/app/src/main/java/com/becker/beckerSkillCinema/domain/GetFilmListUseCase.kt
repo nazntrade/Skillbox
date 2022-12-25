@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.domain
 import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.data.filmbyfilter.FilmByFilter
+import com.becker.beckerSkillCinema.data.filmbyfilter.ResponseByFilter
 import javax.inject.Inject
 
 class GetFilmListUseCase @Inject constructor(private val repository: CinemaRepository) {
@@ -17,4 +18,11 @@ class GetFilmListUseCase @Inject constructor(private val repository: CinemaRepos
         ).items
     }
 
+    /////////// !!!!!!!!!!!!!!!!!!!!!!
+    suspend fun executeFilmsByFilterCount(
+        filters: ParamsFilterFilm,
+        page: Int
+    ): ResponseByFilter {
+        return repository.getFilmsByFilter(filters, page)
+    }
 }

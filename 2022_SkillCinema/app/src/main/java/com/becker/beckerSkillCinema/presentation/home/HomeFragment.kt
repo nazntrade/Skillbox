@@ -54,9 +54,12 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
 //
     }
 
-    private fun onClickShowAllButton(category: CategoriesFilms) {
-        viewModel.setCurrentCategory(category)
+    private fun onClickShowAllButton(currentCategory: CategoriesFilms) {
+        viewModel.setCurrentCategory(currentCategory)
         findNavController().navigate(R.id.action_fragmentHome_to_fragmentAllFilms)
+//        val direction =
+//            HomeFragmentDirections.actionFragmentHomeToFragmentAllFilms(currentCategory)
+//        findNavController().navigate(direction)
     }
 
     private fun stateLoadingListener() {

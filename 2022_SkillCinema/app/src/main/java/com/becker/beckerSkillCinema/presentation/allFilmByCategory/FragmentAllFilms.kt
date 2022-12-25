@@ -1,13 +1,11 @@
 package com.becker.beckerSkillCinema.presentation.allFilmByCategory
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.becker.beckerSkillCinema.data.CategoriesFilms
@@ -20,20 +18,24 @@ class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
 
     private val viewModel: CinemaViewModel by activityViewModels()
+    private val incomArgsCategory: FragmentAllFilmsArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setLayout()
+        setAdapter()
+        setFilmList()
+        doOnSwipe()
+    }
+
+    private fun setLayout() {
         binding.apply {
             allFilmsCategoryTv.text = viewModel.getCurrentCategory().text
-            allFilmsToHomeBtn.setOnClickListener { requireActivity().onBackPressedDispatcher }
+            allFilmsToHomeBtn.setOnClickListener { requireActivity().onBackPressedDispatcher } //////////////
             progressGroupContainer
                 .loadingRefreshBtn.setOnClickListener { viewModel.getAllFilmAdapter().retry() }
         }
-
-        setAdapter()                // Установка адаптера
-        setFilmList()               // Установка списка фильмов
-        doOnSwipe()
     }
 
     private fun setAdapter() {
@@ -82,11 +84,11 @@ class FragmentAllFilms :
 
     private fun setFilmList() {
         if (viewModel.getCurrentCategory() == CategoriesFilms.TV_SERIES) {
-//            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//                viewModel.allSeries.collect {
-//                    viewModel.getAllFilmAdapter().submitData(it)
-//                }
-//            }
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                viewModel.allSeries.collect {
+                    viewModel.getAllFilmAdapter().submitData(it)
+                }
+            }
         } else {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.allFilmsByCategory.collect {
@@ -102,11 +104,12 @@ class FragmentAllFilms :
     }
 
     private fun doOnSwipe() {
-//        val swiperefresh = binding.swiperefresh
-//        swiperefresh.setOnRefreshListener {
-//            swiperefresh.isRefreshing = false
-//            mainFunction()
-//        }
+        val swiperefresh = binding.swiperefresh
+        swiperefresh.setOnRefreshListener {
+            swiperefresh.isRefreshing = false
+            setAdapter()                // Установка адаптера
+            setFilmList()               // Установка списка фильмов
+        }
     }
 
 }

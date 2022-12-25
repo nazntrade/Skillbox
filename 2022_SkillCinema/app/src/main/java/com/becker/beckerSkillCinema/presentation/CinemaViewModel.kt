@@ -43,11 +43,7 @@ class CinemaViewModel @Inject constructor(
     private val _loadCategoryState = MutableStateFlow<StateLoading>(StateLoading.Default)
     val loadCategoryState = _loadCategoryState.asStateFlow()
 
-    fun getFilmsByCategories(
-        // ???????????????????????????????????????????????????????????????????????????????????????
-    ) {
-        Timber.d("CURRENT_MONTH_TEST: number: ${calendar.get(Calendar.MONTH) + 1}, name: $currentMonth")
-
+    fun getFilmsByCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadCategoryState.value = StateLoading.Loading
@@ -161,16 +157,15 @@ class CinemaViewModel @Inject constructor(
         }
     ).flow.cachedIn(viewModelScope)
 
-//    val allSeries: Flow<PagingData<HomeItem>> = Pager(
-//        config = PagingConfig(pageSize = 20),
-//        pagingSourceFactory = {
-//            FilmsByFilterPagingSource(
-//                filters = ParamsFilterFilm(type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)),
-//                getFilmListUseCase = getFilmListUseCase
-//            )
-//        }
-//    ).flow.cachedIn(viewModelScope)
-
+    val allSeries: Flow<PagingData<HomeItem>> = Pager(
+        config = PagingConfig(pageSize = 20),
+        pagingSourceFactory = {
+            FilmsByFilterPagingSource(
+                filters = ParamsFilterFilm(type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)),
+                getFilmListUseCase = getFilmListUseCase
+            )
+        }
+    ).flow.cachedIn(viewModelScope)
 
 
     // FragmentFilmDetail
@@ -184,10 +179,10 @@ class CinemaViewModel @Inject constructor(
 
         private var currentParamsFilterFilm = ParamsFilterFilm(
             countries = emptyMap(),
-            genres = null,
+            genres = null, /////
             order = "RATING",
             type = "",
-            ratingFrom = 5,
+            ratingFrom = 0,
             ratingTo = 10,
             yearFrom = 1000,
             yearTo = 3000,
