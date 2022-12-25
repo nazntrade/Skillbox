@@ -18,34 +18,43 @@ class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
 
     private val viewModel: CinemaViewModel by activityViewModels()
-    private val incomArgsCategory: FragmentAllFilmsArgs by navArgs()
+    private val incomeArgsCategory: FragmentAllFilmsArgs by navArgs()
+    private lateinit var allFilmAdapter: AllFilmAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setLayout()
         setAdapter()
-        setFilmList()
+        setFilmList(incomeArgsCategory.currentCategory)
         doOnSwipe()
     }
 
     private fun setLayout() {
         binding.apply {
-            allFilmsCategoryTv.text = viewModel.getCurrentCategory().text
+            allFilmsCategoryTv.text = incomeArgsCategory.currentCategory.text
             allFilmsToHomeBtn.setOnClickListener { requireActivity().onBackPressedDispatcher } //////////////
             progressGroupContainer
-                .loadingRefreshBtn.setOnClickListener { viewModel.getAllFilmAdapter().retry() }
+                .loadingRefreshBtn.setOnClickListener {
+                    setFilmList(incomeArgsCategory.currentCategory)
+                }
         }
+
+        binding.allFilmsList.layoutManager =
+            GridLayoutManager(
+                requireContext(),
+                2,
+                GridLayoutManager.VERTICAL,
+                false
+            )
     }
 
     private fun setAdapter() {
-        viewModel.setAllFilmAdapter(AllFilmAdapter { onClickFilm(it) })
 
-        binding.allFilmsList.layoutManager =
-            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-        binding.allFilmsList.adapter = viewModel.getAllFilmAdapter()
+        allFilmAdapter = AllFilmAdapter { onClickFilm(it) }
 
-        viewModel.getAllFilmAdapter().addLoadStateListener { state ->
+        allFilmAdapter.addLoadStateListener { state -> // ???????
             val currentState = state.refresh
             binding.apply {
                 allFilmsList.isVisible = currentState != LoadState.Loading
@@ -67,7 +76,6 @@ class FragmentAllFilms :
                         binding.allFilmsList.isVisible = true
                         progressGroupContainer.progressGroup.isVisible = false
                         progressGroupContainer.loadingRefreshBtn.isVisible = true
-
                     }
                 }
                 else -> {
@@ -75,27 +83,28 @@ class FragmentAllFilms :
                         binding.allFilmsList.isVisible = false
                         progressGroupContainer.loadingProgressBar.isVisible = false
                         progressGroupContainer.loadingRefreshBtn.isVisible = true
-
                     }
                 }
             }
         }
     }
 
-    private fun setFilmList() {
-        if (viewModel.getCurrentCategory() == CategoriesFilms.TV_SERIES) {
+    private fun setFilmList(currentCategory: CategoriesFilms) {
+        if (incomeArgsCategory.currentCategory == CategoriesFilms.TV_SERIES) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.allSeries.collect {
-                    viewModel.getAllFilmAdapter().submitData(it)
+                viewModel.setAllSeries().collect {
+                    allFilmAdapter.submitData(it)
                 }
             }
         } else {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.allFilmsByCategory.collect {
-                    viewModel.getAllFilmAdapter().submitData(it)
-                }
+                viewModel.setAllFilmsByCategory(currentCategory)
+                    .collect {
+                        allFilmAdapter.submitData(it)
+                    }
             }
         }
+        binding.allFilmsList.adapter = allFilmAdapter
     }
 
     private fun onClickFilm(filmId: Int) {
@@ -107,9 +116,7 @@ class FragmentAllFilms :
         val swiperefresh = binding.swiperefresh
         swiperefresh.setOnRefreshListener {
             swiperefresh.isRefreshing = false
-            setAdapter()                // Установка адаптера
-            setFilmList()               // Установка списка фильмов
+            setFilmList(incomeArgsCategory.currentCategory)
         }
     }
-
 }

@@ -12,7 +12,6 @@ import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
 
 class AllFilmPagingSource(
-    private val filterParams: ParamsFilterFilm,
     private val categoriesFilms: CategoriesFilms,
     private val year: Int,
     private val month: String,

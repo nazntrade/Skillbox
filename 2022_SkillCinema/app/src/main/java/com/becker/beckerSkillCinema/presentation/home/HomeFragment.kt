@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentHomeBinding
 import com.becker.beckerSkillCinema.presentation.CinemaViewModel
@@ -24,11 +23,11 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainFunction()
+        mainFunctions()
         doOnSwipe()
     }
 
-    private fun mainFunction() {
+    private fun mainFunctions() {
         viewModel.getFilmsByCategories()
         stateLoadingListener()
         categoryObserve()
@@ -55,11 +54,9 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun onClickShowAllButton(currentCategory: CategoriesFilms) {
-        viewModel.setCurrentCategory(currentCategory)
-        findNavController().navigate(R.id.action_fragmentHome_to_fragmentAllFilms)
-//        val direction =
-//            HomeFragmentDirections.actionFragmentHomeToFragmentAllFilms(currentCategory)
-//        findNavController().navigate(direction)
+        val direction =
+            HomeFragmentDirections.actionFragmentHomeToFragmentAllFilms(currentCategory)
+        findNavController().navigate(direction)
     }
 
     private fun stateLoadingListener() {
@@ -100,7 +97,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
         val swiperefresh = binding.swiperefresh
         swiperefresh.setOnRefreshListener {
             swiperefresh.isRefreshing = false
-            mainFunction()
+            mainFunctions()
         }
     }
 }

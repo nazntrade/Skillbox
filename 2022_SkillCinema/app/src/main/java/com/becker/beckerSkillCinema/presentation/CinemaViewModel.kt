@@ -11,7 +11,6 @@ import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allfilmadapter.AllFilmAdapter
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allfilmadapter.AllFilmPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitTheNumberOfObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +19,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.time.Month
 import java.util.*
 import javax.inject.Inject
@@ -129,43 +127,37 @@ class CinemaViewModel @Inject constructor(
     }
 
     // FragmentAllFilms
-    private var allFilmAdapter: AllFilmAdapter = AllFilmAdapter { }
-
-    private lateinit var currentCategory: CategoriesFilms
-    fun setCurrentCategory(category: CategoriesFilms) {
-        currentCategory = category
-        if (allFilmAdapter.itemCount != 0) allFilmAdapter.refresh()
+    fun setAllFilmsByCategory(    // ?????????
+        currentCategory: CategoriesFilms
+    ): Flow<PagingData<HomeItem>> {
+        val allFilmsByCategory: Flow<PagingData<HomeItem>> = Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = {
+                AllFilmPagingSource(
+                    categoriesFilms = currentCategory,
+                    year = currentYear,
+                    month = currentMonth,
+                    getPremierFilmUseCase,
+                    getTopFilmsUseCase,
+                    getFilmListUseCase
+                )
+            }
+        ).flow.cachedIn(viewModelScope)
+        return allFilmsByCategory
     }
 
-    fun getCurrentCategory() = currentCategory
-
-    fun getAllFilmAdapter() = allFilmAdapter
-    fun setAllFilmAdapter(adapter: AllFilmAdapter) {
-        allFilmAdapter = adapter
+    fun setAllSeries(): Flow<PagingData<HomeItem>> {   // ?????????
+        val allSeries: Flow<PagingData<HomeItem>> = Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = {
+                FilmsByFilterPagingSource(
+                    filters = ParamsFilterFilm(type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)),
+                    getFilmListUseCase = getFilmListUseCase
+                )
+            }
+        ).flow.cachedIn(viewModelScope)
+        return allSeries
     }
-
-    val allFilmsByCategory: Flow<PagingData<HomeItem>> = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = {
-            AllFilmPagingSource(
-                filterParams = currentParamsFilterFilm,
-                categoriesFilms = currentCategory,
-                year = calendar.get(Calendar.YEAR),
-                month = currentMonth,
-                getPremierFilmUseCase, getTopFilmsUseCase, getFilmListUseCase
-            )
-        }
-    ).flow.cachedIn(viewModelScope)
-
-    val allSeries: Flow<PagingData<HomeItem>> = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = {
-            FilmsByFilterPagingSource(
-                filters = ParamsFilterFilm(type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)),
-                getFilmListUseCase = getFilmListUseCase
-            )
-        }
-    ).flow.cachedIn(viewModelScope)
 
 
     // FragmentFilmDetail
