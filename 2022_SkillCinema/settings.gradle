@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "BeckerSkillCinema"
+rootProject.name = "BeckerCinema"
 include ':app'

@@ -28,7 +28,6 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun mainFunctions() {
-        viewModel.getFilmsByCategories()
         stateLoadingListener()
         categoryObserve()
     }

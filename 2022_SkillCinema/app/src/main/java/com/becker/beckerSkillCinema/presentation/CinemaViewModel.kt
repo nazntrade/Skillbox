@@ -11,7 +11,7 @@ import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allfilmadapter.AllFilmPagingSource
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdpters.AllFilmPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitTheNumberOfObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -33,13 +33,16 @@ class CinemaViewModel @Inject constructor(
     private val currentMonth: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
     private val currentYear: Int = calendar.get(Calendar.YEAR)
 
-
     // FragmentHome
     private val _homePageFilmList = MutableStateFlow<List<HomeList>>(emptyList())
     val homePageFilmList = _homePageFilmList.asStateFlow()
 
     private val _loadCategoryState = MutableStateFlow<StateLoading>(StateLoading.Default)
     val loadCategoryState = _loadCategoryState.asStateFlow()
+
+    init {
+        getFilmsByCategories()
+    }
 
     fun getFilmsByCategories() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -168,18 +171,5 @@ class CinemaViewModel @Inject constructor(
 
     companion object {
         private val calendar = Calendar.getInstance()
-
-        private var currentParamsFilterFilm = ParamsFilterFilm(
-            countries = emptyMap(),
-            genres = null, /////
-            order = "RATING",
-            type = "",
-            ratingFrom = 0,
-            ratingTo = 10,
-            yearFrom = 1000,
-            yearTo = 3000,
-            imdbId = null,
-            keyword = ""
-        )
     }
 }

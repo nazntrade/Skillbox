@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,7 +13,7 @@ import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.CinemaViewModel
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allfilmadapter.AllFilmAdapter
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdpters.AllFilmAdapter
 
 class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
@@ -21,26 +22,23 @@ class FragmentAllFilms :
     private val incomeArgsCategory: FragmentAllFilmsArgs by navArgs()
     private lateinit var allFilmAdapter: AllFilmAdapter
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setLayout()
         setAdapter()
         setFilmList(incomeArgsCategory.currentCategory)
-        doOnSwipe()
     }
 
     private fun setLayout() {
         binding.apply {
             allFilmsCategoryTv.text = incomeArgsCategory.currentCategory.text
-            allFilmsToHomeBtn.setOnClickListener { requireActivity().onBackPressedDispatcher } //////////////
+            allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
             progressGroupContainer
                 .loadingRefreshBtn.setOnClickListener {
                     setFilmList(incomeArgsCategory.currentCategory)
                 }
         }
-
         binding.allFilmsList.layoutManager =
             GridLayoutManager(
                 requireContext(),
@@ -112,11 +110,4 @@ class FragmentAllFilms :
 //
     }
 
-    private fun doOnSwipe() {
-        val swiperefresh = binding.swiperefresh
-        swiperefresh.setOnRefreshListener {
-            swiperefresh.isRefreshing = false
-            setFilmList(incomeArgsCategory.currentCategory)
-        }
-    }
 }

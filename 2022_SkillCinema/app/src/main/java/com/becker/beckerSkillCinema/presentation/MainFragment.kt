@@ -14,16 +14,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
-    // I intercept the back button and exit the application. not come back to onboarding
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
+//    // I intercept the back button and exit the application. not come back to onboarding
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                requireActivity().finish()
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//    }
 
     private lateinit var navController: NavController
 
