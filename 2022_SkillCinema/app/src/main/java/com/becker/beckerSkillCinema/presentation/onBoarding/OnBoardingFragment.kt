@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.presentation.onBoarding
 import android.content.Context
 import android.os.Bundle
 import android.os.Environment
+import android.preference.PreferenceManager
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
@@ -52,23 +53,10 @@ class OnBoardingFragment :
     }
 
     private fun onBoardingFinished() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
-            val sharedPref =
-                requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-            try {
-                val editor = sharedPref.edit()
-                editor.putBoolean("FirstRun", false)
-                editor.apply()
-            } catch (t: Throwable) {
-
+            PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
+                putBoolean("FirstRun", true)
+                apply()
             }
-        }
-        findNavController().navigate(R.id.action_onBoardingFragment2_to_mainFragment)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        findNavController().clearBackStack(R.id.action_onBoardingFragment2_to_mainFragment)
+        findNavController().navigate(R.id.mainFragment)
     }
 }

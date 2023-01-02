@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.preference.PreferenceManager
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.becker.beckerSkillCinema.R
@@ -30,21 +32,28 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         val navController = navHost.navController
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
-            sharedPref = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
-            try {
-                val firstRun = sharedPref.getBoolean("FirstRun", true)
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
+//            sharedPref = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+//            try {
+//                val firstRun = sharedPref.getBoolean("FirstRun", true)
+//
+//                if (firstRun) {
+//                    navController.navigate(R.id.onBoardingFragment)
+//                } else {
+//                    navController.navigate(R.id.mainFragment)
+//                }
+//
+//            } catch (t: Throwable) {
+//
+//            }
 
-                if (firstRun) {
+            PreferenceManager.getDefaultSharedPreferences(this).apply {
+                if (!getBoolean("FirstRun", false)) {
                     navController.navigate(R.id.onBoardingFragment)
                 } else {
                     navController.navigate(R.id.mainFragment)
                 }
-
-            } catch (t: Throwable) {
-
-            }
         }
     }
 }
