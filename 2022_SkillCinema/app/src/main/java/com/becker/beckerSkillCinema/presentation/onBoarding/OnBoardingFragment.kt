@@ -53,10 +53,10 @@ class OnBoardingFragment :
     }
 
     private fun onBoardingFinished() {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
-                putBoolean("FirstRun", true)
-                apply()
-            }
+        PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
+            putBoolean("FirstRun", true)
+            apply()
+        }
         findNavController().navigate(R.id.mainFragment)
     }
 }

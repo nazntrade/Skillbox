@@ -30,7 +30,7 @@
         android:id="@+id/fragmentAllFilms"
         android:name="com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilms"
         android:label="FragmentAllFilms"
-        tools:layout="@layout/fragment_all_films" >
+        tools:layout="@layout/fragment_all_films">
         <argument
             android:name="currentCategory"
             app:argType="com.becker.beckerSkillCinema.data.CategoriesFilms" />
@@ -39,8 +39,7 @@
         android:id="@+id/onBoardingFragment"
         tools:layout="@layout/item_onboarding"
         android:name="com.becker.beckerSkillCinema.presentation.onBoarding.OnBoardingFragment"
-        android:label="OnBoardingFragment" >
-    </fragment>
+        android:label="OnBoardingFragment"></fragment>
     <fragment
         android:id="@+id/mainFragment"
         tools:layout="@layout/fragment_main"

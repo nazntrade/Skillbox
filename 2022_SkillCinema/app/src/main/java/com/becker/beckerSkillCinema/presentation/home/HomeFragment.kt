@@ -1,25 +1,17 @@
 package com.becker.beckerSkillCinema.presentation.home
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentHomeBinding
 import com.becker.beckerSkillCinema.presentation.CinemaViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.CategoryAdapter
-import com.becker.beckerSkillCinema.utils.Constants
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -99,7 +91,6 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
             }
         }
     }
-
 
 
     private fun doOnSwipe() {
