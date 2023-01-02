@@ -64,11 +64,11 @@ class OnBoardingFragment :
 
             }
         }
-        findNavController().navigate(R.id.action_onBoardingFragment_to_mainFragment)
+        findNavController().navigate(R.id.action_onBoardingFragment2_to_mainFragment)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        findNavController().clearBackStack(R.id.onBoardingFragment)
+        findNavController().clearBackStack(R.id.action_onBoardingFragment2_to_mainFragment)
     }
 }

@@ -1,37 +1,42 @@
 package com.becker.beckerSkillCinema.presentation
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentMainBinding
+import com.becker.beckerSkillCinema.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
-//    // I intercept the back button and exit the application. not come back to onboarding
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                requireActivity().finish()
-//            }
-//        }
-//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-//    }
-
     private lateinit var navController: NavController
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setBottomNavigation()
-
     }
 
     //  BottomNavigationView

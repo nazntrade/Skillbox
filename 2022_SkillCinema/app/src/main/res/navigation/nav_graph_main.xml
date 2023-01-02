@@ -35,4 +35,22 @@
             android:name="currentCategory"
             app:argType="com.becker.beckerSkillCinema.data.CategoriesFilms" />
     </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        tools:layout="@layout/item_onboarding"
+        android:name="com.becker.beckerSkillCinema.presentation.onBoarding.OnBoardingFragment"
+        android:label="OnBoardingFragment" >
+        <action
+            android:id="@+id/action_onBoardingFragment2_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        tools:layout="@layout/fragment_main"
+        android:name="com.becker.beckerSkillCinema.presentation.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
 </navigation>
