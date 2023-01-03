@@ -1,6 +1,8 @@
 package com.becker.beckerSkillCinema.presentation
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +13,7 @@ import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
@@ -20,12 +23,18 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
         super.onAttach(context)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                requireActivity().finish()
+//                requireActivity().finish()
+                AlertDialog.Builder(requireContext())
+                    .setIcon(R.drawable.becker_cinema_icon)
+                    .setTitle("Выход")
+                    .setMessage("Вы уверены, что хотите закрыть приложение?")
+                    .setPositiveButton("Да") { _, _ -> requireActivity().finish() }
+                    .setNegativeButton("Нет", null)
+                    .show()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
