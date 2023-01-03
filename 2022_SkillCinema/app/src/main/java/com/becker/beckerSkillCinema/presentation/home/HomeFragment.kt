@@ -12,13 +12,14 @@ import com.becker.beckerSkillCinema.presentation.CinemaViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.CategoryAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     // https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
     private val viewModel: CinemaViewModel by activityViewModels()
 
-    private lateinit var categoryAdapter: CategoryAdapter
+    private var categoryAdapter: CategoryAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

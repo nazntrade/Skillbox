@@ -14,13 +14,14 @@ import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.CinemaViewModel
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdpters.AllFilmAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
 
 class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
 
     private val viewModel: CinemaViewModel by activityViewModels()
     private val incomeArgsCategory: FragmentAllFilmsArgs by navArgs()
-    private lateinit var allFilmAdapter: AllFilmAdapter
+    private var allFilmAdapter: AllFilmAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +43,7 @@ class FragmentAllFilms :
         binding.allFilmsList.layoutManager =
             GridLayoutManager(
                 requireContext(),
-                2,
+                3,
                 GridLayoutManager.VERTICAL,
                 false
             )

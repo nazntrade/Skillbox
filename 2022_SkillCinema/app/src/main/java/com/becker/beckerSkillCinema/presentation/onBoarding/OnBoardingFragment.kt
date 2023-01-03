@@ -3,25 +3,21 @@ package com.becker.beckerSkillCinema.presentation.onBoarding
 import android.content.Context
 import android.os.Bundle
 import android.os.Environment
-import android.preference.PreferenceManager
 import android.view.View
-import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.OnBoardingResources
 import com.becker.beckerSkillCinema.databinding.FragmentOnboardingBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.onBoarding.adapter.PagerAdapter
-import com.becker.beckerSkillCinema.utils.Constants.SHARED_PREFS_NAME
+import com.becker.beckerSkillCinema.utils.Constants
+import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class OnBoardingFragment :
     ViewBindingFragment<FragmentOnboardingBinding>(FragmentOnboardingBinding::inflate) {
 
-    private lateinit var adapter: PagerAdapter
+    private var adapter: PagerAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,10 +49,15 @@ class OnBoardingFragment :
     }
 
     private fun onBoardingFinished() {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
-            putBoolean("FirstRun", true)
-            apply()
-        }
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
+        val sharedPref =
+            requireActivity().getSharedPreferences(
+                Constants.SHARED_PREFS_NAME,
+                Context.MODE_PRIVATE
+            )
+        val firstRunEditor = sharedPref.edit()
+        firstRunEditor.putBoolean("FirstRun", false)
+        firstRunEditor.apply()
         findNavController().navigate(R.id.mainFragment)
     }
 }
