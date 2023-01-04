@@ -45,7 +45,6 @@ class OnBoardingFragment :
         TabLayoutMediator(binding.tabLayout, binding.onboardingViewpager) { _, _ -> }.attach()
 
         binding.btnOnboardingSkip.setOnClickListener { onBoardingFinished() }
-
     }
 
     private fun onBoardingFinished() {

@@ -4,15 +4,11 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.preference.PreferenceManager
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.ActivityMainBinding
 import com.becker.beckerSkillCinema.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

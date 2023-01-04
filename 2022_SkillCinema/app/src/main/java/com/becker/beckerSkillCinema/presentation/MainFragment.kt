@@ -23,7 +23,6 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
         super.onAttach(context)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-//                requireActivity().finish()
                 AlertDialog.Builder(requireContext())
                     .setIcon(R.drawable.becker_cinema_icon)
                     .setTitle("Выход")

@@ -39,7 +39,7 @@
         android:id="@+id/onBoardingFragment"
         tools:layout="@layout/item_onboarding"
         android:name="com.becker.beckerSkillCinema.presentation.onBoarding.OnBoardingFragment"
-        android:label="OnBoardingFragment"></fragment>
+        android:label="OnBoardingFragment" />
     <fragment
         android:id="@+id/mainFragment"
         tools:layout="@layout/fragment_main"
