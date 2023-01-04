@@ -24,7 +24,7 @@
             android:id="@+id/actor_name_film_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/graphik_bold"
+            android:fontFamily="@font/graphic_bold"
             android:textColor="#272727"
             android:textSize="14sp"
             tools:text="Владимир Онохов" />
@@ -34,12 +34,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/graphik_regular"
+            android:fontFamily="@font/graphic_regular"
             android:maxLines="2"
             android:textColor="#838390"
             android:textSize="12sp"
             tools:text="Лешка" />
-
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
