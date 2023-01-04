@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"/>
         <Constraint
             android:id="@+id/film_name"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toEndOf="@id/btn_back_field"
             android:layout_height="1dp"
@@ -36,7 +36,7 @@
         <Constraint
             android:id="@+id/my_scroll"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dimen_0"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toBottomOf="@id/film_main_group" />
     </ConstraintSet>
@@ -53,8 +53,8 @@
             android:layout_height="wrap_content"/>
         <Constraint
             android:id="@+id/film_name"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="@dimen/dimen_0"
             motion:layout_constraintStart_toEndOf="@id/btn_back_field"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="@id/btn_back_field"
@@ -62,7 +62,7 @@
         <Constraint
             android:id="@+id/my_scroll"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dimen_0"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toBottomOf="@id/film_name" />
     </ConstraintSet>

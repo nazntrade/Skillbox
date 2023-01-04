@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- MotionLayout ->  https://medium.com/mindful-engineering/getting-started-with-motion-layout-in-android-c52af5d5076c-->
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,6 +23,7 @@
         android:background="@color/white"
         android:fontFamily="@font/graphic_bold"
         android:gravity="center"
+        android:textColor="#455A64"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_back"
@@ -218,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:text="@string/btn_show_all_top"
-                    android:textColor="@color/button_back_forward"
+                    android:textColor="#D500F9"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/series_seasons_label"
                     app:layout_constraintEnd_toEndOf="parent"
