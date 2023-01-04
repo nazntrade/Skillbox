@@ -1,7 +1,7 @@
-package com.becker.beckerSkillCinema.data.filmspremier
+package com.becker.beckerSkillCinema.data.filmsPremier
 
-import com.becker.beckerSkillCinema.data.filmbyfilter.Country
-import com.becker.beckerSkillCinema.data.filmbyfilter.Genre
+import com.becker.beckerSkillCinema.data.filmByFilter.Country
+import com.becker.beckerSkillCinema.data.filmByFilter.Genre
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

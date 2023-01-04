@@ -1,7 +1,7 @@
 package com.becker.beckerSkillCinema.data
 
-import com.becker.beckerSkillCinema.data.filmbyfilter.ResponseByFilter
-import com.becker.beckerSkillCinema.data.filmspremier.FilmPremier
+import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
+import com.becker.beckerSkillCinema.data.filmsPremier.FilmPremier
 import com.becker.beckerSkillCinema.data.network.Networking
 import com.becker.beckerSkillCinema.entity.HomeItem
 import javax.inject.Inject

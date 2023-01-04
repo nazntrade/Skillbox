@@ -7,7 +7,7 @@ import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.becker.beckerSkillCinema.data.filmbyfilter.Genre
+import com.becker.beckerSkillCinema.data.filmByFilter.Genre
 import com.becker.beckerSkillCinema.databinding.ItemFilmBinding
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.utils.loadImage

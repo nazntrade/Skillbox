@@ -11,15 +11,15 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
-import com.becker.beckerSkillCinema.presentation.CinemaViewModel
+import com.becker.beckerSkillCinema.presentation.MainViewModel
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdpters.AllFilmAdapter
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 
 class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
 
-    private val viewModel: CinemaViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
     private val incomeArgsCategory: FragmentAllFilmsArgs by navArgs()
     private var allFilmAdapter: AllFilmAdapter by autoCleared()
 
@@ -53,7 +53,7 @@ class FragmentAllFilms :
 
         allFilmAdapter = AllFilmAdapter { onClickFilm(it) }
 
-        allFilmAdapter.addLoadStateListener { state -> // ???????
+        allFilmAdapter.addLoadStateListener { state -> // ???????????????????????????????????????????
             val currentState = state.refresh
             binding.apply {
                 allFilmsList.isVisible = currentState != LoadState.Loading

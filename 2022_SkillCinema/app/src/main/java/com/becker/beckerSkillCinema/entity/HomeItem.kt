@@ -1,6 +1,6 @@
 package com.becker.beckerSkillCinema.entity
 
-import com.becker.beckerSkillCinema.data.filmbyfilter.Genre
+import com.becker.beckerSkillCinema.data.filmByFilter.Genre
 
 interface HomeItem {
     val filmId: Int

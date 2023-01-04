@@ -11,7 +11,7 @@ import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdpters.AllFilmPagingSource
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitTheNumberOfObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class CinemaViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val getTopFilmsUseCase: GetTopFilmsUseCase,
     private val getPremierFilmUseCase: GetPremierFilmUseCase,
     private val getFilmListUseCase: GetFilmListUseCase
@@ -130,7 +130,7 @@ class CinemaViewModel @Inject constructor(
     }
 
     // FragmentAllFilms
-    fun setAllFilmsByCategory(    // ?????????
+    fun setAllFilmsByCategory(    // ????????????????????????????????????????????????????????????????
         currentCategory: CategoriesFilms
     ): Flow<PagingData<HomeItem>> {
         val allFilmsByCategory: Flow<PagingData<HomeItem>> = Pager(
@@ -145,11 +145,11 @@ class CinemaViewModel @Inject constructor(
                     getFilmListUseCase
                 )
             }
-        ).flow.cachedIn(viewModelScope)
+        ).flow.cachedIn(viewModelScope) //????????????????????
         return allFilmsByCategory
     }
 
-    fun setAllSeries(): Flow<PagingData<HomeItem>> {   // ?????????
+    fun setAllSeries(): Flow<PagingData<HomeItem>> {   // ???????????????????????????????????????????
         val allSeries: Flow<PagingData<HomeItem>> = Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {
@@ -158,7 +158,7 @@ class CinemaViewModel @Inject constructor(
                     getFilmListUseCase = getFilmListUseCase
                 )
             }
-        ).flow.cachedIn(viewModelScope)
+        ).flow.cachedIn(viewModelScope) //?????????????????????
         return allSeries
     }
 

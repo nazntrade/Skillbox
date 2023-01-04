@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentHomeBinding
-import com.becker.beckerSkillCinema.presentation.CinemaViewModel
+import com.becker.beckerSkillCinema.presentation.MainViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.CategoryAdapter
@@ -17,7 +17,7 @@ import com.becker.beckerSkillCinema.utils.autoCleared
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     // https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
-    private val viewModel: CinemaViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     private var categoryAdapter: CategoryAdapter by autoCleared()
 

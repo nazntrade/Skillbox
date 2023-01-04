@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdpters
+package com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

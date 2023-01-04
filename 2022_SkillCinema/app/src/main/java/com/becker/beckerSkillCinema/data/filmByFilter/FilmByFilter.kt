@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.data.filmbyfilter
+package com.becker.beckerSkillCinema.data.filmByFilter
 
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.squareup.moshi.Json

@@ -1,8 +1,8 @@
 package com.becker.beckerSkillCinema.data.network
 
-import com.becker.beckerSkillCinema.data.filmbyfilter.ResponseByFilter
-import com.becker.beckerSkillCinema.data.filmspremier.ResponsePremier
-import com.becker.beckerSkillCinema.data.filmstop.ResponseTop
+import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
+import com.becker.beckerSkillCinema.data.filmsPremier.ResponsePremier
+import com.becker.beckerSkillCinema.data.filmsTop.ResponseTop
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3

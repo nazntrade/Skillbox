@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.data.filmspremier
+package com.becker.beckerSkillCinema.data.filmsPremier
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
