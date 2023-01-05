@@ -31,7 +31,7 @@
 
     <!-- Series seasons/episodes fragment -->
     <string name="label_series_seasons">Сезоны и серии</string>
-
+    <string name="images">images</string>
 
 
 </resources>

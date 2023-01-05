@@ -25,7 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/graphic_bold"
-            android:textColor="#272727"
             android:textSize="14sp"
             tools:text="Владимир Онохов" />
 

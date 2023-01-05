@@ -1,63 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--https://medium.com/mindful-engineering/getting-started-with-motion-layout-in-android-c52af5d5076c-->
+<!--MotionScene: A MotionScene is an XML
+ resource file that contains all of the motion descriptions for the corresponding
+ layout. In MotionScene, we write
+ all the animations that we want to add to our project.-->
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
+    <!--Transition: A transition describes the change from state A to state B.
+     You can add the start constraint using-->
     <Transition
-        motion:constraintSetEnd="@+id/end"
-        motion:constraintSetStart="@id/start"
+        motion:constraintSetEnd="@+id/collapsed"
+        motion:constraintSetStart="@id/expanded"
         motion:duration="1000">
+
+        <!--KeyFrameSet: You can think of an animation as a sequence of frames.
+         Suppose, if we want to move from A to B, then the shortest path
+         will be considered during the transition.-->
         <KeyFrameSet>
             <KeyAttribute
                 android:alpha="0"
                 motion:framePosition="100"
-                motion:motionTarget="@+id/film_main_group" />
+                motion:motionTarget="@+id/film_main_group_with_poster" />
         </KeyFrameSet>
+
         <OnSwipe
-            motion:touchAnchorId="@+id/film_main_group"
+            motion:touchAnchorId="@+id/film_main_group_with_poster"
             motion:touchAnchorSide="bottom" />
     </Transition>
 
-    <ConstraintSet android:id="@+id/start">
+    <!--ConstraintSet: Finally, you use ConstraintSet definitions to define starting
+    and final constraints, for each of the Views you want to animate.-->
+
+    <ConstraintSet android:id="@+id/expanded">
         <Constraint
-            android:id="@+id/film_main_group"
+            android:id="@+id/film_main_group_with_poster"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
         <Constraint
             android:id="@+id/btn_back_field"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
         <Constraint
             android:id="@+id/film_name"
             android:layout_width="@dimen/dimen_0"
+            android:layout_height="1dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toEndOf="@id/btn_back_field"
-            android:layout_height="1dp"
             motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/my_scroll"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_0"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/film_main_group" />
+            motion:layout_constraintTop_toBottomOf="@id/film_main_group_with_poster" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/end">
+    <ConstraintSet android:id="@+id/collapsed">
         <Constraint
-            android:id="@+id/film_main_group"
+            android:id="@+id/film_main_group_with_poster"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/btn_back_field"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
         <Constraint
             android:id="@+id/film_name"
             android:layout_width="@dimen/dimen_0"
             android:layout_height="@dimen/dimen_0"
-            motion:layout_constraintStart_toEndOf="@id/btn_back_field"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="@id/btn_back_field"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/btn_back_field"
             motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/my_scroll"
@@ -66,4 +80,5 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toBottomOf="@id/film_name" />
     </ConstraintSet>
+
 </MotionScene>

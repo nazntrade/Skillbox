@@ -11,13 +11,15 @@
         android:paddingStart="@dimen/dimen_8"
         android:paddingEnd="@dimen/dimen_0">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <TextView
             android:id="@+id/banner_app_name"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8"
             android:layout_marginTop="@dimen/dimen_16"
-            android:paddingBottom="@dimen/dimen_8"
-            android:src="@drawable/banner_app_name"
+            android:gravity="center|start"
+            android:text="@string/app_name"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

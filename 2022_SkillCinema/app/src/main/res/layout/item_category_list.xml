@@ -23,7 +23,6 @@
         android:layout_marginEnd="@dimen/dimen_26"
         android:fontFamily="@font/graphic_light"
         android:text="@string/btn_show_all_top"
-        android:textColor="@color/purple_1"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/title_category"
         app:layout_constraintEnd_toEndOf="parent" />

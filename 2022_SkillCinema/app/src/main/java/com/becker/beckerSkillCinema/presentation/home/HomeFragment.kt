@@ -69,7 +69,6 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
                             progressGroupContainer.loadingProgressBar.isVisible = true
                             progressGroupContainer.loadingRefreshBtn.isVisible = false
                             progressGroupContainer.noAnswerText.isVisible = false
-
                             categoryList.isVisible = false
                         }
                     }

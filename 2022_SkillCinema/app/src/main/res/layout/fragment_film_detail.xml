@@ -7,7 +7,7 @@
     android:id="@+id/film_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/fragment_film_detail_scene">
+    app:layoutDescription="@xml/fragment_film_detail_motion_scene">
 
     <!-- Progress group -->
     <include
@@ -20,10 +20,8 @@
         android:id="@+id/film_name"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:fontFamily="@font/graphic_bold"
         android:gravity="center"
-        android:textColor="#455A64"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_back"
@@ -32,7 +30,7 @@
 
     <!-- Main group -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/film_main_group"
+        android:id="@+id/film_main_group_with_poster"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:paddingBottom="@dimen/dimen_16"
@@ -86,6 +84,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="95dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="95dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="367dp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_to_favorite"
@@ -142,30 +154,17 @@
             app:layout_constraintStart_toEndOf="@id/btn_share"
             app:layout_constraintTop_toTopOf="@id/guideline3" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="95dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="367dp" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Description group -->
+    <!--    https://www.geeksforgeeks.org/nestedscrollview-in-android-with-example/-->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/my_scroll"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_0"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/film_main_group">
+        app:layout_constraintTop_toBottomOf="@id/film_main_group_with_poster">
 
         <LinearLayout
             android:id="@+id/film_description_group"
@@ -221,7 +220,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:text="@string/btn_show_all_top"
-                    android:textColor="#D500F9"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/series_seasons_label"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -260,7 +258,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_9"
-                    android:textColor="@color/button_back_forward"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/film_actors_label"
                     app:layout_constraintEnd_toStartOf="@id/film_actors_btn"
@@ -312,7 +309,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_9"
-                    android:textColor="@color/button_back_forward"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/film_makers_label"
                     app:layout_constraintEnd_toStartOf="@id/film_makers_btn"
@@ -364,7 +360,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_9"
-                    android:textColor="@color/button_back_forward"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/film_gallery_label"
                     app:layout_constraintEnd_toStartOf="@id/film_gallery_btn"
@@ -385,6 +380,7 @@
                     android:id="@+id/film_gallery_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/images"
                     android:orientation="horizontal"
                     android:paddingTop="@dimen/dimen_16"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -415,8 +411,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_9"
-                    android:textColor="@color/button_back_forward"
-                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/film_similar_label"
                     app:layout_constraintEnd_toStartOf="@id/film_similar_btn"
                     app:layout_constraintTop_toTopOf="parent"
