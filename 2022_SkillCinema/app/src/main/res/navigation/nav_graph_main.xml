@@ -12,10 +12,12 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragmentHome_to_fragmentAllFilms"
-            app:destination="@id/fragmentAllFilms" />
+            app:destination="@id/fragmentAllFilms"
+            app:popUpTo="@id/fragmentHome" />
         <action
             android:id="@+id/action_fragmentHome_to_fragmentFilmDetail"
-            app:destination="@id/fragmentFilmDetail" />
+            app:destination="@id/fragmentFilmDetail"
+            app:popUpTo="@id/fragmentHome" />
     </fragment>
 
     <fragment
@@ -39,18 +41,19 @@
             app:argType="com.becker.beckerSkillCinema.data.CategoriesFilms" />
         <action
             android:id="@+id/action_fragmentAllFilms_to_fragmentFilmDetail"
-            app:destination="@id/fragmentFilmDetail" />
+            app:destination="@id/fragmentFilmDetail"
+            app:popUpTo="@id/fragmentAllFilms"/>
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
-        tools:layout="@layout/item_onboarding"
         android:name="com.becker.beckerSkillCinema.presentation.onBoarding.OnBoardingFragment"
-        android:label="OnBoardingFragment" />
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/item_onboarding" />
     <fragment
         android:id="@+id/mainFragment"
-        tools:layout="@layout/fragment_main"
         android:name="com.becker.beckerSkillCinema.presentation.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/fragmentFilmDetail"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.FragmentFilmDetail"

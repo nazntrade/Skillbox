@@ -1,7 +1,9 @@
 package com.becker.beckerSkillCinema.presentation.allFilmByCategory
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +13,6 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
-import com.becker.beckerSkillCinema.presentation.MainViewModel
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
@@ -19,9 +20,19 @@ import com.becker.beckerSkillCinema.utils.autoCleared
 class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
 
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: AllFilmsViewModel by activityViewModels()
     private val incomeArgsCategory: FragmentAllFilmsArgs by navArgs()
     private var allFilmAdapter: AllFilmAdapter by autoCleared()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -115,5 +126,4 @@ class FragmentAllFilms :
         val action = FragmentAllFilmsDirections.actionFragmentAllFilmsToFragmentFilmDetail(filmId)
         findNavController().navigate(action)
     }
-
 }

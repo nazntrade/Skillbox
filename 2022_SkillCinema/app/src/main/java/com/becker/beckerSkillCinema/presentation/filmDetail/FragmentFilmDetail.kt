@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.presentation.filmDetail
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -18,7 +19,6 @@ import com.becker.beckerSkillCinema.data.TOP_TYPES
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.databinding.FragmentFilmDetailBinding
-import com.becker.beckerSkillCinema.presentation.MainViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter.FilmAdapter
@@ -32,7 +32,7 @@ class FragmentFilmDetail :
     ViewBindingFragment<FragmentFilmDetailBinding>(FragmentFilmDetailBinding::inflate) {
 
     // https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: FilmDetailViewModel by activityViewModels()
 
     private var actorAdapter: StaffAdapter by autoCleared()
     private var makersAdapter: StaffAdapter by autoCleared()
@@ -40,9 +40,20 @@ class FragmentFilmDetail :
     private var similarAdapter: FilmAdapter by autoCleared()
     private val args: FragmentFilmDetailArgs by navArgs()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
         viewModel.getFilmById(args.filmId)
 
         stateLoadingListener()              // Установка слушателя состояния загрузки
@@ -52,8 +63,6 @@ class FragmentFilmDetail :
         setFilmMakers()                     // Установка списка съёмочной группы
         setFilmGallery()                    // Установка галереи фотографий
         setSimilarFilms()                   // Установка списка похожих фильмов
-
-        binding.btnBack.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     private fun stateLoadingListener() {
