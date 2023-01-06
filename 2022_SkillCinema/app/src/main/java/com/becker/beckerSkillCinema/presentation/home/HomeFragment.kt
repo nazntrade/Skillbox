@@ -49,8 +49,8 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun onClickFilm(filmId: Int) {
-//
-//
+        val action = HomeFragmentDirections.actionFragmentHomeToFragmentFilmDetail(filmId)
+        findNavController().navigate(action)
     }
 
     private fun onClickShowAllButton(currentCategory: CategoriesFilms) {

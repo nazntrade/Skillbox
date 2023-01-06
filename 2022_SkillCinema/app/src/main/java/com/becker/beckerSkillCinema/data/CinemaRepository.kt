@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.data
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
 import com.becker.beckerSkillCinema.data.filmsPremier.FilmPremier
 import com.becker.beckerSkillCinema.data.network.Networking
+import com.becker.beckerSkillCinema.data.network.Retrofit.retrofit
 import com.becker.beckerSkillCinema.entity.HomeItem
 import javax.inject.Inject
 
@@ -35,8 +36,18 @@ class CinemaRepository @Inject constructor() {
         )
     }
 
-
     // FragmentFilmDetail
+    suspend fun getFilmById(filmId: Int) = Networking.kinopoiskApi.getCurrentFilm(filmId)
+
+    suspend fun getSeasonsById(seriesId: Int) = Networking.kinopoiskApi.getSeasons(seriesId)
+
+    suspend fun getActorsByFilmId(filmId: Int) = Networking.kinopoiskApi.getActors(filmId)
+
+    suspend fun getGalleryByFilmId(filmId: Int, type: String, page: Int) =
+        Networking.kinopoiskApi.getFilmImages(filmId, type, page)
+
+    suspend fun getSimilarByFilmId(filmId: Int) = Networking.kinopoiskApi.getSimilarFilms(filmId)
+
 
 
     // FragmentStaffDetail

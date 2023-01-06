@@ -84,6 +84,9 @@ class FragmentAllFilms :
                         progressGroupContainer.loadingProgressBar.isVisible = false
                         progressGroupContainer.loadingRefreshBtn.isVisible = true
                         progressGroupContainer.noAnswerText.isVisible = true
+                        progressGroupContainer
+                            .loadingRefreshBtn
+                            .setOnClickListener { setFilmList(incomeArgsCategory.currentCategory) }
                     }
                 }
             }
@@ -109,8 +112,8 @@ class FragmentAllFilms :
     }
 
     private fun onClickFilm(filmId: Int) {
-//
-//
+        val action = FragmentAllFilmsDirections.actionFragmentAllFilmsToFragmentFilmDetail(filmId)
+        findNavController().navigate(action)
     }
 
 }

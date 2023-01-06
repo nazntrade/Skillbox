@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_fragmentHome_to_fragmentAllFilms"
             app:destination="@id/fragmentAllFilms" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail" />
     </fragment>
 
     <fragment
@@ -34,6 +37,9 @@
         <argument
             android:name="currentCategory"
             app:argType="com.becker.beckerSkillCinema.data.CategoriesFilms" />
+        <action
+            android:id="@+id/action_fragmentAllFilms_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -45,4 +51,13 @@
         tools:layout="@layout/fragment_main"
         android:name="com.becker.beckerSkillCinema.presentation.MainFragment"
         android:label="MainFragment" />
+    <fragment
+        android:id="@+id/fragmentFilmDetail"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.FragmentFilmDetail"
+        android:label="FragmentFilmDetail"
+        tools:layout="@layout/fragment_film_detail">
+        <argument
+            android:name="filmId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

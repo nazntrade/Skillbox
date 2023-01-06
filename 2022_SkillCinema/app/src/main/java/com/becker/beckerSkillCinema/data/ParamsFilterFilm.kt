@@ -12,3 +12,8 @@ data class ParamsFilterFilm(
     val imdbId: String? = null,
     val keyword: String = ""
 )
+
+data class ParamsFilterGallery(
+    val filmId: Int = 328,
+    val galleryType: String = "STILL"
+)
