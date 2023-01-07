@@ -15,14 +15,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/gray"
+            style="@style/onAllMovie"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/all_films_to_home_btn"
                 android:layout_width="30dp"
                 android:layout_height="15dp"
-                android:layout_marginStart="26dp"
+                style="@style/onAllMovie"
+                android:layout_marginStart="@dimen/dimen_26"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
 
             <TextView
                 android:id="@+id/all_films_category_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_bold"
                 android:gravity="center"
@@ -50,8 +51,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_films_list"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/dimen_8"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

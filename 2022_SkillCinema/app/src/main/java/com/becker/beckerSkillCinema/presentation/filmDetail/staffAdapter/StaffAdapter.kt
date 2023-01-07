@@ -15,10 +15,12 @@ class StaffAdapter(
 ) : ListAdapter<ResponseStaffByFilmId, StaffAdapter.StaffViewHolder>(DiffStaff()) {
 
     class DiffStaff : DiffUtil.ItemCallback<ResponseStaffByFilmId>() {
-        override fun areItemsTheSame(oldItem: ResponseStaffByFilmId, newItem: ResponseStaffByFilmId) =
-            oldItem.staffId == newItem.staffId &&
-                    oldItem.description == newItem.description &&
-                    oldItem.professionText == newItem.professionText
+        override fun areItemsTheSame(
+            oldItem: ResponseStaffByFilmId,
+            newItem: ResponseStaffByFilmId
+        ) = oldItem.staffId == newItem.staffId
+                && oldItem.description == newItem.description
+                && oldItem.professionText == newItem.professionText
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
@@ -39,7 +41,10 @@ class StaffAdapter(
         private val binding: ItemStaffDetailFilmBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(item: ResponseStaffByFilmId, clickActor: (actor: ResponseStaffByFilmId) -> Unit) {
+        fun bindItem(
+            item: ResponseStaffByFilmId,
+            clickActor: (actor: ResponseStaffByFilmId) -> Unit
+        ) {
             binding.apply {
                 actorAvatarFilmDetail.loadImage(item.posterUrl)
                 actorNameFilmDetail.text = item.nameRu ?: item.nameEn ?: "Не указан"

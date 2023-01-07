@@ -23,5 +23,8 @@
     <color name="detail_on_poster_color">#B5B5C9</color>
     <color name="button_back_forward">#3D3BFF</color>
 
+    // AllMovie
+    <color name="allMovieBarLight">#7C7AFD</color>
+
 
 </resources>

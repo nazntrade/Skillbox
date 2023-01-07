@@ -1,5 +1,6 @@
 package com.becker.beckerSkillCinema.presentation.allFilmByCategory
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -7,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.becker.beckerSkillCinema.data.CategoriesFilms
+import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.data.TOP_TYPES
 import com.becker.beckerSkillCinema.domain.*
@@ -26,15 +28,33 @@ class AllFilmsViewModel @Inject constructor(
     private val getFilmListUseCase: GetFilmListUseCase,
     ) : ViewModel() {
 
+    private val repository = CinemaRepository()
+    var localCategory: CategoriesFilms? = null
+
+    init {
+        getCategory()
+        setAllFilmsByCategory()
+        setAllSeries()
+    }
+
+    private fun getCategory() {
+        val category = repository.getCurrentCategory()
+        if (category != null)
+            localCategory =
+            category
+    }
+
     // FragmentAllFilms
     fun setAllFilmsByCategory(    // ????????????????????????????????????????????????????????????????
-        currentCategory: CategoriesFilms
+//        currentCategory: CategoriesFilms
     ): Flow<PagingData<HomeItem>> {
+        getCategory()
         val allFilmsByCategory: Flow<PagingData<HomeItem>> = Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {
                 AllFilmPagingSource(
-                    categoriesFilms = currentCategory,
+                    categoriesFilms =
+                    localCategory!!,
                     year = currentYear,
                     month = currentMonth,
                     getPremierFilmUseCase,
@@ -47,6 +67,7 @@ class AllFilmsViewModel @Inject constructor(
     }
 
     fun setAllSeries(): Flow<PagingData<HomeItem>> {   // ???????????????????????????????????????????
+        getCategory()
         val allSeries: Flow<PagingData<HomeItem>> = Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {

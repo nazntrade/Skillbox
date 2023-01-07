@@ -12,6 +12,7 @@ import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.CategoryAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
+import timber.log.Timber
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
@@ -53,6 +54,7 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun onClickShowAllButton(currentCategory: CategoriesFilms) {
+        viewModel.putCategory(currentCategory)
         val direction =
             HomeFragmentDirections.actionFragmentHomeToFragmentAllFilms(currentCategory)
         findNavController().navigate(direction)

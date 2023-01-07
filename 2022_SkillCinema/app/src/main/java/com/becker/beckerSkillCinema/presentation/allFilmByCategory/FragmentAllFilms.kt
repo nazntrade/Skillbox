@@ -16,6 +16,7 @@ import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
+import timber.log.Timber
 
 class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
@@ -39,7 +40,7 @@ class FragmentAllFilms :
 
         setLayout()
         setAdapter()
-        setFilmList(incomeArgsCategory.currentCategory)
+        setFilmList(/*incomeArgsCategory.currentCategory*/)
     }
 
     private fun setLayout() {
@@ -47,8 +48,8 @@ class FragmentAllFilms :
             allFilmsCategoryTv.text = incomeArgsCategory.currentCategory.text
             allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
             progressGroupContainer
-                .loadingRefreshBtn.setOnClickListener {
-                    setFilmList(incomeArgsCategory.currentCategory)
+                .loadingRefreshBtn.setOnClickListener {////////////////////////////////
+                    setFilmList(/*incomeArgsCategory.currentCategory*/)
                 }
         }
         binding.allFilmsList.layoutManager =
@@ -97,14 +98,14 @@ class FragmentAllFilms :
                         progressGroupContainer.noAnswerText.isVisible = true
                         progressGroupContainer
                             .loadingRefreshBtn
-                            .setOnClickListener { setFilmList(incomeArgsCategory.currentCategory) }
+                            .setOnClickListener { setFilmList(/*incomeArgsCategory.currentCategory*/) }
                     }
                 }
             }
         }
     }
 
-    private fun setFilmList(currentCategory: CategoriesFilms) {
+    private fun setFilmList(/*currentCategory: CategoriesFilms*/) {
         if (incomeArgsCategory.currentCategory == CategoriesFilms.TV_SERIES) {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.setAllSeries().collect {
@@ -113,7 +114,7 @@ class FragmentAllFilms :
             }
         } else {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.setAllFilmsByCategory(currentCategory)
+                viewModel.setAllFilmsByCategory(/*currentCategory*/)
                     .collect {
                         allFilmAdapter.submitData(it)
                     }
