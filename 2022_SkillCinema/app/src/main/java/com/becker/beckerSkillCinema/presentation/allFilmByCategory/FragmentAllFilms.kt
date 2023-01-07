@@ -16,6 +16,9 @@ import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 class FragmentAllFilms :
@@ -23,7 +26,7 @@ class FragmentAllFilms :
 
     private val viewModel: AllFilmsViewModel by activityViewModels()
     private val incomeArgsCategory: FragmentAllFilmsArgs by navArgs()
-    private var allFilmAdapter: AllFilmAdapter by autoCleared()
+    private lateinit var allFilmAdapter: AllFilmAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,24 +106,22 @@ class FragmentAllFilms :
                 }
             }
         }
+
     }
 
     private fun setFilmList(/*currentCategory: CategoriesFilms*/) {
         if (incomeArgsCategory.currentCategory == CategoriesFilms.TV_SERIES) {
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.setAllSeries().collect {
-                    allFilmAdapter.submitData(it)
-                }
-            }
+            viewModel.pagedSeries?.onEach {
+                allFilmAdapter.submitData(it)
+            }?.launchIn(viewLifecycleOwner.lifecycleScope)
+
         } else {
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.setAllFilmsByCategory(/*currentCategory*/)
-                    .collect {
-                        allFilmAdapter.submitData(it)
-                    }
-            }
+            viewModel.pagedFilms?.onEach {
+                allFilmAdapter.submitData(it)
+            }?.launchIn(viewLifecycleOwner.lifecycleScope)
         }
         binding.allFilmsList.adapter = allFilmAdapter
+
     }
 
     private fun onClickFilm(filmId: Int) {
