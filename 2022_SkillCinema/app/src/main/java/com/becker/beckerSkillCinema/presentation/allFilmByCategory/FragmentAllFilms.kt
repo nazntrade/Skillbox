@@ -44,7 +44,7 @@ class FragmentAllFilms :
 
         setLayout()
         setAdapter()
-        setFilmList(/*incomeArgsCategory.currentCategory*/)
+        setFilmList()
     }
 
     private fun setLayout() {
@@ -53,7 +53,7 @@ class FragmentAllFilms :
             allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
             progressGroupContainer
                 .loadingRefreshBtn.setOnClickListener {////////////////////////////////
-                    setFilmList(/*incomeArgsCategory.currentCategory*/)
+                    setFilmList()
                 }
         }
         binding.allFilmsList.layoutManager =
@@ -107,18 +107,15 @@ class FragmentAllFilms :
                 }
             }
         }
-
     }
 
     private fun setFilmList() {
-        if (incomeArgsCategory.currentCategory != viewModel.localCategoryLiveData.value) {
-            viewModel.localCategoryLiveData.observe(viewLifecycleOwner) { category ->
-                viewModel.getCategory()
-                viewModel.getPagedFilms()
-                viewModel.pagedFilms?.onEach { films ->
-                    allFilmAdapter.submitData(films)
-                }?.launchIn(viewLifecycleOwner.lifecycleScope)
-            }
+        if (incomeArgsCategory.currentCategory != viewModel.localCategoryLiveData) {
+            viewModel.getCategory()
+            viewModel.getPagedFilms()
+            viewModel.pagedFilms?.onEach { films ->
+                allFilmAdapter.submitData(films)
+            }?.launchIn(viewLifecycleOwner.lifecycleScope)
         } else {
             viewModel.pagedFilms?.onEach { films ->
                 allFilmAdapter.submitData(films)
