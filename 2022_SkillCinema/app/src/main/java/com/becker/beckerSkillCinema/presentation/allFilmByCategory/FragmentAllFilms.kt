@@ -52,7 +52,7 @@ class FragmentAllFilms :
             allFilmsCategoryTv.text = incomeArgsCategory.currentCategory.text
             allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
             progressGroupContainer
-                .loadingRefreshBtn.setOnClickListener {////////////////////////////////
+                .loadingRefreshBtn.setOnClickListener {//////////////////////////////////////////////////////////////////
                     setFilmList()
                 }
         }
@@ -69,7 +69,7 @@ class FragmentAllFilms :
 
         allFilmAdapter = AllFilmAdapter { onClickFilm(it) }
 
-        allFilmAdapter.addLoadStateListener { state -> // ???????????????????????????????????????????
+        allFilmAdapter.addLoadStateListener { state ->
             val currentState = state.refresh
             binding.apply {
                 allFilmsList.isVisible = currentState != LoadState.Loading
@@ -102,7 +102,8 @@ class FragmentAllFilms :
                         progressGroupContainer.noAnswerText.isVisible = true
                         progressGroupContainer
                             .loadingRefreshBtn
-                            .setOnClickListener { setFilmList(/*incomeArgsCategory.currentCategory*/) }
+                            .setOnClickListener {
+                                setFilmList() }
                     }
                 }
             }
