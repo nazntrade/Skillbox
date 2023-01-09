@@ -97,7 +97,7 @@ class FragmentAllFilms :
     }
 
     private fun setFilmList() {
-        if (incomeArgsCategory.currentCategory != viewModel.localCategoryLiveData) {
+        if (incomeArgsCategory.currentCategory != viewModel.localCategory) {
             viewModel.getCategory()
             viewModel.getPagedFilms()
             viewModel.pagedFilms?.onEach { films ->

@@ -80,7 +80,9 @@ class FilmDetailViewModel @Inject constructor(
                     ).items
                 // similar
                 val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(filmId)
-                if (responseSimilar.total != 0) _currentFilmSimilar.value = responseSimilar.items!!
+                if (responseSimilar.total != 0) {
+                    _currentFilmSimilar.value = responseSimilar.items!!
+                }
                 _loadCurrentFilmState.value = StateLoading.Success
             } catch (e: Throwable) {
                 _loadCurrentFilmState.value = StateLoading.Error(e.message.toString())

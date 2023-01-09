@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -54,33 +56,38 @@ class FragmentFilmDetail :
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-        viewModel.getFilmById(args.filmId)
 
-        stateLoadingListener()              // Установка слушателя состояния загрузки
+        viewModel.getFilmById(args.filmId)  //replace
 
-        setFilmDetails()                    // Установка постера, инфорации на нём и описания фильма
-        setFilmActors()                     // Установка списка актёров
-        setFilmMakers()                     // Установка списка съёмочной группы
-        setFilmGallery()                    // Установка галереи фотографий
-        setSimilarFilms()                   // Установка списка похожих фильмов
+        stateLoadingListener()              // Set listener downloads
+
+        setFilmDetails()                    // Set poster with info on it
+        setFilmActors()                     // Ser ListActors
+        setFilmCrew()                       // Set ListFilmCrew
+        setFilmGallery()                    // Set Gallery
+        setSimilarFilms()                   // Set List Similar Films
     }
 
     private fun stateLoadingListener() {
+
+        binding.progressGroupContainer.loadingRefreshBtn
+            .setOnClickListener { viewModel.getFilmById(args.filmId) }
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.loadCurrentFilmState.collect { state ->
                 when (state) {
                     is StateLoading.Loading -> {
                         binding.apply {
+                            filmDetailMotionLayout.isGone = true
                             progressGroupContainer.progressGroup.isVisible = true
                             progressGroupContainer.loadingProgressBar.isVisible = true
                             progressGroupContainer.loadingRefreshBtn.isVisible = false
                             progressGroupContainer.noAnswerText.isVisible = false
-                            filmMainGroupWithPoster.isVisible = false
-                            filmDescriptionGroup.isVisible = false
                         }
                     }
                     is StateLoading.Success -> {
                         binding.apply {
+                            filmDetailMotionLayout.isGone = false
                             progressGroupContainer.progressGroup.isVisible = false
                             filmMainGroupWithPoster.isVisible = true
                             filmDescriptionGroup.isVisible = true
@@ -88,15 +95,11 @@ class FragmentFilmDetail :
                     }
                     else -> {
                         binding.apply {
+                            filmDetailMotionLayout.isGone = true
                             progressGroupContainer.progressGroup.isVisible = true
-                            progressGroupContainer.loadingProgressBar.isVisible = true
+                            progressGroupContainer.loadingProgressBar.isVisible = false
                             progressGroupContainer.loadingRefreshBtn.isVisible = true
                             progressGroupContainer.noAnswerText.isVisible = true
-                            filmMainGroupWithPoster.isVisible = false
-                            filmDescriptionGroup.isVisible = false
-                            progressGroupContainer
-                                .loadingRefreshBtn
-                                .setOnClickListener { viewModel.getFilmById(args.filmId) }
                         }
                     }
                 }
@@ -195,7 +198,7 @@ class FragmentFilmDetail :
         binding.filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
     }
 
-    private fun setFilmMakers() {
+    private fun setFilmCrew() {
         makersAdapter = StaffAdapter { onStaffClick(it) }
         binding.filmMakersList.layoutManager =
             GridLayoutManager(
@@ -237,6 +240,7 @@ class FragmentFilmDetail :
 
     // Галерея фильма
     private fun setFilmGallery() {
+        //
         binding.filmGalleryCount.setOnClickListener {
 //            findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
         }

@@ -26,9 +26,9 @@ class AllFilmsViewModel @Inject constructor(
 
     private val repository = CinemaRepository()
 
-    private var _localCategoryLiveData: CategoriesFilms? = null
-    val localCategoryLiveData
-        get() = _localCategoryLiveData
+    private var _localCategory: CategoriesFilms? = null
+    val localCategory
+        get() = _localCategory
 
     init {
         getCategory()
@@ -39,7 +39,7 @@ class AllFilmsViewModel @Inject constructor(
     var pagedFilms: Flow<PagingData<HomeItem>>? = null
 
     fun getPagedFilms() {
-        if (localCategoryLiveData == CategoriesFilms.TV_SERIES) {
+        if (localCategory == CategoriesFilms.TV_SERIES) {
             pagedFilms = Pager(
                 config = PagingConfig(pageSize = 20),
                 pagingSourceFactory = {
@@ -55,7 +55,7 @@ class AllFilmsViewModel @Inject constructor(
                 pagingSourceFactory = {
                     AllFilmPagingSource(
                         categoriesFilms =
-                        _localCategoryLiveData!!,
+                        _localCategory!!,
                         year = currentYear,
                         month = currentMonth,
                         getPremierFilmUseCase,
@@ -70,8 +70,8 @@ class AllFilmsViewModel @Inject constructor(
     fun getCategory() {
         val category = repository.getCurrentCategory()
         if (category != null) {
-            if (_localCategoryLiveData != category) {
-                _localCategoryLiveData =
+            if (_localCategory != category) {
+                _localCategory =
                     category
             }
         }
