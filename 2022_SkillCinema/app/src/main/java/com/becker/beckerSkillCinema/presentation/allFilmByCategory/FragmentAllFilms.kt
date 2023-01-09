@@ -11,16 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class FragmentAllFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
@@ -52,7 +48,8 @@ class FragmentAllFilms :
             allFilmsCategoryTv.text = incomeArgsCategory.currentCategory.text
             allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
             progressGroupContainer
-                .loadingRefreshBtn.setOnClickListener {//////////////////////////////////////////////////////////////////
+                .loadingRefreshBtn.setOnClickListener {
+                   viewModel.getPagedFilms()
                     setFilmList()
                 }
         }
@@ -70,15 +67,8 @@ class FragmentAllFilms :
         allFilmAdapter = AllFilmAdapter { onClickFilm(it) }
 
         allFilmAdapter.addLoadStateListener { state ->
-            val currentState = state.refresh
-            binding.apply {
-                allFilmsList.isVisible = currentState != LoadState.Loading
-                progressGroupContainer.progressGroup.isVisible = currentState == LoadState.Loading
-                progressGroupContainer.loadingRefreshBtn.isVisible =
-                    currentState != LoadState.Loading
-            }
 
-            when (currentState) {
+            when (state.refresh) {
                 is LoadState.Loading -> {
                     binding.apply {
                         allFilmsList.isVisible = false
@@ -94,16 +84,12 @@ class FragmentAllFilms :
                         progressGroupContainer.loadingRefreshBtn.isVisible = true
                     }
                 }
-                else -> {
+                is LoadState.Error -> {
                     binding.apply {
                         binding.allFilmsList.isVisible = false
                         progressGroupContainer.loadingProgressBar.isVisible = false
                         progressGroupContainer.loadingRefreshBtn.isVisible = true
                         progressGroupContainer.noAnswerText.isVisible = true
-                        progressGroupContainer
-                            .loadingRefreshBtn
-                            .setOnClickListener {
-                                setFilmList() }
                     }
                 }
             }
