@@ -4,28 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/logo_app_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_26"
         android:layout_marginTop="@dimen/dimen_70"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/banner_app_name"
+        android:autoSizeMaxTextSize="24sp"
+        android:autoSizeMinTextSize="24sp"
+        android:text="@string/app_name"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/guideline6"
+        app:layout_constraintTop_toTopOf="@id/guideline6" />
 
     <TextView
         android:id="@+id/btn_onboarding_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_70"
         android:layout_marginEnd="@dimen/dimen_26"
-        android:background="@color/white"
         android:elevation="1dp"
         android:text="@string/onboarding_btn_skip"
-        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="@id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <!--    ViewPager2-->
     <!--    https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2-->
@@ -48,7 +50,20 @@
         app:tabBackground="@drawable/onboard_dot_default"
         app:tabIndicator="@drawable/onboard_dot_selected"
         app:tabIndicatorAnimationMode="elastic"
-        app:tabIndicatorColor="@color/black"
         app:tabIndicatorHeight="@dimen/dimen_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="146dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="90dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
