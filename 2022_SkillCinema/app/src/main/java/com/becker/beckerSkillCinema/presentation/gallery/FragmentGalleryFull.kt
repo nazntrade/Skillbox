@@ -1,11 +1,13 @@
 package com.becker.beckerSkillCinema.presentation.gallery
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,7 +22,19 @@ import com.google.android.material.chip.ChipGroup
 
 class FragmentGalleryFull :
     ViewBindingFragment<FragmentGalleryFullscreenBinding>(FragmentGalleryFullscreenBinding::inflate) {
-//
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+
+    //
 //    private val viewModel: CinemaViewModel by activityViewModels()
 //    private lateinit var galleryAdapter: GalleryFullAdapter
 //

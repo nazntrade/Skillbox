@@ -9,6 +9,8 @@ import com.becker.beckerSkillCinema.data.seasons.ResponseSeasons
 import com.becker.beckerSkillCinema.data.similarFilm.ResponseSimilarFilms
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT4
@@ -16,6 +18,7 @@ import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT5
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT6
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT7
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT8
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT9
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -70,7 +73,28 @@ interface KinopoiskApi {
 
     @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT6")
     @GET("v2.2/films/{id}/images")
-    suspend fun getFilmImages(
+    suspend fun getFilmImages1(
+        @Path("id") id: Int,
+        @Query("type") type: String = "STILL",
+        @Query("page") page: Int
+    ): ResponseFilmGallery
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
+    @GET("v2.2/films/{id}/images")
+    suspend fun getFilmImages2(
+        @Path("id") id: Int,
+        @Query("type") type: String = "STILL",
+        @Query("page") page: Int
+    ): ResponseFilmGallery
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT10")
+    @GET("v2.2/films/{id}/images")
+    suspend fun getFilmImages3(
+        @Path("id") id: Int,
+        @Query("type") type: String = "STILL",
+        @Query("page") page: Int
+    ): ResponseFilmGallery
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT11")
+    @GET("v2.2/films/{id}/images")
+    suspend fun getFilmImages4(
         @Path("id") id: Int,
         @Query("type") type: String = "STILL",
         @Query("page") page: Int

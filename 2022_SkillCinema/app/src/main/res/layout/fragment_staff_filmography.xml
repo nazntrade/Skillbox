@@ -10,7 +10,6 @@
         android:id="@+id/filmography_actionbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +50,6 @@
         android:layout_marginHorizontal="26dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/graphic_bold"
-        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/filmography_actionbar"
         tools:text="Кристина Асмус" />

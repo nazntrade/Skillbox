@@ -22,6 +22,7 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.databinding.FragmentFilmDetailBinding
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
+import com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilmsDirections
 import com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter.FilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
@@ -55,8 +56,6 @@ class FragmentFilmDetail :
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-
-//        viewModel.getFilmById(args.filmId)  //replace
 
         stateLoadingListener()              // Set listener downloads
 
@@ -108,6 +107,13 @@ class FragmentFilmDetail :
 
     // Информация о фильме
     private fun setFilmDetails() {
+        if (args.filmId != viewModel.localFilmId){
+            viewModel.getFilmId()
+            viewModel.getFilmById()
+        } else {
+//            binding.myScroll.scrollTo(0,0)
+//            binding.filmDetailMotionLayout.jumpToState(R.id.collapsed)
+        }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -279,8 +285,13 @@ class FragmentFilmDetail :
         binding.filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
     }
 
-    private fun onSimilarFilmClick(filmId: Int) {   ////////////////////////////////////////////////////
+    private fun onSimilarFilmClick(newFilmId: Int) {   ////////////////////////////////////////////////////
+        viewModel.putFilmId(newFilmId)
+        viewModel.getFilmId()
         viewModel.getFilmById()
+
+        binding.myScroll.scrollTo(0,0)
+        binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
     }
 
     private fun showAllSimilarFilms() {    ////////////////////////////////////////////////////////////

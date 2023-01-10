@@ -1,9 +1,24 @@
 package com.becker.beckerSkillCinema.presentation.allStaffByFilm
 
+import android.content.Context
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.databinding.FragmentStaffAllByFilmBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 
 class FragmentAllStaffsByFilm : ViewBindingFragment<FragmentStaffAllByFilmBinding>(FragmentStaffAllByFilmBinding::inflate) {
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+
 //
 //    private val viewModel: CinemaViewModel by activityViewModels()
 //    private lateinit var adapter: StaffAdapter

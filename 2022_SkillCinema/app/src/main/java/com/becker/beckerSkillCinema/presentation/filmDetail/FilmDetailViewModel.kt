@@ -42,10 +42,12 @@ class FilmDetailViewModel @Inject constructor(
     val localFilmId
         get() = _localFilmId
 
+
     init {
-        getFilmById()
         getFilmId()
+        getFilmById()
     }
+
 
     private val _currentFilm = MutableStateFlow<ResponseCurrentFilm?>(null)
     val currentFilm = _currentFilm.asStateFlow()
@@ -70,17 +72,17 @@ class FilmDetailViewModel @Inject constructor(
 
     fun getFilmById() {
         updateParamsFilterGallery()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadCurrentFilmState.value = StateLoading.Loading
                 // film
-                val tempFilm = getFilmByIdUseCase.executeFilmById(_localFilmId!!)
+                val tempFilm = getFilmByIdUseCase.executeFilmById(localFilmId!!)
                 _currentFilm.value = tempFilm
                 // staffs
-                val tempActorList = getActorsByFilmIdUseCase.executeActorsList(_localFilmId!!)
+                val tempActorList = getActorsByFilmIdUseCase.executeActorsList(localFilmId!!)
                 sortingActorsAndMakers(tempActorList)
                 // gallery
-                setGalleryCount(_localFilmId!!)
+                setGalleryCount(localFilmId!!)
                 _currentFilmGallery.value =
                     getGalleryByIdUseCase.executeGalleryByFilmId(
                         HomeViewModel.currentParamsFilterGallery.filmId,
@@ -88,7 +90,7 @@ class FilmDetailViewModel @Inject constructor(
                         1
                     ).items
                 // similar
-                val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(_localFilmId!!)
+                val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(localFilmId!!)
                 if (responseSimilar.total != 0) {
                     _currentFilmSimilar.value = responseSimilar.items!!
                 }
@@ -152,7 +154,7 @@ class FilmDetailViewModel @Inject constructor(
         }
     }
 
-    private fun updateParamsFilterGallery(filmId: Int = _localFilmId!!, galleryType: String = "STILL") {
+    private fun updateParamsFilterGallery(filmId: Int = localFilmId!!, galleryType: String = "STILL") {
         HomeViewModel.currentParamsFilterGallery =
             HomeViewModel.currentParamsFilterGallery.copy(
                 filmId = filmId,
@@ -160,11 +162,16 @@ class FilmDetailViewModel @Inject constructor(
             )
     }
 
+    fun putFilmId(filmId: Int) {
+        repository.putFilmId(filmId)
+    }
+
     fun getFilmId() {
         val filmId = repository.getCurrentFilmId()
         if (filmId != null) {
             if (_localFilmId != filmId) {
-                _localFilmId = filmId
+                _localFilmId =
+                    filmId
             }
         }
     }

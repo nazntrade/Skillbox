@@ -1,15 +1,18 @@
 package com.becker.beckerSkillCinema.presentation.series
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.becker.beckerSkillCinema.databinding.FragmentSeasonsBinding
@@ -18,9 +21,22 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.becker.beckerSkillCinema.presentation.series.adapter.SeasonsAdapter
 
-class FragmentSeasons : ViewBindingFragment<FragmentSeasonsBinding>(FragmentSeasonsBinding::inflate){
+class FragmentSeasons :
+    ViewBindingFragment<FragmentSeasonsBinding>(FragmentSeasonsBinding::inflate) {
 
-//    private val viewModel: CinemaViewModel by activityViewModels()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+    val args: FragmentSeasonsArgs by navArgs()
+
+
+    //    private val viewModel: CinemaViewModel by activityViewModels()
 //    private lateinit var adapter: SeasonsAdapter
 //
 //    override fun onCreateView(
@@ -30,17 +46,18 @@ class FragmentSeasons : ViewBindingFragment<FragmentSeasonsBinding>(FragmentSeas
 //        return binding.root
 //    }
 //
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        val args: FragmentSeasonsArgs by navArgs()
-//
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.seriesBack.setOnClickListener { findNavController().popBackStack() }
+
 //        setAdapter()                // Установка адаптера
 //        setEpisodeList()            // Получение списка эпизодов и установка ChipGroup
-//
+        binding.seriesNameTv.text = "FragmentSeasons"
+        binding.seriesNameTv.textSize = 25F
 //        binding.seriesNameTv.text = args.seriesName
 //        binding.seriesBack.setOnClickListener { requireActivity().onBackPressed() }
-//    }
+    }
 //
 //    private fun setAdapter() {
 //        adapter = SeasonsAdapter()

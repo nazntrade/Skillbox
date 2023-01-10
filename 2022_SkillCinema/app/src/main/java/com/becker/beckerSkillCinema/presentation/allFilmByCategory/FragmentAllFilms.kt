@@ -112,6 +112,7 @@ class FragmentAllFilms :
     }
 
     private fun onClickFilm(filmId: Int) {
+        viewModel.putFilmId(filmId)
         val action = FragmentAllFilmsDirections.actionFragmentAllFilmsToFragmentFilmDetail(filmId)
         findNavController().navigate(action)
     }

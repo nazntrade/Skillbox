@@ -35,6 +35,9 @@ class AllFilmsViewModel @Inject constructor(
         getPagedFilms()
     }
 
+    fun putFilmId(filmId: Int) {
+        repository.putFilmId(filmId)
+    }
 
     var pagedFilms: Flow<PagingData<HomeItem>>? = null
 

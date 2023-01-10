@@ -10,7 +10,6 @@
         android:id="@+id/staff_detail_actionbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,7 +93,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_bold"
                 android:text="@string/staff_detail_best_label"
-                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +105,6 @@
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/graphic_regular"
                 android:text="@string/btn_show_all_top"
-                android:textColor="#3D3BFF"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_best_btn"
@@ -152,7 +149,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/graphic_bold"
             android:text="@string/staff_detail_filmography_label"
-            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -173,7 +169,6 @@
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/graphic_regular"
             android:text="@string/staff_detail_filmography_all"
-            android:textColor="#3D3BFF"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/staff_detail_films_count"
             app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_films_btn"
