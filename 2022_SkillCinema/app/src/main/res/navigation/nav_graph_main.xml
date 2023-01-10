@@ -6,6 +6,56 @@
     app:startDestination="@id/fragmentHome">
 
     <fragment
+        android:id="@+id/fragmentSimilarFilms"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.FragmentSimilarFilms"
+        android:label="FragmentSimilarFilms"
+        tools:layout="@layout/fragment_all_films">
+        <action
+            android:id="@+id/action_fragmentSimilarFilms_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail" />
+        <action
+            android:id="@+id/action_fragmentSimilarFilms_to_fragmentFilmDetail2"
+            app:destination="@id/fragmentFilmDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentGallery"
+        android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFull"
+        android:label="FragmentGallery"
+        tools:layout="@layout/fragment_film_gallery" />
+    <fragment
+        android:id="@+id/fragmentAllStaffsByFilm"
+        android:name="com.becker.beckerSkillCinema.presentation.allStaffByFilm.FragmentAllStaffsByFilm"
+        android:label="FragmentAllStaffsByFilm"
+        tools:layout="@layout/fragment_staff_all_by_film">
+        <argument
+            android:name="professionKey"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentAllStaffsByFilm_to_fragmentStaffDetail"
+            app:destination="@id/fragmentStaffDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSeries"
+        android:name="com.becker.beckerSkillCinema.presentation.series.FragmentSeasons"
+        android:label="FragmentSeries">
+        <argument
+            android:name="seriesName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentStaffDetail"
+        android:name="com.becker.beckerSkillCinema.presentation.staffDetail.FragmentStaffDetail"
+        android:label="FragmentStaffDetail"
+        tools:layout="@layout/fragment_staff_detail">
+        <argument
+            android:name="staffId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentStaffDetail_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail"
+            app:popUpTo="@id/fragmentStaffDetail" />
+    </fragment>
+    <fragment
         android:id="@+id/fragmentHome"
         android:name="com.becker.beckerSkillCinema.presentation.home.HomeFragment"
         android:label="HomeFragment"
@@ -42,7 +92,7 @@
         <action
             android:id="@+id/action_fragmentAllFilms_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail"
-            app:popUpTo="@id/fragmentAllFilms"/>
+            app:popUpTo="@id/fragmentAllFilms" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -62,5 +112,20 @@
         <argument
             android:name="filmId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentSeries"
+            app:destination="@id/fragmentSeries" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentGallery"
+            app:destination="@id/fragmentGallery" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentSimilarFilms"
+            app:destination="@id/fragmentSimilarFilms" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentAllStaffsByFilm"
+            app:destination="@id/fragmentAllStaffsByFilm" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentStaffDetail"
+            app:destination="@id/fragmentStaffDetail" />
     </fragment>
 </navigation>

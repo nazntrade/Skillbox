@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingVertical="4dp"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_filmography_image"
+        android:layout_width="96dp"
+        android:layout_height="132dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/item_filmography_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_filmography_image"
+        app:layout_constraintTop_toTopOf="@id/item_filmography_image">
+
+        <TextView
+            android:id="@+id/item_filmography_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graphic_bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:text="Топи" />
+
+        <TextView
+            android:id="@+id/item_filmography_genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/graphic_regular"
+            android:textSize="12sp"
+            tools:text="2021, триллер" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

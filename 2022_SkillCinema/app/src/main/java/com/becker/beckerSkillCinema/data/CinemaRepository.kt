@@ -50,11 +50,11 @@ class CinemaRepository @Inject constructor() {
 
     // FragmentStaffDetail
 
+    fun putFilmId(filmId: Int) = DataCentre.putCurrentFilmId(filmId)
 
+    fun getCurrentFilmId() = DataCentre.getCurrentFilmId()
 
-    fun putCategory(it: CategoriesFilms) =
-        DataCentre.putCategory(it)
+    fun putCategory(it: CategoriesFilms) = DataCentre.putCategory(it)
 
-    fun getCurrentCategory() =
-        DataCentre.getCurrentCategory()
+    fun getCurrentCategory() = DataCentre.getCurrentCategory()
 }

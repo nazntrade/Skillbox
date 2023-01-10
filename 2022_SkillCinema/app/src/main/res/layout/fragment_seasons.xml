@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Series name, and back-button -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/series_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/series_back"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="26dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/series_name_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/graphic_bold"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Топи" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Seasons numbers -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/series_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="26dp"
+        app:layout_constraintTop_toBottomOf="@id/series_actionbar">
+
+        <TextView
+            android:id="@+id/series_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/graphic_bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/label_season_episodes_count" />
+
+        <HorizontalScrollView
+            android:id="@+id/series_chip_scroll_group"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/series_label">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/series_chips_group_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Episodes count -->
+    <TextView
+        android:id="@+id/season_episode_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/series_chip_group"
+        tools:text="1 сезон, 16 серий" />
+
+    <!-- Episodes list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/series_episode_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/season_episode_count"
+        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_series_episode"
+        tools:orientation="vertical" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

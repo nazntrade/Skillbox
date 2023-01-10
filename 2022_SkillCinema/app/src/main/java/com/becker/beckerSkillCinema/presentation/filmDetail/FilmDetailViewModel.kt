@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.GALLERY_TYPES
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.filmGallery.ItemImageGallery
@@ -15,7 +16,7 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.home.HomeViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
-import com.becker.beckerSkillCinema.presentation.gallery.GalleryFullPagingSource
+import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +36,16 @@ class FilmDetailViewModel @Inject constructor(
 
     // FragmentFilmDetail
 
-    private var currentFilmId = 723959
+    private val repository = CinemaRepository()
+
+    private var _localFilmId: Int? = null
+    val localFilmId
+        get() = _localFilmId
+
+    init {
+        getFilmById()
+        getFilmId()
+    }
 
     private val _currentFilm = MutableStateFlow<ResponseCurrentFilm?>(null)
     val currentFilm = _currentFilm.asStateFlow()
@@ -58,20 +68,19 @@ class FilmDetailViewModel @Inject constructor(
     private val _loadCurrentFilmState = MutableStateFlow<StateLoading>(StateLoading.Default)
     val loadCurrentFilmState = _loadCurrentFilmState.asStateFlow()
 
-    fun getFilmById(filmId: Int) {
-        currentFilmId = filmId
+    fun getFilmById() {
         updateParamsFilterGallery()
         viewModelScope.launch {
             try {
                 _loadCurrentFilmState.value = StateLoading.Loading
                 // film
-                val tempFilm = getFilmByIdUseCase.executeFilmById(filmId)
+                val tempFilm = getFilmByIdUseCase.executeFilmById(_localFilmId!!)
                 _currentFilm.value = tempFilm
                 // staffs
-                val tempActorList = getActorsByFilmIdUseCase.executeActorsList(filmId)
+                val tempActorList = getActorsByFilmIdUseCase.executeActorsList(_localFilmId!!)
                 sortingActorsAndMakers(tempActorList)
                 // gallery
-                setGalleryCount(filmId)
+                setGalleryCount(_localFilmId!!)
                 _currentFilmGallery.value =
                     getGalleryByIdUseCase.executeGalleryByFilmId(
                         HomeViewModel.currentParamsFilterGallery.filmId,
@@ -79,7 +88,7 @@ class FilmDetailViewModel @Inject constructor(
                         1
                     ).items
                 // similar
-                val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(filmId)
+                val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(_localFilmId!!)
                 if (responseSimilar.total != 0) {
                     _currentFilmSimilar.value = responseSimilar.items!!
                 }
@@ -143,11 +152,20 @@ class FilmDetailViewModel @Inject constructor(
         }
     }
 
-    fun updateParamsFilterGallery(filmId: Int = currentFilmId, galleryType: String = "STILL") {
+    private fun updateParamsFilterGallery(filmId: Int = _localFilmId!!, galleryType: String = "STILL") {
         HomeViewModel.currentParamsFilterGallery =
             HomeViewModel.currentParamsFilterGallery.copy(
                 filmId = filmId,
                 galleryType = galleryType
             )
+    }
+
+    fun getFilmId() {
+        val filmId = repository.getCurrentFilmId()
+        if (filmId != null) {
+            if (_localFilmId != filmId) {
+                _localFilmId = filmId
+            }
+        }
     }
 }

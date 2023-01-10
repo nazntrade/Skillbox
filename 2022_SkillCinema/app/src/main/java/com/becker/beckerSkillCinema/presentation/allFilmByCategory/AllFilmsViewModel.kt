@@ -71,8 +71,7 @@ class AllFilmsViewModel @Inject constructor(
         val category = repository.getCurrentCategory()
         if (category != null) {
             if (_localCategory != category) {
-                _localCategory =
-                    category
+                _localCategory = category
             }
         }
     }

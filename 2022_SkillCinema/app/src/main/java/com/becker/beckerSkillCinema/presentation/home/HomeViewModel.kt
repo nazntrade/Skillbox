@@ -38,6 +38,10 @@ class HomeViewModel @Inject constructor(
         getFilmsByCategories()
     }
 
+    fun putFilmId(filmId: Int) {
+        repository.putFilmId(filmId)
+    }
+
     fun putCategory(outComeCategory: CategoriesFilms) {
         repository.putCategory(outComeCategory)
     }
