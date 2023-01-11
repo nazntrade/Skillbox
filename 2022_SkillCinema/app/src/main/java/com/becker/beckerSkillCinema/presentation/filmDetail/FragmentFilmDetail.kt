@@ -22,7 +22,6 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.databinding.FragmentFilmDetailBinding
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilmsDirections
 import com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter.FilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
@@ -40,7 +39,7 @@ class FragmentFilmDetail :
     private var makersAdapter: StaffAdapter by autoCleared()
     private var galleryAdapter: GalleryAdapter by autoCleared()
     private var similarAdapter: FilmAdapter by autoCleared()
-    private val args: FragmentFilmDetailArgs by navArgs()
+    private val incomeArgs: FragmentFilmDetailArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -107,12 +106,9 @@ class FragmentFilmDetail :
 
     // Информация о фильме
     private fun setFilmDetails() {
-        if (args.filmId != viewModel.localFilmId){
+        if (incomeArgs.filmId != viewModel.currentFilmId){
             viewModel.getFilmId()
             viewModel.getFilmById()
-        } else {
-//            binding.myScroll.scrollTo(0,0)
-//            binding.filmDetailMotionLayout.jumpToState(R.id.collapsed)
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             lifecycleScope.launch {
@@ -132,7 +128,7 @@ class FragmentFilmDetail :
                                 filmDescriptionShort.text = film.shortDescription
                                 filmDescriptionFull.text = film.description
                                 filmRatingNameTv.text = getRatingName(film)
-                                filmYearGenresTv.text = getYearGenres(film, requireContext())
+                                filmYearGenresTv.text = getYearAndGenres(film, requireContext())
                                 filmCountryLengthAgeLimitTv.text = getStrCountriesLengthAge(film)
                             }
                         }
@@ -307,16 +303,16 @@ class FragmentFilmDetail :
         private fun getRatingName(film: ResponseCurrentFilm): String {
             val result = mutableListOf<String>()
             val rating = when {
+                film.ratingImdb != null -> film.ratingImdb.toString()  //this is my priority
                 film.ratingKinopoisk != null -> film.ratingKinopoisk.toString()
-                film.ratingImdb != null -> film.ratingImdb.toString()
                 film.ratingMpaa != null -> film.ratingMpaa.toString()
                 else -> null
             }
             if (rating != null) result.add(rating)
             val name = when {
+                film.nameOriginal != null -> film.nameOriginal  //this is my priority
                 film.nameRu != null -> film.nameRu
                 film.nameEn != null -> film.nameEn
-                film.nameOriginal != null -> film.nameOriginal
                 else -> null
             }
             if (name != null) result.add(name)
@@ -332,7 +328,7 @@ class FragmentFilmDetail :
             }
         }
 
-        private fun getYearGenres(film: ResponseCurrentFilm, context: Context): String {
+        private fun getYearAndGenres(film: ResponseCurrentFilm, context: Context): String {
             val result = mutableListOf<String>()
 
             if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {

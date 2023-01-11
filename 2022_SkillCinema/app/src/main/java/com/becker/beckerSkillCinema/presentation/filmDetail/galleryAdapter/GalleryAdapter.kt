@@ -1,6 +1,5 @@
 package com.becker.beckerSkillCinema.presentation.filmDetail.galleryAdapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -17,7 +16,6 @@ class GalleryAdapter :
         override fun areItemsTheSame(oldItem: ItemImageGallery, newItem: ItemImageGallery) =
             oldItem.previewUrl == newItem.previewUrl
 
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: ItemImageGallery,
             newItem: ItemImageGallery

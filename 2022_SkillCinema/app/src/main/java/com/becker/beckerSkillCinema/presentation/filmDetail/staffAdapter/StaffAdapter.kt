@@ -1,6 +1,5 @@
 package com.becker.beckerSkillCinema.presentation.filmDetail.staffAdapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -22,7 +21,6 @@ class StaffAdapter(
                 && oldItem.description == newItem.description
                 && oldItem.professionText == newItem.professionText
 
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: ResponseStaffByFilmId,
             newItem: ResponseStaffByFilmId

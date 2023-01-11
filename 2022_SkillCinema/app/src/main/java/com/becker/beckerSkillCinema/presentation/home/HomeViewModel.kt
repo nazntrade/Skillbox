@@ -135,10 +135,5 @@ class HomeViewModel @Inject constructor(
         private val calendar: Calendar = Calendar.getInstance()
         val currentMonth: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
         val currentYear: Int = calendar.get(Calendar.YEAR)
-
-        var currentParamsFilterGallery = ParamsFilterGallery(
-            filmId = 723959,
-            galleryType = "STILL"
-        )
     }
 }

@@ -8,13 +8,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.GALLERY_TYPES
+import com.becker.beckerSkillCinema.data.ParamsFilterGallery
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.filmGallery.ItemImageGallery
 import com.becker.beckerSkillCinema.data.seasons.Season
 import com.becker.beckerSkillCinema.data.similarFilm.SimilarItem
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.domain.*
-import com.becker.beckerSkillCinema.presentation.home.HomeViewModel
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,10 +38,11 @@ class FilmDetailViewModel @Inject constructor(
 
     private val repository = CinemaRepository()
 
-    private var _localFilmId: Int? = null
-    val localFilmId
-        get() = _localFilmId
+    private var _currentFilmId: Int? = null
+    val currentFilmId
+        get() = _currentFilmId
 
+    private var currentParamsFilterGallery = ParamsFilterGallery()
 
     init {
         getFilmId()
@@ -75,21 +76,20 @@ class FilmDetailViewModel @Inject constructor(
             try {
                 _loadCurrentFilmState.value = StateLoading.Loading
                 // film
-                val tempFilm = getFilmByIdUseCase.executeFilmById(localFilmId!!)
-                _currentFilm.value = tempFilm
+                _currentFilm.value = getFilmByIdUseCase.executeFilmById(currentFilmId!!)
                 // staffs
-                val tempActorList = getActorsByFilmIdUseCase.executeActorsList(localFilmId!!)
-                sortingActorsAndMakers(tempActorList)
+                val filmCrewNotSorted = getActorsByFilmIdUseCase.executeActorsList(currentFilmId!!)
+                toSortFilmCrew(filmCrewNotSorted)
                 // gallery
-                setGalleryCount(localFilmId!!)
+                setGalleryCount(currentFilmId!!)
                 _currentFilmGallery.value =
                     getGalleryByIdUseCase.executeGalleryByFilmId(
-                        HomeViewModel.currentParamsFilterGallery.filmId,
-                        HomeViewModel.currentParamsFilterGallery.galleryType,
+                        currentParamsFilterGallery.filmId,
+                        currentParamsFilterGallery.galleryType,
                         1
                     ).items
                 // similar
-                val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(localFilmId!!)
+                val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(currentFilmId!!)
                 if (responseSimilar.total != 0) {
                     _currentFilmSimilar.value = responseSimilar.items!!
                 }
@@ -106,18 +106,18 @@ class FilmDetailViewModel @Inject constructor(
         }
     }
 
-    private fun sortingActorsAndMakers(actorsList: List<ResponseStaffByFilmId>) {
+    private fun toSortFilmCrew(filmCrewNotSorted: List<ResponseStaffByFilmId>) {
         val actors = mutableListOf<ResponseStaffByFilmId>()
         val makers = mutableListOf<ResponseStaffByFilmId>()
-        actorsList.forEach {
-            if (it.professionKey == "ACTOR") actors.add(it)
-            else makers.add(it)
+        filmCrewNotSorted.forEach { thisPeople ->
+            if (thisPeople.professionKey == "ACTOR") actors.add(thisPeople)
+            else makers.add(thisPeople)
         }
         _currentFilmActors.value = actors
         _currentFilmMakers.value = makers
     }
 
-    // FragmentGallery
+    // For FragmentGallery
     private val _galleryCount = MutableStateFlow(0)
     val galleryCount = _galleryCount.asStateFlow()
 
@@ -133,7 +133,7 @@ class FilmDetailViewModel @Inject constructor(
 //            )
             GalleryFullPagingSource(
                 getGalleryByIdUseCase = getGalleryByIdUseCase,
-                filterParams = HomeViewModel.currentParamsFilterGallery
+                filterParams = currentParamsFilterGallery
             )
         }
     ).flow.cachedIn(viewModelScope)
@@ -153,12 +153,13 @@ class FilmDetailViewModel @Inject constructor(
         }
     }
 
-    private fun updateParamsFilterGallery(filmId: Int = localFilmId!!, galleryType: String = "STILL") {
-        HomeViewModel.currentParamsFilterGallery =
-            HomeViewModel.currentParamsFilterGallery.copy(
-                filmId = filmId,
-                galleryType = galleryType
-            )
+    // Update the gallery with new FilmId
+    private fun updateParamsFilterGallery() {
+        val newParamsFilterGallery = ParamsFilterGallery(
+            filmId = currentFilmId!!,
+            galleryType = "STILL"
+        )
+        currentParamsFilterGallery = newParamsFilterGallery
     }
 
     fun putFilmId(filmId: Int) {
@@ -168,10 +169,11 @@ class FilmDetailViewModel @Inject constructor(
     fun getFilmId() {
         val filmId = repository.getCurrentFilmId()
         if (filmId != null) {
-            if (_localFilmId != filmId) {
-                _localFilmId =
+            if (_currentFilmId != filmId) {
+                _currentFilmId =
                     filmId
             }
         }
     }
+
 }

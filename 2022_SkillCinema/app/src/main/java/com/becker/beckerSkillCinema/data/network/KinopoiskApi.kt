@@ -12,6 +12,7 @@ import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT12
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT13
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT4
@@ -66,13 +67,13 @@ interface KinopoiskApi {
         @Path("id") id: Int
     ): ResponseCurrentFilm
 
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT5")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
     @GET("v1/staff")
     suspend fun getActors(
         @Query("filmId") filmId: Int
     ): List<ResponseStaffByFilmId>
 
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT10") ///////////////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT13") ///////////////////////////////////////
     @GET("v2.2/films/{id}/images")
     suspend fun getFilmImages(
         @Path("id") id: Int,

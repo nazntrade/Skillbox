@@ -18,7 +18,7 @@
     <string name="btn_show_all_end">Показать все</string>
     <string name="btn_try_again">Попробовать ещё</string>
     <string name="tabsDescriptions">here the indicator pages</string>
-    <string name="no_answer">Ой, похоже что-то с интернетом.</string>
+    <string name="no_answer">Ой, что-то пошло не так.</string>
 
     <!-- Film detail fragment -->
     <string name="label_film_actors">В фильме снимались</string>
