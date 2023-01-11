@@ -43,17 +43,10 @@ class CinemaRepository @Inject constructor() {
     suspend fun getActorsByFilmId(filmId: Int) = Networking.kinopoiskApi.getActors(filmId)
 
     suspend fun getGalleryByFilmId(filmId: Int, type: String, page: Int) =
-        listOf(
-//            Networking.kinopoiskApi.getFilmImages1(filmId, type, page),
-//            Networking.kinopoiskApi.getFilmImages2(filmId, type, page),
-            Networking.kinopoiskApi.getFilmImages3(filmId, type, page),
-            Networking.kinopoiskApi.getFilmImages4(filmId, type, page),
-        ).random()
+        Networking.kinopoiskApi.getFilmImages(filmId, type, page)
 
-    suspend fun getSimilarByFilmId(filmId: Int) = Networking.kinopoiskApi.getSimilarFilms(filmId)
-
-
-    // FragmentStaffDetail
+    suspend fun getSimilarByFilmId(filmId: Int) =
+        Networking.kinopoiskApi.getSimilarFilms(filmId)
 
     fun putFilmId(filmId: Int) = DataCentre.putCurrentFilmId(filmId)
 

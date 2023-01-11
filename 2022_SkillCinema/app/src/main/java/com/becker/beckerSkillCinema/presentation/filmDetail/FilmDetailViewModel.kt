@@ -48,7 +48,6 @@ class FilmDetailViewModel @Inject constructor(
         getFilmById()
     }
 
-
     private val _currentFilm = MutableStateFlow<ResponseCurrentFilm?>(null)
     val currentFilm = _currentFilm.asStateFlow()
 

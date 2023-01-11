@@ -11,6 +11,7 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT12
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT4
@@ -71,30 +72,9 @@ interface KinopoiskApi {
         @Query("filmId") filmId: Int
     ): List<ResponseStaffByFilmId>
 
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT6")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT10") ///////////////////////////////////////
     @GET("v2.2/films/{id}/images")
-    suspend fun getFilmImages1(
-        @Path("id") id: Int,
-        @Query("type") type: String = "STILL",
-        @Query("page") page: Int
-    ): ResponseFilmGallery
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
-    @GET("v2.2/films/{id}/images")
-    suspend fun getFilmImages2(
-        @Path("id") id: Int,
-        @Query("type") type: String = "STILL",
-        @Query("page") page: Int
-    ): ResponseFilmGallery
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT10")
-    @GET("v2.2/films/{id}/images")
-    suspend fun getFilmImages3(
-        @Path("id") id: Int,
-        @Query("type") type: String = "STILL",
-        @Query("page") page: Int
-    ): ResponseFilmGallery
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT11")
-    @GET("v2.2/films/{id}/images")
-    suspend fun getFilmImages4(
+    suspend fun getFilmImages(
         @Path("id") id: Int,
         @Query("type") type: String = "STILL",
         @Query("page") page: Int
