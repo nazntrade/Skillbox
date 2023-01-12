@@ -38,15 +38,13 @@ class FilmDetailViewModel @Inject constructor(
     private val getSeasonsUseCase: GetSeasonsUseCase
 ) : ViewModel() {
 
-    // FragmentFilmDetail
-
     private val repository = CinemaRepository()
 
     private var _currentFilmId: Int? = null
     val currentFilmId
         get() = _currentFilmId
 
-    private var currentParamsFilterGallery = ParamsFilterGallery() ////////////////////////
+    private var currentParamsFilterGallery = ParamsFilterGallery() ///??????????????????????????????????????????????
 
     init {
         getFilmId()
@@ -78,7 +76,7 @@ class FilmDetailViewModel @Inject constructor(
     val loadingCurrentFilmState = _loadingCurrentFilmState.asStateFlow()
 
     fun getFilmById() {
-        updateParamsFilterGallery()////////////////////////////////////////////////////////
+        updateParamsFilterGallery()///////????????????????????????????????????????????????????
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadingCurrentFilmState.value = StateLoading.Loading
@@ -97,7 +95,7 @@ class FilmDetailViewModel @Inject constructor(
                     _currentFilmSimilar.value = tempSimilarItem.toLimitSimilarFilm(20)
                     _countSimilarFilm.value = tempSimilarItem.size
                 } else {
-                    Timber.e("getSeasons $")
+                    Timber.e("responseSimilar = 0")
                 }
                 _loadingCurrentFilmState.value = StateLoading.Success
             } catch (e: Throwable) {
@@ -173,7 +171,7 @@ class FilmDetailViewModel @Inject constructor(
     }
 
     // Update the gallery with new FilmId
-    private fun updateParamsFilterGallery() { /////////////////////////////////////
+    private fun updateParamsFilterGallery() { ///??????????????????????????????????????????????????
         val newParamsFilterGallery = ParamsFilterGallery(
             filmId = currentFilmId!!,
             galleryType = "STILL"

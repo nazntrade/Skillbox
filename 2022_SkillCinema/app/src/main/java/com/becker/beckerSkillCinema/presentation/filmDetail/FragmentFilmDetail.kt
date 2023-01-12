@@ -105,7 +105,7 @@ class FragmentFilmDetail :
         }
     }
 
-    // Информация о фильме
+    // About film
     private fun setFilmDetails() {
         if (incomeArgs.filmId != viewModel.currentFilmId) {
             viewModel.getFilmId()
@@ -144,7 +144,7 @@ class FragmentFilmDetail :
         }
     }
 
-    // Информация о сезонах и сериях сериала
+    // About season and series
     private fun getSeriesSeasons(seriesName: String) {
         binding.seriesSeasonsBtn.setOnClickListener { showAllSeasons(seriesName) }
         viewLifecycleOwner.lifecycleScope.launch {
@@ -182,13 +182,13 @@ class FragmentFilmDetail :
         }
     }
 
-    private fun showAllSeasons(seriesName: String) {   ////////////////////////////////////////////////////
+    private fun showAllSeasons(seriesName: String) {    //////////////   move to
         val action = FragmentFilmDetailDirections
             .actionFragmentFilmDetailToFragmentSeries(seriesName)
         findNavController().navigate(action)
     }
 
-    // Список актёров и съёмочной группы
+    // Actors and film crew
     private fun setFilmActors() {
         actorAdapter = StaffAdapter { onStaffClick(it) }
         binding.filmActorsList.layoutManager =
@@ -240,19 +240,19 @@ class FragmentFilmDetail :
         binding.filmMakersCount.setOnClickListener { showAllStaffs("") }
     }
 
-    private fun onStaffClick(staff: ResponseStaffByFilmId) {   ///////////////////////////
+    private fun onStaffClick(staff: ResponseStaffByFilmId) {     //////////////   move to
         val action =
             FragmentFilmDetailDirections.actionFragmentFilmDetailToFragmentStaffDetail(staff.staffId)
         findNavController().navigate(action)
     }
 
-    private fun showAllStaffs(professionalKey: String) {
+    private fun showAllStaffs(professionalKey: String) {     //////////////   move to
         val action = FragmentFilmDetailDirections
             .actionFragmentFilmDetailToFragmentAllStaffsByFilm(professionalKey)
         findNavController().navigate(action)
     }
 
-    // Галерея фильма
+    // Gallery
     private fun setFilmGallery() {
         //
         binding.filmGalleryCount.setOnClickListener {
@@ -279,15 +279,15 @@ class FragmentFilmDetail :
         }
     }
 
-    private fun showAllImages() {
+    private fun showAllImages() {    //////////////   move to
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
     }
 
-    private fun showClickedImage(link: String) {
+    private fun showClickedImage(link: String) {     ////////   expand
         ///////////////////
     }
 
-    // Похожие фильмы
+    // Similar films
     private fun setSimilarFilms() {
         similarAdapter = FilmAdapter(20, { showAllSimilarFilms() }, { onSimilarFilmClick(it) })
         binding.filmSimilarList.layoutManager =
@@ -306,7 +306,7 @@ class FragmentFilmDetail :
         binding.filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
     }
 
-    private fun onSimilarFilmClick(newFilmId: Int) {   ////////////////////////////////////////////////////
+    private fun onSimilarFilmClick(newFilmId: Int) {
         viewModel.putFilmId(newFilmId)
         viewModel.getFilmId()
         viewModel.getFilmById()
@@ -315,7 +315,7 @@ class FragmentFilmDetail :
         binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
     }
 
-    private fun showAllSimilarFilms() {    ////////////////////////////////////////////////////////////
+    private fun showAllSimilarFilms() {    //////////////////////   move to
 //////////////// to post already existed list similar films
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentSimilarFilms)
     }
