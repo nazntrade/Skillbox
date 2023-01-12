@@ -106,7 +106,7 @@ class FragmentFilmDetail :
 
     // Информация о фильме
     private fun setFilmDetails() {
-        if (incomeArgs.filmId != viewModel.currentFilmId){
+        if (incomeArgs.filmId != viewModel.currentFilmId) {
             viewModel.getFilmId()
             viewModel.getFilmById()
         }
@@ -269,6 +269,7 @@ class FragmentFilmDetail :
     private fun showAllImages() {
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
     }
+
     private fun showClickedImage(link: String) {
         ///////////////////
     }
@@ -281,8 +282,12 @@ class FragmentFilmDetail :
         binding.filmSimilarList.adapter = similarAdapter
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentFilmSimilar.collect {
-                binding.filmSimilarCount.text = it.size.toString()
                 similarAdapter.submitList(it)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.countSimilarFilm.collect {
+                binding.filmSimilarCount.text = it.toString()
             }
         }
         binding.filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
@@ -293,11 +298,12 @@ class FragmentFilmDetail :
         viewModel.getFilmId()
         viewModel.getFilmById()
 
-        binding.myScroll.scrollTo(0,0)
+        binding.myScroll.scrollTo(0, 0)
         binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
     }
 
     private fun showAllSimilarFilms() {    ////////////////////////////////////////////////////////////
+//////////////// to post already existed list similar films
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentSimilarFilms)
     }
 

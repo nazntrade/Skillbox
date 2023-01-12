@@ -39,7 +39,6 @@ class GalleryAdapter(
         }
     }
 
-
     class GalleryViewHolder(
         private val binding: ItemGalleryFilmDetailBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -47,7 +46,7 @@ class GalleryAdapter(
         fun bindNextShow(clickNextButton: () -> Unit) {
             binding.apply {
                 showAll.isVisible = true
-                itemImageConstraint.isVisible = false
+                itemImage.isVisible = false
             }
             binding.btnArrowShowAll.setOnClickListener { clickNextButton() }
         }
@@ -55,7 +54,7 @@ class GalleryAdapter(
         fun bindItem(item: ItemImageGallery, clickItem: (imageUrl: String) -> Unit) {
             binding.itemImage.loadImage(item.previewUrl)
             binding.showAll.isVisible = false
-            binding.itemImageConstraint.isVisible = true
+            binding.itemImage.isVisible = true
             binding.itemImage.setOnClickListener { clickItem(item.imageUrl) }/////////
         }
     }

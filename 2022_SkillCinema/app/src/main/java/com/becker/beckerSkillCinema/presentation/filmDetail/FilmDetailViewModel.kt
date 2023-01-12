@@ -17,6 +17,8 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullPagingSource
+import com.becker.beckerSkillCinema.utils.toLimitImages
+import com.becker.beckerSkillCinema.utils.toLimitSimilarFilm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -68,6 +70,9 @@ class FilmDetailViewModel @Inject constructor(
     private val _currentFilmSimilar = MutableStateFlow<List<SimilarItem>>(emptyList())
     val currentFilmSimilar = _currentFilmSimilar.asStateFlow()
 
+    private var _countSimilarFilm = MutableStateFlow(0)
+    val countSimilarFilm = _countSimilarFilm.asStateFlow()
+
     private val _loadCurrentFilmState = MutableStateFlow<StateLoading>(StateLoading.Default)
     val loadCurrentFilmState = _loadCurrentFilmState.asStateFlow()
 
@@ -82,11 +87,13 @@ class FilmDetailViewModel @Inject constructor(
                 val filmCrewNotSorted = getActorsByFilmIdUseCase.executeActorsList(currentFilmId!!)
                 toSortFilmCrew(filmCrewNotSorted)
                 // gallery
-                _currentFilmGallery.value = setGallery(currentFilmId!!)
+                _currentFilmGallery.value = setGallery(currentFilmId!!).toLimitImages(20)
                 // similar
                 val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(currentFilmId!!)
                 if (responseSimilar.total != 0) {
-                    _currentFilmSimilar.value = responseSimilar.items!!
+                    val tempSimilarItem = responseSimilar.items!!
+                    _currentFilmSimilar.value = tempSimilarItem.toLimitSimilarFilm(20)
+                    _countSimilarFilm.value = tempSimilarItem.size
                 }
                 _loadCurrentFilmState.value = StateLoading.Success
             } catch (e: Throwable) {
@@ -117,7 +124,7 @@ class FilmDetailViewModel @Inject constructor(
     val galleryTotalNumber = _galleryTotalNumberOfPictures.asStateFlow()
 
     private val _galleryNumberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
-    val galleryChipList = _galleryNumberOfPicturesByCategory.asStateFlow()
+    val galleryChipList = _galleryNumberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
 
     val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),
