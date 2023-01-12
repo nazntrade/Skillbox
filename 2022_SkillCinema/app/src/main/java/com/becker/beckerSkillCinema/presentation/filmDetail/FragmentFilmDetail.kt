@@ -227,13 +227,13 @@ class FragmentFilmDetail :
         binding.filmMakersCount.setOnClickListener { showAllStaffs("") }
     }
 
-    private fun onStaffClick(staff: ResponseStaffByFilmId) {   ////////////////////////////////////////////////////
+    private fun onStaffClick(staff: ResponseStaffByFilmId) {   ///////////////////////////
         val action =
             FragmentFilmDetailDirections.actionFragmentFilmDetailToFragmentStaffDetail(staff.staffId)
         findNavController().navigate(action)
     }
 
-    private fun showAllStaffs(professionalKey: String) {   ////////////////////////////////////////////////////
+    private fun showAllStaffs(professionalKey: String) {
         val action = FragmentFilmDetailDirections
             .actionFragmentFilmDetailToFragmentAllStaffsByFilm(professionalKey)
         findNavController().navigate(action)
@@ -242,14 +242,14 @@ class FragmentFilmDetail :
     // Галерея фильма
     private fun setFilmGallery() {
         //
-        binding.filmGalleryCount.setOnClickListener {   ////////////////////////////////////////////////////
+        binding.filmGalleryCount.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
         }
-        binding.filmGalleryBtn.setOnClickListener {   ////////////////////////////////////////////////////
+        binding.filmGalleryBtn.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
         }
 
-        galleryAdapter = GalleryAdapter()
+        galleryAdapter = GalleryAdapter(20, { showAllImages() }, { showClickedImage(it) })
         binding.filmGalleryList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.filmGalleryList.adapter = galleryAdapter
@@ -260,10 +260,17 @@ class FragmentFilmDetail :
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.galleryCount.collect {
+            viewModel.galleryTotalNumber.collect {
                 binding.filmGalleryCount.text = it.toString()
             }
         }
+    }
+
+    private fun showAllImages() {
+        findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
+    }
+    private fun showClickedImage(link: String) {
+        ///////////////////
     }
 
     // Похожие фильмы

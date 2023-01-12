@@ -67,13 +67,13 @@ interface KinopoiskApi {
         @Path("id") id: Int
     ): ResponseCurrentFilm
 
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT5")
     @GET("v1/staff")
     suspend fun getActors(
         @Query("filmId") filmId: Int
     ): List<ResponseStaffByFilmId>
 
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT13") ///////////////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT6") ///////////////////////////////////////
     @GET("v2.2/films/{id}/images")
     suspend fun getFilmImages(
         @Path("id") id: Int,

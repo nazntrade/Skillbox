@@ -19,6 +19,7 @@ import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,7 +43,7 @@ class FilmDetailViewModel @Inject constructor(
     val currentFilmId
         get() = _currentFilmId
 
-    private var currentParamsFilterGallery = ParamsFilterGallery()
+    private var currentParamsFilterGallery = ParamsFilterGallery() ////////////////////////
 
     init {
         getFilmId()
@@ -71,7 +72,7 @@ class FilmDetailViewModel @Inject constructor(
     val loadCurrentFilmState = _loadCurrentFilmState.asStateFlow()
 
     fun getFilmById() {
-        updateParamsFilterGallery()
+        updateParamsFilterGallery()////////////////////////////////////////////////////////
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadCurrentFilmState.value = StateLoading.Loading
@@ -81,13 +82,7 @@ class FilmDetailViewModel @Inject constructor(
                 val filmCrewNotSorted = getActorsByFilmIdUseCase.executeActorsList(currentFilmId!!)
                 toSortFilmCrew(filmCrewNotSorted)
                 // gallery
-                setGalleryCount(currentFilmId!!)
-                _currentFilmGallery.value =
-                    getGalleryByIdUseCase.executeGalleryByFilmId(
-                        currentParamsFilterGallery.filmId,
-                        currentParamsFilterGallery.galleryType,
-                        1
-                    ).items
+                _currentFilmGallery.value = setGallery(currentFilmId!!)
                 // similar
                 val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(currentFilmId!!)
                 if (responseSimilar.total != 0) {
@@ -118,11 +113,11 @@ class FilmDetailViewModel @Inject constructor(
     }
 
     // For FragmentGallery
-    private val _galleryCount = MutableStateFlow(0)
-    val galleryCount = _galleryCount.asStateFlow()
+    private val _galleryTotalNumberOfPictures = MutableStateFlow(0)
+    val galleryTotalNumber = _galleryTotalNumberOfPictures.asStateFlow()
 
-    private val _galleryChipList = MutableStateFlow<Map<String, Int>>(emptyMap())
-    val galleryChipList = _galleryChipList.asStateFlow()
+    private val _galleryNumberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
+    val galleryChipList = _galleryNumberOfPicturesByCategory.asStateFlow()
 
     val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),
@@ -138,19 +133,23 @@ class FilmDetailViewModel @Inject constructor(
         }
     ).flow.cachedIn(viewModelScope)
 
-    private fun setGalleryCount(filmId: Int) {
-        _galleryCount.value = 0
-        val tempChipsList = mutableMapOf<String, Int>()
-        var countImages = 0
-        viewModelScope.launch(Dispatchers.IO) {
+    private suspend fun setGallery(filmId: Int): List<ItemImageGallery> {
+        _galleryTotalNumberOfPictures.value = 0
+        val tempNumberOfPicturesByCategory = mutableMapOf<String, Int>()
+        var tempTotalNumberOfPictures = 0
+        val totalPictures = mutableListOf<ItemImageGallery>()
+        viewModelScope.async(Dispatchers.IO) {
             GALLERY_TYPES.forEach {
-                val temp = getGalleryByIdUseCase.executeGalleryByFilmId(filmId, it.key, 1)
-                tempChipsList[it.key] = temp.total
-                countImages += temp.total
+                val tempPicturesByCategory = getGalleryByIdUseCase
+                    .executeGalleryByFilmId(filmId, it.key, 1)
+                tempNumberOfPicturesByCategory[it.key] = tempPicturesByCategory.total
+                tempTotalNumberOfPictures += tempPicturesByCategory.total
+                totalPictures += tempPicturesByCategory.items
             }
-            _galleryCount.value = countImages
-            _galleryChipList.value = tempChipsList
-        }
+            _galleryTotalNumberOfPictures.value = tempTotalNumberOfPictures
+            _galleryNumberOfPicturesByCategory.value = tempNumberOfPicturesByCategory
+        }.await()
+        return totalPictures
     }
 
     // Update the gallery with new FilmId
