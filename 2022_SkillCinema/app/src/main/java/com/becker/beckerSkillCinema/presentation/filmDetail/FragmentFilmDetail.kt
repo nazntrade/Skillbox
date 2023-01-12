@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.galleryAdapter.GalleryAdapter
 import com.becker.beckerSkillCinema.presentation.filmDetail.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.utils.loadImage
+import timber.log.Timber
 
 class FragmentFilmDetail :
     ViewBindingFragment<FragmentFilmDetailBinding>(FragmentFilmDetailBinding::inflate) {
@@ -71,7 +72,7 @@ class FragmentFilmDetail :
             .setOnClickListener { viewModel.getFilmById() }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.loadCurrentFilmState.collect { state ->
+            viewModel.loadingCurrentFilmState.collect { state ->
                 when (state) {
                     is StateLoading.Loading -> {
                         binding.apply {
@@ -113,25 +114,30 @@ class FragmentFilmDetail :
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.currentFilm.collect { film ->
-                        if (film != null) {
-                            if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
-                                binding.seasonsGroup.isVisible = true
-                                viewModel.getSeasons(film.kinopoiskId)
-                                getSeriesSeasons(getName(film))
-                            } else {
-                                binding.seasonsGroup.isVisible = false
-                            }
-                            binding.apply {
-                                filmName.text = getName(film)
-                                filmPoster.loadImage(film.posterUrl)
-                                filmDescriptionShort.text = film.shortDescription
-                                filmDescriptionFull.text = film.description
-                                filmRatingNameTv.text = getRatingName(film)
-                                filmYearGenresTv.text = getYearAndGenres(film, requireContext())
-                                filmCountryLengthAgeLimitTv.text = getStrCountriesLengthAge(film)
+                    try {
+                        viewModel.currentFilm.collect { film ->
+                            if (film != null) {
+                                if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
+                                    binding.seasonsGroup.isVisible = true
+                                    viewModel.getSeasons(film.kinopoiskId)
+                                    getSeriesSeasons(getName(film))
+                                } else {
+                                    binding.seasonsGroup.isVisible = false
+                                }
+                                binding.apply {
+                                    filmName.text = getName(film)
+                                    filmPoster.loadImage(film.posterUrl)
+                                    filmDescriptionShort.text = film.shortDescription
+                                    filmDescriptionFull.text = film.description
+                                    filmRatingNameTv.text = getRatingName(film)
+                                    filmYearGenresTv.text = getYearAndGenres(film, requireContext())
+                                    filmCountryLengthAgeLimitTv.text =
+                                        getStrCountriesLengthAge(film)
+                                }
                             }
                         }
+                    } catch (e: Throwable) {
+                        Timber.e("setFilmDetails $e")
                     }
                 }
             }
@@ -142,29 +148,36 @@ class FragmentFilmDetail :
     private fun getSeriesSeasons(seriesName: String) {
         binding.seriesSeasonsBtn.setOnClickListener { showAllSeasons(seriesName) }
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.seasons.collect {
-                val seasonsCount = it.size
-                var seriesCount = 0
-                it.forEach { season ->
-                    seriesCount += season.episodes.size
+            try {
+                viewModel.seasons.collect { seasons ->
+                    val seasonsCount = seasons.size
+                    var seriesCount = 0
+
+                    seasons.forEach { season ->
+                        seriesCount += season.episodes.size
+                    }
+
+                    val seasonStr =
+                        resources.getQuantityString(
+                            R.plurals.film_details_series_count,
+                            seasonsCount,
+                            seasonsCount
+                        )
+                    val episodeStr =
+                        resources.getQuantityString(
+                            R.plurals.film_details_episode_count,
+                            seriesCount,
+                            seriesCount
+                        )
+
+                    binding.seriesSeasonsCount.text = resources.getString(
+                        R.string.seasons_episodes_count,
+                        seasonStr,
+                        episodeStr
+                    )
                 }
-                val seasonStr =
-                    resources.getQuantityString(
-                        R.plurals.film_details_series_count,
-                        seasonsCount,
-                        seasonsCount
-                    )
-                val episodeStr =
-                    resources.getQuantityString(
-                        R.plurals.film_details_episode_count,
-                        seriesCount,
-                        seriesCount
-                    )
-                binding.seriesSeasonsCount.text = resources.getString(
-                    R.string.seasons_episodes_count,
-                    seasonStr,
-                    episodeStr
-                )
+            } catch (e: Throwable) {
+                Timber.e("getSeriesSeasons $e")
             }
         }
     }

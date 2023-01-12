@@ -25,16 +25,28 @@ fun List<HomeItem>.toLimitTheNumberOfObjects(size: Int): List<HomeItem> {
 
 fun List<ItemImageGallery>.toLimitImages(size: Int): List<ItemImageGallery> {
     val resultList = mutableListOf<ItemImageGallery>()
-    repeat(size) {
-        resultList.add(this[it])
+    if (this.size < size) {
+        repeat(this.size) {
+            resultList.add(this[it])
+        }
+    } else {
+        repeat(size) {
+            resultList.add(this[it])
+        }
     }
     return resultList.toList()
 }
 
 fun List<SimilarItem>.toLimitSimilarFilm(size: Int): List<SimilarItem> {
     val resultList = mutableListOf<SimilarItem>()
-    repeat(size) {
-        resultList.add(this[it])
+    if (this.size < size) {
+        repeat(this.size) {
+            resultList.add(this[it])
+        }
+    } else {
+        repeat(size) {
+            resultList.add(this[it])
+        }
     }
     return resultList.toList()
 }

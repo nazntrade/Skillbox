@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -73,38 +74,46 @@ class FilmDetailViewModel @Inject constructor(
     private var _countSimilarFilm = MutableStateFlow(0)
     val countSimilarFilm = _countSimilarFilm.asStateFlow()
 
-    private val _loadCurrentFilmState = MutableStateFlow<StateLoading>(StateLoading.Default)
-    val loadCurrentFilmState = _loadCurrentFilmState.asStateFlow()
+    private val _loadingCurrentFilmState = MutableStateFlow<StateLoading>(StateLoading.Default)
+    val loadingCurrentFilmState = _loadingCurrentFilmState.asStateFlow()
 
     fun getFilmById() {
         updateParamsFilterGallery()////////////////////////////////////////////////////////
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _loadCurrentFilmState.value = StateLoading.Loading
+                _loadingCurrentFilmState.value = StateLoading.Loading
                 // film
                 _currentFilm.value = getFilmByIdUseCase.executeFilmById(currentFilmId!!)
-                // staffs
+                // crew
                 val filmCrewNotSorted = getActorsByFilmIdUseCase.executeActorsList(currentFilmId!!)
                 toSortFilmCrew(filmCrewNotSorted)
                 // gallery
-                _currentFilmGallery.value = setGallery(currentFilmId!!).toLimitImages(20)
+                _currentFilmGallery.value = setGallery(currentFilmId!!)
+                    .toLimitImages(20)
                 // similar
                 val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(currentFilmId!!)
                 if (responseSimilar.total != 0) {
                     val tempSimilarItem = responseSimilar.items!!
                     _currentFilmSimilar.value = tempSimilarItem.toLimitSimilarFilm(20)
                     _countSimilarFilm.value = tempSimilarItem.size
+                } else {
+                    Timber.e("getSeasons $")
                 }
-                _loadCurrentFilmState.value = StateLoading.Success
+                _loadingCurrentFilmState.value = StateLoading.Success
             } catch (e: Throwable) {
-                _loadCurrentFilmState.value = StateLoading.Error(e.message.toString())
+                _loadingCurrentFilmState.value = StateLoading.Error(e.message.toString())
             }
         }
     }
 
     fun getSeasons(seriesId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _seasons.value = getSeasonsUseCase.executeSeasons(seriesId).items
+            try {
+                _seasons.value =
+                    getSeasonsUseCase.executeSeasons(seriesId).items
+            } catch (e: Throwable) {
+                Timber.e("getSeasons $e")
+            }
         }
     }
 
@@ -146,21 +155,25 @@ class FilmDetailViewModel @Inject constructor(
         var tempTotalNumberOfPictures = 0
         val totalPictures = mutableListOf<ItemImageGallery>()
         viewModelScope.async(Dispatchers.IO) {
-            GALLERY_TYPES.forEach {
-                val tempPicturesByCategory = getGalleryByIdUseCase
-                    .executeGalleryByFilmId(filmId, it.key, 1)
-                tempNumberOfPicturesByCategory[it.key] = tempPicturesByCategory.total
-                tempTotalNumberOfPictures += tempPicturesByCategory.total
-                totalPictures += tempPicturesByCategory.items
+            try {
+                GALLERY_TYPES.forEach {
+                    val tempPicturesByCategory = getGalleryByIdUseCase
+                        .executeGalleryByFilmId(filmId, it.key, 1)
+                    tempNumberOfPicturesByCategory[it.key] = tempPicturesByCategory.total
+                    tempTotalNumberOfPictures += tempPicturesByCategory.total
+                    totalPictures += tempPicturesByCategory.items
+                }
+                _galleryTotalNumberOfPictures.value = tempTotalNumberOfPictures
+                _galleryNumberOfPicturesByCategory.value = tempNumberOfPicturesByCategory
+            } catch (e: Throwable) {
+                Timber.e("setGallery $e")
             }
-            _galleryTotalNumberOfPictures.value = tempTotalNumberOfPictures
-            _galleryNumberOfPicturesByCategory.value = tempNumberOfPicturesByCategory
         }.await()
         return totalPictures
     }
 
     // Update the gallery with new FilmId
-    private fun updateParamsFilterGallery() {
+    private fun updateParamsFilterGallery() { /////////////////////////////////////
         val newParamsFilterGallery = ParamsFilterGallery(
             filmId = currentFilmId!!,
             galleryType = "STILL"
@@ -181,5 +194,4 @@ class FilmDetailViewModel @Inject constructor(
             }
         }
     }
-
 }
