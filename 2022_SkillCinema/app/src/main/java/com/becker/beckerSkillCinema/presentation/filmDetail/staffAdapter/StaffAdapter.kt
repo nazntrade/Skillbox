@@ -46,7 +46,7 @@ class StaffAdapter(
             binding.apply {
                 actorAvatarFilmDetail.loadImage(item.posterUrl)
                 actorNameFilmDetail.text = item.nameRu ?: item.nameEn ?: "Не указан"
-                actorRoleFilmDetail.text = item.description ?: "Не указан"
+                actorRoleFilmDetail.text = item.description ?: item.professionText ?: "Не указан"
             }
             binding.root.setOnClickListener { clickActor(item) }
         }

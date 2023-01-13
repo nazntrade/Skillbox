@@ -35,7 +35,6 @@ class FragmentFilmDetail :
 
     // https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
     private val viewModel: FilmDetailViewModel by activityViewModels()
-
     private var actorAdapter: StaffAdapter by autoCleared()
     private var makersAdapter: StaffAdapter by autoCleared()
     private var galleryAdapter: GalleryAdapter by autoCleared()
@@ -58,7 +57,6 @@ class FragmentFilmDetail :
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
         stateLoadingListener()              // Set listener downloads
-
         setFilmDetails()                    // Set poster with info on it
         setFilmActors()                     // Ser ListActors
         setFilmCrew()                       // Set ListFilmCrew
@@ -111,6 +109,7 @@ class FragmentFilmDetail :
             viewModel.getFilmId()
             viewModel.getFilmById()
         }
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -147,6 +146,7 @@ class FragmentFilmDetail :
     // About season and series
     private fun getSeriesSeasons(seriesName: String) {
         binding.seriesSeasonsBtn.setOnClickListener { showAllSeasons(seriesName) }
+
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 viewModel.seasons.collect { seasons ->
@@ -163,6 +163,7 @@ class FragmentFilmDetail :
                             seasonsCount,
                             seasonsCount
                         )
+
                     val episodeStr =
                         resources.getQuantityString(
                             R.plurals.film_details_episode_count,
@@ -191,53 +192,64 @@ class FragmentFilmDetail :
     // Actors and film crew
     private fun setFilmActors() {
         actorAdapter = StaffAdapter { onStaffClick(it) }
+
         binding.filmActorsList.layoutManager =
             GridLayoutManager(
                 requireContext(), MAX_ACTORS_ROWS, GridLayoutManager.HORIZONTAL, false
             )
+
         binding.filmActorsList.adapter = actorAdapter
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentFilmActors.collect { actorList ->
                 binding.filmActorsCount.text = actorList.size.toString()
                 if (actorList.size < MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) {
+                    binding.filmActorsCount.isEnabled = false
+                    binding.filmActorsBtn.isEnabled = false
                     actorAdapter.submitList(actorList)
-                } else {
+                } else {    // set only if fewer 20
+                    binding.filmActorsCount.isEnabled = true
+                    binding.filmActorsBtn.isEnabled = true
                     val actorsListTemp = mutableListOf<ResponseStaffByFilmId>()
-                    repeat(MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) { actorsListTemp.add(actorList[it]) }
+                    repeat(MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) {
+                        actorsListTemp.add(actorList[it])
+                    }
                     actorAdapter.submitList(actorsListTemp)
+                    binding.filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
+                    binding.filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
                 }
             }
         }
-        binding.filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
-        binding.filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
     }
 
     private fun setFilmCrew() {
         makersAdapter = StaffAdapter { onStaffClick(it) }
+
         binding.filmMakersList.layoutManager =
             GridLayoutManager(
                 requireContext(), MAX_MAKERS_ROWS, GridLayoutManager.HORIZONTAL, false
             )
+
         binding.filmMakersList.adapter = makersAdapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentFilmMakers.collect { makersList ->
+                binding.filmMakersCount.text = makersList.size.toString()
                 if (makersList.size < MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) {
-                    binding.filmMakersCount.isVisible = false
-                    binding.filmMakersBtn.isVisible = false
+                    binding.filmMakersCount.isEnabled = false
+                    binding.filmMakersBtn.isEnabled = false
                     makersAdapter.submitList(makersList)
-                } else {
-                    binding.filmMakersCount.isVisible = true
-                    binding.filmMakersBtn.isVisible = true
-                    binding.filmMakersCount.text = makersList.size.toString()
+                } else {    // set only if fewer 6
+                    binding.filmMakersCount.isEnabled = true
+                    binding.filmMakersBtn.isEnabled = true
                     val makersListTemp = mutableListOf<ResponseStaffByFilmId>()
                     repeat(MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) { makersListTemp.add(makersList[it]) }
                     makersAdapter.submitList(makersListTemp)
+                    binding.filmMakersBtn.setOnClickListener { showAllStaffs("") }
+                    binding.filmMakersCount.setOnClickListener { showAllStaffs("") }
                 }
             }
         }
-        binding.filmMakersBtn.setOnClickListener { showAllStaffs("") }
-        binding.filmMakersCount.setOnClickListener { showAllStaffs("") }
     }
 
     private fun onStaffClick(staff: ResponseStaffByFilmId) {     //////////////   move to
@@ -258,6 +270,7 @@ class FragmentFilmDetail :
         binding.filmGalleryCount.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
         }
+
         binding.filmGalleryBtn.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
         }
@@ -272,9 +285,17 @@ class FragmentFilmDetail :
                 galleryAdapter.submitList(responseGallery)
             }
         }
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.galleryTotalNumber.collect {
                 binding.filmGalleryCount.text = it.toString()
+                if (it > 20) {
+                    binding.filmGalleryBtn.isEnabled = true
+                    binding.filmGalleryCount.isEnabled = true
+                } else {
+                    binding.filmGalleryBtn.isEnabled = false
+                    binding.filmGalleryCount.isEnabled = false
+                }
             }
         }
     }
@@ -289,20 +310,25 @@ class FragmentFilmDetail :
 
     // Similar films
     private fun setSimilarFilms() {
+
         similarAdapter = FilmAdapter(20, { showAllSimilarFilms() }, { onSimilarFilmClick(it) })
         binding.filmSimilarList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         binding.filmSimilarList.adapter = similarAdapter
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentFilmSimilar.collect {
                 similarAdapter.submitList(it)
             }
         }
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.countSimilarFilm.collect {
                 binding.filmSimilarCount.text = it.toString()
             }
         }
+
         binding.filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
     }
 
@@ -382,6 +408,7 @@ class FragmentFilmDetail :
             } else if (film.genres.size == 1) {
                 result.add(film.genres[0].genre)
             } else result.add("")
+
             return result.joinToString(", ")
         }
 
@@ -390,6 +417,7 @@ class FragmentFilmDetail :
             result.add(film.getCountries())
             if (film.getLength() != null) result.add(film.getLength())
             if (film.getAgeLimit() != null) result.add("${film.getAgeLimit()}+")
+
             return result.joinToString(", ")
         }
 

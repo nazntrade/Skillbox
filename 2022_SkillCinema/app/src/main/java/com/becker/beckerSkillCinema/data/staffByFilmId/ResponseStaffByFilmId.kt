@@ -10,6 +10,6 @@ data class ResponseStaffByFilmId(
     @Json(name = "nameEn") val nameEn: String?,
     @Json(name = "description") val description: String?,
     @Json(name = "posterUrl") val posterUrl: String,
-    @Json(name = "professionText") val professionText: String,
+    @Json(name = "professionText") val professionText: String?,
     @Json(name = "professionKey") val professionKey: String
 )

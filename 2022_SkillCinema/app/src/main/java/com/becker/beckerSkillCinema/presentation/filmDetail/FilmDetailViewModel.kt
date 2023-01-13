@@ -44,7 +44,8 @@ class FilmDetailViewModel @Inject constructor(
     val currentFilmId
         get() = _currentFilmId
 
-    private var currentParamsFilterGallery = ParamsFilterGallery() ///??????????????????????????????????????????????
+    private var currentParamsFilterGallery =
+        ParamsFilterGallery() ///??????????????????????????????????????????????
 
     init {
         getFilmId()
@@ -116,8 +117,8 @@ class FilmDetailViewModel @Inject constructor(
     }
 
     private fun toSortFilmCrew(filmCrewNotSorted: List<ResponseStaffByFilmId>) {
-        val actors = mutableListOf<ResponseStaffByFilmId>()
-        val makers = mutableListOf<ResponseStaffByFilmId>()
+        val actors = emptyList<ResponseStaffByFilmId>().toMutableList()
+        val makers = emptyList<ResponseStaffByFilmId>().toMutableList()
         filmCrewNotSorted.forEach { thisPeople ->
             if (thisPeople.professionKey == "ACTOR") actors.add(thisPeople)
             else makers.add(thisPeople)
@@ -131,7 +132,8 @@ class FilmDetailViewModel @Inject constructor(
     val galleryTotalNumber = _galleryTotalNumberOfPictures.asStateFlow()
 
     private val _galleryNumberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
-    val galleryChipList = _galleryNumberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
+    val galleryChipList =
+        _galleryNumberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
 
     val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),
