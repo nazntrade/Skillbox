@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="@dimen/dimen_16"
-        app:layout_constraintBottom_toTopOf="@id/loading_refresh_btn"/>
+        app:layout_constraintBottom_toTopOf="@id/loading_refresh_btn" />
 
     <Button
         android:id="@+id/loading_refresh_btn"

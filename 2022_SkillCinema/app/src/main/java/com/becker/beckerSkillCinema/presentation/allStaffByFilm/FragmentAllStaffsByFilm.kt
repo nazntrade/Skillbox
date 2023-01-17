@@ -6,7 +6,8 @@ import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.databinding.FragmentStaffAllByFilmBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 
-class FragmentAllStaffsByFilm : ViewBindingFragment<FragmentStaffAllByFilmBinding>(FragmentStaffAllByFilmBinding::inflate) {
+class FragmentAllStaffsByFilm :
+    ViewBindingFragment<FragmentStaffAllByFilmBinding>(FragmentStaffAllByFilmBinding::inflate) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

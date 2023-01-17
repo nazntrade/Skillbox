@@ -165,10 +165,6 @@ class FilmDetailViewModel @Inject constructor(
     val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
-//            Log.d(
-//                TAG,
-//                "CVM-235: galleryByType: ${currentParamsFilterGallery.filmId} | ${currentParamsFilterGallery.galleryType}"
-//            )
             GalleryFullPagingSource(
                 getGalleryByIdUseCase = getGalleryByIdUseCase,
                 filterParams = currentParamsFilterGallery
@@ -200,10 +196,13 @@ class FilmDetailViewModel @Inject constructor(
     }
 
     // Update the gallery with new FilmId
-    private fun updateParamsFilterGallery() { ///??????????????????????????????????????????????????
+    fun updateParamsFilterGallery(
+        filmId: Int? = currentFilmId,
+        galleryType: String = "STILL"
+    ) { ///??????????????????????????????????????????????????
         val newParamsFilterGallery = ParamsFilterGallery(
-            filmId = currentFilmId!!,
-            galleryType = "STILL"
+            filmId = filmId!!,
+            galleryType = galleryType
         )
         currentParamsFilterGallery = newParamsFilterGallery
     }

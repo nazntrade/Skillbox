@@ -15,7 +15,8 @@ import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilms
 
-class FragmentSimilarFilms : ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
+class FragmentSimilarFilms :
+    ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -1,6 +1,6 @@
 package com.becker.beckerSkillCinema.data
-//1.Detail info
-//2.
+//1.Gallery full screen
+//2.Show All Seasons
 //3.Create function getMonth() in ViewModel
 //4.On detailed screen you can watch trailer
 //5.

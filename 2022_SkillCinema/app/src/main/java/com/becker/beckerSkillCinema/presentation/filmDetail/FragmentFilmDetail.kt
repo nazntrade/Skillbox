@@ -304,8 +304,10 @@ class FragmentFilmDetail :
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
     }
 
-    private fun showClickedImage(link: String) {     ////////   expand
-        ///////////////////
+    private fun showClickedImage(position: Int) {     ////////   expand
+        val action = FragmentFilmDetailDirections
+            .actionFragmentFilmDetailToFragmentGalleryFullscreen(position)
+        findNavController().navigate(action)
     }
 
     // Similar films

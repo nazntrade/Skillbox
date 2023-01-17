@@ -33,6 +33,7 @@ class FragmentSeasons :
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+
     val args: FragmentSeasonsArgs by navArgs()
 
 

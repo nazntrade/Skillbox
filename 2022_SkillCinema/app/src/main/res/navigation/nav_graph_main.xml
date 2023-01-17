@@ -22,7 +22,12 @@
         android:id="@+id/fragmentGallery"
         android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFull"
         android:label="FragmentGallery"
-        tools:layout="@layout/fragment_film_gallery" />
+        tools:layout="@layout/fragment_film_gallery_screen">
+        <action
+            android:id="@+id/action_fragmentGallery_to_fragmentGalleryFullscreen"
+            app:destination="@id/fragmentGalleryFullscreen"
+            app:popUpTo="@+id/fragmentGallery" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentAllStaffsByFilm"
         android:name="com.becker.beckerSkillCinema.presentation.allStaffByFilm.FragmentAllStaffsByFilm"
@@ -140,6 +145,19 @@
         <action
             android:id="@+id/action_fragmentFilmDetail_self"
             app:destination="@id/fragmentFilmDetail" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentGalleryFullscreen"
+            app:destination="@id/fragmentGalleryFullscreen"
+            app:popUpTo="@+id/fragmentFilmDetail"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentGalleryFullscreen"
+        android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFullscreen"
+        android:label="FragmentGalleryFullscreen"
+        tools:layout="@layout/fragment_gallery_detail_fullscreen">
+        <argument
+            android:name="position"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

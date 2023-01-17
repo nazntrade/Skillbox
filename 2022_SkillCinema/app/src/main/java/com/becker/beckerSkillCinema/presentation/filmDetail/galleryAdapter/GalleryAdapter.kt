@@ -2,6 +2,7 @@ package com.becker.beckerSkillCinema.presentation.filmDetail.galleryAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.persistableBundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +14,7 @@ import com.becker.beckerSkillCinema.utils.loadImage
 class GalleryAdapter(
     private val maxListSize: Int,
     private val clickNextButton: () -> Unit,
-    private val clickItem: (imageUrl: String) -> Unit /////////////////////////
+    private val clickItem: (position: Int) -> Unit /////////////////////////
 ) : ListAdapter<ItemImageGallery, GalleryAdapter.GalleryViewHolder>(DiffGallery()) {
 
     class DiffGallery : DiffUtil.ItemCallback<ItemImageGallery>() {
@@ -35,7 +36,7 @@ class GalleryAdapter(
         if (position == maxListSize - 1) {
             holder.bindNextShow { clickNextButton() }
         } else {
-            holder.bindItem(getItem(position)) { item -> clickItem(item) }////////////////
+            holder.bindItem(getItem(position)) { clickItem(position) }////////////////
         }
     }
 
@@ -51,11 +52,11 @@ class GalleryAdapter(
             binding.btnArrowShowAll.setOnClickListener { clickNextButton() }
         }
 
-        fun bindItem(item: ItemImageGallery, clickItem: (imageUrl: String) -> Unit) {
+        fun bindItem(item: ItemImageGallery, clickItem: (position: Int) -> Unit) {
             binding.itemImage.loadImage(item.previewUrl)
             binding.showAll.isVisible = false
             binding.itemImage.isVisible = true
-            binding.itemImage.setOnClickListener { clickItem(item.imageUrl) }/////////
+            binding.itemImage.setOnClickListener { clickItem(position) }/////////
         }
     }
 }

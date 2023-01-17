@@ -49,7 +49,7 @@ class FragmentAllFilms :
             allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
             progressGroupContainer
                 .loadingRefreshBtn.setOnClickListener {
-                   viewModel.getPagedFilms()
+                    viewModel.getPagedFilms()
                     setFilmList()
                 }
         }
