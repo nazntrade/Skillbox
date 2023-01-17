@@ -81,15 +81,43 @@ class FilmDetailViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadingCurrentFilmState.value = StateLoading.Loading
-                // film
+                //mainInfoAboutMovie
                 _currentFilm.value = getFilmByIdUseCase.executeFilmById(currentFilmId!!)
-                // crew
+                setCrew()
+                setImage()
+                setSimilar()
+                _loadingCurrentFilmState.value = StateLoading.Success
+            } catch (e: Throwable) {
+                _loadingCurrentFilmState.value = StateLoading.Error(e.message.toString())
+                Timber.e("getFilmById $e")
+            }
+        }
+    }
+
+    private fun setCrew() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 val filmCrewNotSorted = getActorsByFilmIdUseCase.executeActorsList(currentFilmId!!)
                 toSortFilmCrew(filmCrewNotSorted)
-                // gallery
-                _currentFilmGallery.value = setGallery(currentFilmId!!)
-                    .toLimitImages(20)
-                // similar
+            } catch (e: Throwable) {
+                Timber.e("setCrew $e")
+            }
+        }
+    }
+
+    private fun setImage() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _currentFilmGallery.value = setGallery(currentFilmId!!).toLimitImages(20)
+            } catch (e: Throwable) {
+                Timber.e("setImage $e")
+            }
+        }
+    }
+
+    private fun setSimilar() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 val responseSimilar = getSimilarFilmsUseCase.executeSimilarFilms(currentFilmId!!)
                 if (responseSimilar.total != 0) {
                     val tempSimilarItem = responseSimilar.items!!
@@ -98,9 +126,8 @@ class FilmDetailViewModel @Inject constructor(
                 } else {
                     Timber.e("responseSimilar = 0")
                 }
-                _loadingCurrentFilmState.value = StateLoading.Success
             } catch (e: Throwable) {
-                _loadingCurrentFilmState.value = StateLoading.Error(e.message.toString())
+                Timber.e("setSimilar $e")
             }
         }
     }
