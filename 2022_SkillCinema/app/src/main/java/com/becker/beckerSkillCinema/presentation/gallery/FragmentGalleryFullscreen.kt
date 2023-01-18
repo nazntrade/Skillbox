@@ -14,6 +14,10 @@ import com.becker.beckerSkillCinema.databinding.FragmentGalleryDetailFullscreenB
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.gallery.pagerAdapter.GalleryFullscreenAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class FragmentGalleryFullscreen : ViewBindingFragment<FragmentGalleryDetailFullscreenBinding>(
     FragmentGalleryDetailFullscreenBinding::inflate
@@ -28,25 +32,29 @@ class FragmentGalleryFullscreen : ViewBindingFragment<FragmentGalleryDetailFulls
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+
     private val args: FragmentGalleryFullscreenArgs by navArgs()
 
     private val viewModel: FilmDetailViewModel by activityViewModels()
-    private lateinit var adapter: GalleryFullscreenAdapter
+    private var adapter: GalleryFullscreenAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = GalleryFullscreenAdapter()
+
         PagerSnapHelper().attachToRecyclerView(binding.galleryImageFullscreenContainer)
+
         binding.galleryImageFullscreenContainer.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         binding.galleryImageFullscreenContainer.adapter = adapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.galleryByType.collect {
-                binding.galleryImageFullscreenContainer.scrollToPosition(args.position)
                 adapter.submitData(it)
             }
         }
+        binding.galleryImageFullscreenContainer.scrollToPosition(args.position)
     }
 }

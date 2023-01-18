@@ -18,6 +18,7 @@ import com.becker.beckerSkillCinema.databinding.FragmentFilmGalleryScreenBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -35,7 +36,7 @@ class FragmentGalleryFull :
     }
 
     private val viewModel: FilmDetailViewModel by activityViewModels()
-    private lateinit var galleryAdapter: GalleryFullAdapter
+    private var galleryAdapter: GalleryFullAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
