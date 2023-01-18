@@ -1,5 +1,6 @@
 package com.becker.beckerSkillCinema.presentation.filmDetail
 
+import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -27,6 +28,7 @@ import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.galleryAdapter.GalleryAdapter
 import com.becker.beckerSkillCinema.presentation.filmDetail.staffAdapter.StaffAdapter
+import com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFullDirections
 import com.becker.beckerSkillCinema.utils.loadImage
 import timber.log.Timber
 
@@ -304,9 +306,9 @@ class FragmentFilmDetail :
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
     }
 
-    private fun showClickedImage(position: Int) {     ////////   expand
+    private fun showClickedImage(link: String) {     ////////   expand
         val action = FragmentFilmDetailDirections
-            .actionFragmentFilmDetailToFragmentGalleryFullscreen(position)
+            .actionFragmentFilmDetailToFragmentBigImage(link)
         findNavController().navigate(action)
     }
 

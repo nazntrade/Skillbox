@@ -28,14 +28,13 @@ class FragmentGalleryFullscreen : ViewBindingFragment<FragmentGalleryDetailFulls
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+    private val args: FragmentGalleryFullscreenArgs by navArgs()
 
     private val viewModel: FilmDetailViewModel by activityViewModels()
     private lateinit var adapter: GalleryFullscreenAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val args: FragmentGalleryFullscreenArgs by navArgs()
 
         adapter = GalleryFullscreenAdapter()
         PagerSnapHelper().attachToRecyclerView(binding.galleryImageFullscreenContainer)

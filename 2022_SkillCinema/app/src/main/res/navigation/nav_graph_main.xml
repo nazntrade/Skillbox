@@ -28,6 +28,7 @@
             app:destination="@id/fragmentGalleryFullscreen"
             app:popUpTo="@+id/fragmentGallery" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentAllStaffsByFilm"
         android:name="com.becker.beckerSkillCinema.presentation.allStaffByFilm.FragmentAllStaffsByFilm"
@@ -90,6 +91,7 @@
         android:name="com.becker.beckerSkillCinema.presentation.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/fragmentAllFilms"
         android:name="com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilms"
@@ -109,11 +111,13 @@
         android:name="com.becker.beckerSkillCinema.presentation.onBoarding.OnBoardingFragment"
         android:label="OnBoardingFragment"
         tools:layout="@layout/item_onboarding" />
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.becker.beckerSkillCinema.presentation.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
+
     <fragment
         android:id="@+id/fragmentFilmDetail"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.FragmentFilmDetail"
@@ -149,7 +153,16 @@
             android:id="@+id/action_fragmentFilmDetail_to_fragmentGalleryFullscreen"
             app:destination="@id/fragmentGalleryFullscreen"
             app:popUpTo="@+id/fragmentFilmDetail"/>
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentBigImage"
+            app:destination="@id/fragmentBigImage"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@+id/fragmentFilmDetail" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentGalleryFullscreen"
         android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFullscreen"
@@ -158,6 +171,16 @@
         <argument
             android:name="position"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentBigImage"
+        android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentBigImage"
+        android:label="FragmentBigImage"
+        tools:layout="@layout/fragment_big_image" >
+        <argument
+            android:name="imageLink"
+            app:argType="string" />
     </fragment>
 
 </navigation>
