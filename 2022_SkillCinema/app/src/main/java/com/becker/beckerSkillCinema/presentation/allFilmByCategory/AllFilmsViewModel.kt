@@ -39,11 +39,13 @@ class AllFilmsViewModel @Inject constructor(
         repository.putFilmId(filmId)
     }
 
-    var pagedFilms: Flow<PagingData<HomeItem>>? = null
+    private var _pagedFilms: Flow<PagingData<HomeItem>>? = null
+    val pagedFilms
+        get() = _pagedFilms
 
     fun getPagedFilms() {
         if (localCategory == CategoriesFilms.TV_SERIES) {
-            pagedFilms = Pager(
+            _pagedFilms = Pager(
                 config = PagingConfig(pageSize = 20),
                 pagingSourceFactory = {
                     FilmsByFilterPagingSource(
@@ -53,7 +55,7 @@ class AllFilmsViewModel @Inject constructor(
                 }
             ).flow.cachedIn(viewModelScope)
         } else {
-            pagedFilms = Pager(
+            _pagedFilms = Pager(
                 config = PagingConfig(pageSize = 20),
                 pagingSourceFactory = {
                     AllFilmPagingSource(

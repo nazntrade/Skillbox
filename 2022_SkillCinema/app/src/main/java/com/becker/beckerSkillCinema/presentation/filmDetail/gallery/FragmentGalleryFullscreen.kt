@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.gallery
+package com.becker.beckerSkillCinema.presentation.filmDetail.gallery
 
 import android.content.Context
 import android.os.Bundle
@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import com.becker.beckerSkillCinema.databinding.FragmentGalleryDetailFullscreenBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
-import com.becker.beckerSkillCinema.presentation.gallery.pagerAdapter.GalleryFullscreenAdapter
+import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.pagerAdapter.GalleryFullscreenAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class FragmentGalleryFullscreen : ViewBindingFragment<FragmentGalleryDetailFullscreenBinding>(

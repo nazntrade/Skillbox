@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.gallery
+package com.becker.beckerSkillCinema.presentation.filmDetail.gallery
 
 import android.content.Context
 import android.os.Bundle

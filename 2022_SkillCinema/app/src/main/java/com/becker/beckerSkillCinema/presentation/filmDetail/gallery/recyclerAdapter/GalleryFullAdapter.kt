@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -31,7 +31,7 @@ class GalleryFullAdapter(
         val item = getItem(position)
         with(holder.binding) {
             item?.let {
-                galleryImage.loadImage(it.previewUrl)
+                galleryImage.loadImage(it.imageUrl)
             }
             holder.binding.galleryImage.setOnClickListener { onClick(position) }
         }

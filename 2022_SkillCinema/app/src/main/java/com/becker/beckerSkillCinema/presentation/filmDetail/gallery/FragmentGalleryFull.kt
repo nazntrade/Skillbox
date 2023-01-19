@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.gallery
+package com.becker.beckerSkillCinema.presentation.filmDetail.gallery
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -17,7 +17,7 @@ import com.becker.beckerSkillCinema.data.GALLERY_TYPES
 import com.becker.beckerSkillCinema.databinding.FragmentFilmGalleryScreenBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
-import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullAdapter
+import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -46,12 +46,12 @@ class FragmentGalleryFull :
 
     private fun setChipButton() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.galleryChipList.collect {
+            viewModel.numberOfPicturesByCategory.collect { categoriesWithNumbers ->
                 val chipGroup = ChipGroup(requireContext()).apply {
                     isSingleSelection = true
                     chipSpacingHorizontal = 8
                 }
-                it.forEach { (key, value) ->
+                categoriesWithNumbers.forEach { (key, value) ->
                     if (value != 0) {
                         val nameChip = GALLERY_TYPES[key]
                         val chip = Chip(requireContext()).apply {
@@ -62,11 +62,13 @@ class FragmentGalleryFull :
                             isCheckable = true
                             checkedIcon = null
                             transitionName = key
-                            chipStrokeWidth = 1f
+                            chipStrokeWidth = 1F
                             isSelected = false
                         }
-                        chip.setOnClickListener { myChip ->
-                            viewModel.updateParamsFilterGallery(galleryType = myChip.transitionName)
+                        chip.setOnClickListener { myChipClicked ->
+                            viewModel.updateParamsFilterGallery(
+                                galleryType = myChipClicked.transitionName
+                            )
                             galleryAdapter.refresh()
                         }
                         if (chipGroup.size == 0) {
@@ -107,8 +109,8 @@ class FragmentGalleryFull :
     }
 
     private fun onClick(position: Int) {
-        val action = FragmentGalleryFullDirections
-            .actionFragmentGalleryToFragmentGalleryFullscreen(position)
+        val action =
+            FragmentGalleryFullDirections.actionFragmentGalleryToFragmentGalleryFullscreen(position)
         findNavController().navigate(action)
     }
 

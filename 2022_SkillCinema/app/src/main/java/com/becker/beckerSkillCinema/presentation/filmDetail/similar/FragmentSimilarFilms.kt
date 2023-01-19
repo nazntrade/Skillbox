@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.filmDetail
+package com.becker.beckerSkillCinema.presentation.filmDetail.similar
 
 import android.content.Context
 import android.os.Bundle

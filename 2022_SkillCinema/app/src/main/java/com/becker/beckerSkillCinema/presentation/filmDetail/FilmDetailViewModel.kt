@@ -16,7 +16,7 @@ import com.becker.beckerSkillCinema.data.similarFilm.SimilarItem
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
-import com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter.GalleryFullPagingSource
+import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitImages
 import com.becker.beckerSkillCinema.utils.toLimitSimilarFilm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -155,12 +155,12 @@ class FilmDetailViewModel @Inject constructor(
     }
 
     // For FragmentGallery
-    private val _galleryTotalNumberOfPictures = MutableStateFlow(0)
-    val galleryTotalNumber = _galleryTotalNumberOfPictures.asStateFlow()
+    private val _totalNumberOfPictures = MutableStateFlow(0)
+    val totalNumberOfPictures = _totalNumberOfPictures.asStateFlow()
 
-    private val _galleryNumberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
-    val galleryChipList =
-        _galleryNumberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
+    private val _numberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
+    val numberOfPicturesByCategory =
+        _numberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
 
     val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),
@@ -173,7 +173,7 @@ class FilmDetailViewModel @Inject constructor(
     ).flow.cachedIn(viewModelScope)
 
     private suspend fun setGallery(filmId: Int): List<ItemImageGallery> {
-        _galleryTotalNumberOfPictures.value = 0
+        _totalNumberOfPictures.value = 0
         val tempNumberOfPicturesByCategory = mutableMapOf<String, Int>()
         var tempTotalNumberOfPictures = 0
         val totalPictures = mutableListOf<ItemImageGallery>()
@@ -186,8 +186,8 @@ class FilmDetailViewModel @Inject constructor(
                     tempTotalNumberOfPictures += tempPicturesByCategory.total
                     totalPictures += tempPicturesByCategory.items
                 }
-                _galleryTotalNumberOfPictures.value = tempTotalNumberOfPictures
-                _galleryNumberOfPicturesByCategory.value = tempNumberOfPicturesByCategory
+                _totalNumberOfPictures.value = tempTotalNumberOfPictures
+                _numberOfPicturesByCategory.value = tempNumberOfPicturesByCategory
             } catch (e: Throwable) {
                 Timber.e("setGallery $e")
             }

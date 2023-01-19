@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentSimilarFilms"
-        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.FragmentSimilarFilms"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.similar.FragmentSimilarFilms"
         android:label="FragmentSimilarFilms"
         tools:layout="@layout/fragment_all_films">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/fragmentGallery"
-        android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFull"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.gallery.FragmentGalleryFull"
         android:label="FragmentGallery"
         tools:layout="@layout/fragment_film_gallery_screen">
         <action
@@ -165,7 +165,7 @@
 
     <fragment
         android:id="@+id/fragmentGalleryFullscreen"
-        android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentGalleryFullscreen"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.gallery.FragmentGalleryFullscreen"
         android:label="FragmentGalleryFullscreen"
         tools:layout="@layout/fragment_gallery_detail_fullscreen">
         <argument
@@ -175,7 +175,7 @@
 
     <fragment
         android:id="@+id/fragmentBigImage"
-        android:name="com.becker.beckerSkillCinema.presentation.gallery.FragmentBigImage"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.gallery.FragmentBigImage"
         android:label="FragmentBigImage"
         tools:layout="@layout/fragment_big_image" >
         <argument

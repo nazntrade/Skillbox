@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.gallery.recyclerAdapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
