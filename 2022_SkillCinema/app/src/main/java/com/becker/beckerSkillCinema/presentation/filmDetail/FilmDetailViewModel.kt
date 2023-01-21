@@ -45,7 +45,7 @@ class FilmDetailViewModel @Inject constructor(
         get() = _currentFilmId
 
     private var currentParamsFilterGallery =
-        ParamsFilterGallery() ///??????????????????????????????????????????????
+        ParamsFilterGallery()
 
     init {
         getFilmId()
@@ -162,10 +162,11 @@ class FilmDetailViewModel @Inject constructor(
     val numberOfPicturesByCategory =
         _numberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
 
-    val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
+    val galleryByType: Flow<PagingData<ItemImageGallery>> =
+        Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
-            GalleryFullPagingSource(
+            GalleryFullPagingSource( ////////////////////////////////////////////////
                 getGalleryByIdUseCase = getGalleryByIdUseCase,
                 filterParams = currentParamsFilterGallery
             )
@@ -199,7 +200,7 @@ class FilmDetailViewModel @Inject constructor(
     fun updateParamsFilterGallery(
         filmId: Int? = currentFilmId,
         galleryType: String = "STILL"
-    ) { ///??????????????????????????????????????????????????
+    ) {
         val newParamsFilterGallery = ParamsFilterGallery(
             filmId = filmId!!,
             galleryType = galleryType

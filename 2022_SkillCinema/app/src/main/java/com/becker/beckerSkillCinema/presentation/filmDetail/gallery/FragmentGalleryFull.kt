@@ -41,16 +41,18 @@ class FragmentGalleryFull :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setChipButton()             // Set Chip-group and get images
+        setChipButtons()             // Set Chip-group and get images
     }
 
-    private fun setChipButton() {
+    private fun setChipButtons() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.numberOfPicturesByCategory.collect { categoriesWithNumbers ->
+                // creating chipGroup
                 val chipGroup = ChipGroup(requireContext()).apply {
                     isSingleSelection = true
                     chipSpacingHorizontal = 8
                 }
+                // creating chip
                 categoriesWithNumbers.forEach { (key, value) ->
                     if (value != 0) {
                         val nameChip = GALLERY_TYPES[key]
@@ -73,19 +75,21 @@ class FragmentGalleryFull :
                         }
                         if (chipGroup.size == 0) {
                             chip.isChecked = true
-                            setGalleryImages(chip.transitionName)
-                            galleryAdapter.refresh()
+                            setGalleryImages(/*chip.transitionName*/)
+//                            galleryAdapter.refresh()
                         }
+                        // adding every chip to chipGroup
                         chipGroup.addView(chip)
                     }
                 }
+                // placing chipGroup in view
                 binding.galleryChipsGroupContainer.addView(chipGroup)
             }
         }
     }
 
     // get images
-    private fun setGalleryImages(galleryType: String) {
+    private fun setGalleryImages(/*galleryType: String*/) { /////////////////////////////
         galleryAdapter = GalleryFullAdapter { onClick(it) }
 
         val gridManager =
@@ -93,7 +97,7 @@ class FragmentGalleryFull :
                 .apply {
                     spanSizeLookup = object : SpanSizeLookup() {
                         override fun getSpanSize(position: Int): Int {
-                            return if (position % 3 == 0) 2 else 1
+                            return if (position % 3 == 0) 2 else 1 /////////////////
                         }
                     }
                 }
@@ -101,7 +105,7 @@ class FragmentGalleryFull :
         binding.filmGalleryPager.adapter = galleryAdapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.updateParamsFilterGallery(galleryType = galleryType)
+            viewModel.updateParamsFilterGallery(/*galleryType = galleryType*/)
             viewModel.galleryByType.collect {
                 galleryAdapter.submitData(it)
             }
