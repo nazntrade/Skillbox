@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingHorizontal="4dp">
 
-<!--    https://github.com/jsibbold/zoomage-->
+    <!--    https://github.com/jsibbold/zoomage-->
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/gallery_image_fullscreen"
         android:layout_width="match_parent"
@@ -22,6 +22,6 @@
         app:zoomage_zoomable="true"
         app:zoomage_translatable="true"
         app:zoomage_minScale="0.6"
-        app:zoomage_maxScale="8"/>
+        app:zoomage_maxScale="8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

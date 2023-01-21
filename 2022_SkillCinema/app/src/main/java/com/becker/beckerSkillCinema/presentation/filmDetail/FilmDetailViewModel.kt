@@ -19,6 +19,7 @@ import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitImages
 import com.becker.beckerSkillCinema.utils.toLimitSimilarFilm
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -44,7 +45,7 @@ class FilmDetailViewModel @Inject constructor(
     val currentFilmId
         get() = _currentFilmId
 
-    private var currentParamsFilterGallery =
+    var currentParamsFilterGallery =
         ParamsFilterGallery()
 
     init {
@@ -160,13 +161,12 @@ class FilmDetailViewModel @Inject constructor(
 
     private val _numberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
     val numberOfPicturesByCategory =
-        _numberOfPicturesByCategory.asStateFlow()  //this placed countImagesByCategory for screenDetailImage
+        _numberOfPicturesByCategory.asStateFlow()  //it stores countImagesByCategory for screenDetailImage
 
-    val galleryByType: Flow<PagingData<ItemImageGallery>> =
-        Pager(
+    val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
-            GalleryFullPagingSource( ////////////////////////////////////////////////
+            GalleryFullPagingSource(
                 getGalleryByIdUseCase = getGalleryByIdUseCase,
                 filterParams = currentParamsFilterGallery
             )

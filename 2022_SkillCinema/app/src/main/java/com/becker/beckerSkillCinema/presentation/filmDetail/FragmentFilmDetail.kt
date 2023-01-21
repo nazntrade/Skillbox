@@ -300,11 +300,11 @@ class FragmentFilmDetail :
         }
     }
 
-    private fun showAllImages() {    //////////////   move to
+    private fun showAllImages() {
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
     }
 
-    private fun showClickedImage(link: String) {     ////////   expand
+    private fun showClickedImage(link: String) {
         val action = FragmentFilmDetailDirections
             .actionFragmentFilmDetailToFragmentBigImage(link)
         findNavController().navigate(action)
@@ -344,7 +344,7 @@ class FragmentFilmDetail :
     }
 
     private fun showAllSimilarFilms() {    //////////////////////   move to
-//////////////// to post already existed list similar films
+//////////////// to post to already existed similar films list
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentSimilarFilms)
     }
 

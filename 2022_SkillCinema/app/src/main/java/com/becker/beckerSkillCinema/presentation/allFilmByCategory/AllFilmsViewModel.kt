@@ -49,7 +49,9 @@ class AllFilmsViewModel @Inject constructor(
                 config = PagingConfig(pageSize = 20),
                 pagingSourceFactory = {
                     FilmsByFilterPagingSource(
-                        filters = ParamsFilterFilm(type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)),
+                        filters = ParamsFilterFilm(
+                            type = TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)
+                        ),
                         getFilmListUseCase = getFilmListUseCase
                     )
                 }
@@ -59,8 +61,7 @@ class AllFilmsViewModel @Inject constructor(
                 config = PagingConfig(pageSize = 20),
                 pagingSourceFactory = {
                     AllFilmPagingSource(
-                        categoriesFilms =
-                        _localCategory!!,
+                        categoriesFilms = _localCategory!!,
                         year = currentYear,
                         month = currentMonth,
                         getPremierFilmUseCase,

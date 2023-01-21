@@ -9,10 +9,6 @@ import com.becker.beckerSkillCinema.data.seasons.ResponseSeasons
 import com.becker.beckerSkillCinema.data.similarFilm.ResponseSimilarFilms
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT12
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT13
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT4
@@ -21,6 +17,10 @@ import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT6
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT7
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT8
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT9
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT12
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT13
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path

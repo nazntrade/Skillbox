@@ -150,10 +150,6 @@
             android:id="@+id/action_fragmentFilmDetail_self"
             app:destination="@id/fragmentFilmDetail" />
         <action
-            android:id="@+id/action_fragmentFilmDetail_to_fragmentGalleryFullscreen"
-            app:destination="@id/fragmentGalleryFullscreen"
-            app:popUpTo="@+id/fragmentFilmDetail"/>
-        <action
             android:id="@+id/action_fragmentFilmDetail_to_fragmentBigImage"
             app:destination="@id/fragmentBigImage"
             app:enterAnim="@android:anim/fade_in"
@@ -177,7 +173,7 @@
         android:id="@+id/fragmentBigImage"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.gallery.FragmentBigImage"
         android:label="FragmentBigImage"
-        tools:layout="@layout/fragment_big_image" >
+        tools:layout="@layout/fragment_big_image">
         <argument
             android:name="imageLink"
             app:argType="string" />

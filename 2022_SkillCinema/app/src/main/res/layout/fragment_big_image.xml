@@ -21,7 +21,7 @@
         app:zoomage_zoomable="true"
         app:zoomage_translatable="true"
         app:zoomage_minScale="0.6"
-        app:zoomage_maxScale="8"/>
+        app:zoomage_maxScale="8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

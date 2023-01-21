@@ -41,10 +41,15 @@ class FragmentGalleryFullscreen : ViewBindingFragment<FragmentGalleryDetailFulls
 
         adapter = GalleryFullscreenAdapter()
 
+//https://medium.com/over-engineering/detecting-snap-changes-with-androids-recyclerview-snaphelper-9e9f5e95c424
         PagerSnapHelper().attachToRecyclerView(binding.galleryImageFullscreenContainer)
 
         binding.galleryImageFullscreenContainer.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
 
         binding.galleryImageFullscreenContainer.adapter = adapter
 

@@ -41,7 +41,7 @@ class FragmentGalleryFull :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setChipButtons()             // Set Chip-group and get images
+        setChipButtons()     // Set Chip-group and get images
     }
 
     private fun setChipButtons() {
@@ -75,8 +75,8 @@ class FragmentGalleryFull :
                         }
                         if (chipGroup.size == 0) {
                             chip.isChecked = true
-                            setGalleryImages(/*chip.transitionName*/)
-//                            galleryAdapter.refresh()
+                            setGalleryImages(chip.transitionName)
+                            galleryAdapter.refresh()
                         }
                         // adding every chip to chipGroup
                         chipGroup.addView(chip)
@@ -89,23 +89,28 @@ class FragmentGalleryFull :
     }
 
     // get images
-    private fun setGalleryImages(/*galleryType: String*/) { /////////////////////////////
+    private fun setGalleryImages(galleryType: String) {
         galleryAdapter = GalleryFullAdapter { onClick(it) }
 
         val gridManager =
-            GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                .apply {
-                    spanSizeLookup = object : SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            return if (position % 3 == 0) 2 else 1 /////////////////
-                        }
+            GridLayoutManager(
+                context,
+                2,
+                GridLayoutManager.VERTICAL,
+                false
+            ).apply {
+                spanSizeLookup = object : SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (position % 3 == 0) 2 else 1
                     }
                 }
+            }
+
         binding.filmGalleryPager.layoutManager = gridManager
         binding.filmGalleryPager.adapter = galleryAdapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.updateParamsFilterGallery(/*galleryType = galleryType*/)
+            viewModel.updateParamsFilterGallery(galleryType = galleryType)
             viewModel.galleryByType.collect {
                 galleryAdapter.submitData(it)
             }
@@ -138,7 +143,7 @@ class FragmentGalleryFull :
                 intArrayOf(android.R.attr.state_checked, android.R.attr.state_enabled),
                 intArrayOf()
             ),
-            intArrayOf(Color.BLUE, Color.BLACK)
+            intArrayOf(Color.RED, Color.BLACK)
         )
     }
 }

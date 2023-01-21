@@ -28,8 +28,6 @@ class GalleryFullscreenAdapter :
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryFullscreenViewHolder {
         val binding =
             ItemGalleryFullscreenBinding.inflate(LayoutInflater.from(parent.context), parent, false)
