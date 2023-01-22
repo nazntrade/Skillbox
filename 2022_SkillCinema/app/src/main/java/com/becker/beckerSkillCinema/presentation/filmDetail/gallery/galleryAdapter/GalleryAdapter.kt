@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.filmDetail.galleryAdapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

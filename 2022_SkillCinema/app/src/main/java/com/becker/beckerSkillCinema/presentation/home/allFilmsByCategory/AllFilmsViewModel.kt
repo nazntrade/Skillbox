@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.allFilmByCategory
+package com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,8 +11,8 @@ import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.currentMonth
 import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.currentYear
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmPagingSource
-import com.becker.beckerSkillCinema.presentation.filmsByFilter.FilmsByFilterPagingSource
+import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.AllFilmPagingSource
+import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.FilmsByFilterPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

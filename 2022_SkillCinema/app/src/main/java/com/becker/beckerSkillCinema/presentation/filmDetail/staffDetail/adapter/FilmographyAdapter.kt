@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.staffDetail.adapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.staffDetail.adapter
 
 //class FilmographyAdapter(
 //    private val onFilmClick: (Int) -> Unit

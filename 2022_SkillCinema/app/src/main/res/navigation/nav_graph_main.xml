@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/fragmentAllStaffsByFilm"
-        android:name="com.becker.beckerSkillCinema.presentation.allStaffByFilm.FragmentAllStaffsByFilm"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.allStaffByFilm.FragmentAllStaffsByFilm"
         android:label="FragmentAllStaffsByFilm"
         tools:layout="@layout/fragment_staff_all_by_film">
         <argument
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/fragmentSeries"
-        android:name="com.becker.beckerSkillCinema.presentation.series.FragmentSeasons"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.series.FragmentSeasons"
         android:label="FragmentSeries">
         <argument
             android:name="seriesName"
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/fragmentStaffDetail"
-        android:name="com.becker.beckerSkillCinema.presentation.staffDetail.FragmentStaffDetail"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.staffDetail.FragmentStaffDetail"
         android:label="FragmentStaffDetail"
         tools:layout="@layout/fragment_staff_detail">
         <argument
@@ -94,7 +94,7 @@
 
     <fragment
         android:id="@+id/fragmentAllFilms"
-        android:name="com.becker.beckerSkillCinema.presentation.allFilmByCategory.FragmentAllFilms"
+        android:name="com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.FragmentAllFilms"
         android:label="FragmentAllFilms"
         tools:layout="@layout/fragment_all_films">
         <argument

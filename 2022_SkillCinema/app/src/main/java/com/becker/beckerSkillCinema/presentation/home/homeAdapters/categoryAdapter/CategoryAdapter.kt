@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter
+package com.becker.beckerSkillCinema.presentation.home.homeAdapters.categoryAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.data.HomeList
 import com.becker.beckerSkillCinema.databinding.ItemCategoryListBinding
-import com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter.FilmAdapter
+import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
 
 class CategoryAdapter(
     private val maxListSize: Int,

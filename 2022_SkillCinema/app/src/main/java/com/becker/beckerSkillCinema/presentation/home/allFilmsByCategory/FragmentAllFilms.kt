@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.allFilmByCategory
+package com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters.AllFilmAdapter
+import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.AllFilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

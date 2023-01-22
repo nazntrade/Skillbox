@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.staffDetail.adapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.staffDetail.adapter
 
 //class FilmographyDiff : DiffUtil.ItemCallback<StaffsFilms>() {
 //    override fun areItemsTheSame(oldItem: StaffsFilms, newItem: StaffsFilms) =

@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.staffDetail.adapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.staffDetail.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.databinding.ItemFilmographyFilmBinding

@@ -22,10 +22,10 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.databinding.FragmentFilmDetailBinding
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.home.adapters.filmAdapter.FilmAdapter
+import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
-import com.becker.beckerSkillCinema.presentation.filmDetail.galleryAdapter.GalleryAdapter
+import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter.GalleryAdapter
 import com.becker.beckerSkillCinema.presentation.filmDetail.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.utils.loadImage
 import timber.log.Timber
@@ -146,6 +146,7 @@ class FragmentFilmDetail :
     // About season and series
     private fun getSeriesSeasons(seriesName: String) {
         binding.seriesSeasonsBtn.setOnClickListener { showAllSeasons(seriesName) }
+        binding.seasonsGroup.setOnClickListener { showAllSeasons(seriesName) }
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -183,7 +184,7 @@ class FragmentFilmDetail :
         }
     }
 
-    private fun showAllSeasons(seriesName: String) {    //////////////   move to
+    private fun showAllSeasons(seriesName: String) {
         val action = FragmentFilmDetailDirections
             .actionFragmentFilmDetailToFragmentSeries(seriesName)
         findNavController().navigate(action)

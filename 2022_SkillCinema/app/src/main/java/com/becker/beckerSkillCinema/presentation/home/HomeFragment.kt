@@ -10,9 +10,8 @@ import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.FragmentHomeBinding
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.home.adapters.categoryAdapter.CategoryAdapter
+import com.becker.beckerSkillCinema.presentation.home.homeAdapters.categoryAdapter.CategoryAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
-import timber.log.Timber
 
 class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 

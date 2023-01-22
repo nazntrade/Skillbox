@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.allFilmByCategory.allFilmAdapters
+package com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
