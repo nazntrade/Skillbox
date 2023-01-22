@@ -83,7 +83,7 @@
 
     <!-- Episodes count -->
     <TextView
-        android:id="@+id/season_episode_count"
+        android:id="@+id/seasons_and_episodes_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="26dp"
@@ -99,7 +99,7 @@
         android:layout_marginHorizontal="26dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/season_episode_count"
+        app:layout_constraintTop_toBottomOf="@id/seasons_and_episodes_count"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_series_episode"
         tools:orientation="vertical" />

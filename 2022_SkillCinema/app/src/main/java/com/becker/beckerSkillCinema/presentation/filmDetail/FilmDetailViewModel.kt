@@ -136,8 +136,7 @@ class FilmDetailViewModel @Inject constructor(
     fun getSeasons(seriesId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _seasons.value =
-                    getSeasonsUseCase.executeSeasons(seriesId).items
+                _seasons.value = getSeasonsUseCase.executeSeasons(seriesId).items
             } catch (e: Throwable) {
                 Timber.e("getSeasons $e")
             }

@@ -50,16 +50,22 @@ class FragmentSeasons :
 
     private fun setAdapter() {
         adapter = SeasonsAdapter()
+
         binding.seriesEpisodeList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
         binding.seriesEpisodeList.adapter = adapter
     }
 
     private fun setEpisodeList() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.seasons.collect { seasons ->
-                binding.seasonEpisodeCount.text =
-                    getSeasonLabel(seasons[0].number, seasons[0].episodes.size)
+                binding.seasonsAndEpisodesCount.text =
+                    getSeasonsLabel(
+                        seasons[0].number,
+                        seasons[0].episodes.size
+                    )
+
                 adapter.submitList(seasons[0].episodes)
                 setChipGroup(seasons)
             }
@@ -86,8 +92,8 @@ class FragmentSeasons :
                 isChecked = chipGroup.size == 0
             }
             chip.setOnClickListener {
-                binding.seasonEpisodeCount.text =
-                    getSeasonLabel(seasons[i].number, seasons[i].episodes.size)
+                binding.seasonsAndEpisodesCount.text =
+                    getSeasonsLabel(seasons[i].number, seasons[i].episodes.size)
                 adapter.submitList(seasons[i].episodes)
             }
             chipGroup.addView(chip)
@@ -95,7 +101,7 @@ class FragmentSeasons :
         binding.seriesChipsGroupContainer.addView(chipGroup)
     }
 
-    private fun getSeasonLabel(seasonNumber: Int, episodeCount: Int): String {
+    private fun getSeasonsLabel(seasonNumber: Int, episodeCount: Int): String {
         val episodeStr = resources.getQuantityString(
             R.plurals.film_details_episode_count,
             episodeCount,
@@ -108,7 +114,7 @@ class FragmentSeasons :
         )
     }
 
-    companion object{
+    companion object {
         val chipBackColors = ColorStateList(
             arrayOf(
                 intArrayOf(android.R.attr.state_checked, android.R.attr.state_enabled),

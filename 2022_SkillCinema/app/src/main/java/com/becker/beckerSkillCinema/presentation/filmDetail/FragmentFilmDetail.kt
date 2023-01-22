@@ -152,26 +152,20 @@ class FragmentFilmDetail :
             try {
                 viewModel.seasons.collect { seasons ->
                     val seasonsCount = seasons.size
-                    var seriesCount = 0
-
+                    var episodesCount = 0
                     seasons.forEach { season ->
-                        seriesCount += season.episodes.size
+                        episodesCount += season.episodes.size
                     }
-
-                    val seasonStr =
-                        resources.getQuantityString(
+                    val seasonStr = resources.getQuantityString(
                             R.plurals.film_details_series_count,
                             seasonsCount,
                             seasonsCount
                         )
-
-                    val episodeStr =
-                        resources.getQuantityString(
+                    val episodeStr = resources.getQuantityString(
                             R.plurals.film_details_episode_count,
-                            seriesCount,
-                            seriesCount
+                            episodesCount,
+                            episodesCount
                         )
-
                     binding.seriesSeasonsCount.text = resources.getString(
                         R.string.seasons_episodes_count,
                         seasonStr,

@@ -1,6 +1,5 @@
 package com.becker.beckerSkillCinema.presentation.filmDetail.series.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -17,7 +16,6 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
         override fun areItemsTheSame(oldItem: Episode, newItem: Episode) =
             oldItem.episodeNumber == newItem.episodeNumber
 
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: Episode,
             newItem: Episode
@@ -57,7 +55,6 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
         }
 
         private fun formatReleaseDate(date: String?): String {
-//        Log.d(TAG, "formatReleaseDate: $date")
             if (date != null) {
                 val temp1 = date.split("-").reversed().toMutableList()
                 temp1[1] = when (temp1[1]) {
