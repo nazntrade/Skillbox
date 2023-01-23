@@ -16,10 +16,8 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
         override fun areItemsTheSame(oldItem: Episode, newItem: Episode) =
             oldItem.episodeNumber == newItem.episodeNumber
 
-        override fun areContentsTheSame(
-            oldItem: Episode,
-            newItem: Episode
-        ) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: Episode, newItem: Episode) =
+            oldItem == newItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SeasonsVewHolder(
@@ -56,8 +54,8 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
 
         private fun formatReleaseDate(date: String?): String {
             if (date != null) {
-                val temp1 = date.split("-").reversed().toMutableList()
-                temp1[1] = when (temp1[1]) {
+                val tempData = date.split("-").reversed().toMutableList()
+                tempData[1] = when (tempData[1]) {
                     "01" -> "января"
                     "02" -> "февраля"
                     "03" -> "марта"
@@ -72,7 +70,7 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
                     "12" -> "декабря"
                     else -> ""
                 }
-                return temp1.joinToString(" ")
+                return tempData.joinToString(" ")
             } else return ""
         }
     }

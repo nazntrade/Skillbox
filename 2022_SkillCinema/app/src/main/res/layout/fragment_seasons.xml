@@ -83,7 +83,9 @@
 
     <!-- Episodes count -->
     <TextView
+        android:gravity="center_horizontal"
         android:id="@+id/seasons_and_episodes_count"
+        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="26dp"
