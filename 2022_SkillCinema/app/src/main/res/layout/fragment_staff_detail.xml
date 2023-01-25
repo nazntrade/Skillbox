@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Progress group -->
+    <include
+        android:id="@+id/progress_group_container"
+        layout="@layout/progress_group"
+        android:visibility="gone" />
+
     <!-- Back button -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/staff_detail_actionbar"
@@ -30,166 +36,189 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Main group -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/staff_detail_main_group"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="26dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/staff_detail_actionbar">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/staff_detail_poster"
-            android:layout_width="146dp"
-            android:layout_height="201dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/staff_detail_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/graphic_bold"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Кристина Асмус" />
-
-        <TextView
-            android:id="@+id/staff_detail_profession"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
-            app:layout_constraintTop_toBottomOf="@id/staff_detail_name"
-            tools:text="Актриса" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Best group -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/staff_detail_best_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/staff_detail_main_group">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/staff_detail_best_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
+
+            <!-- Main group -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/staff_detail_main_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="26dp"
+                android:layout_marginTop="16dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/staff_detail_poster"
+                    android:layout_width="146dp"
+                    android:layout_height="201dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/staff_detail_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/graphic_bold"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Кристина Асмус" />
+
+                <TextView
+                    android:id="@+id/staff_detail_profession"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
+                    app:layout_constraintTop_toBottomOf="@id/staff_detail_name"
+                    tools:text="Актриса" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Best group -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/staff_detail_best_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="40dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/staff_detail_best_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/graphic_bold"
+                        android:text="@string/staff_detail_best_label"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/staff_detail_show_all_best_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/graphic_regular"
+                        android:text="@string/btn_show_all_top"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_best_btn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/staff_detail_show_all_best_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:src="@drawable/ic_small_arrow_show_all"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/staff_detail_best_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/staff_detail_best_title"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_film" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Filmography group -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/staff_detail_filmography_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="26dp">
+
+                <TextView
+                    android:id="@+id/staff_detail_filmography_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/graphic_bold"
+                    android:text="@string/staff_detail_filmography_label"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/staff_detail_films_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/staff_detail_filmography_label"
+                    tools:text="44 фильма" />
+
+                <TextView
+                    android:id="@+id/staff_detail_show_all_films_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/graphic_regular"
+                    android:text="@string/staff_detail_filmography_all"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/staff_detail_films_count"
+                    app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_films_btn"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/staff_detail_show_all_films_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/ic_small_arrow_show_all"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_26"
+                android:layout_marginTop="@dimen/dimen_32"
                 android:fontFamily="@font/graphic_bold"
-                android:text="@string/staff_detail_best_label"
+                android:layout_height="wrap_content"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/facts"/>
 
             <TextView
-                android:id="@+id/staff_detail_show_all_best_tv"
-                android:layout_width="wrap_content"
+                android:id="@+id/facts_field_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/graphic_regular"
-                android:text="@string/btn_show_all_top"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_best_btn"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:paddingTop="@dimen/dimen_8"
+                android:layout_marginStart="@dimen/dimen_26"
+                android:layout_marginEnd="@dimen/dimen_26"
+                android:textSize="15sp"
+                tools:text="@tools:sample/lorem/random" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/staff_detail_show_all_best_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:src="@drawable/ic_small_arrow_show_all"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/staff_detail_best_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/staff_detail_best_title"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_film" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Filmography group -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/staff_detail_filmography_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintTop_toBottomOf="@id/staff_detail_best_group">
-
-        <TextView
-            android:id="@+id/staff_detail_filmography_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/graphic_bold"
-            android:text="@string/staff_detail_filmography_label"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/staff_detail_films_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/staff_detail_filmography_label"
-            tools:text="44 фильма" />
-
-        <TextView
-            android:id="@+id/staff_detail_show_all_films_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/graphic_regular"
-            android:text="@string/staff_detail_filmography_all"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/staff_detail_films_count"
-            app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_films_btn"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/staff_detail_show_all_films_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/ic_small_arrow_show_all"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Progress group -->
-    <include
-        android:id="@+id/progress_group_container"
-        layout="@layout/progress_group"
-        android:visibility="gone" />
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

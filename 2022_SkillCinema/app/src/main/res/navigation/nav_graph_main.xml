@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/fragmentAllStaffsByFilm"
-        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.allStaffByFilm.FragmentAllStaffsByFilm"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm.FragmentAllStaffsByFilm"
         android:label="FragmentAllStaffsByFilm"
         tools:layout="@layout/fragment_staff_all_by_film">
         <argument
@@ -45,7 +45,8 @@
     <fragment
         android:id="@+id/fragmentSeries"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.series.FragmentSeasons"
-        android:label="FragmentSeries">
+        android:label="FragmentSeries"
+        tools:layout="@layout/fragment_seasons">
         <argument
             android:name="seriesName"
             app:argType="string" />
@@ -53,7 +54,7 @@
 
     <fragment
         android:id="@+id/fragmentStaffDetail"
-        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.staffDetail.FragmentStaffDetail"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail.FragmentStaffDetail"
         android:label="FragmentStaffDetail"
         tools:layout="@layout/fragment_staff_detail">
         <argument
@@ -63,6 +64,10 @@
             android:id="@+id/action_fragmentStaffDetail_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail"
             app:popUpTo="@id/fragmentStaffDetail" />
+        <action
+            android:id="@+id/action_fragmentStaffDetail_to_fragmentFilmography"
+            app:destination="@id/fragmentFilmography"
+            app:popUpTo="@+id/fragmentStaffDetail" />
     </fragment>
 
     <fragment
@@ -177,6 +182,15 @@
         <argument
             android:name="imageLink"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentFilmography"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail.FragmentFilmography"
+        android:label="FragmentFilmography"
+        tools:layout="@layout/fragment_staff_filmography">
+        <action
+            android:id="@+id/action_fragmentFilmography_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail" />
     </fragment>
 
 </navigation>

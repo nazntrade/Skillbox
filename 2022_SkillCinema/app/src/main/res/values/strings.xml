@@ -44,6 +44,8 @@
     <string name="staff_detail_filmography_label">Фильмография</string>
     <string name="staff_detail_best_label">Лучшее</string>
     <string name="staff_detail_filmography_all">К списку</string>
+    <string name="facts">Факты: </string>
+
 
     <!-- Gallery full fragment -->
     <string name="title_gallery">Галерея</string>

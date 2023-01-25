@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.filmDetail.allStaffByFilm
+package com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm
 
 import android.content.Context
 import androidx.activity.OnBackPressedCallback

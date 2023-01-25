@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.filmDetail.staffAdapter
+package com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

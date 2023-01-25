@@ -26,7 +26,7 @@ import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.F
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter.GalleryAdapter
-import com.becker.beckerSkillCinema.presentation.filmDetail.staffAdapter.StaffAdapter
+import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.utils.loadImage
 import timber.log.Timber
 
@@ -157,15 +157,15 @@ class FragmentFilmDetail :
                         episodesCount += season.episodes.size
                     }
                     val seasonStr = resources.getQuantityString(
-                            R.plurals.film_details_series_count,
-                            seasonsCount,
-                            seasonsCount
-                        )
+                        R.plurals.film_details_series_count,
+                        seasonsCount,
+                        seasonsCount
+                    )
                     val episodeStr = resources.getQuantityString(
-                            R.plurals.film_details_episode_count,
-                            episodesCount,
-                            episodesCount
-                        )
+                        R.plurals.film_details_episode_count,
+                        episodesCount,
+                        episodesCount
+                    )
                     binding.seriesSeasonsCount.text = resources.getString(
                         R.string.seasons_episodes_count,
                         seasonStr,
@@ -247,13 +247,13 @@ class FragmentFilmDetail :
         }
     }
 
-    private fun onStaffClick(staff: ResponseStaffByFilmId) {     //////////////   move to
+    private fun onStaffClick(staff: ResponseStaffByFilmId) {
         val action =
             FragmentFilmDetailDirections.actionFragmentFilmDetailToFragmentStaffDetail(staff.staffId)
         findNavController().navigate(action)
     }
 
-    private fun showAllStaffs(professionalKey: String) {     //////////////   move to
+    private fun showAllStaffs(professionalKey: String) {
         val action = FragmentFilmDetailDirections
             .actionFragmentFilmDetailToFragmentAllStaffsByFilm(professionalKey)
         findNavController().navigate(action)

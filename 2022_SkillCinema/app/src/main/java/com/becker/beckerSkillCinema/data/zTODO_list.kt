@@ -1,15 +1,15 @@
 package com.becker.beckerSkillCinema.data
+
 /**
 
 
 HOME:
 
-   Show All Seasons - current task
-   AllActorsScreen
-   Every ActorScreen
-   AllFilmCrew
-   Every FilmCrew
-   AllSimilarFilms
+StaffDetail - current task
+AllActorsScreen
+AllFilmCrew
+Every FilmCrew
+AllSimilarFilms
 
 
 10. !!! On detailed screen you can watch trailer
@@ -20,7 +20,7 @@ more categories on homeScreen
 
 
 
-*/
+ */
 
 
 
