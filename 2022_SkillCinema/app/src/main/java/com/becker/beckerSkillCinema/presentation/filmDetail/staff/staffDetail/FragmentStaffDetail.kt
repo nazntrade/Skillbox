@@ -124,7 +124,7 @@ class FragmentStaffDetail :
                             filmAdapter.submitList(result)
                         }
                         if (staff.facts != null) {
-                            factsFieldText.text = staff.facts.toString()
+                            factsFieldText.text = staff.facts.joinToString(" ")
                         }
                     }
                 }
