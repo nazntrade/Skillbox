@@ -17,7 +17,6 @@ class StaffDetailViewModel @Inject constructor(
     private val getStaffByIdUseCase: GetStaffByIdUseCase
 ) : ViewModel() {
 
-
     private val _currentStaff = MutableStateFlow<ResponseStaffById?>(null)
     val currentStaff = _currentStaff.asStateFlow()
 

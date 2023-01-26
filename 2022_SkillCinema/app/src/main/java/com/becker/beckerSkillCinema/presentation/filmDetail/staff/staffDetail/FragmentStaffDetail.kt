@@ -121,6 +121,7 @@ class FragmentStaffDetail :
                             } else result.addAll(sortedList)
 
                             result.sortedBy { it.rating }
+                            // response from server has no poster--------------------------------
                             filmAdapter.submitList(result)
                         }
                         if (staff.facts != null) {
