@@ -78,7 +78,7 @@ class FilmDetailViewModel @Inject constructor(
     val loadingCurrentFilmState = _loadingCurrentFilmState.asStateFlow()
 
     fun getFilmById() {
-        updateParamsFilterGallery()///////????????????????????????????????????????????????????
+        updateParamsFilterGallery()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadingCurrentFilmState.value = StateLoading.Loading
@@ -160,7 +160,7 @@ class FilmDetailViewModel @Inject constructor(
 
     private val _numberOfPicturesByCategory = MutableStateFlow<Map<String, Int>>(emptyMap())
     val numberOfPicturesByCategory =
-        _numberOfPicturesByCategory.asStateFlow()  //it stores countImagesByCategory for screenDetailImage
+        _numberOfPicturesByCategory.asStateFlow()  //it keeps countImagesByCategory for screenDetailImage
 
     val galleryByType: Flow<PagingData<ItemImageGallery>> = Pager(
         config = PagingConfig(pageSize = 20),

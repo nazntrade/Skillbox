@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/onAllMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,7 +27,7 @@
                 android:id="@+id/staff_detail_back_btn"
                 android:layout_width="30dp"
                 android:layout_height="15dp"
-                android:layout_marginStart="26dp"
+                android:layout_marginStart="@dimen/dimen_26"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +40,10 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/staff_detail_main_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/staff_detail_actionbar"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginBottom="@dimen/dimen_8"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/dimen_8">
+        app:layout_constraintTop_toBottomOf="@id/staff_detail_actionbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,8 +54,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
-                android:layout_marginTop="16dp">
+                android:layout_marginHorizontal="@dimen/dimen_26"
+                android:layout_marginTop="@dimen/dimen_16">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/staff_detail_poster"
@@ -67,9 +68,9 @@
 
                 <TextView
                     android:id="@+id/staff_detail_name"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dimen_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/dimen_16"
                     android:fontFamily="@font/graphic_bold"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -81,8 +82,8 @@
                     android:id="@+id/staff_detail_profession"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:layout_marginTop="@dimen/dimen_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
                     app:layout_constraintTop_toBottomOf="@id/staff_detail_name"
@@ -95,8 +96,8 @@
                 android:id="@+id/staff_detail_best_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="40dp">
+                android:layout_marginStart="@dimen/dimen_26"
+                android:layout_marginTop="@dimen/dimen_40">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/staff_detail_best_title"
@@ -130,7 +131,7 @@
                         android:id="@+id/staff_detail_show_all_best_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
+                        android:layout_marginEnd="@dimen/dimen_32"
                         android:src="@drawable/ic_small_arrow_show_all"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +143,7 @@
                     android:id="@+id/staff_detail_best_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/dimen_24"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/staff_detail_best_title"
                     tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -155,8 +156,8 @@
                 android:id="@+id/staff_detail_filmography_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="26dp">
+                android:layout_marginStart="@dimen/dimen_26"
+                android:layout_marginTop="@dimen/dimen_26">
 
                 <TextView
                     android:id="@+id/staff_detail_filmography_label"
@@ -172,7 +173,7 @@
                     android:id="@+id/staff_detail_films_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
+                    android:paddingTop="@dimen/dimen_8"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/staff_detail_filmography_label"
                     tools:text="44 фильма" />
@@ -193,7 +194,7 @@
                     android:id="@+id/staff_detail_show_all_films_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="@dimen/dimen_32"
                     android:src="@drawable/ic_small_arrow_show_all"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -203,20 +204,20 @@
             <TextView
                 android:id="@+id/facts_title"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_26"
                 android:layout_marginTop="@dimen/dimen_32"
                 android:fontFamily="@font/graphic_bold"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="@string/facts"/>
+                android:text="@string/facts"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/facts_field_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/dimen_8"
                 android:layout_marginStart="@dimen/dimen_26"
                 android:layout_marginEnd="@dimen/dimen_26"
+                android:paddingTop="@dimen/dimen_8"
                 android:textSize="15sp"
                 tools:text="@tools:sample/lorem/random" />
 

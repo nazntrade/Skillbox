@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/graphic_bold"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="parent"

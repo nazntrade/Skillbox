@@ -210,8 +210,10 @@ class FragmentFilmDetail :
                         actorsListTemp.add(actorList[it])
                     }
                     actorAdapter.submitList(actorsListTemp)
-                    binding.filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
-                    binding.filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
+                    binding.filmActorsBtn
+                        .setOnClickListener { showAllStaffs("ACTOR") }
+                    binding.filmActorsCount
+                        .setOnClickListener { showAllStaffs("ACTOR") }
                 }
             }
         }
@@ -240,8 +242,10 @@ class FragmentFilmDetail :
                     val makersListTemp = mutableListOf<ResponseStaffByFilmId>()
                     repeat(MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) { makersListTemp.add(makersList[it]) }
                     makersAdapter.submitList(makersListTemp)
-                    binding.filmMakersBtn.setOnClickListener { showAllStaffs("") }
-                    binding.filmMakersCount.setOnClickListener { showAllStaffs("") }
+                    binding.filmMakersBtn
+                        .setOnClickListener { showAllStaffs("") }
+                    binding.filmMakersCount
+                        .setOnClickListener { showAllStaffs("") }
                 }
             }
         }

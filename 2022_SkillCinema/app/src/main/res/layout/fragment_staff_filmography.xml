@@ -13,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/onAllMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -50,7 +51,7 @@
         android:layout_marginHorizontal="26dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/graphic_bold"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/filmography_actionbar"
         tools:text="Кристина Асмус" />
 

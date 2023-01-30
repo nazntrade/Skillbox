@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingHorizontal="26dp"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/onAllMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -20,7 +20,7 @@
                 android:id="@+id/all_staffs_back_btn"
                 android:layout_width="30dp"
                 android:layout_height="15dp"
-                android:layout_marginStart="26dp"
+                android:layout_marginStart="@dimen/dimen_26"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/all_staffs_category_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_bold"
                 android:gravity="center"
@@ -46,12 +46,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_staffs_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:paddingHorizontal="@dimen/dimen_26"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/all_films_actionbar"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_staff_detail_film"
-        tools:spanCount="2" />
+        tools:spanCount="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
