@@ -201,6 +201,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/facts_title"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="@dimen/dimen_26"
                 android:layout_marginTop="@dimen/dimen_32"

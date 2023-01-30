@@ -2,6 +2,7 @@ package com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.staffById.ResponseStaffById
 import com.becker.beckerSkillCinema.domain.GetStaffByIdUseCase
 import com.becker.beckerSkillCinema.presentation.StateLoading
@@ -17,18 +18,24 @@ class StaffDetailViewModel @Inject constructor(
     private val getStaffByIdUseCase: GetStaffByIdUseCase
 ) : ViewModel() {
 
+    private val repository = CinemaRepository()
+
     private val _currentStaff = MutableStateFlow<ResponseStaffById?>(null)
     val currentStaff = _currentStaff.asStateFlow()
 
     private val _loadCurrentStaff = MutableStateFlow<StateLoading>(StateLoading.Default)
     val loadCurrentStaff = _loadCurrentStaff.asStateFlow()
 
+    fun putFilmId(filmId: Int) {
+        repository.putFilmId(filmId)
+    }
+
     fun getStaffDetail(staffId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _loadCurrentStaff.value = StateLoading.Loading
                 val staff = getStaffByIdUseCase.executeStaffById(staffId)
-                _currentStaff.emit(staff)
+                _currentStaff.value = staff
                 _loadCurrentStaff.value = StateLoading.Success
             } catch (e: Exception) {
                 _loadCurrentStaff.value = StateLoading.Error(e.message.toString())

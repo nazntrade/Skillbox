@@ -68,6 +68,14 @@
             android:id="@+id/action_fragmentStaffDetail_to_fragmentFilmography"
             app:destination="@id/fragmentFilmography"
             app:popUpTo="@+id/fragmentStaffDetail" />
+        <action
+            android:id="@+id/action_fragmentStaffDetail_to_fragmentBigImage"
+            app:destination="@id/fragmentBigImage"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@+id/fragmentStaffDetail" />
     </fragment>
 
     <fragment

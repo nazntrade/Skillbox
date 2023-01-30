@@ -5,8 +5,7 @@ package com.becker.beckerSkillCinema.data
 
 HOME:
 
-StaffDetail - current task
-AllActorsScreen
+AllActorsScreen - current task
 AllFilmCrew
 Every FilmCrew
 AllSimilarFilms

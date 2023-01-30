@@ -16,6 +16,7 @@ import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
 import com.becker.beckerSkillCinema.utils.loadImage
 
 class FragmentStaffDetail :
@@ -32,20 +33,16 @@ class FragmentStaffDetail :
     }
 
     private val viewModel: StaffDetailViewModel by activityViewModels()
-    private lateinit var filmAdapter: FilmAdapter
+    private var filmAdapter: FilmAdapter by autoCleared()
     private val args: FragmentStaffDetailArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getStaffDetail(args.staffId)
-
         setFilmsAdapter()                       // set adapter
-
         setLoadingStateAndDetails()             // Loading state
         getStaffInfo()                          // get info about person
-
-        setButtonsListeners()                   // set listeners
+        setListeners()                          // set listeners
     }
 
     private fun setFilmsAdapter() {
@@ -94,37 +91,48 @@ class FragmentStaffDetail :
     }
 
     private fun getStaffInfo() {
+        viewModel.getStaffDetail(args.staffId)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentStaff.collect { staff ->
                 if (staff != null) {
                     binding.apply {
-                        staffDetailPoster.loadImage(staff.posterUrl)
+                        staffDetailPoster.apply {
+                            loadImage(staff.posterUrl)
+                            setListeners(link = staff.posterUrl)
+                        }
+
                         staffDetailName.text = staff.nameRu ?: staff.nameEn ?: "Unknown name"
                         if (staff.profession != null) staffDetailProfession.text =
                             staff.profession
                         else staffDetailProfession.isVisible = false
 
-                        if (staff.films != null) staffDetailFilmsCount.text =
-                            resources.getQuantityString(
-                                R.plurals.staff_details_film_count,
-                                staff.films.size,
-                                staff.films.size
-                            )
                         if (staff.films != null) {
+                            staffDetailFilmsCount.text =
+                                resources.getQuantityString(
+                                    R.plurals.staff_details_film_count,
+                                    staff.films.size,
+                                    staff.films.size
+                                )
+
                             val list: MutableList<HomeItem> = staff.films.toMutableList()
                             list.removeAll { it.rating == null }
-                            val sortedList = list.sortedBy { it.rating?.toDouble() }.reversed()
-                            val result = mutableListOf<HomeItem>()
-
-                            if (sortedList.size > 10) {
-                                repeat(10) { result.add(sortedList[it]) }
-                            } else result.addAll(sortedList)
-
-                            result.sortedBy { it.rating }
+                            val sortedListBest = list.sortedBy { it.rating?.toDouble() }.reversed()
+                            val resultBest = mutableListOf<HomeItem>()
+                            if (sortedListBest.size > 10) {
+                                repeat(10) { resultBest.add(sortedListBest[it]) }
+                            } else resultBest.addAll(sortedListBest)
+                            resultBest.sortedBy { it.rating }
                             // response from server has no poster--------------------------------
-                            filmAdapter.submitList(result)
+                            filmAdapter.submitList(resultBest)
                         }
-                        if (staff.facts != null) {
+
+                        if (staff.facts == null || staff.facts.isEmpty()) {
+                            factsTitle.isVisible = false
+                            factsFieldText.isVisible = false
+
+                        } else {
+                            factsTitle.isVisible = true
+                            factsFieldText.isVisible = true
                             factsFieldText.text = staff.facts.joinToString(" ")
                         }
                     }
@@ -134,19 +142,28 @@ class FragmentStaffDetail :
     }
 
     private fun onClickFilm(filmId: Int) {
+        viewModel.putFilmId(filmId)
         val action =
             FragmentStaffDetailDirections.actionFragmentStaffDetailToFragmentFilmDetail(filmId)
         findNavController().navigate(action)
     }
 
-    private fun getAllFilmsByStaff() {
+    private fun getAllFilmsByCurrentStaff() {
         findNavController().navigate(R.id.action_fragmentStaffDetail_to_fragmentFilmography)
     }
 
-    private fun setButtonsListeners() {
-        binding.staffDetailShowAllFilmsBtn.setOnClickListener { getAllFilmsByStaff() }
-        binding.staffDetailShowAllFilmsTv.setOnClickListener { getAllFilmsByStaff() }
-        binding.staffDetailShowAllBestBtn.setOnClickListener { getAllFilmsByStaff() }
-        binding.staffDetailShowAllBestTv.setOnClickListener { getAllFilmsByStaff() }
+    private fun setListeners(link: String = "") {
+        binding.apply {
+            staffDetailFilmographyGroup.setOnClickListener { getAllFilmsByCurrentStaff() }
+            staffDetailShowAllFilmsBtn.setOnClickListener { getAllFilmsByCurrentStaff() }
+            staffDetailShowAllFilmsTv.setOnClickListener { getAllFilmsByCurrentStaff() }
+            staffDetailShowAllBestBtn.setOnClickListener { getAllFilmsByCurrentStaff() }
+            staffDetailShowAllBestTv.setOnClickListener { getAllFilmsByCurrentStaff() }
+            staffDetailPoster.setOnClickListener {
+                val action = FragmentStaffDetailDirections
+                    .actionFragmentStaffDetailToFragmentBigImage(link)
+                findNavController().navigate(action)
+            }
+        }
     }
 }

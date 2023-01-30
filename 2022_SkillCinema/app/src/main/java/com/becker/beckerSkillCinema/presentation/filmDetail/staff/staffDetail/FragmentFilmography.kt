@@ -52,17 +52,16 @@ class FragmentFilmography :
     private fun setFilmList() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.currentStaff.collect { staff ->
-                if (staff != null) {
-                    if (staff.films?.isNotEmpty() == true) {
-                        setChipButton(staff.films)
-                        adapter.submitList(staff.films)
-                    }
+                if (staff?.films?.isNotEmpty() == true) {
+                    setChipButton(staff.films)
+                    adapter.submitList(staff.films)
                 }
             }
         }
     }
 
     private fun onFilmClick(filmId: Int) {
+        viewModel.putFilmId(filmId)
         val action =
             FragmentFilmographyDirections.actionFragmentFilmographyToFragmentFilmDetail(filmId)
         findNavController().navigate(action)
@@ -73,8 +72,8 @@ class FragmentFilmography :
             isSingleSelection = true
             chipSpacingHorizontal = 8
         }
-        val professionList = getProfessionList(filmList)
-        professionList.forEach { profession ->
+        val professionsList = getProfessionsList(filmList)
+        professionsList.forEach { profession ->
             val chip = Chip(requireContext()).apply {
                 text = PROFESSIONS.getValue(profession)
                 transitionName = profession
@@ -88,22 +87,24 @@ class FragmentFilmography :
                 isChecked = chipGroup.size == 0
             }
             chip.setOnClickListener { myChip ->
-                val newFilmList = filmList.filter { film ->
+                val newFiltredFilmList = filmList.filter { film ->
                     film.professionKey == myChip.transitionName
                 }
-                adapter.submitList(newFilmList)
+                adapter.submitList(newFiltredFilmList)
             }
             chipGroup.addView(chip)
         }
         binding.seriesChipsGroupContainer.addView(chipGroup)
     }
 
-    private fun getProfessionList(filmList: List<StaffsFilms>): List<String> {
-        val tempList = mutableSetOf<String>()
+    private fun getProfessionsList(filmList: List<StaffsFilms>): List<String> {
+        val professionsList = mutableSetOf<String>()
         filmList.forEach { film ->
-            if (PROFESSIONS.containsKey(film.professionKey)) tempList.add(film.professionKey)
+            if (PROFESSIONS.containsKey(film.professionKey)) {
+                professionsList.add(film.professionKey)
+            }
         }
-        return tempList.toList()
+        return professionsList.toList()
     }
 
     companion object {
@@ -126,7 +127,7 @@ class FragmentFilmography :
                 intArrayOf(android.R.attr.state_checked, android.R.attr.state_enabled),
                 intArrayOf()
             ),
-            intArrayOf(Color.BLUE, Color.BLACK)
+            intArrayOf(Color.RED, Color.BLACK)
         )
     }
 }
