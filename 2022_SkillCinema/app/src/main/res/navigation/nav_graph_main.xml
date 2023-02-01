@@ -170,6 +170,10 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"
             app:popUpTo="@+id/fragmentFilmDetail" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentVideo"
+            app:destination="@id/fragmentVideo"
+            app:popUpTo="@+id/fragmentFilmDetail"/>
     </fragment>
 
     <fragment
@@ -199,6 +203,14 @@
         <action
             android:id="@+id/action_fragmentFilmography_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentVideo"
+        android:name="com.becker.beckerSkillCinema.presentation.filmDetail.video.FragmentVideo"
+        android:label="FragmentVideo" >
+        <argument
+            android:name="link"
+            app:argType="string" />
     </fragment>
 
 </navigation>

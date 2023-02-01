@@ -9,6 +9,7 @@ import com.becker.beckerSkillCinema.data.seasons.ResponseSeasons
 import com.becker.beckerSkillCinema.data.similarFilm.ResponseSimilarFilms
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.data.staffById.ResponseStaffById
+import com.becker.beckerSkillCinema.data.videoByFilmId.ResponseVideoByFilmId
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3
@@ -69,14 +70,14 @@ interface KinopoiskApi {
     ): ResponseCurrentFilm
 
     // StaffInFilm
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT5")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT12")////////////////////////////
     @GET("v1/staff")
     suspend fun getActors(
         @Query("filmId") filmId: Int
     ): List<ResponseStaffByFilmId>
 
     // FragmentStaffDetail
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT6")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT11")////////////////////////
     @GET("v1/staff/{id}")
     suspend fun getStaff(
         @Path("id") id: Int
@@ -96,8 +97,15 @@ interface KinopoiskApi {
         @Path("id") id: Int
     ): ResponseSeasons
 
+    // Video
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
+    @GET("v2.2/films/{id}/videos")
+    suspend fun getVideoByFilmId(
+        @Path("id") id: Int,
+    ): ResponseVideoByFilmId
+
     // Images
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9") ///////////////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT10") ///////////////////////////////////////
     @GET("v2.2/films/{id}/images")
     suspend fun getFilmImages(
         @Path("id") id: Int,

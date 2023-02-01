@@ -14,12 +14,12 @@ import com.becker.beckerSkillCinema.data.filmGallery.ItemImageGallery
 import com.becker.beckerSkillCinema.data.seasons.Season
 import com.becker.beckerSkillCinema.data.similarFilm.SimilarItem
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
+import com.becker.beckerSkillCinema.data.videoByFilmId.ItemVideoByFilmId
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullPagingSource
 import com.becker.beckerSkillCinema.utils.toLimitImages
 import com.becker.beckerSkillCinema.utils.toLimitSimilarFilm
-import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -36,7 +36,8 @@ class FilmDetailViewModel @Inject constructor(
     private val getActorsByFilmIdUseCase: GetActorsListUseCase,
     private val getGalleryByIdUseCase: GetGalleryByIdUseCase,
     private val getSimilarFilmsUseCase: GetSimilarFilmsUseCase,
-    private val getSeasonsUseCase: GetSeasonsUseCase
+    private val getSeasonsUseCase: GetSeasonsUseCase,
+    private val getVideoByIdUseCase: GetVideoByIdUseCase
 ) : ViewModel() {
 
     private val repository = CinemaRepository()
@@ -77,6 +78,20 @@ class FilmDetailViewModel @Inject constructor(
     private val _loadingCurrentFilmState = MutableStateFlow<StateLoading>(StateLoading.Default)
     val loadingCurrentFilmState = _loadingCurrentFilmState.asStateFlow()
 
+    private val _videoByFilmId = MutableStateFlow<List<ItemVideoByFilmId>>(emptyList())
+    val videoByFilmId = _videoByFilmId.asStateFlow()
+
+    private fun getVideo() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val videoResponse = getVideoByIdUseCase.executeVideoByFilmId(currentFilmId!!)
+                _videoByFilmId.value = videoResponse.items
+            } catch (e: Throwable) {
+                Timber.e("getVideoByFilmId $e")
+            }
+        }
+    }
+
     fun getFilmById() {
         updateParamsFilterGallery()
         viewModelScope.launch(Dispatchers.IO) {
@@ -87,6 +102,7 @@ class FilmDetailViewModel @Inject constructor(
                 setCrew()
                 setImage()
                 setSimilar()
+                getVideo()
                 _loadingCurrentFilmState.value = StateLoading.Success
             } catch (e: Throwable) {
                 _loadingCurrentFilmState.value = StateLoading.Error(e.message.toString())

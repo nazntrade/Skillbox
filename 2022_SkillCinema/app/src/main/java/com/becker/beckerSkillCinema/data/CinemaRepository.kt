@@ -47,6 +47,9 @@ class CinemaRepository @Inject constructor() {
     suspend fun getGalleryByFilmId(filmId: Int, type: String, page: Int) =
         Networking.kinopoiskApi.getFilmImages(filmId, type, page)
 
+    suspend fun getVideoByFilmId(filmId: Int) =
+        Networking.kinopoiskApi.getVideoByFilmId(filmId)
+
     suspend fun getSimilarByFilmId(filmId: Int) =
         Networking.kinopoiskApi.getSimilarFilms(filmId)
 
