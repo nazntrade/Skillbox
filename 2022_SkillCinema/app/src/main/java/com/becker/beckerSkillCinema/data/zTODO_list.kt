@@ -5,11 +5,7 @@ package com.becker.beckerSkillCinema.data
 
 HOME:
 
-AllActorsScreen  v
-AllFilmCrew  v
-Every FilmCrew ???????   - current task
-AllSimilarFilms
-
+AllSimilarFilms - current task
 
 10. !!! On detailed screen you can watch trailer
 11. more Beautifully animation katachi

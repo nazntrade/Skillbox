@@ -1,10 +1,19 @@
 package com.becker.beckerSkillCinema.presentation.filmDetail.similar
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentAllFilmsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
+import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
+import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
 
 class FragmentSimilarFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
@@ -19,49 +28,36 @@ class FragmentSimilarFilms :
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    private val viewModel: FilmDetailViewModel by activityViewModels()
+    private var adapter: FilmAdapter by autoCleared()
 
-//    private var _binding: FragmentAllFilmsBinding? = null
-//    private val binding get() = _binding!!
-//
-//    private val viewModel: CinemaViewModel by activityViewModels()
-//    private lateinit var adapter: FilmAdapter
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-//    ): View {
-//        _binding = FragmentAllFilmsBinding.inflate(layoutInflater)
-//        return binding.root
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        binding.allFilmsCategoryTv.text = resources.getString(R.string.label_film_similar)
-//        binding.allFilmsToHomeBtn.setOnClickListener { requireActivity().onBackPressed() }
-//
-//        setAdapter()                // Установка адаптера
-//        setFilmList()               // Установка списка фильмов
-//    }
-//
-//    private fun setAdapter() {
-//        adapter = FilmAdapter(20, {}) { onClickFilm(it) }
-//        binding.allFilmsList.layoutManager =
-//            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-//        binding.allFilmsList.adapter = adapter
-//    }
-//
-//    private fun setFilmList() {
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.currentFilmSimilar.collect {
-//                adapter.submitList(it)
-//            }
-//        }
-//    }
-//
-//    private fun onClickFilm(filmId: Int) {
-//        val action =
-//            FragmentSimilarFilmsDirections.actionFragmentSimilarFilmsToFragmentFilmDetail(filmId)
-//        findNavController().navigate(action)
-//    }
-//
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.allFilmsCategoryTv.text = resources.getString(R.string.label_film_similar)
+        setAdapter()
+        setFilmList()
+    }
+
+    private fun setAdapter() {
+        adapter = FilmAdapter(50, {}) { onClickFilm(it) }
+        binding.allFilmsList.layoutManager =
+            GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
+        binding.allFilmsList.adapter = adapter
+    }
+
+    private fun setFilmList() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.currentFilmSimilar.collect {
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    private fun onClickFilm(newFilmId: Int) {
+        viewModel.putFilmId(newFilmId)
+        val action =
+            FragmentSimilarFilmsDirections.actionFragmentSimilarFilmsToFragmentFilmDetail(newFilmId)
+        findNavController().navigate(action)
+    }
 }

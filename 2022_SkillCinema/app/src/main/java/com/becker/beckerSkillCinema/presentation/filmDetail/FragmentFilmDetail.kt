@@ -331,6 +331,7 @@ class FragmentFilmDetail :
         }
 
         binding.filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
+        binding.filmSimilarCount.setOnClickListener { showAllSimilarFilms() }
     }
 
     private fun onSimilarFilmClick(newFilmId: Int) {
@@ -342,8 +343,7 @@ class FragmentFilmDetail :
         binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
     }
 
-    private fun showAllSimilarFilms() {    //////////////////////   move to
-//////////////// to post to already existed similar films list
+    private fun showAllSimilarFilms() {
         findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentSimilarFilms)
     }
 
