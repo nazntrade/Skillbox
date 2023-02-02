@@ -404,8 +404,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/graphic_bold"
-                            android:paddingTop="@dimen/dimen_8"
-                            android:paddingBottom="@dimen/dimen_8"
+                            android:paddingTop="40dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -419,8 +418,7 @@
                             android:layout_marginEnd="@dimen/dimen_32"
                             android:src="@drawable/ic_small_arrow_show_all"
                             app:layout_constraintBottom_toBottomOf="@+id/watchVideo"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/watchVideo" />
+                            app:layout_constraintEnd_toEndOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
