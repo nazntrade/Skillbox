@@ -173,7 +173,7 @@
         <action
             android:id="@+id/action_fragmentFilmDetail_to_fragmentVideo"
             app:destination="@id/fragmentVideo"
-            app:popUpTo="@+id/fragmentFilmDetail"/>
+            app:popUpTo="@+id/fragmentFilmDetail" />
     </fragment>
 
     <fragment
@@ -207,7 +207,7 @@
     <fragment
         android:id="@+id/fragmentVideo"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.video.FragmentVideo"
-        android:label="FragmentVideo" >
+        android:label="FragmentVideo">
         <argument
             android:name="filmName"
             app:argType="string" />

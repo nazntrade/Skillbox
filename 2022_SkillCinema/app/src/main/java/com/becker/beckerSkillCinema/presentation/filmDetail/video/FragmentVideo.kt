@@ -2,13 +2,18 @@ package com.becker.beckerSkillCinema.presentation.filmDetail.video
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
+import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.becker.beckerSkillCinema.databinding.FragmentVideoBinding
+import com.becker.beckerSkillCinema.presentation.MainActivity
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 
 class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBinding::inflate) {
@@ -18,10 +23,9 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // if your webview can go back it will go back
-                if (binding.webView.canGoBack())
-                    binding.webView.goBack()
+                if (binding.webView.canGoBack()) binding.webView.goBack()
                 // if your webview cannot go back
-                // it will exit the application
+                // it will go back to previous backStack
                 else findNavController().popBackStack()
             }
         }
@@ -34,13 +38,55 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val videoView = binding.webView
-        videoView.settings.builtInZoomControls = true
-        videoView.webViewClient = WebViewClient()
-        val url =
-            "https://www.google.ru/search?q=${incomeArgs.filmName}+trailer&newwindow=1&biw=1745&bih=888&tbm=vid&sxsrf=AJOqlzUmuPM0ofjPRoMU7at9l0gHIl6VrA%3A1675324899092&ei=423bY9qaBa6K9u8P6ZyD4AE&ved=0ahUKEwiamPnLr_b8AhUuhf0HHWnOABwQ4dUDCA0&uact=5&oq=%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80+trailer&gs_lcp=Cg1nd3Mtd2l6LXZpZGVvEAMyBAgjECcyBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeMgYIABAWEB5QAFgAYKYJaABwAHgAgAGhAYgBoQGSAQMwLjGYAQCgAQKgAQHAAQE&sclient=gws-wiz-video"
-        videoView.loadUrl(url)
-        videoView.settings.javaScriptEnabled = true
-        videoView.settings.setSupportZoom(true)
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            (requireActivity() as MainActivity).window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            (requireActivity() as MainActivity).window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+
+        val webView = binding.webView
+        val url = "https://www.youtube.com/results?search_query=${incomeArgs.filmName}+trailer"
+
+        webView.apply {
+            settings.javaScriptEnabled = true
+            settings.setSupportZoom(true)
+            settings.builtInZoomControls = true
+            settings.displayZoomControls = true
+            webViewClient = WebViewClient()
+
+            webChromeClient = object : WebChromeClient() {
+                override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                    super.onShowCustomView(view, callback)
+                    binding.apply {
+                        webView.visibility = View.GONE
+                        customView.visibility = View.VISIBLE
+                        customView.addView(view)
+                    }
+                }
+
+                override fun onHideCustomView() {
+                    super.onHideCustomView()
+                    binding.apply {
+                        webView.visibility = View.VISIBLE
+                        customView.visibility = View.GONE
+                    }
+                }
+            }
+            loadUrl(url)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            (requireActivity() as MainActivity).window.insetsController?.show(WindowInsets.Type.statusBars())
+        } else {
+            (requireActivity() as MainActivity).window.clearFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 }

@@ -65,7 +65,6 @@ class FragmentFilmDetail :
     }
 
     private fun getVideo(filmName: String) {
-
         binding.watchVideo.setOnClickListener {
             val action = FragmentFilmDetailDirections
                 .actionFragmentFilmDetailToFragmentVideo(filmName)

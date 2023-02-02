@@ -67,5 +67,13 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
                 }
             }
         }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.fragmentVideo || destination.id == R.id.fragmentFilmDetail) {
+                binding.bottomNavigation.visibility = View.GONE
+            } else {
+                binding.bottomNavigation.visibility = View.VISIBLE
+            }
+        }
     }
 }
