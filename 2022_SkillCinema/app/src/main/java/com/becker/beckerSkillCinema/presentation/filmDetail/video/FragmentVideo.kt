@@ -38,14 +38,7 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            (requireActivity() as MainActivity).window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            (requireActivity() as MainActivity).window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
+        makeFullScreen()
 
         val webView = binding.webView
         val url = "https://www.youtube.com/results?search_query=${incomeArgs.filmName}+trailer"
@@ -79,6 +72,17 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
         }
     }
 
+    private fun makeFullScreen() {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            (requireActivity() as MainActivity).window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            (requireActivity() as MainActivity).window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -88,5 +92,10 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        makeFullScreen()
     }
 }
