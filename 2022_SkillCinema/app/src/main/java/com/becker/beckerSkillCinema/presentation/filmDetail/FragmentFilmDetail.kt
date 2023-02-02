@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter.GalleryAdapter
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.utils.loadImage
-import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
 
 class FragmentFilmDetail :
@@ -63,33 +62,14 @@ class FragmentFilmDetail :
         setFilmCrew()                       // Set ListFilmCrew
         setFilmGallery()                    // Set Gallery
         setSimilarFilms()                   // Set List Similar Films
-        getVideo()
     }
 
-    private fun getVideo() {
+    private fun getVideo(filmName: String) {
 
-        binding.watchTrailer.setOnClickListener {
-
-        }
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                viewModel.videoByFilmId.collect { videos ->
-                    videos.forEach { itemVideo ->
-                        if (itemVideo.name.contains("Трейлер") && itemVideo.site == "KINOPOISK_WIDGET") {
-                            binding.watchTrailer.isVisible = true
-                            binding.watchTrailer.setOnClickListener {
-                                val action = FragmentFilmDetailDirections
-                                    .actionFragmentFilmDetailToFragmentVideo(itemVideo.url)
-                                findNavController().navigate(action)
-
-                            }
-                            return@forEach
-                        }
-                    }
-                }
-            } catch (e: Throwable) {
-                Timber.e("getVideo $e")
-            }
+        binding.watchVideo.setOnClickListener {
+            val action = FragmentFilmDetailDirections
+                .actionFragmentFilmDetailToFragmentVideo(filmName)
+            findNavController().navigate(action)
         }
     }
 
@@ -153,7 +133,9 @@ class FragmentFilmDetail :
                                     binding.seasonsGroup.isVisible = false
                                 }
                                 binding.apply {
-                                    filmName.text = getName(film)
+                                    val filmNameExtracted = getName(film)
+                                    filmName.text = filmNameExtracted
+                                    getVideo(filmNameExtracted)
                                     filmPoster.loadImage(film.posterUrl)
                                     filmDescriptionShort.text = film.shortDescription
                                     filmDescriptionFull.text = film.description

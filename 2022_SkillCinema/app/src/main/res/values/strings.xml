@@ -50,6 +50,7 @@
     <!-- Gallery full fragment -->
     <string name="title_gallery">Галерея</string>
     <string name="chip_name">%s %d</string>
+    <string name="search_trailers">Найти трейлеры</string>
 
 
 </resources>

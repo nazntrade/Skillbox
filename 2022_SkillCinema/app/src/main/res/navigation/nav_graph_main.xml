@@ -209,7 +209,7 @@
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.video.FragmentVideo"
         android:label="FragmentVideo" >
         <argument
-            android:name="link"
+            android:name="filmName"
             app:argType="string" />
     </fragment>
 
