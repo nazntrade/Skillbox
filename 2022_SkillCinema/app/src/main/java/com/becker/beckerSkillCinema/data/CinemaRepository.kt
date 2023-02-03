@@ -1,6 +1,7 @@
 package com.becker.beckerSkillCinema.data
 
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
+import com.becker.beckerSkillCinema.data.filmByFilter.ResponseGenresCountries
 import com.becker.beckerSkillCinema.data.filmsPremier.FilmPremier
 import com.becker.beckerSkillCinema.data.network.Networking
 import com.becker.beckerSkillCinema.entity.HomeItem
@@ -20,9 +21,9 @@ class CinemaRepository @Inject constructor() {
     // FragmentSearch
     suspend fun getFilmsByFilter(filters: ParamsFilterFilm, page: Int): ResponseByFilter {
         return Networking.kinopoiskApi.getFilmsByFilter(
-            countries = if (filters.countries.isNotEmpty()) filters.countries.keys.first() //????????????????????
+            countries = if (filters.countries.isNotEmpty()) filters.countries.keys.first()
                 .toString() else "",
-            genres = filters.genres,
+            genres = if (filters.genres.isNotEmpty()) filters.genres.keys.first().toString() else "",
             order = filters.order,
             type = filters.type,
             ratingFrom = filters.ratingFrom,
@@ -33,6 +34,10 @@ class CinemaRepository @Inject constructor() {
             keyword = filters.keyword,
             page = page
         )
+    }
+
+    suspend fun getGenresCountries(): ResponseGenresCountries {
+        return Networking.kinopoiskApi.getGenresCountries()
     }
 
     suspend fun getFilmById(filmId: Int) =

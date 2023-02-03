@@ -97,7 +97,15 @@
         android:id="@+id/fragmentSearch"
         android:name="com.becker.beckerSkillCinema.presentation.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_fragmentSearch_to_searchSettingsFragment"
+            app:destination="@id/searchSettingsFragment"
+            app:popUpTo="@+id/fragmentSearch" />
+        <action
+            android:id="@+id/action_fragmentSearch_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentProfile"
@@ -210,6 +218,24 @@
         android:label="FragmentVideo">
         <argument
             android:name="filmName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchSettingsFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.search.SearchSettingsFragment"
+        android:label="SearchSettingsFragment"
+        tools:layout="@layout/fragment_search_settings">
+        <action
+            android:id="@+id/action_searchSettingsFragment_to_searchFiltersFragment"
+            app:destination="@id/searchFiltersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFiltersFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.search.SearchFiltersFragment"
+        android:label="SearchFiltersFragment"
+        tools:layout="@layout/fragment_search_filters">
+        <argument
+            android:name="filterType"
             app:argType="string" />
     </fragment>
 

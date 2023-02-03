@@ -1,6 +1,7 @@
 package com.becker.beckerSkillCinema.data.network
 
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
+import com.becker.beckerSkillCinema.data.filmByFilter.ResponseGenresCountries
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.filmGallery.ResponseFilmGallery
 import com.becker.beckerSkillCinema.data.filmsPremier.ResponsePremier
@@ -19,9 +20,6 @@ import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT7
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT8
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT9
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT12
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT13
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -49,7 +47,7 @@ interface KinopoiskApi {
     @GET("v2.2/films/")
     suspend fun getFilmsByFilter(
         @Query("countries") countries: String,
-        @Query("genres") genres: Int?,
+        @Query("genres") genres: String,
         @Query("order") order: String,
         @Query("type") type: String,
         @Query("ratingFrom") ratingFrom: Int,
@@ -105,7 +103,9 @@ interface KinopoiskApi {
         @Query("page") page: Int
     ): ResponseFilmGallery
 
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT10")
+    @GET("v2.2/films/filters")
+    suspend fun getGenresCountries(): ResponseGenresCountries
 
-    // FragmentStaffDetail
 
 }

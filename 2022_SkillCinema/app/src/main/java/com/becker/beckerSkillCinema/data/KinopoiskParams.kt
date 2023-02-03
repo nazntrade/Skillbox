@@ -10,10 +10,14 @@ val TOP_TYPES = mapOf(
     CategoriesFilms.TV_SERIES to "TV_SERIES"
 )
 
-val GENRE_INT_FOR_FILTER = mapOf(
-    CategoriesFilms.BIOGRAPHY to 8,
-    CategoriesFilms.SCIENCE_FICTION to 6,
-    CategoriesFilms.CARTOONS to 18
+val GENRE_BIOGRAPHY_FILTER = mapOf(
+    8 to TOP_TYPES.getValue(CategoriesFilms.BIOGRAPHY)
+)
+val GENRE_SCIENCE_FICTION_FILTER = mapOf(
+    6 to TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION)
+)
+val GENRE_CARTOONS_FILTER = mapOf(
+    18 to TOP_TYPES.getValue(CategoriesFilms.CARTOONS)
 )
 
 val PROFESSIONS = mapOf(

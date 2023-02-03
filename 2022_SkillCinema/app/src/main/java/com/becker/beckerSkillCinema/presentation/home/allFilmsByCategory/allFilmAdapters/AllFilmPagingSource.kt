@@ -2,10 +2,7 @@ package com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFil
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.becker.beckerSkillCinema.data.CategoriesFilms
-import com.becker.beckerSkillCinema.data.GENRE_INT_FOR_FILTER
-import com.becker.beckerSkillCinema.data.ParamsFilterFilm
-import com.becker.beckerSkillCinema.data.TOP_TYPES
+import com.becker.beckerSkillCinema.data.*
 import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
@@ -59,7 +56,7 @@ class AllFilmPagingSource(
                     getFilmListUseCase.executeFilmsByFilter(
                         filters = ParamsFilterFilm(
                             type = TOP_TYPES.getValue(CategoriesFilms.BIOGRAPHY),
-                            genres = GENRE_INT_FOR_FILTER.getValue(CategoriesFilms.BIOGRAPHY),
+                            genres = GENRE_BIOGRAPHY_FILTER,
                             ratingFrom = 7
                         ),
                         page = page
@@ -69,7 +66,7 @@ class AllFilmPagingSource(
                     getFilmListUseCase.executeFilmsByFilter(
                         filters = ParamsFilterFilm(
                             type = TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION),
-                            genres = GENRE_INT_FOR_FILTER.getValue(CategoriesFilms.SCIENCE_FICTION),
+                            genres = GENRE_SCIENCE_FICTION_FILTER,
                             ratingFrom = 7
                         ),
                         page = page
@@ -79,7 +76,7 @@ class AllFilmPagingSource(
                     getFilmListUseCase.executeFilmsByFilter(
                         filters = ParamsFilterFilm(
                             type = TOP_TYPES.getValue(CategoriesFilms.CARTOONS),
-                            genres = GENRE_INT_FOR_FILTER.getValue(CategoriesFilms.CARTOONS),
+                            genres = GENRE_CARTOONS_FILTER,
                             ratingFrom = 7
                         ),
                         page = page

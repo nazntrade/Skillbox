@@ -94,7 +94,7 @@ class HomeViewModel @Inject constructor(
                         filmList = getFilmListUseCase.executeFilmsByFilter(
                             filters = ParamsFilterFilm(
                                 type = TOP_TYPES.getValue(CategoriesFilms.BIOGRAPHY),
-                                genres = GENRE_INT_FOR_FILTER.getValue(CategoriesFilms.BIOGRAPHY),
+                                genres = GENRE_BIOGRAPHY_FILTER,
                                 ratingFrom = 7
                             ),
                             page = 1
@@ -105,7 +105,7 @@ class HomeViewModel @Inject constructor(
                         filmList = getFilmListUseCase.executeFilmsByFilter(
                             filters = ParamsFilterFilm(
                                 type = TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION),
-                                genres = GENRE_INT_FOR_FILTER.getValue(CategoriesFilms.SCIENCE_FICTION),
+                                genres = GENRE_SCIENCE_FICTION_FILTER,
                                 ratingFrom = 7
                             ),
                             page = 1
@@ -116,7 +116,7 @@ class HomeViewModel @Inject constructor(
                         filmList = getFilmListUseCase.executeFilmsByFilter(
                             filters = ParamsFilterFilm(
                                 type = TOP_TYPES.getValue(CategoriesFilms.CARTOONS),
-                                genres = GENRE_INT_FOR_FILTER.getValue(CategoriesFilms.CARTOONS),
+                                genres = GENRE_CARTOONS_FILTER,
                                 ratingFrom = 7
                             ),
                             page = 1

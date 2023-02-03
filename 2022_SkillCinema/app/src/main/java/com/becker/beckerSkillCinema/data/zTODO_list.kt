@@ -4,7 +4,7 @@ package com.becker.beckerSkillCinema.data
 
 HOME:
 
-- current task
+    SEARCH SCREEN  - current task
 
 11. more Beautifully animation katachi
 more categories on homeScreen

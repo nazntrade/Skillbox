@@ -39,18 +39,38 @@
     <string name="label_filmography">Фильмография</string>
     <string name="search_edittext_hint">Фильмы, актёры, режиссёры</string>
 
-
     <!-- Staff detail fragment -->
     <string name="staff_detail_filmography_label">Фильмография</string>
     <string name="staff_detail_best_label">Лучшее</string>
     <string name="staff_detail_filmography_all">К списку</string>
     <string name="facts">Факты: </string>
 
-
     <!-- Gallery full fragment -->
     <string name="title_gallery">Галерея</string>
     <string name="chip_name">%s %d</string>
     <string name="search_trailers">Найти трейлеры</string>
+
+    <!-- Search fragment -->
+    <string name="search_not_found">К сожалению, по Вашему\nничего не найдено</string>
+
+    <!-- Search setting fragment -->
+    <string name="search_settings_title">Настройки поиска</string>
+    <string name="search_settings_label_show">Показывать</string>
+    <string name="search_settings_radio_all">Все</string>
+    <string name="search_settings_radio_films">Фильмы</string>
+    <string name="search_settings_radio_series">Сериалы</string>
+    <string name="search_settings_rating_text">от %d до %d</string>
+    <string name="search_settings_country_label">Страна</string>
+    <string name="search_settings_genre_label">Жанр</string>
+    <string name="search_settings_rating_label">Рейтинг</string>
+    <string name="search_settings_year_label">Год</string>
+    <string name="search_settings_radio_popular">Популярность</string>
+    <string name="search_settings_radio_rating">Рейтинг</string>
+    <string name="search_settings_radio_date">Дата</string>
+    <string name="search_settings_sorting_label">Сортировать</string>
+    <string name="search_filters_country_choose">Выберете страну</string>
+    <string name="search_filters_countries_default">Все страны</string>
+    <string name="search_filters_genres_default">Все жанры</string>
 
 
 </resources>
