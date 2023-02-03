@@ -102,9 +102,18 @@ class FragmentStaffDetail :
                         }
 
                         staffDetailName.text = staff.nameRu ?: staff.nameEn ?: "Unknown name"
+
                         if (staff.profession != null) staffDetailProfession.text =
                             staff.profession
                         else staffDetailProfession.isVisible = false
+
+                        if (staff.birthday != null)
+                            "Год рождения: ${staff.birthday.substring(0, 4)}".also { staffDetailBirthday.text = it }
+                        else staffDetailBirthday.isVisible = false
+
+                        if (staff.birthPlace != null)
+                            "Место рождения: ${staff.birthPlace}".also { staffDetailPlaceOfBirthday.text = it }
+                        else staffDetailPlaceOfBirthday.isVisible = false
 
                         if (staff.films != null) {
                             staffDetailFilmsCount.text =
@@ -122,14 +131,13 @@ class FragmentStaffDetail :
                                 repeat(10) { resultBest.add(sortedListBest[it]) }
                             } else resultBest.addAll(sortedListBest)
                             resultBest.sortedBy { it.rating }
-                            // response from server has no poster--------------------------------
+                            // response from server has no poster!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                             filmAdapter.submitList(resultBest)
                         }
 
                         if (staff.facts == null || staff.facts.isEmpty()) {
                             factsTitle.isVisible = false
                             factsFieldText.isVisible = false
-
                         } else {
                             factsTitle.isVisible = true
                             factsFieldText.isVisible = true
@@ -155,10 +163,7 @@ class FragmentStaffDetail :
     private fun setListeners(link: String = "") {
         binding.apply {
             staffDetailFilmographyGroup.setOnClickListener { getAllFilmsByCurrentStaff() }
-            staffDetailShowAllFilmsBtn.setOnClickListener { getAllFilmsByCurrentStaff() }
-            staffDetailShowAllFilmsTv.setOnClickListener { getAllFilmsByCurrentStaff() }
-            staffDetailShowAllBestBtn.setOnClickListener { getAllFilmsByCurrentStaff() }
-            staffDetailShowAllBestTv.setOnClickListener { getAllFilmsByCurrentStaff() }
+            staffDetailBestTitle.setOnClickListener { getAllFilmsByCurrentStaff() }
             staffDetailPoster.setOnClickListener {
                 val action = FragmentStaffDetailDirections
                     .actionFragmentStaffDetailToFragmentBigImage(link)

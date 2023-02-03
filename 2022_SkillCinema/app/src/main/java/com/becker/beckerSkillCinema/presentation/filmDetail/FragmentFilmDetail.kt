@@ -64,16 +64,7 @@ class FragmentFilmDetail :
         setSimilarFilms()                   // Set List Similar Films
     }
 
-    private fun getVideo(filmName: String) {
-        binding.watchVideo.setOnClickListener {
-            val action = FragmentFilmDetailDirections
-                .actionFragmentFilmDetailToFragmentVideo(filmName)
-            findNavController().navigate(action)
-        }
-    }
-
     private fun stateLoadingListener() {
-
         binding.progressGroupContainer.loadingRefreshBtn
             .setOnClickListener { viewModel.getFilmById() }
 
@@ -117,7 +108,6 @@ class FragmentFilmDetail :
             viewModel.getFilmId()
             viewModel.getFilmById()
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -155,7 +145,6 @@ class FragmentFilmDetail :
 
     // About season and series
     private fun getSeriesSeasons(seriesName: String) {
-        binding.seriesSeasonsBtn.setOnClickListener { showAllSeasons(seriesName) }
         binding.seasonsGroup.setOnClickListener { showAllSeasons(seriesName) }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -220,10 +209,11 @@ class FragmentFilmDetail :
                         actorsListTemp.add(actorList[it])
                     }
                     actorAdapter.submitList(actorsListTemp)
-                    binding.filmActorsBtn
-                        .setOnClickListener { showAllStaffs("ACTOR") }
-                    binding.filmActorsCount
-                        .setOnClickListener { showAllStaffs("ACTOR") }
+                    binding.apply {
+                        filmActorsLabel.setOnClickListener { showAllStaffs("ACTOR") }
+                        filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
+                        filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
+                    }
                 }
             }
         }
@@ -252,10 +242,11 @@ class FragmentFilmDetail :
                     val makersListTemp = mutableListOf<ResponseStaffByFilmId>()
                     repeat(MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) { makersListTemp.add(makersList[it]) }
                     makersAdapter.submitList(makersListTemp)
-                    binding.filmMakersBtn
-                        .setOnClickListener { showAllStaffs("") }
-                    binding.filmMakersCount
-                        .setOnClickListener { showAllStaffs("") }
+                    binding.apply {
+                        filmMakersLabel.setOnClickListener { showAllStaffs("") }
+                        filmMakersBtn.setOnClickListener { showAllStaffs("") }
+                        filmMakersCount.setOnClickListener { showAllStaffs("") }
+                    }
                 }
             }
         }
@@ -275,15 +266,6 @@ class FragmentFilmDetail :
 
     // Gallery
     private fun setFilmGallery() {
-        //
-        binding.filmGalleryCount.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
-        }
-
-        binding.filmGalleryBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentGallery)
-        }
-
         galleryAdapter = GalleryAdapter(20, { showAllImages() }, { showClickedImage(it) })
         binding.filmGalleryList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -307,6 +289,11 @@ class FragmentFilmDetail :
                 }
             }
         }
+        binding.apply {
+            filmGalleryLabel.setOnClickListener { showAllImages() }
+            filmGalleryCount.setOnClickListener { showAllImages() }
+            filmGalleryBtn.setOnClickListener { showAllImages() }
+        }
     }
 
     private fun showAllImages() {
@@ -314,15 +301,23 @@ class FragmentFilmDetail :
     }
 
     private fun showClickedImage(link: String) {
-        val action = FragmentFilmDetailDirections
-            .actionFragmentFilmDetailToFragmentBigImage(link)
+        val action = FragmentFilmDetailDirections.actionFragmentFilmDetailToFragmentBigImage(link)
         findNavController().navigate(action)
+    }
+
+    // Watch trailers
+    private fun getVideo(filmName: String) {
+        binding.watchTrailersContainer.setOnClickListener {
+            val action = FragmentFilmDetailDirections
+                .actionFragmentFilmDetailToFragmentVideo(filmName)
+            findNavController().navigate(action)
+        }
     }
 
     // Similar films
     private fun setSimilarFilms() {
-
         similarAdapter = FilmAdapter(20, { showAllSimilarFilms() }, { onSimilarFilmClick(it) })
+
         binding.filmSimilarList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
@@ -333,28 +328,28 @@ class FragmentFilmDetail :
                 similarAdapter.submitList(it)
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.countSimilarFilm.collect {
                 binding.filmSimilarCount.text = it.toString()
             }
         }
+        binding.apply {
+            filmSimilarLabel.setOnClickListener { showAllSimilarFilms() }
+            filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
+            filmSimilarCount.setOnClickListener { showAllSimilarFilms() }
+        }
+    }
 
-        binding.filmSimilarBtn.setOnClickListener { showAllSimilarFilms() }
-        binding.filmSimilarCount.setOnClickListener { showAllSimilarFilms() }
+    private fun showAllSimilarFilms() {
+        findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentSimilarFilms)
     }
 
     private fun onSimilarFilmClick(newFilmId: Int) {
         viewModel.putFilmId(newFilmId)
         viewModel.getFilmId()
         viewModel.getFilmById()
-
         binding.myScroll.scrollTo(0, 0)
         binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
-    }
-
-    private fun showAllSimilarFilms() {
-        findNavController().navigate(R.id.action_fragmentFilmDetail_to_fragmentSimilarFilms)
     }
 
     companion object {

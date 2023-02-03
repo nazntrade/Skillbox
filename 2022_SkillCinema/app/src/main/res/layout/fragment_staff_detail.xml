@@ -89,6 +89,32 @@
                     app:layout_constraintTop_toBottomOf="@id/staff_detail_name"
                     tools:text="Актриса" />
 
+                <TextView
+                    android:id="@+id/staff_detail_birthday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:textSize="10sp"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
+                    app:layout_constraintTop_toBottomOf="@id/staff_detail_profession"
+                    tools:text="Дата рождения: 22.11.1543"
+                    tools:ignore="SmallSp" />
+
+                <TextView
+                    android:id="@+id/staff_detail_place_of_birthday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_16"
+                    android:textSize="10sp"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/staff_detail_poster"
+                    app:layout_constraintTop_toBottomOf="@id/staff_detail_birthday"
+                    tools:text="Место рождения: New Brunswick"
+                    tools:ignore="SmallSp" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Best group -->
@@ -186,9 +212,9 @@
                     android:fontFamily="@font/graphic_regular"
                     android:text="@string/staff_detail_filmography_all"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/staff_detail_films_count"
+                    app:layout_constraintBottom_toBottomOf="@+id/staff_detail_filmography_label"
                     app:layout_constraintEnd_toStartOf="@id/staff_detail_show_all_films_btn"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/staff_detail_filmography_label" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/staff_detail_show_all_films_btn"
@@ -196,8 +222,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dimen_32"
                     android:src="@drawable/ic_small_arrow_show_all"
+                    app:layout_constraintBottom_toBottomOf="@+id/staff_detail_show_all_films_tv"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/staff_detail_show_all_films_tv" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

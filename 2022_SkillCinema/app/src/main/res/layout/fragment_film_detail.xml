@@ -393,6 +393,7 @@
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/watch_trailers_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
