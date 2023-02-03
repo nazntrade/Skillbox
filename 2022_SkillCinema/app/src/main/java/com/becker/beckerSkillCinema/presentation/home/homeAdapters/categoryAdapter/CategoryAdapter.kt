@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.CategoriesFilms
-import com.becker.beckerSkillCinema.data.HomeList
+import com.becker.beckerSkillCinema.data.home.HomeList
 import com.becker.beckerSkillCinema.databinding.ItemCategoryListBinding
 import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
 
@@ -49,7 +49,7 @@ class CategoryAdapter(
                     { clickNextButton(itemHomeList.category) },
                     { clickFilms(it) }
                 )
-            filmAdapter.submitList(itemHomeList.filmList.shuffled()) // '.submitList' - standard option for ListAdapter
+            filmAdapter.submitList(itemHomeList.filmList.shuffled())
 
             binding.titleCategory.text = itemHomeList.category.text
             binding.filmList.adapter = filmAdapter

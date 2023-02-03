@@ -32,7 +32,6 @@ class FragmentGalleryFullscreen : ViewBindingFragment<FragmentGalleryDetailFulls
     }
 
     private val args: FragmentGalleryFullscreenArgs by navArgs()
-
     private val viewModel: FilmDetailViewModel by activityViewModels()
     private var adapter: GalleryFullscreenAdapter by autoCleared()
 

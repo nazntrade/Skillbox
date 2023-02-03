@@ -77,7 +77,7 @@ class FilmAdapter(
         private fun getGenreName(genres: List<Genre>): String {
             var genreName = ""
             genres.forEachIndexed { index, genre ->
-                genreName += if (index == genres.lastIndex) genre.genre // if genre 1
+                genreName += if (index == genres.lastIndex) genre.genre // if genre one
                 else "${genre.genre}, "                                 // if genres many
             }
             return genreName

@@ -87,10 +87,10 @@ class FragmentFilmography :
                 isChecked = chipGroup.size == 0
             }
             chip.setOnClickListener { myChip ->
-                val newFiltredFilmList = filmList.filter { film ->
+                val newFilteredFilmList = filmList.filter { film ->
                     film.professionKey == myChip.transitionName
                 }
-                adapter.submitList(newFiltredFilmList)
+                adapter.submitList(newFilteredFilmList)
             }
             chipGroup.addView(chip)
         }

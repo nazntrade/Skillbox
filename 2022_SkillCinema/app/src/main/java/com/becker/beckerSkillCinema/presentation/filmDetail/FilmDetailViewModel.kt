@@ -44,7 +44,7 @@ class FilmDetailViewModel @Inject constructor(
     val currentFilmId
         get() = _currentFilmId
 
-    var currentParamsFilterGallery =
+    private var currentParamsFilterGallery =
         ParamsFilterGallery()
 
     init {

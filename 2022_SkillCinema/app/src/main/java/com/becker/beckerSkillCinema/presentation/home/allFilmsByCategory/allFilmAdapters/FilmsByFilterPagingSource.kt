@@ -6,8 +6,6 @@ import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
 
-// where is place this file?
-
 class FilmsByFilterPagingSource(
     private val filters: ParamsFilterFilm,
     private val getFilmListUseCase: GetFilmListUseCase

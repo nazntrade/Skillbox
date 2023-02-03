@@ -13,7 +13,7 @@ import com.becker.beckerSkillCinema.utils.loadImage
 class GalleryAdapter(
     private val maxListSize: Int,
     private val clickNextButton: () -> Unit,
-    private val clickItem: (imageUrl: String) -> Unit /////////////////////////
+    private val clickItem: (imageUrl: String) -> Unit
 ) : ListAdapter<ItemImageGallery, GalleryAdapter.GalleryViewHolder>(DiffGallery()) {
 
     class DiffGallery : DiffUtil.ItemCallback<ItemImageGallery>() {
@@ -31,11 +31,10 @@ class GalleryAdapter(
     )
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-//        holder.bindItem(getItem(position))
         if (position == maxListSize - 1) {
             holder.bindNextShow { clickNextButton() }
         } else {
-            holder.bindItem(getItem(position)) { item -> clickItem(item) }////////////////
+            holder.bindItem(getItem(position)) { item -> clickItem(item) }
         }
     }
 
@@ -55,7 +54,7 @@ class GalleryAdapter(
             binding.itemImage.loadImage(item.previewUrl)
             binding.showAll.isVisible = false
             binding.itemImage.isVisible = true
-            binding.itemImage.setOnClickListener { clickItem(item.imageUrl) }/////////
+            binding.itemImage.setOnClickListener { clickItem(item.imageUrl) }
         }
     }
 }

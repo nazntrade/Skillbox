@@ -108,11 +108,15 @@ class FragmentStaffDetail :
                         else staffDetailProfession.isVisible = false
 
                         if (staff.birthday != null)
-                            "Год рождения: ${staff.birthday.substring(0, 4)}".also { staffDetailBirthday.text = it }
+                            "Год рождения: ${staff.birthday.substring(0, 4)}".also {
+                                staffDetailBirthday.text = it
+                            }
                         else staffDetailBirthday.isVisible = false
 
                         if (staff.birthPlace != null)
-                            "Место рождения: ${staff.birthPlace}".also { staffDetailPlaceOfBirthday.text = it }
+                            "Место рождения: ${staff.birthPlace}".also {
+                                staffDetailPlaceOfBirthday.text = it
+                            }
                         else staffDetailPlaceOfBirthday.isVisible = false
 
                         if (staff.films != null) {

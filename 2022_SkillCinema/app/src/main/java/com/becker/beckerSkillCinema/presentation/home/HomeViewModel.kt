@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.becker.beckerSkillCinema.data.*
+import com.becker.beckerSkillCinema.data.home.HomeList
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.utils.toLimitTheNumberOfObjects
@@ -27,7 +28,6 @@ class HomeViewModel @Inject constructor(
     private val currentMonth: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
     private val currentYear: Int = calendar.get(Calendar.YEAR)
 
-    // FragmentHome
     private val _homePageFilmList = MutableStateFlow<List<HomeList>>(emptyList())
     val homePageFilmList = _homePageFilmList.asStateFlow()
 

@@ -29,7 +29,7 @@ class AllFilmAdapter(
 
     override fun onBindViewHolder(holder: AllFilmViewHolder, position: Int) {
         val item = getItem(position)
-        with(holder.binding) {
+        (holder.binding).apply {
             item?.let {
                 holder.binding.apply {
                     itemFilmPoster.loadImage(item.posterUrlPreview)

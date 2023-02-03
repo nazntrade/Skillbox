@@ -23,7 +23,7 @@ class AllFilmPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HomeItem> {
         val page = params.key ?: FIRST_PAGE
-        return kotlin.runCatching {                                         // change to Coroutines
+        return kotlin.runCatching {
             when (categoriesFilms) {
                 CategoriesFilms.PREMIERS -> {
                     getPremierFilmUseCase.executePremieres(year, month)

@@ -21,7 +21,7 @@ class CinemaRepository @Inject constructor() {
     suspend fun getFilmsByFilter(filters: ParamsFilterFilm, page: Int): ResponseByFilter {
         return Networking.kinopoiskApi.getFilmsByFilter(
             countries = if (filters.countries.isNotEmpty()) filters.countries.keys.first() //????????????????????
-                .toString() else "",                                                       //????????????????????
+                .toString() else "",
             genres = filters.genres,
             order = filters.order,
             type = filters.type,
