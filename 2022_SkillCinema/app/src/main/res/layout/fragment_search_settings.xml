@@ -10,18 +10,19 @@
         android:id="@+id/search_settings_actionbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/onAllMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/search_settings_back_btn"
+                style="@style/onAllMovie"
                 android:layout_width="30dp"
                 android:layout_height="15dp"
-                android:layout_marginStart="26dp"
+                android:layout_marginStart="@dimen/dimen_26"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +30,7 @@
 
             <TextView
                 android:id="@+id/all_films_category_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_bold"
                 android:gravity="center"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/graphic_regular"
-        android:paddingHorizontal="26dp"
+        android:paddingHorizontal="@dimen/dimen_26"
         android:text="@string/search_settings_label_show"
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@id/search_settings_actionbar" />
@@ -60,7 +61,7 @@
         android:id="@+id/search_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="26dp"
+        android:layout_marginHorizontal="@dimen/dimen_26"
         android:layout_marginTop="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/search_radio_all"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="-1dp"
                 android:layout_weight="0.2"
@@ -122,7 +123,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/dimen_16"
         android:divider="@drawable/separator_horizontal"
         android:orientation="vertical"
         android:showDividers="middle"
@@ -130,18 +131,18 @@
 
         <!-- Country -->
         <FrameLayout
+            android:id="@+id/country_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:orientation="horizontal"
-            android:paddingVertical="16dp">
+            android:paddingVertical="@dimen/dimen_16">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_regular"
                 android:text="@string/search_settings_country_label"
-                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -149,25 +150,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                tools:text="Канада"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="Канада" />
 
         </FrameLayout>
 
         <!-- Genre -->
         <FrameLayout
+            android:id="@+id/genre_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:orientation="horizontal"
-            android:paddingVertical="16dp">
+            android:paddingVertical="@dimen/dimen_16">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_regular"
                 android:text="@string/search_settings_genre_label"
-                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -175,25 +176,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                tools:text="Комедия"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:text="Комедия" />
 
         </FrameLayout>
 
         <!-- Year -->
         <FrameLayout
+            android:id="@+id/years_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:orientation="horizontal"
-            android:paddingVertical="16dp">
+            android:paddingVertical="@dimen/dimen_16">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_regular"
                 android:text="@string/search_settings_year_label"
-                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -210,8 +211,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/dimen_16">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -224,7 +225,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/graphic_regular"
                     android:text="@string/search_settings_rating_label"
-                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -232,8 +232,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    tools:text="любой"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="любой" />
 
             </FrameLayout>
 
@@ -241,12 +241,12 @@
                 android:id="@+id/search_settings_rating_slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="26dp"
+                android:layout_marginHorizontal="@dimen/dimen_26"
                 android:autofillHints=""
                 android:valueFrom="1"
-                app:values="@array/initial_slider_rating_values"
                 android:valueTo="10"
-                app:labelBehavior="gone" />
+                app:labelBehavior="gone"
+                app:values="@array/initial_slider_rating_values" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -280,8 +280,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
-            android:paddingHorizontal="26dp"
-            android:paddingVertical="16dp">
+            android:paddingHorizontal="@dimen/dimen_26"
+            android:paddingVertical="@dimen/dimen_16">
 
             <TextView
                 android:id="@+id/search_settings_sorting_label"
@@ -296,7 +296,7 @@
                 android:id="@+id/search_radio_group_sorting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/dimen_16"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -319,7 +319,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/search_radio_sorting_popular"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dimen_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:background="@drawable/radio_selector_center"
@@ -331,7 +331,7 @@
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/search_radio_sorting_rating"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dimen_0"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="-1dp"
                     android:layout_weight="0.2"
@@ -355,7 +355,6 @@
             android:button="@drawable/search_settings_checkbox_selector"
             android:paddingHorizontal="36dp"
             android:text="Не просмотрен"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </LinearLayout>

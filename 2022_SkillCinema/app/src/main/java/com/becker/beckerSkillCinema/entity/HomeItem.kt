@@ -8,4 +8,5 @@ interface HomeItem {
     val nameRu: String?
     val rating: String?
     val genres: List<Genre>
+    val yearHomeItem: String?
 }

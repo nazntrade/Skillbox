@@ -41,6 +41,7 @@ class FragmentGalleryFull :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.galleryBackBtn.setOnClickListener { findNavController().popBackStack() }
         setChipButtons()     // Set Chip-group and get images
     }
 

@@ -70,6 +70,7 @@ class FilmAdapter(
                     itemFilmRating.isInvisible = false
                     itemFilmRating.text = item.rating
                 } else itemFilmRating.isInvisible = true
+                itemFilmYear.text = item.yearHomeItem
             }
             binding.itemFilm.setOnClickListener { clickFilms(item.filmId) }
         }

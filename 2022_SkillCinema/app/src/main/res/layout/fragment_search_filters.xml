@@ -10,10 +10,10 @@
         android:id="@+id/search_filters_actionbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/onAllMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -21,7 +21,7 @@
                 android:id="@+id/search_filters_back_btn"
                 android:layout_width="30dp"
                 android:layout_height="15dp"
-                android:layout_marginStart="26dp"
+                android:layout_marginStart="@dimen/dimen_26"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@+id/search_filters_category_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/graphic_bold"
                 android:gravity="center"
@@ -49,21 +49,21 @@
         android:id="@+id/search_filters_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="26dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="@dimen/dimen_26"
+        android:layout_marginTop="@dimen/dimen_8"
         android:background="@drawable/search_input_field"
         android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="8dp"
+        android:drawablePadding="@dimen/dimen_8"
         android:hint="@string/search_filters_country_choose"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
+        android:paddingHorizontal="@dimen/dimen_16"
+        android:paddingVertical="@dimen/dimen_8"
         app:layout_constraintTop_toBottomOf="@id/search_filters_actionbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_filters_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="@dimen/dimen_16"
         android:scrollIndicators="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_filters_sv"

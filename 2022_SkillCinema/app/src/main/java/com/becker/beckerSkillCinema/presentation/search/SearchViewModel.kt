@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterCountry
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterGenre
@@ -27,16 +28,20 @@ class SearchViewModel @Inject constructor(
     private val getGenresCountriesUseCase: GetGenresCountriesUseCase
 ) : ViewModel() {
 
+    private val repository = CinemaRepository()
     private var filters = ParamsFilterFilm()
     private val _isFilterChanged = MutableStateFlow(false)
     val isFilterChanged = _isFilterChanged.asStateFlow()
-
 
     private val _countries = MutableStateFlow<List<FilterCountry>>(emptyList())
     val countries = _countries.asStateFlow()
 
     private val _genres = MutableStateFlow<List<FilterGenre>>(emptyList())
     val genres = _genres.asStateFlow()
+
+    fun putFilmId(filmId: Int) {
+        repository.putFilmId(filmId)
+    }
 
     val films: Flow<PagingData<HomeItem>> = Pager(
         config = PagingConfig(pageSize = 20),

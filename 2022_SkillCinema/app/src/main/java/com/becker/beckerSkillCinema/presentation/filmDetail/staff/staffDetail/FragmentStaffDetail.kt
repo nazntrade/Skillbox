@@ -39,6 +39,7 @@ class FragmentStaffDetail :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.staffDetailBackBtn.setOnClickListener { findNavController().popBackStack() }
         setFilmsAdapter()                       // set adapter
         setLoadingStateAndDetails()             // Loading state
         getStaffInfo()                          // get info about person

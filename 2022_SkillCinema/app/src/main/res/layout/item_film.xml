@@ -10,8 +10,8 @@
         android:id="@+id/show_all"
         android:layout_width="match_parent"
         android:layout_height="156dp"
-        android:elevation="7dp"
         android:background="@drawable/bg_round_corner"
+        android:elevation="7dp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -78,8 +78,8 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="9sp"
-                tools:text="7.8"
-                tools:ignore="SmallSp" />
+                tools:ignore="SmallSp"
+                tools:text="7.8" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -89,7 +89,7 @@
             android:ellipsize="end"
             android:gravity="start"
             android:maxLines="2"
-            android:paddingTop="@dimen/dimen_8"
+            android:paddingTop="@dimen/dimen_4"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/item_film_card"
             app:layout_constraintStart_toStartOf="@id/item_film_card"
@@ -101,13 +101,27 @@
             android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:textSize="11sp"
             android:paddingTop="@dimen/dimen_2"
             android:textColor="@color/grey2"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@id/item_film_card"
             app:layout_constraintStart_toStartOf="@id/item_film_card"
             app:layout_constraintTop_toBottomOf="@id/item_film_name"
             tools:text="драма" />
+
+        <TextView
+            android:id="@+id/item_film_year"
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingTop="@dimen/dimen_2"
+            android:paddingBottom="@dimen/dimen_8"
+            android:textColor="@color/grey2"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@id/item_film_card"
+            app:layout_constraintStart_toStartOf="@id/item_film_card"
+            app:layout_constraintTop_toBottomOf="@id/item_film_genre"
+            tools:text="1548" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

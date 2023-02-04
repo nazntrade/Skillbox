@@ -23,4 +23,5 @@ data class FilmByFilter(
     override val nameRu: String? = nameRus ?: nameEn?.toString() ?: nameOriginal
     override val rating: String? = ratingKinopoisk?.toString()
     override val posterUrlPreview: String = posterPreview.ifEmpty { posterUrl }
+    override val yearHomeItem: String = year.toString()
 }

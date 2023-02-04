@@ -34,6 +34,7 @@ class FragmentSimilarFilms :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.allFilmsToHomeBtn.setOnClickListener { findNavController().popBackStack() }
         binding.allFilmsCategoryTv.text = resources.getString(R.string.label_film_similar)
         setAdapter()
         setFilmList()

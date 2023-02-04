@@ -4,29 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="26dp"
-    android:paddingTop="16dp">
+    android:paddingHorizontal="@dimen/dimen_26"
+    android:paddingTop="@dimen/dimen_16">
 
     <!-- Search group -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_group"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="@dimen/dimen_32"
         android:background="@drawable/search_input_field"
         android:padding="1dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_my_field"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="match_parent"
             android:background="@drawable/search_input_field"
             android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/dimen_8"
             android:hint="@string/search_edittext_hint"
             android:maxLines="1"
             android:paddingHorizontal="18dp"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/search_filter_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="@dimen/dimen_4"
             android:src="@drawable/ic_vertical_line"
             app:layout_constraintBottom_toBottomOf="@id/search_my_field"
             app:layout_constraintEnd_toStartOf="@id/search_filter_btn"
@@ -44,7 +44,7 @@
             android:id="@+id/search_filter_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/dimen_8"
             android:src="@drawable/ic_search_filters"
             app:layout_constraintBottom_toBottomOf="@id/search_my_field"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_film_list"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dimen_0"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_progress_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dimen_0"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_group">
@@ -97,10 +97,11 @@
             android:id="@+id/search_progress_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_26"
             android:src="@drawable/wfh_4_1"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loading_progress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

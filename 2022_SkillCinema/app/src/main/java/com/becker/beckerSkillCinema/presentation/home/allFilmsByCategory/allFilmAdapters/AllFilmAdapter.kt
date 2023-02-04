@@ -36,6 +36,7 @@ class AllFilmAdapter(
                     itemFilmName.text = item.nameRu
                     itemFilmGenre.text = item.genres.joinToString(", ") { it.genre }
                     itemFilmRating.text = item.rating
+                    itemFilmYear.text = item.yearHomeItem
                 }
             }
         }

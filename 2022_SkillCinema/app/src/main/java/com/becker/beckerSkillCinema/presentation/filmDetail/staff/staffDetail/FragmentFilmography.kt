@@ -38,6 +38,7 @@ class FragmentFilmography :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.filmographyBack.setOnClickListener { findNavController().popBackStack() }
         setAdapter()                // set adapter
         setFilmList()               // get movieList
     }

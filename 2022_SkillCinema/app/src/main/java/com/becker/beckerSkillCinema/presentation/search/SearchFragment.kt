@@ -54,6 +54,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun onFilmClick(filmId: Int) {
+        viewModel.putFilmId(filmId)
         val action =
             SearchFragmentDirections.actionFragmentSearchToFragmentFilmDetail(filmId)
         findNavController().navigate(action)

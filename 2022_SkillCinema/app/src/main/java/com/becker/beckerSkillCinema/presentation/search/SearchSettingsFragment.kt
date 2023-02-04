@@ -29,6 +29,7 @@ class SearchSettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.searchSettingsBackBtn.setOnClickListener { findNavController().popBackStack() }
         setTextViews()                  // Установка значений в TextView
         setRatingSlider()               // Установка Slider рейтинга
     }
@@ -49,10 +50,10 @@ class SearchSettingsFragment :
                 else getString(R.string.search_filters_genres_default)
         }
 
-        binding.searchSettingsCountryTv.setOnClickListener {
+        binding.countryField.setOnClickListener {
             filterTypeChooseClick(SearchFiltersFragment.KEY_COUNTRY)
         }
-        binding.searchSettingsGenreTv.setOnClickListener {
+        binding.genreField.setOnClickListener {
             filterTypeChooseClick(SearchFiltersFragment.KEY_GENRE)
         }
     }

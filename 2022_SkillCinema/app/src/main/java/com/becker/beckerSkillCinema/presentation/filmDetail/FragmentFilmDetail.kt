@@ -55,7 +55,6 @@ class FragmentFilmDetail :
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-
         stateLoadingListener()              // Set listener downloads
         setFilmDetails()                    // Set poster with info on it
         setFilmActors()                     // Ser ListActors

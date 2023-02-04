@@ -41,6 +41,14 @@
             android:fontFamily="@font/graphic_regular"
             android:textSize="12sp"
             tools:text="2021, триллер" />
+        <TextView
+            android:id="@+id/item_filmography_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/graphic_regular"
+            android:textSize="12sp"
+            tools:text="2021" />
 
     </LinearLayout>
 

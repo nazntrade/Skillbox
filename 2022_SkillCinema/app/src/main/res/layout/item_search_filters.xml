@@ -9,7 +9,6 @@
         android:id="@+id/search_filter_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#272727"
         android:fontFamily="@font/graphic_regular"
         android:paddingHorizontal="26dp"
         android:paddingVertical="16dp"

@@ -13,7 +13,8 @@ data class StaffsFilms(
     @Json(name = "rating") override val rating: String?,
     @Json(name = "general") val general: Boolean,
     @Json(name = "description") val description: String?,
-    @Json(name = "professionKey") val professionKey: String
+    @Json(name = "professionKey") val professionKey: String,
+    override val yearHomeItem: String?
 ) : HomeItem {
     override val posterUrlPreview: String = ""
     override val genres: List<Genre> = emptyList()

@@ -37,6 +37,7 @@ class FragmentAllStaffsByFilm :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.allStaffsBackBtn.setOnClickListener { findNavController().popBackStack() }
         setStaffList()
     }
 

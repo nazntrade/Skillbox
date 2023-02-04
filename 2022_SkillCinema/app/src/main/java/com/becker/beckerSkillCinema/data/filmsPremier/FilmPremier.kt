@@ -20,4 +20,5 @@ data class FilmPremier(
     @Json(name = "year") val year: Int
 ) : HomeItem {
     override val rating: String? = null
+    override val yearHomeItem: String = year.toString()
 }

@@ -33,14 +33,13 @@ class SearchFiltersFragment :
 
     private lateinit var adapter: SearchFiltersAdapter
     private val filterValuesList = mutableListOf<FilterCountryGenre>()
-
     private val viewModel: SearchViewModel by activityViewModels()
     private val args: SearchFiltersFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        binding.searchFiltersBackBtn.setOnClickListener { findNavController().popBackStack() }
         setAdapter()
         getFilterTypeList(args.filterType)
 
