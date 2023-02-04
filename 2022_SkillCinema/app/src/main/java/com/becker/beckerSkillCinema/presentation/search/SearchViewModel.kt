@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -67,10 +68,17 @@ class SearchViewModel @Inject constructor(
 
     private fun getCountriesOrGenres() {
         viewModelScope.launch(Dispatchers.IO) {
-            _countries.value =
-                getGenresCountriesUseCase.executeGenresCountries().countries.sortedBy { it.name }
-            _genres.value =
-                getGenresCountriesUseCase.executeGenresCountries().genres.sortedBy { it.name }
+            try {
+                val tempGenreCountry = getGenresCountriesUseCase.executeGenresCountries()
+                _countries.value = tempGenreCountry.countries.sortedBy { it.name }
+                _genres.value = tempGenreCountry.genres.sortedBy { it.name }
+//                _countries.value = getGenresCountriesUseCase.executeGenresCountries()
+//                    .countries.sortedBy { it.name }
+//                _genres.value = getGenresCountriesUseCase.executeGenresCountries()
+//                    .genres.sortedBy { it.name }
+            } catch (e: Throwable) {
+                Timber.e("getCountriesOrGenres $e")
+            }
         }
     }
 }

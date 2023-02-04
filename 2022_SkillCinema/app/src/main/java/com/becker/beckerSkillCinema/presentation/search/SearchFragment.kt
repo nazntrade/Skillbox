@@ -36,9 +36,9 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setAdapter()                // Установка адаптера
-        setSearchString()           // Установка строки поиска
-        getFilmList()               // Получение списка фильмов
+        setAdapter()
+        setSearchString()
+        getFilmList()
 
         binding.searchFilterBtn.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
@@ -61,6 +61,16 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun setAdapter() {
+        binding.searchFilmList.layoutManager =
+            GridLayoutManager(
+                requireContext(),
+                2,
+                GridLayoutManager.VERTICAL,
+                false
+            )
+
+        binding.searchFilmList.adapter = adapter
+
         adapter.addLoadStateListener { state ->
             val currentState = state.refresh
             binding.searchFilmList.isVisible = currentState != LoadState.Loading
@@ -89,24 +99,23 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 }
             }
         }
-        binding.searchFilmList.layoutManager =
-            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-        binding.searchFilmList.adapter = adapter
     }
 
     private fun setSearchString() {
-        binding.searchMyField.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            binding.searchGroup.background = if (hasFocus) {
-                isEditFocused = true
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.search_input_field_select,
-                    null
-                )
-            } else {
-                ResourcesCompat.getDrawable(resources, R.drawable.search_input_field, null)
+        binding.searchMyField.onFocusChangeListener =
+            View.OnFocusChangeListener { _, hasFocus ->
+                binding.searchGroup.background =
+                    if (hasFocus) {
+                        isEditFocused = true
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.search_input_field_select,
+                            null
+                        )
+                    } else {
+                        ResourcesCompat.getDrawable(resources, R.drawable.search_input_field, null)
+                    }
             }
-        }
 
         binding.searchMyField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
