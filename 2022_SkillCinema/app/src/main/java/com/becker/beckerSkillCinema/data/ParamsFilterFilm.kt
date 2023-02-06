@@ -5,9 +5,9 @@ data class ParamsFilterFilm(
     val genres: Map<Int, String> = emptyMap(),
     val order: String = "RATING",
     val type: String = "",
-    val ratingFrom: Int = 0,
+    val ratingFrom: Int = 5,
     val ratingTo: Int = 10,
-    val yearFrom: Int = 1555,
+    val yearFrom: Int = 1800,
     val yearTo: Int = 3000,
     val imdbId: String? = null,
     val keyword: String = ""

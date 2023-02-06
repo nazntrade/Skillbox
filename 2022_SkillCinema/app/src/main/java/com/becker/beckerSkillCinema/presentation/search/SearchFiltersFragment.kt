@@ -85,6 +85,7 @@ class SearchFiltersFragment :
             }
         }
         viewModel.updateFilters(newFilterValue)
+        findNavController().popBackStack()
     }
 
     companion object {

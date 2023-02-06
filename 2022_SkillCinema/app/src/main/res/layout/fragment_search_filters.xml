@@ -57,6 +57,7 @@
         android:hint="@string/search_filters_country_choose"
         android:paddingHorizontal="@dimen/dimen_16"
         android:paddingVertical="@dimen/dimen_8"
+        android:singleLine="true"
         app:layout_constraintTop_toBottomOf="@id/search_filters_actionbar" />
 
     <androidx.recyclerview.widget.RecyclerView

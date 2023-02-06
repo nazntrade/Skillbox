@@ -20,6 +20,8 @@ import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT7
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT8
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT9
 import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
+import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT12
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -43,7 +45,7 @@ interface KinopoiskApi {
     ): ResponsePremier
 
     // FragmentHome (TV_SERIES) & FragmentSearch
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT3")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT12")////////////////////////////////////////
     @GET("v2.2/films/")
     suspend fun getFilmsByFilter(
         @Query("countries") countries: String,

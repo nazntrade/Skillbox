@@ -31,6 +31,7 @@ class SearchViewModel @Inject constructor(
 
     private val repository = CinemaRepository()
     private var filters = ParamsFilterFilm()
+
     private val _isFilterChanged = MutableStateFlow(false)
     val isFilterChanged = _isFilterChanged.asStateFlow()
 
@@ -39,6 +40,10 @@ class SearchViewModel @Inject constructor(
 
     private val _genres = MutableStateFlow<List<FilterGenre>>(emptyList())
     val genres = _genres.asStateFlow()
+
+    init {
+        getCountriesOrGenres()
+    }
 
     fun putFilmId(filmId: Int) {
         repository.putFilmId(filmId)
@@ -54,10 +59,6 @@ class SearchViewModel @Inject constructor(
         }
     ).flow.cachedIn(viewModelScope)
 
-    init {
-        getCountriesOrGenres()
-    }
-
     fun getFilters() = filters
 
     fun updateFilters(filterFilm: ParamsFilterFilm) {
@@ -72,10 +73,6 @@ class SearchViewModel @Inject constructor(
                 val tempGenreCountry = getGenresCountriesUseCase.executeGenresCountries()
                 _countries.value = tempGenreCountry.countries.sortedBy { it.name }
                 _genres.value = tempGenreCountry.genres.sortedBy { it.name }
-//                _countries.value = getGenresCountriesUseCase.executeGenresCountries()
-//                    .countries.sortedBy { it.name }
-//                _genres.value = getGenresCountriesUseCase.executeGenresCountries()
-//                    .genres.sortedBy { it.name }
             } catch (e: Throwable) {
                 Timber.e("getCountriesOrGenres $e")
             }

@@ -17,11 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <Button
                 android:id="@+id/search_settings_back_btn"
-                style="@style/onAllMovie"
-                android:layout_width="30dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Применить"
                 android:layout_marginStart="@dimen/dimen_26"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/search_settings_back_btn"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
