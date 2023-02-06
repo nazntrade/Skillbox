@@ -71,6 +71,7 @@
     <string name="search_filters_country_choose">Выберете страну</string>
     <string name="search_filters_countries_default">Все страны</string>
     <string name="search_filters_genres_default">Все жанры</string>
+    <string name="Apply">Применить</string>
 
 
 </resources>
