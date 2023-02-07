@@ -30,8 +30,8 @@ class SearchSettingsFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.searchSettingsBackBtn.setOnClickListener { findNavController().popBackStack() }
-        setTextViews()                  // Установка значений в TextView
-        setRatingSlider()               // Установка Slider рейтинга
+        setTextViews()
+        setRatingSlider()
     }
 
     private fun setTextViews() {

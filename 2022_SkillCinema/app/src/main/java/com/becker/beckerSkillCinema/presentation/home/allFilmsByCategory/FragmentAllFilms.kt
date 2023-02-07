@@ -67,7 +67,6 @@ class FragmentAllFilms :
         allFilmAdapter = AllFilmAdapter { onClickFilm(it) }
 
         allFilmAdapter.addLoadStateListener { state ->
-
             when (state.refresh) {
                 is LoadState.Loading -> {
                     binding.apply {

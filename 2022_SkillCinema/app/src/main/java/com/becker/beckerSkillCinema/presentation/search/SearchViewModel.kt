@@ -43,21 +43,34 @@ class SearchViewModel @Inject constructor(
 
     init {
         getCountriesOrGenres()
+        getFilms()
     }
 
     fun putFilmId(filmId: Int) {
         repository.putFilmId(filmId)
     }
 
-    val films: Flow<PagingData<HomeItem>> = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = {
-            FilmsByFilterPagingSource(
-                filters = filters,
-                getFilmListUseCase = getFilmListUseCase
-            )
+    private var _pagedFilms: Flow<PagingData<HomeItem>>? = null
+    val pagedFilms
+        get() = _pagedFilms
+
+    private fun getFilms() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _pagedFilms = Pager(
+                    config = PagingConfig(pageSize = 20),
+                    pagingSourceFactory = {
+                        FilmsByFilterPagingSource(
+                            filters = filters,
+                            getFilmListUseCase = getFilmListUseCase
+                        )
+                    }
+                ).flow
+            } catch (e: Throwable) {
+                Timber.e("getCountriesOrGenres $e")
+            }
         }
-    ).flow.cachedIn(viewModelScope)
+    }
 
     fun getFilters() = filters
 

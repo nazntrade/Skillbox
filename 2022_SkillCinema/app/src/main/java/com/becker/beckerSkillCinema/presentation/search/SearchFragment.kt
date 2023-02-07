@@ -18,11 +18,9 @@ import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.AllFilmAdapter
-import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.FilmsByFilterPagingSource
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -62,30 +60,31 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         })
 
         adapter.addLoadStateListener { state ->
-            val currentState = state.refresh
-            binding.searchFilmList.isVisible = currentState != LoadState.Loading
-            binding.loadingProgress.isVisible = currentState == LoadState.Loading
-            binding.searchProgressText.isVisible = currentState != LoadState.Loading
-            binding.searchProgressImage.isVisible = currentState == LoadState.Loading
-            when (currentState) {
+            when (state.refresh) {
                 is LoadState.Loading -> {
-                    binding.searchFilmList.isVisible = false
-                    binding.searchProgressGroup.isVisible = true
-                    binding.searchProgressText.isVisible = false
-                    binding.searchProgressImage.isVisible = true
+                    binding.apply {
+                        searchFilmList.isVisible = false
+                        searchProgressGroup.isVisible = true
+                        loadingProgress.isVisible = true
+                        searchProgressText.isVisible = false
+                        searchProgressImage.isVisible = true
+                    }
                 }
                 is LoadState.NotLoading -> {
-                    binding.searchFilmList.isVisible = true
-                    binding.loadingProgress.isVisible = false
-                    binding.searchProgressText.isVisible = false
-                    binding.searchProgressImage.isVisible = false
-
+                    binding.apply {
+                        searchFilmList.isVisible = true
+                        loadingProgress.isVisible = false
+                        searchProgressText.isVisible = false
+                        searchProgressImage.isVisible = false
+                    }
                 }
                 else -> {
-                    binding.searchFilmList.isVisible = false
-                    binding.loadingProgress.isVisible = false
-                    binding.searchProgressText.isVisible = true
-                    binding.searchProgressImage.isVisible = true
+                    binding.apply {
+                        searchFilmList.isVisible = false
+                        loadingProgress.isVisible = false
+                        searchProgressText.isVisible = true
+                        searchProgressImage.isVisible = true
+                    }
                 }
             }
         }
@@ -99,24 +98,30 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun setSearchString() {
-        binding.searchFilterBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
-        }
-
-        binding.searchMyField.onFocusChangeListener =
-            View.OnFocusChangeListener { _, hasFocus ->
-                binding.searchGroup.background =
-                    if (hasFocus) {
-                        isEditFocused = true
-                        ResourcesCompat.getDrawable(
-                            resources,
-                            R.drawable.search_input_field_select,
-                            null
-                        )
-                    } else {
-                        ResourcesCompat.getDrawable(resources, R.drawable.search_input_field, null)
-                    }
+        binding.apply {
+            searchFilterBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
             }
+            searchMyField.onFocusChangeListener =
+                View.OnFocusChangeListener { _, hasFocus ->
+                    binding.searchGroup.background =
+                        if (hasFocus) {
+                            isEditFocused = true
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.search_input_field_select,
+                                null
+                            )
+                        } else {
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.search_input_field,
+                                null
+                            )
+                        }
+                }
+
+        }
 
         binding.searchMyField.setText(viewModel.getFilters().keyword)
         binding.searchMyField.addTextChangedListener(object : TextWatcher {
@@ -125,9 +130,12 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     try {
                         delay(2000)
-                        viewModel.updateFilters(
-                            filterFilm = viewModel.getFilters().copy(keyword = s.toString())
-                        )
+                        if (s.toString() != viewModel.getFilters().keyword) {
+                            viewModel.updateFilters(
+                                filterFilm = viewModel.getFilters().copy(keyword = s.toString())
+                            )
+                            adapter.refresh()
+                        }
                     } catch (e: Throwable) {
                         Timber.e("onTextChanged $e")
                     }
@@ -139,19 +147,27 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun getFilmList() {
-        viewLifecycleOwner.lifecycleScope.launch (Dispatchers.IO){
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.films.collectLatest {
-                    adapter.submitData(it)
+                try {
+                    viewModel.pagedFilms?.collect {
+                        adapter.submitData(it)
+                    }
+                } catch (e: Throwable) {
+                    Timber.e("getFilmList $e")
                 }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.isFilterChanged.collect {
-                    if (it) adapter.refresh()
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.isFilterChanged.collect {
+                        if (it) adapter.refresh()
+                    }
                 }
+            } catch (e: Throwable) {
+                Timber.e("isFilterChanged $e")
             }
         }
     }

@@ -52,6 +52,7 @@
 
     <!-- Search fragment -->
     <string name="search_not_found">К сожалению, по Вашему\nничего не найдено</string>
+    <string name="search_btn_retry">Попробуй ещё</string>
 
     <!-- Search setting fragment -->
     <string name="search_settings_title">Настройки поиска</string>
