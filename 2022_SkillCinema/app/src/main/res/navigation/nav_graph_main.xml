@@ -203,6 +203,7 @@
             android:name="imageLink"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentFilmography"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail.FragmentFilmography"
@@ -212,6 +213,7 @@
             android:id="@+id/action_fragmentFilmography_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentVideo"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.video.FragmentVideo"
@@ -220,6 +222,7 @@
             android:name="filmName"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/searchSettingsFragment"
         android:name="com.becker.beckerSkillCinema.presentation.search.SearchSettingsFragment"
@@ -228,7 +231,22 @@
         <action
             android:id="@+id/action_searchSettingsFragment_to_searchFiltersFragment"
             app:destination="@id/searchFiltersFragment" />
+        <action
+            android:id="@+id/action_searchSettingsFragment_to_fragmentSearchDatePicker"
+            app:destination="@id/fragmentSearchDatePicker"
+            app:popUpTo="@id/searchSettingsFragment"/>
+        <argument
+            android:name="year_from"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="year_to"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
+
     <fragment
         android:id="@+id/searchFiltersFragment"
         android:name="com.becker.beckerSkillCinema.presentation.search.SearchFiltersFragment"
@@ -237,6 +255,16 @@
         <argument
             android:name="filterType"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSearchDatePicker"
+        android:name="com.becker.beckerSkillCinema.presentation.search.FragmentSearchDatePicker"
+        android:label="FragmentSearchDatePicker"
+        tools:layout="@layout/fragment_search_date_picker">
+        <action
+            android:id="@+id/action_fragmentSearchDatePicker_to_searchSettingsFragment"
+            app:destination="@id/searchSettingsFragment" />
     </fragment>
 
 </navigation>

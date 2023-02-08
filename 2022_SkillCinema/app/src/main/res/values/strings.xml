@@ -73,6 +73,14 @@
     <string name="search_filters_countries_default">Все страны</string>
     <string name="search_filters_genres_default">Все жанры</string>
     <string name="Apply">Применить</string>
+    <string name="did_not_watch">Не просмотрен</string>
+
+    <string name="period">Период</string>
+    <string name="period_from">Искать в период с:</string>
+    <string name="period_to">Искать в период до:</string>
+    <string name="select">Выбрать</string>
+    <string name="search_set_datepicker_text">c %d до %d</string>
+
 
 
 </resources>

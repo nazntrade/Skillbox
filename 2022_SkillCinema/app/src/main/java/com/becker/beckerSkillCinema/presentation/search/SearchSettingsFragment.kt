@@ -6,9 +6,11 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchSettingsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
+import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.FragmentAllFilmsArgs
 import com.google.android.material.slider.RangeSlider
 
 class SearchSettingsFragment :
@@ -25,13 +27,39 @@ class SearchSettingsFragment :
     }
 
     private val viewModel: SearchViewModel by activityViewModels()
+    private val args: SearchSettingsFragmentArgs by navArgs()
+    private val dateFrom by lazy { args.yearFrom }
+    private val dateTo by lazy { args.yearTo }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.searchSettingsBackBtn.setOnClickListener { findNavController().popBackStack() }
+        setDate()
         setTextViews()
         setRatingSlider()
+    }
+
+    private fun setDate() {
+        binding.searchYear.setOnClickListener {
+            val action =
+                SearchSettingsFragmentDirections.actionSearchSettingsFragmentToFragmentSearchDatePicker()
+            findNavController().navigate(action)
+        }
+
+        if (dateFrom != null || dateTo != null) {
+            viewModel.updateFilters(
+                viewModel.getFilters().copy(
+                    yearFrom = dateFrom!!.toInt(),
+                    yearTo = dateTo!!.toInt()
+                )
+            )
+        }
+        binding.searchSettingsYearTv.text =
+            getString(R.string.search_set_datepicker_text,
+                viewModel.getFilters().yearFrom,
+                viewModel.getFilters().yearTo)
+
     }
 
     private fun setTextViews() {
