@@ -16,7 +16,7 @@ class FragmentSearchDatePicker : ViewBindingFragment<FragmentSearchDatePickerBin
         super.onAttach(context)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.searchSettingsFragment)
+                findNavController().popBackStack(R.id.searchSettingsFragment, false)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -38,7 +38,7 @@ class FragmentSearchDatePicker : ViewBindingFragment<FragmentSearchDatePickerBin
         }
 
         binding.btDatepickerBack.setOnClickListener {
-            findNavController().navigate(R.id.searchSettingsFragment)
+            findNavController().popBackStack(R.id.searchSettingsFragment, false)
         }
 
         binding.btDatepickerSelect.setOnClickListener {

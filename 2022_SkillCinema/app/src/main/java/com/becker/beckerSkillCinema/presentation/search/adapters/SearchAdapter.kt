@@ -38,7 +38,7 @@ class SearchAdapter(
                 holder.binding.apply {
                     itemFilmographyImage.loadImage(item.posterUrlPreview)
                     itemFilmographyName.text = item.nameRu ?: "No name"
-                    itemFilmographyGenre.text = item.genres.firstOrNull()?.genre ?: ""
+                    itemFilmographyGenre.text = item.genres.joinToString(", ") { it.genre }
                     itemFilmographyRating.text = item.rating
                     itemFilmSearch.setOnClickListener {
                         onClick(item.filmId)

@@ -183,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_26"
-                android:layout_marginTop="@dimen/dimen_26">
+                android:layout_marginTop="@dimen/dimen_16">
 
                 <TextView
                     android:id="@+id/staff_detail_filmography_label"

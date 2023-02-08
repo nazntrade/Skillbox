@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchSettingsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.FragmentAllFilmsArgs
 import com.google.android.material.slider.RangeSlider
 
 class SearchSettingsFragment :
@@ -20,7 +19,7 @@ class SearchSettingsFragment :
         super.onAttach(context)
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().popBackStack()
+                findNavController().popBackStack(R.id.fragmentSearch, false)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -34,7 +33,7 @@ class SearchSettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchSettingsBackBtn.setOnClickListener { findNavController().popBackStack() }
+        binding.searchSettingsBackBtn.setOnClickListener { findNavController().popBackStack(R.id.fragmentSearch, false) }
         setDate()
         setTextViews()
         setRatingSlider()

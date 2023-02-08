@@ -5,6 +5,7 @@
     android:id="@+id/item_film_search"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_8"
     android:orientation="horizontal"
     android:padding="4dp">
 

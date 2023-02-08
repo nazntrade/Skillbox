@@ -70,7 +70,8 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
             if (destination.id == R.id.fragmentVideo
                 || destination.id == R.id.fragmentFilmDetail
                 || destination.id == R.id.searchSettingsFragment
-                || destination.id == R.id.searchFiltersFragment) {
+                || destination.id == R.id.searchFiltersFragment
+                || destination.id == R.id.fragmentBigImage) {
                 binding.bottomNavigation.visibility = View.GONE
             } else {
                 binding.bottomNavigation.visibility = View.VISIBLE

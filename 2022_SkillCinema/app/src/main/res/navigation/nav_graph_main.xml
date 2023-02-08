@@ -234,7 +234,7 @@
         <action
             android:id="@+id/action_searchSettingsFragment_to_fragmentSearchDatePicker"
             app:destination="@id/fragmentSearchDatePicker"
-            app:popUpTo="@id/searchSettingsFragment"/>
+            app:popUpToInclusive="false"/>
         <argument
             android:name="year_from"
             android:defaultValue="@null"
@@ -264,7 +264,8 @@
         tools:layout="@layout/fragment_search_date_picker">
         <action
             android:id="@+id/action_fragmentSearchDatePicker_to_searchSettingsFragment"
-            app:destination="@id/searchSettingsFragment" />
+            app:destination="@id/searchSettingsFragment"
+            app:popUpToInclusive="false"/>
     </fragment>
 
 </navigation>
