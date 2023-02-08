@@ -6,8 +6,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.data.CinemaRepository
 import com.becker.beckerSkillCinema.data.ParamsFilterFilm
+import com.becker.beckerSkillCinema.data.TOP_TYPES
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterCountry
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterGenre
 import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
@@ -30,7 +32,12 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val repository = CinemaRepository()
-    private var filters = ParamsFilterFilm()
+
+    private var filters = ParamsFilterFilm(
+        genres = mapOf(
+            6 to TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION)
+        )
+    )
 
     private val _isFilterChanged = MutableStateFlow(false)
     val isFilterChanged = _isFilterChanged.asStateFlow()

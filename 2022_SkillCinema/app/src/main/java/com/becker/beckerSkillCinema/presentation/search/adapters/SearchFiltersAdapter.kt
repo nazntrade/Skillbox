@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.search.adapter
+package com.becker.beckerSkillCinema.presentation.search.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Color

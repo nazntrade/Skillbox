@@ -45,7 +45,7 @@ interface KinopoiskApi {
     ): ResponsePremier
 
     // FragmentHome (TV_SERIES) & FragmentSearch
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT12")////////////////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT3")////////////////////////////////////////
     @GET("v2.2/films/")
     suspend fun getFilmsByFilter(
         @Query("countries") countries: String,

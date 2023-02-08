@@ -16,7 +16,7 @@ import com.becker.beckerSkillCinema.data.filmByFilter.FilterCountry
 import com.becker.beckerSkillCinema.databinding.FragmentSearchFiltersBinding
 import com.becker.beckerSkillCinema.entity.FilterCountryGenre
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.search.adapter.SearchFiltersAdapter
+import com.becker.beckerSkillCinema.presentation.search.adapters.SearchFiltersAdapter
 
 class SearchFiltersFragment :
     ViewBindingFragment<FragmentSearchFiltersBinding>(FragmentSearchFiltersBinding::inflate) {

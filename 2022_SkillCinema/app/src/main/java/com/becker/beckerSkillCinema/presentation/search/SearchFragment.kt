@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.AllFilmAdapter
+import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,7 +27,7 @@ import timber.log.Timber
 class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     private val viewModel: SearchViewModel by activityViewModels()
-    private var adapter: AllFilmAdapter by autoCleared()
+    private var adapter: SearchAdapter by autoCleared()
     private var isEditFocused = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,12 +39,12 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun setAdapter() {
-        adapter = AllFilmAdapter { onFilmClick(it) }
+        adapter = SearchAdapter { onFilmClick(it) }
 
         binding.searchFilmList.layoutManager =
             GridLayoutManager(
                 requireContext(),
-                2,
+                1,
                 GridLayoutManager.VERTICAL,
                 false
             )

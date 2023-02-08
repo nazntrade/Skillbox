@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFil
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,10 @@ class AllFilmAdapter(
                     itemFilmPoster.loadImage(item.posterUrlPreview)
                     itemFilmName.text = item.nameRu
                     itemFilmGenre.text = item.genres.joinToString(", ") { it.genre }
-                    itemFilmRating.text = item.rating
+                    if (item.rating != null) {
+                        itemFilmRating.isInvisible = false
+                        itemFilmRating.text = item.rating
+                    } else itemFilmRating.isInvisible = true
                     itemFilmYear.text = item.yearHomeItem
                 }
             }
