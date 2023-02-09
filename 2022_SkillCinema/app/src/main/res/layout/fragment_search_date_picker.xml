@@ -8,21 +8,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        style="@style/onAllMovie"
-        android:elevation="5dp">
+        style="@style/onAllMovie">
 
-        <ImageView
-            android:id="@+id/bt_datepicker_back"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:clickable="true"
-            android:padding="8dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/data_picker_back_btn"
+            android:layout_width="30dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="26dp"
+            android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_category_title"

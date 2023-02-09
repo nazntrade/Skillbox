@@ -1,5 +1,7 @@
 package com.becker.beckerSkillCinema.data
 
+import java.util.*
+
 data class ParamsFilterFilm(
     val countries: Map<Int, String> = emptyMap(),
     val genres: Map<Int, String> = emptyMap(),
@@ -7,8 +9,8 @@ data class ParamsFilterFilm(
     val type: String = "",
     val ratingFrom: Int = 5,
     val ratingTo: Int = 10,
-    val yearFrom: Int = 1800,
-    val yearTo: Int = 3000,
+    val yearFrom: Int = 1850,
+    val yearTo: Int = Calendar.getInstance().get(Calendar.YEAR),
     val imdbId: String? = null,
     val keyword: String = ""
 )

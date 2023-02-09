@@ -4,13 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchDatePickerBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
+import java.util.*
 
-class FragmentSearchDatePicker : ViewBindingFragment<FragmentSearchDatePickerBinding>(FragmentSearchDatePickerBinding::inflate) {
+class FragmentSearchDatePicker :
+    ViewBindingFragment<FragmentSearchDatePickerBinding>(FragmentSearchDatePickerBinding::inflate) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -22,33 +23,30 @@ class FragmentSearchDatePicker : ViewBindingFragment<FragmentSearchDatePickerBin
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private val viewModel: SearchViewModel by activityViewModels()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rangeFrom.setDateListener = { from = it }
-        binding.rangeTo.setDateListener = { to = it }
-
-        binding.rangeFrom.setOnClickListener {
-            checkDate()
-        }
-        binding.rangeTo.setOnClickListener {
-            checkDate()
-        }
-
-        binding.btDatepickerBack.setOnClickListener {
-            findNavController().popBackStack(R.id.searchSettingsFragment, false)
-        }
-
-        binding.btDatepickerSelect.setOnClickListener {
-            if (from <= to) {
-                val action =
-                    FragmentSearchDatePickerDirections
-                        .actionFragmentSearchDatePickerToSearchSettingsFragment(
-                        yearFrom = from.toString(), yearTo = to.toString()
-                    )
-                findNavController().navigate(action)
+        binding.apply {
+            rangeFrom.setDateListener = { from = it }
+            rangeTo.setDateListener = { to = it }
+            rangeFrom.setOnClickListener {
+                checkDate()
+            }
+            rangeTo.setOnClickListener {
+                checkDate()
+            }
+            dataPickerBackBtn.setOnClickListener {
+                findNavController().popBackStack(R.id.searchSettingsFragment, false)
+            }
+            btDatepickerSelect.setOnClickListener {
+                if (from <= to) {
+                    val action =
+                        FragmentSearchDatePickerDirections
+                            .actionFragmentSearchDatePickerToSearchSettingsFragment(
+                                yearFrom = from.toString(), yearTo = to.toString()
+                            )
+                    findNavController().navigate(action)
+                }
             }
         }
     }
@@ -58,11 +56,10 @@ class FragmentSearchDatePicker : ViewBindingFragment<FragmentSearchDatePickerBin
             true -> binding.btDatepickerSelect.isEnabled = true
             false -> binding.btDatepickerSelect.isEnabled = false
         }
-
     }
 
     companion object {
-        var from = -1
-        var to = -2
+        var from = 1850
+        var to = Calendar.getInstance().get(Calendar.YEAR)
     }
 }

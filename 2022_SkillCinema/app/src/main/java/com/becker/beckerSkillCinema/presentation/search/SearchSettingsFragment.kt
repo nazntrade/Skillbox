@@ -11,6 +11,7 @@ import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchSettingsBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.google.android.material.slider.RangeSlider
+import java.util.*
 
 class SearchSettingsFragment :
     ViewBindingFragment<FragmentSearchSettingsBinding>(FragmentSearchSettingsBinding::inflate) {
@@ -33,10 +34,47 @@ class SearchSettingsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchSettingsBackBtn.setOnClickListener { findNavController().popBackStack(R.id.fragmentSearch, false) }
+        binding.apply {
+            searchSettingsBackBtn.setOnClickListener {
+                findNavController().popBackStack(
+                    R.id.fragmentSearch,
+                    false
+                )
+            }
+            searchSettingsApplyBtn.setOnClickListener {
+                findNavController().popBackStack(
+                    R.id.fragmentSearch,
+                    false
+                )
+            }
+        }
+
         setDate()
         setTextViews()
         setRatingSlider()
+        resetSettings()
+    }
+
+    private fun resetSettings() {
+        binding.resetSettingsBtn.setOnClickListener {
+            viewModel.updateFilters(
+                viewModel.getFilters().copy(
+                    countries = emptyMap(),
+                    genres = emptyMap(),
+                    order = "",
+                    type = "",
+                    ratingFrom = 1,
+                    ratingTo = 10,
+                    yearFrom = 1850,
+                    yearTo = Calendar.getInstance().get(Calendar.YEAR),
+                    imdbId = null,
+                    keyword = ""
+                )
+            )
+            FragmentSearchDatePicker.from = 1850
+            FragmentSearchDatePicker.to = Calendar.getInstance().get(Calendar.YEAR)
+            findNavController().navigate(R.id.searchSettingsFragment)
+        }
     }
 
     private fun setDate() {
@@ -55,10 +93,11 @@ class SearchSettingsFragment :
             )
         }
         binding.searchSettingsYearTv.text =
-            getString(R.string.search_set_datepicker_text,
+            getString(
+                R.string.search_set_datepicker_text,
                 viewModel.getFilters().yearFrom,
-                viewModel.getFilters().yearTo)
-
+                viewModel.getFilters().yearTo
+            )
     }
 
     private fun setTextViews() {
@@ -77,11 +116,13 @@ class SearchSettingsFragment :
                 else getString(R.string.search_filters_genres_default)
         }
 
-        binding.countryField.setOnClickListener {
-            filterTypeChooseClick(SearchFiltersFragment.KEY_COUNTRY)
-        }
-        binding.genreField.setOnClickListener {
-            filterTypeChooseClick(SearchFiltersFragment.KEY_GENRE)
+        binding.apply {
+            countryField.setOnClickListener {
+                filterTypeChooseClick(SearchFiltersFragment.KEY_COUNTRY)
+            }
+            genreField.setOnClickListener {
+                filterTypeChooseClick(SearchFiltersFragment.KEY_GENRE)
+            }
         }
     }
 
@@ -92,10 +133,13 @@ class SearchSettingsFragment :
     }
 
     private fun setRatingSlider() {
-        binding.searchSettingsRangeStart.text =
-            resources.getInteger(R.integer.settings_rating_slider_start).toString()
-        binding.searchSettingsRangeEnd.text =
-            resources.getInteger(R.integer.settings_rating_slider_end).toString()
+        binding.apply {
+            searchSettingsRangeStart.text =
+                resources.getInteger(R.integer.settings_rating_slider_start).toString()
+            searchSettingsRangeEnd.text =
+                resources.getInteger(R.integer.settings_rating_slider_end).toString()
+        }
+
         binding.searchSettingsRatingSlider.addOnSliderTouchListener(object :
             RangeSlider.OnSliderTouchListener {
             override fun onStartTrackingTouch(slider: RangeSlider) {
@@ -103,14 +147,16 @@ class SearchSettingsFragment :
                     binding.searchSettingsRatingTv.text = "любой"
                 } else {
                     val values = slider.values.map { it.toInt() }
-                    binding.searchSettingsRatingTv.text =
-                        resources.getString(
-                            R.string.search_settings_rating_text,
-                            values[0],
-                            values[1]
-                        )
-                    binding.searchSettingsRangeStart.text = values[0].toString()
-                    binding.searchSettingsRangeEnd.text = values[1].toString()
+                    binding.apply {
+                        searchSettingsRatingTv.text =
+                            resources.getString(
+                                R.string.search_settings_rating_text,
+                                values[0],
+                                values[1]
+                            )
+                        searchSettingsRangeStart.text = values[0].toString()
+                        searchSettingsRangeEnd.text = values[1].toString()
+                    }
                     viewModel.updateFilters(
                         viewModel.getFilters().copy(
                             ratingFrom = values[0], ratingTo = values[1]
@@ -124,14 +170,16 @@ class SearchSettingsFragment :
                     binding.searchSettingsRatingTv.text = "любой"
                 } else {
                     val values = slider.values.map { it.toInt() }
-                    binding.searchSettingsRatingTv.text =
-                        resources.getString(
-                            R.string.search_settings_rating_text,
-                            values[0],
-                            values[1]
-                        )
-                    binding.searchSettingsRangeStart.text = values[0].toString()
-                    binding.searchSettingsRangeEnd.text = values[1].toString()
+                    binding.apply {
+                        searchSettingsRatingTv.text =
+                            resources.getString(
+                                R.string.search_settings_rating_text,
+                                values[0],
+                                values[1]
+                            )
+                        searchSettingsRangeStart.text = values[0].toString()
+                        searchSettingsRangeEnd.text = values[1].toString()
+                    }
                     viewModel.updateFilters(
                         viewModel.getFilters().copy(
                             ratingFrom = values[0], ratingTo = values[1]

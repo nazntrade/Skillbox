@@ -17,13 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/search_settings_back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_26"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="26dp"
                 android:src="@drawable/ic_back"
-                android:text="@string/Apply"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -145,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="26dp"
                     android:orientation="horizontal"
-                    android:paddingVertical="@dimen/dimen_16">
+                    android:paddingVertical="12dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -211,7 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="с 1998 до 2017"
+                        android:text="@string/_1998_2017"
                         android:textSize="14sp" />
 
                 </FrameLayout>
@@ -360,11 +359,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="36dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="@dimen/dimen_24"
                     android:button="@drawable/search_settings_checkbox_selector"
                     android:paddingHorizontal="36dp"
                     android:text="@string/did_not_watch"
                     android:textSize="16sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/search_settings_apply_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_marginStart="@dimen/dimen_40"
+                        android:text="@string/apply"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/reset_settings_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_marginEnd="@dimen/dimen_40"
+                        android:text="@string/reset"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </LinearLayout>
 

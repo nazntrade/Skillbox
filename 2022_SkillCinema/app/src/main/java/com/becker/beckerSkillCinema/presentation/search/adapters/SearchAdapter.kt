@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.presentation.search.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -39,11 +40,15 @@ class SearchAdapter(
                     itemFilmographyImage.loadImage(item.posterUrlPreview)
                     itemFilmographyName.text = item.nameRu ?: "No name"
                     itemFilmographyGenre.text = item.genres.joinToString(", ") { it.genre }
-                    itemFilmographyRating.text = item.rating
+                    if (item.rating != null) {
+                        itemFilmographyRating.isInvisible = false
+                        itemFilmographyRating.text = item.rating
+                    } else itemFilmographyRating.isInvisible = true
                     itemFilmSearch.setOnClickListener {
                         onClick(item.filmId)
                     }
-                    itemFilmYear.text = item.yearHomeItem
+                    if (item.yearHomeItem == "null") itemFilmYear.text = "Год не указан"
+                    else itemFilmYear.text = item.yearHomeItem
                 }
             }
         }
