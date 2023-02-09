@@ -56,10 +56,10 @@ class DatePicker @Inject constructor(
         )
         setting.startDate = typArray.getInt(R.styleable.datepicker_picker_start_date, setting.startDate)
         setting.textSizeSP =
-            typArray.getDimension(R.styleable.datepicker_picker_text_size, context.dpToSp(15))
+            typArray.getDimension(R.styleable.datepicker_picker_text_size, context.dpToSp(14))
         typArray.recycle()
         setting.paint.apply {
-            color = Color.BLACK
+            color = Color.rgb(61, 59, 255)
             strokeWidth = 3f
             style = Paint.Style.STROKE
         }

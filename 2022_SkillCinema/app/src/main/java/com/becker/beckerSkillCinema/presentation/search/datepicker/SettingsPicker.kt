@@ -6,7 +6,7 @@ class SettingsPicker {
 
     var borderWidth = 0F
     var borderColor = DatePicker.DEFAULT_BORDER_COLOR
-    var textColor = Color.rgb(39, 39, 39)
+    var textColor = Color.GRAY
     var textColorSelect = Color.rgb(61, 59, 255)
     var radius = 0F
     var textSizeSP = 0F
@@ -35,10 +35,10 @@ class SettingsPicker {
     }
 
     val paintArrow = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.BLACK
-        strokeWidth = 3f
+        color = Color.GRAY
+        strokeWidth = 5f
         style = Paint.Style.STROKE
-        pathEffect = CornerPathEffect(2f)
+        pathEffect = CornerPathEffect(0f)
     }
 
     var viewRectF = RectF()
@@ -47,10 +47,10 @@ class SettingsPicker {
         val path = Path()
 
         val cellSizeArrowW =
-            (shapeNavigateArrow.right - shapeNavigateArrow.left) / 4
+            (shapeNavigateArrow.right - shapeNavigateArrow.left) / 12
         val cellSizeArrowH =
-            (shapeNavigateArrow.bottom - shapeNavigateArrow.top) / 3
-        val stepHorizontal = cellSizeArrowW / 2
+            (shapeNavigateArrow.bottom - shapeNavigateArrow.top) / 2
+        val stepHorizontal = cellSizeArrowW
         val stepVertical = cellSizeArrowH / 2
         path.moveTo(
             shapeNavigateArrow.left + stepHorizontal + cellSizeArrowW,
