@@ -171,7 +171,7 @@ class SearchSettingsFragment :
         when (viewModel.getFilters().order) {
             Order.YEAR.text -> binding.searchRadioSortingDate.isChecked = true
             Order.NUM_VOTE.text -> binding.searchRadioSortingPopular.isChecked = true
-            Order.RATING.text -> binding.searchRadioSortingRating.isChecked = true
+            else -> binding.searchRadioSortingRating.isChecked = true
         }
         binding.searchRadioGroupSorting.setOnCheckedChangeListener { _, i ->
             when (i) {
