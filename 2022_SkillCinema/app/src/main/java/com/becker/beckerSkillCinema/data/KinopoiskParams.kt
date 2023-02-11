@@ -46,16 +46,3 @@ val GALLERY_TYPES = mapOf(
     "COVER" to "обложки",
     "SCREENSHOT" to "скриншоты"
 )
-
-val SORTING_PARAMS = listOf(
-    "RATING",
-    "NUM_VOTE",
-    "YEAR"
-)
-
-val FILM_TYPE = listOf(
-    "TV_SHOW",
-    "TV_SERIES",
-    "MINI_SERIES",
-    "ALL"
-)

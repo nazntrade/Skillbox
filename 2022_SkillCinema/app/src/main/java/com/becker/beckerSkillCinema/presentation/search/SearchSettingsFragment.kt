@@ -51,8 +51,17 @@ class SearchSettingsFragment :
 
         setDate()
         setTextViews()
+        setSortOrder()
         setRatingSlider()
+        setCheckBoxViewed()
         resetSettings()
+    }
+
+    private fun setCheckBoxViewed() {
+        binding.checkboxIsWatched.setOnClickListener{
+            if(binding.checkboxIsWatched.isChecked)binding.checkboxIsWatched.text = "Просмотрен"
+            else binding.checkboxIsWatched.text = "Не просмотрен"
+        }
     }
 
     private fun resetSettings() {
@@ -132,12 +141,69 @@ class SearchSettingsFragment :
         findNavController().navigate(action)
     }
 
+    private fun setSortOrder() {
+        when (viewModel.getFilters().type) {
+            Type.ALL.text -> binding.searchRadioAll.isChecked = true
+            Type.FILM.text -> binding.searchRadioFilms.isChecked = true
+            Type.TV_SERIES.text -> binding.searchRadioSeries.isChecked = true
+        }
+
+        binding.searchRadioGroupFilmType.setOnCheckedChangeListener { _, i ->
+            when (i) {
+                R.id.search_radio_all -> viewModel.updateFilters(
+                    viewModel.getFilters().copy(
+                        type = Type.ALL.text
+                    )
+                )
+                R.id.search_radio_films -> viewModel.updateFilters(
+                    viewModel.getFilters().copy(
+                        type = Type.FILM.text
+                    )
+                )
+                R.id.search_radio_series -> viewModel.updateFilters(
+                    viewModel.getFilters().copy(
+                        type = Type.TV_SERIES.text
+                    )
+                )
+            }
+        }
+
+        when (viewModel.getFilters().order) {
+            Order.YEAR.text -> binding.searchRadioSortingDate.isChecked = true
+            Order.NUM_VOTE.text -> binding.searchRadioSortingPopular.isChecked = true
+            Order.RATING.text -> binding.searchRadioSortingRating.isChecked = true
+        }
+        binding.searchRadioGroupSorting.setOnCheckedChangeListener { _, i ->
+            when (i) {
+                R.id.search_radio_sorting_date -> viewModel.updateFilters(
+                    viewModel.getFilters().copy(
+                        order = Order.YEAR.text
+                    )
+                )
+                R.id.search_radio_sorting_popular -> viewModel.updateFilters(
+                    viewModel.getFilters().copy(
+                        order = Order.NUM_VOTE.text
+                    )
+                )
+                R.id.search_radio_sorting_rating -> viewModel.updateFilters(
+                    viewModel.getFilters().copy(
+                        order = Order.RATING.text
+                    )
+                )
+            }
+        }
+    }
+
     private fun setRatingSlider() {
         binding.apply {
-            searchSettingsRangeStart.text =
-                resources.getInteger(R.integer.settings_rating_slider_start).toString()
-            searchSettingsRangeEnd.text =
-                resources.getInteger(R.integer.settings_rating_slider_end).toString()
+            searchSettingsRangeStart.text = viewModel.getFilters().ratingFrom.toString()
+//                resources.getInteger(R.integer.settings_rating_slider_start).toString()
+            searchSettingsRangeEnd.text = viewModel.getFilters().ratingTo.toString()
+//                resources.getInteger(R.integer.settings_rating_slider_end).toString()
+            searchSettingsRatingSlider.setValues(
+                viewModel.getFilters().ratingFrom.toFloat(),
+                viewModel.getFilters().ratingTo.toFloat()
+            )
         }
 
         binding.searchSettingsRatingSlider.addOnSliderTouchListener(object :
@@ -188,5 +254,19 @@ class SearchSettingsFragment :
                 }
             }
         })
+    }
+
+    companion object {
+        enum class Order(val text: String) {
+            RATING("RATING"),
+            NUM_VOTE("NUM_VOTE"),
+            YEAR("YEAR")
+        }
+
+        enum class Type(val text: String) {
+            TV_SERIES("TV_SERIES"),
+            FILM("FILM"),
+            ALL("ALL"),
+        }
     }
 }

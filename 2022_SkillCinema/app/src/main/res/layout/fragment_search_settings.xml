@@ -37,7 +37,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/search_settings_back_btn"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -356,6 +356,7 @@
 
                 <!-- isViewed -->
                 <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/checkbox_is_watched"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="36dp"
@@ -369,23 +370,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/search_settings_apply_btn"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_8"
+                        android:layout_height="@dimen/dimen_32"
                         android:layout_marginStart="@dimen/dimen_40"
+                        android:layout_marginTop="@dimen/dimen_8"
+                        android:backgroundTint="@color/purple_700"
+                        android:textColor="@color/white"
+                        android:shadowColor="@color/black"
+                        android:layout_marginBottom="@dimen/dimen_2"
+                        android:background="@drawable/bg_round_corner"
+                        android:padding="@dimen/dimen_4"
                         android:text="@string/apply"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/reset_settings_btn"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/dimen_32"
+                        android:backgroundTint="@color/purple_700"
+                        android:textColor="@color/white"
+                        android:shadowColor="@color/black"
                         android:layout_marginTop="@dimen/dimen_8"
                         android:layout_marginEnd="@dimen/dimen_40"
+                        android:layout_marginBottom="@dimen/dimen_2"
+                        android:background="@drawable/bg_round_corner"
+                        android:padding="@dimen/dimen_4"
                         android:text="@string/reset"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

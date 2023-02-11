@@ -1,12 +1,13 @@
 package com.becker.beckerSkillCinema.data
 
+import com.becker.beckerSkillCinema.presentation.search.SearchSettingsFragment
 import java.util.*
 
 data class ParamsFilterFilm(
     val countries: Map<Int, String> = emptyMap(),
     val genres: Map<Int, String> = emptyMap(),
-    val order: String = "RATING",
-    val type: String = "",
+    val order: String = SearchSettingsFragment.Companion.Order.RATING.text,
+    val type: String = SearchSettingsFragment.Companion.Type.ALL.text,
     val ratingFrom: Int = 5,
     val ratingTo: Int = 10,
     val yearFrom: Int = 1850,
