@@ -56,7 +56,7 @@ class FilmAdapter(
                 showAll.isInvisible = false
                 itemFilm.isInvisible = true
             }
-            binding.btnArrowShowAll.setOnClickListener { clickNextButton() }
+            binding.showAll.setOnClickListener { clickNextButton() }
         }
 
         fun bindItem(item: HomeItem, clickFilms: (filmId: Int) -> Unit) {

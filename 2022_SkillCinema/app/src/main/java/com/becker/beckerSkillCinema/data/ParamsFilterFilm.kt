@@ -8,7 +8,7 @@ data class ParamsFilterFilm(
     val genres: Map<Int, String> = emptyMap(),
     val order: String = SearchSettingsFragment.Companion.Order.RATING.text,
     val type: String = SearchSettingsFragment.Companion.Type.ALL.text,
-    val ratingFrom: Int = 5,
+    val ratingFrom: Int = 1,
     val ratingTo: Int = 10,
     val yearFrom: Int = 1850,
     val yearTo: Int = Calendar.getInstance().get(Calendar.YEAR),

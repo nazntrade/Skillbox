@@ -58,6 +58,9 @@ class CinemaRepository @Inject constructor() {
     suspend fun getStaffById(staffId: Int) =
         Networking.kinopoiskApi.getStaff(staffId)
 
+    suspend fun getPeopleFromSearch(name: String, page: Int) =
+        Networking.kinopoiskApi.getPeopleFromSearch(name, page)
+
     fun putFilmId(filmId: Int) = DataCentre.putCurrentFilmId(filmId)
 
     fun getCurrentFilmId() = DataCentre.getCurrentFilmId()

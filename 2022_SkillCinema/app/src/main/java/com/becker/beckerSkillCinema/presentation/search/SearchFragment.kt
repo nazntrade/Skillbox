@@ -18,6 +18,7 @@ import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
+import com.becker.beckerSkillCinema.presentation.search.adapters.SearchPeopleAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,7 +28,8 @@ import timber.log.Timber
 class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     private val viewModel: SearchViewModel by activityViewModels()
-    private var adapter: SearchAdapter by autoCleared()
+    private var adapterFilms: SearchAdapter by autoCleared()
+    private var adapterPeople: SearchPeopleAdapter by autoCleared()
     private var isEditFocused = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,11 +37,26 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
 
         setAdapter()
         setSearchString()
+        setSearchType()
         getFilmList()
     }
 
+    private fun setSearchType() {
+        when (viewModel.getSearchType()) {
+            "films" -> binding.searchRadioFilms.isChecked = true
+            "people" -> binding.searchRadioPeople.isChecked = true
+        }
+
+        binding.searchTypeRadioGroup.setOnCheckedChangeListener { _, i ->
+            when (i) {
+                R.id.search_radio_films -> viewModel.updateSearchType(newType = "films")
+                R.id.search_radio_people -> viewModel.updateSearchType(newType = "people")
+            }
+        }
+    }
+
     private fun setAdapter() {
-        adapter = SearchAdapter { onFilmClick(it) }
+        adapterFilms = SearchAdapter { onFilmClick(it) }
 
         binding.searchFilmList.layoutManager =
             GridLayoutManager(
@@ -49,9 +66,9 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 false
             )
 
-        binding.searchFilmList.adapter = adapter
+        binding.searchFilmList.adapter = adapterFilms
 
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+        adapterFilms.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (positionStart == 0) {
                     binding.searchFilmList.smoothScrollToPosition(0)
@@ -59,7 +76,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             }
         })
 
-        adapter.addLoadStateListener { state ->
+        adapterFilms.addLoadStateListener { state ->
             when (state.refresh) {
                 is LoadState.Loading -> {
                     binding.apply {
@@ -100,7 +117,9 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     private fun setSearchString() {
         binding.apply {
             searchFilterBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
+                if (viewModel.getSearchType() == "films") {
+                    findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
+                }
             }
             searchMyField.onFocusChangeListener =
                 View.OnFocusChangeListener { _, hasFocus ->
@@ -129,12 +148,15 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     try {
-                        delay(2000)
+                        delay(3000)
                         if (s.toString() != viewModel.getFilters().keyword) {
                             viewModel.updateFilters(
                                 filterFilm = viewModel.getFilters().copy(keyword = s.toString())
                             )
-                            adapter.refresh()
+                            viewModel.getPeople(s.toString())
+                            if (viewModel.getSearchType() == "films") adapterFilms.refresh()
+                            if (viewModel.getSearchType() == "people") adapterPeople.refresh()
+
                         }
                     } catch (e: Throwable) {
                         Timber.e("onTextChanged $e")
@@ -150,8 +172,15 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
-                    viewModel.pagedFilms?.collect {
-                        adapter.submitData(it)
+                    if (viewModel.getSearchType() == "films") {
+                        viewModel.pagedFilms?.collect {
+                            adapterFilms.submitData(it)
+                        }
+                    }
+                    if (viewModel.getSearchType() == "people") {
+                        viewModel.peopleFromSearch.collect {
+//                            adapterPeople.submitData(it)///////////////////////
+                        }
                     }
                 } catch (e: Throwable) {
                     Timber.e("getFilmList $e")
@@ -163,7 +192,9 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             try {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.isFilterChanged.collect {
-                        if (it) adapter.refresh()
+                        if (viewModel.getSearchType() == "films") {
+                            if (it) adapterFilms.refresh()
+                        }
                     }
                 }
             } catch (e: Throwable) {

@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/dimen_26"
-                android:layout_marginTop="16sp">
+                android:layout_marginTop="@dimen/dimen_16">
 
                 <TextView
                     android:id="@+id/search_settings_label_show"
@@ -368,12 +368,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_margin="@dimen/dimen_24"
                     android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/search_settings_apply_btn"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_32"
+                        android:layout_height="@dimen/dimen_40"
                         android:layout_marginStart="@dimen/dimen_40"
                         android:layout_marginTop="@dimen/dimen_8"
                         android:backgroundTint="@color/purple_700"
@@ -381,8 +382,9 @@
                         android:shadowColor="@color/black"
                         android:layout_marginBottom="@dimen/dimen_2"
                         android:background="@drawable/bg_round_corner"
-                        android:padding="@dimen/dimen_4"
                         android:text="@string/apply"
+                        android:paddingStart="@dimen/dimen_16"
+                        android:paddingEnd="@dimen/dimen_16"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -398,7 +400,8 @@
                         android:layout_marginEnd="@dimen/dimen_40"
                         android:layout_marginBottom="@dimen/dimen_2"
                         android:background="@drawable/bg_round_corner"
-                        android:padding="@dimen/dimen_4"
+                        android:paddingStart="@dimen/dimen_16"
+                        android:paddingEnd="@dimen/dimen_16"
                         android:text="@string/reset"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

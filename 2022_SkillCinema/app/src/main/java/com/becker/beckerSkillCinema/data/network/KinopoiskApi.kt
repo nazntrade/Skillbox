@@ -6,6 +6,7 @@ import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.filmGallery.ResponseFilmGallery
 import com.becker.beckerSkillCinema.data.filmsPremier.ResponsePremier
 import com.becker.beckerSkillCinema.data.filmsTop.ResponseTop
+import com.becker.beckerSkillCinema.data.persomFromSearch.ResponsePeopleFromSearch
 import com.becker.beckerSkillCinema.data.seasons.ResponseSeasons
 import com.becker.beckerSkillCinema.data.similarFilm.ResponseSimilarFilms
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
@@ -109,5 +110,10 @@ interface KinopoiskApi {
     @GET("v2.2/films/filters")
     suspend fun getGenresCountries(): ResponseGenresCountries
 
-
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT11")
+    @GET("v1/persons")
+    suspend fun getPeopleFromSearch(
+        @Query("name") name: String = "",
+        @Query("page") page: Int
+    ): ResponsePeopleFromSearch
 }

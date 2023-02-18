@@ -37,7 +37,7 @@
     <string name="season_chip_name">%d</string>
     <string name="episodes_count">%d сезон, %s</string>
     <string name="label_filmography">Фильмография</string>
-    <string name="search_edittext_hint">Поиск фильмов</string>
+    <string name="search_edittext_hint">Фильмы, актёры, режиссёры</string>
 
     <!-- Staff detail fragment -->
     <string name="staff_detail_filmography_label">Фильмография</string>
@@ -82,6 +82,7 @@
     <string name="search_set_datepicker_text">c %d до %d</string>
     <string name="_1998_2017">с 1850 до 3895</string>
     <string name="reset">сброс</string>
+    <string name="people">Люди</string>
 
 
 </resources>
