@@ -7,6 +7,6 @@ import com.squareup.moshi.JsonClass
 data class PeopleFromSearch(
     @Json(name = "kinopoiskId") val kinopoiskId: Int,
     @Json(name = "nameEn") val nameEn: String?,
-    @Json(name = "nameRu") val nameRus: String?,
-    @Json(name = "posterUrl") val posterUrl: String,
+    @Json(name = "nameRu") val nameRu: String?,
+    @Json(name = "posterUrl") val posterUrl: String
 )

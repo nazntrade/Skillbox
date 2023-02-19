@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/graphic_bold"
             android:maxLines="3"
-            android:textSize="16sp"
+            android:textSize="17sp"
             tools:text="@tools:sample/lorem" />
 
         <TextView

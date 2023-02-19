@@ -105,6 +105,10 @@
         <action
             android:id="@+id/action_fragmentSearch_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail" />
+        <action
+            android:id="@+id/action_fragmentSearch_to_fragmentStaffDetail"
+            app:destination="@id/fragmentStaffDetail"
+            app:popUpTo="@id/fragmentSearch"/>
     </fragment>
 
     <fragment

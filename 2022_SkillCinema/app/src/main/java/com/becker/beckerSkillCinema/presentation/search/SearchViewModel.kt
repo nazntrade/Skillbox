@@ -15,6 +15,7 @@ import com.becker.beckerSkillCinema.domain.GetGenresCountriesUseCase
 import com.becker.beckerSkillCinema.domain.GetPeopleFromSearchUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.FilmsByFilterPagingSource
+import com.becker.beckerSkillCinema.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +35,7 @@ class SearchViewModel @Inject constructor(
     private val repository = CinemaRepository()
 
     private var filters = ParamsFilterFilm()
-    private var searchType = "films"
+    private var searchType = Constants.TYPE_FILM
 
     private val _isFilterChanged = MutableStateFlow(false)
     val isFilterChanged = _isFilterChanged.asStateFlow()
@@ -49,9 +50,10 @@ class SearchViewModel @Inject constructor(
     val pagedFilms
         get() = _pagedFilms
 
-    private var _peopleFromSearch = MutableStateFlow<List<PeopleFromSearch>>(emptyList())
-    val peopleFromSearch
-        get() = _peopleFromSearch
+    private var _peopleFromSearch =
+        MutableStateFlow<List<PeopleFromSearch>>(emptyList())
+    val peopleFromSearch = _peopleFromSearch.asStateFlow()
+
 
     init {
         getCountriesOrGenres()
@@ -62,22 +64,20 @@ class SearchViewModel @Inject constructor(
         repository.putFilmId(filmId)
     }
 
-    private fun getFilms() {
-        if (getSearchType() == "films") {
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    _pagedFilms = Pager(
-                        config = PagingConfig(pageSize = 20),
-                        pagingSourceFactory = {
-                            FilmsByFilterPagingSource(
-                                filters = filters,
-                                getFilmListUseCase = getFilmListUseCase
-                            )
-                        }
-                    ).flow
-                } catch (e: Throwable) {
-                    Timber.e("getCountriesOrGenres $e")
-                }
+    fun getFilms() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _pagedFilms = Pager(
+                    config = PagingConfig(pageSize = 20),
+                    pagingSourceFactory = {
+                        FilmsByFilterPagingSource(
+                            filters = filters,
+                            getFilmListUseCase = getFilmListUseCase
+                        )
+                    }
+                ).flow
+            } catch (e: Throwable) {
+                Timber.e("getCountriesOrGenres $e")
             }
         }
     }
@@ -86,15 +86,13 @@ class SearchViewModel @Inject constructor(
     fun getSearchType() = searchType
 
     fun getPeople(name: String) {
-        if (getSearchType() == "people") {
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    val peopleList = getPeopleFromSearchUseCase
-                        .executePeopleFromSearch(name, page = 1).items
-                    _peopleFromSearch.value = peopleList
-                }catch (e: Throwable) {
-                    Timber.e("getPeople $e")
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val peopleList = getPeopleFromSearchUseCase
+                    .executePeopleFromSearch(name, page = 1).items
+                _peopleFromSearch.value = peopleList
+            } catch (e: Throwable) {
+                Timber.e("getPeople $e")
             }
         }
     }

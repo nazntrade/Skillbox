@@ -115,6 +115,17 @@
         app:layout_constraintTop_toBottomOf="@id/search_radio_group"
         tools:listitem="@layout/item_film_search" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_people_list"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_radio_group"
+        tools:listitem="@layout/item_film_search" />
+
     <!-- Progress group -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_progress_group"

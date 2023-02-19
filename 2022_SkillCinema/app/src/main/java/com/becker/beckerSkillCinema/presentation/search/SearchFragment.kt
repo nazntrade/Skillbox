@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -19,6 +20,7 @@ import com.becker.beckerSkillCinema.databinding.FragmentSearchBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchPeopleAdapter
+import com.becker.beckerSkillCinema.utils.Constants
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -35,46 +37,75 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setAdapter()
-        setSearchString()
         setSearchType()
+        setAdapters()
+        setSearchString()
         getFilmList()
+        getPeopleList()
     }
 
     private fun setSearchType() {
         when (viewModel.getSearchType()) {
-            "films" -> binding.searchRadioFilms.isChecked = true
-            "people" -> binding.searchRadioPeople.isChecked = true
+            Constants.TYPE_FILM -> {
+                binding.searchRadioFilms.isChecked = true
+                toggleList()
+            }
+            Constants.TYPE_PEOPLE -> {
+                binding.searchRadioPeople.isChecked = true
+                toggleList()
+            }
         }
 
         binding.searchTypeRadioGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
-                R.id.search_radio_films -> viewModel.updateSearchType(newType = "films")
-                R.id.search_radio_people -> viewModel.updateSearchType(newType = "people")
+                R.id.search_radio_films -> {
+                    viewModel.updateSearchType(newType = Constants.TYPE_FILM)
+                    toggleList()
+                }
+                R.id.search_radio_people -> {
+                    viewModel.updateSearchType(newType = Constants.TYPE_PEOPLE)
+                    toggleList()
+                }
             }
         }
     }
 
-    private fun setAdapter() {
+    private fun toggleList() {
+        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+            binding.searchFilmList.isVisible = true
+            binding.searchPeopleList.isInvisible = true
+        }
+        if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+            binding.searchPeopleList.isVisible = true
+            binding.searchFilmList.isInvisible = true
+        }
+    }
+
+    private fun setAdapters() {
         adapterFilms = SearchAdapter { onFilmClick(it) }
+        adapterPeople = SearchPeopleAdapter { onPeopleClick(it) }
 
-        binding.searchFilmList.layoutManager =
-            GridLayoutManager(
-                requireContext(),
-                1,
-                GridLayoutManager.VERTICAL,
-                false
-            )
-
+        listOf(binding.searchFilmList, binding.searchPeopleList).forEach {
+            it.layoutManager =
+                GridLayoutManager(
+                    requireContext(),
+                    1,
+                    GridLayoutManager.VERTICAL,
+                    false
+                )
+        }
         binding.searchFilmList.adapter = adapterFilms
+        binding.searchPeopleList.adapter = adapterPeople
 
-        adapterFilms.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                if (positionStart == 0) {
-                    binding.searchFilmList.smoothScrollToPosition(0)
+        listOf(adapterFilms, adapterPeople).forEach {
+            it.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                    if (positionStart == 0) {
+                        binding.searchFilmList.smoothScrollToPosition(0)
+                    }
                 }
-            }
-        })
+            })
+        }
 
         adapterFilms.addLoadStateListener { state ->
             when (state.refresh) {
@@ -107,6 +138,12 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         }
     }
 
+    private fun onPeopleClick(peopleId: Int) {
+        val action =
+            SearchFragmentDirections.actionFragmentSearchToFragmentFilmDetail(peopleId)
+        findNavController().navigate(action)
+    }
+
     private fun onFilmClick(filmId: Int) {
         viewModel.putFilmId(filmId)
         val action =
@@ -117,7 +154,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     private fun setSearchString() {
         binding.apply {
             searchFilterBtn.setOnClickListener {
-                if (viewModel.getSearchType() == "films") {
+                if (viewModel.getSearchType() == Constants.TYPE_FILM) {
                     findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
                 }
             }
@@ -139,7 +176,6 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                             )
                         }
                 }
-
         }
 
         binding.searchMyField.setText(viewModel.getFilters().keyword)
@@ -148,15 +184,13 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     try {
-                        delay(3000)
+                        delay(2000)
                         if (s.toString() != viewModel.getFilters().keyword) {
                             viewModel.updateFilters(
                                 filterFilm = viewModel.getFilters().copy(keyword = s.toString())
                             )
                             viewModel.getPeople(s.toString())
-                            if (viewModel.getSearchType() == "films") adapterFilms.refresh()
-                            if (viewModel.getSearchType() == "people") adapterPeople.refresh()
-
+                            adapterFilms.refresh()
                         }
                     } catch (e: Throwable) {
                         Timber.e("onTextChanged $e")
@@ -172,33 +206,39 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
-                    if (viewModel.getSearchType() == "films") {
-                        viewModel.pagedFilms?.collect {
-                            adapterFilms.submitData(it)
-                        }
-                    }
-                    if (viewModel.getSearchType() == "people") {
-                        viewModel.peopleFromSearch.collect {
-//                            adapterPeople.submitData(it)///////////////////////
-                        }
+                    viewModel.pagedFilms?.collect {
+                        adapterFilms.submitData(it)
                     }
                 } catch (e: Throwable) {
                     Timber.e("getFilmList $e")
                 }
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.isFilterChanged.collect {
-                        if (viewModel.getSearchType() == "films") {
+                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
                             if (it) adapterFilms.refresh()
                         }
                     }
                 }
             } catch (e: Throwable) {
                 Timber.e("isFilterChanged $e")
+            }
+        }
+    }
+
+    private fun getPeopleList() {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                try {
+                    viewModel.peopleFromSearch.collect {
+                        adapterPeople.submitList(it)///////////////////////
+                    }
+                } catch (e: Throwable) {
+                    Timber.e("getFilmList $e")
+                }
             }
         }
     }
