@@ -85,11 +85,11 @@ class SearchViewModel @Inject constructor(
     fun getFilters() = filters
     fun getSearchType() = searchType
 
-    fun getPeople(name: String) {
+    fun getPeople() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val peopleList = getPeopleFromSearchUseCase
-                    .executePeopleFromSearch(name, page = 1).items
+                    .executePeopleFromSearch(getFilters().keyword, page = 1).items
                 _peopleFromSearch.value = peopleList
             } catch (e: Throwable) {
                 Timber.e("getPeople $e")

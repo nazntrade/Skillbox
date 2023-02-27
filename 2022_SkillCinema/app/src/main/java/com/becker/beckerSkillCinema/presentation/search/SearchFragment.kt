@@ -30,15 +30,15 @@ import timber.log.Timber
 class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     private val viewModel: SearchViewModel by activityViewModels()
-    private var adapterFilms: SearchAdapter by autoCleared()
-    private var adapterPeople: SearchPeopleAdapter by autoCleared()
+    private lateinit var adapterFilms: SearchAdapter
+    private lateinit var adapterPeople: SearchPeopleAdapter
     private var isEditFocused = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setSearchType()
         setAdapters()
+        setSearchType()
         setSearchString()
         getFilmList()
         getPeopleList()
@@ -74,10 +74,17 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         if (viewModel.getSearchType() == Constants.TYPE_FILM) {
             binding.searchFilmList.isVisible = true
             binding.searchPeopleList.isInvisible = true
+            viewModel.getFilms()
+            if (viewModel.getFilters().keyword != "") {
+                adapterFilms.refresh()
+            }
         }
         if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
             binding.searchPeopleList.isVisible = true
             binding.searchFilmList.isInvisible = true
+            if (viewModel.getFilters().keyword != "") {
+                viewModel.getPeople()
+            }
         }
     }
 
@@ -185,12 +192,21 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     try {
                         delay(2000)
-                        if (s.toString() != viewModel.getFilters().keyword) {
-                            viewModel.updateFilters(
-                                filterFilm = viewModel.getFilters().copy(keyword = s.toString())
-                            )
-                            viewModel.getPeople(s.toString())
-                            adapterFilms.refresh()
+                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                            if (s.toString() != viewModel.getFilters().keyword) {
+                                viewModel.updateFilters(
+                                    filterFilm = viewModel.getFilters().copy(keyword = s.toString())
+                                )
+                                adapterFilms.refresh()
+                            }
+                        }
+                        if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+                            if (s.toString() != viewModel.getFilters().keyword) {
+                                viewModel.updateFilters(
+                                    filterFilm = viewModel.getFilters().copy(keyword = s.toString())
+                                )
+                                viewModel.getPeople()
+                            }
                         }
                     } catch (e: Throwable) {
                         Timber.e("onTextChanged $e")
@@ -234,7 +250,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
                     viewModel.peopleFromSearch.collect {
-                        adapterPeople.submitList(it)///////////////////////
+                        adapterPeople.submitList(it)
                     }
                 } catch (e: Throwable) {
                     Timber.e("getFilmList $e")
