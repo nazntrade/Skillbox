@@ -22,6 +22,7 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchPeopleAdapter
 import com.becker.beckerSkillCinema.utils.Constants
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -192,7 +193,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
 
     private fun onPeopleClick(peopleId: Int) {
         val action =
-            SearchFragmentDirections.actionFragmentSearchToFragmentFilmDetail(peopleId)
+            SearchFragmentDirections.actionFragmentSearchToFragmentStaffDetail(peopleId)
         findNavController().navigate(action)
     }
 
@@ -264,7 +265,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun getFilmList() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
                     viewModel.pagedFilms?.collect {
@@ -275,7 +276,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.isFilterChanged.collect {
