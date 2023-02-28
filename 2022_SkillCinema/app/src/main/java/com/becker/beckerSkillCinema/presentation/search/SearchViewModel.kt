@@ -14,6 +14,7 @@ import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetGenresCountriesUseCase
 import com.becker.beckerSkillCinema.domain.GetPeopleFromSearchUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
+import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.FilmsByFilterPagingSource
 import com.becker.beckerSkillCinema.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,6 +55,8 @@ class SearchViewModel @Inject constructor(
         MutableStateFlow<List<PeopleFromSearch>>(emptyList())
     val peopleFromSearch = _peopleFromSearch.asStateFlow()
 
+    private val _loadingState = MutableStateFlow<StateLoading>(StateLoading.Default)
+    val loadingState = _loadingState.asStateFlow()
 
     init {
         getCountriesOrGenres()
@@ -77,7 +80,8 @@ class SearchViewModel @Inject constructor(
                     }
                 ).flow
             } catch (e: Throwable) {
-                Timber.e("getCountriesOrGenres $e")
+                _loadingState.value = StateLoading.Error(e.message.toString())
+                Timber.e("getFilms error: $e")
             }
         }
     }
@@ -88,10 +92,13 @@ class SearchViewModel @Inject constructor(
     fun getPeople() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                _loadingState.value = StateLoading.Loading
                 val peopleList = getPeopleFromSearchUseCase
                     .executePeopleFromSearch(getFilters().keyword, page = 1).items
                 _peopleFromSearch.value = peopleList
+                _loadingState.value = StateLoading.Success
             } catch (e: Throwable) {
+                _loadingState.value = StateLoading.Error(e.message.toString())
                 Timber.e("getPeople $e")
             }
         }

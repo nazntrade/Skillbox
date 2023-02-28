@@ -17,12 +17,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.FragmentSearchBinding
+import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchPeopleAdapter
 import com.becker.beckerSkillCinema.utils.Constants
-import com.becker.beckerSkillCinema.utils.autoCleared
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -42,6 +41,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         setSearchString()
         getFilmList()
         getPeopleList()
+        stateLoadingListener()
     }
 
     private fun setSearchType() {
@@ -113,21 +113,29 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 }
             })
         }
+    }
 
+    private fun stateLoadingListener() {
+        //LOADING STATE FILM
         adapterFilms.addLoadStateListener { state ->
             when (state.refresh) {
                 is LoadState.Loading -> {
                     binding.apply {
                         searchFilmList.isVisible = false
-                        searchProgressGroup.isVisible = true
-                        loadingProgress.isVisible = true
                         searchProgressText.isVisible = false
-                        searchProgressImage.isVisible = true
+                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                            searchProgressGroup.isVisible = true
+                            loadingProgress.isVisible = true
+                            searchProgressImage.isVisible = true
+                        }
                     }
                 }
                 is LoadState.NotLoading -> {
                     binding.apply {
-                        searchFilmList.isVisible = true
+                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                            searchFilmList.isVisible = true
+                            searchPeopleList.isVisible = false
+                        }
                         loadingProgress.isVisible = false
                         searchProgressText.isVisible = false
                         searchProgressImage.isVisible = false
@@ -136,9 +144,46 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 else -> {
                     binding.apply {
                         searchFilmList.isVisible = false
+                        searchPeopleList.isVisible = false
                         loadingProgress.isVisible = false
                         searchProgressText.isVisible = true
                         searchProgressImage.isVisible = true
+                    }
+                }
+            }
+        }
+        //LOADING STATE PEOPLE
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.loadingState.collect { state ->
+                when (state) {
+                    is StateLoading.Loading -> {
+                        binding.apply {
+                            searchFilmList.isVisible = false
+                            searchPeopleList.isVisible = false
+                            searchProgressGroup.isVisible = true
+                            loadingProgress.isVisible = true
+                            searchProgressText.isVisible = false
+                            searchProgressImage.isVisible = true
+                        }
+                    }
+                    is StateLoading.Success -> {
+                        binding.apply {
+                            if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+                                searchPeopleList.isVisible = true
+                                searchFilmList.isVisible = false
+                            }
+                            loadingProgress.isVisible = false
+                            searchProgressText.isVisible = false
+                            searchProgressImage.isVisible = false
+                        }
+                    }
+                    else -> {
+                        binding.apply {
+                            searchFilmList.isVisible = false
+                            searchPeopleList.isVisible = false
+                            loadingProgress.isVisible = false
+                            searchProgressImage.isVisible = true
+                        }
                     }
                 }
             }
@@ -219,7 +264,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun getFilmList() {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
                     viewModel.pagedFilms?.collect {
@@ -230,7 +275,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.isFilterChanged.collect {
@@ -246,14 +291,14 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun getPeopleList() {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 try {
                     viewModel.peopleFromSearch.collect {
                         adapterPeople.submitList(it)
                     }
                 } catch (e: Throwable) {
-                    Timber.e("getFilmList $e")
+                    Timber.e("getPeopleList $e")
                 }
             }
         }
