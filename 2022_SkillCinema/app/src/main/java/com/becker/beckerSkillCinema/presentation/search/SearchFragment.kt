@@ -102,6 +102,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                     false
                 )
         }
+
         binding.searchFilmList.adapter = adapterFilms
         binding.searchPeopleList.adapter = adapterPeople
 

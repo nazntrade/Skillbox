@@ -50,7 +50,7 @@ class SearchSettingsFragment :
         }
 
         setDate()
-        setTextViews()
+        setTextCountryGenre()
         setSortOrder()
         setRatingSlider()
         setCheckBoxViewed()
@@ -58,8 +58,8 @@ class SearchSettingsFragment :
     }
 
     private fun setCheckBoxViewed() {
-        binding.checkboxIsWatched.setOnClickListener{
-            if(binding.checkboxIsWatched.isChecked)binding.checkboxIsWatched.text = "Просмотрен"
+        binding.checkboxIsWatched.setOnClickListener {
+            if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text = "Просмотрен"
             else binding.checkboxIsWatched.text = "Не просмотрен"
         }
     }
@@ -109,7 +109,7 @@ class SearchSettingsFragment :
             )
     }
 
-    private fun setTextViews() {
+    private fun setTextCountryGenre() {
         binding.apply {
             searchSettingsCountryTv.text =
                 if (viewModel.getFilters().countries.isNotEmpty())
@@ -117,6 +117,7 @@ class SearchSettingsFragment :
                         getString(R.string.search_filters_countries_default)
                     }
                 else getString(R.string.search_filters_countries_default)
+
             searchSettingsGenreTv.text =
                 if (viewModel.getFilters().genres.isNotEmpty())
                     viewModel.getFilters().genres.values.first().ifEmpty {
@@ -127,21 +128,23 @@ class SearchSettingsFragment :
 
         binding.apply {
             countryField.setOnClickListener {
-                filterTypeChooseClick(SearchFiltersFragment.KEY_COUNTRY)
+                cityOrGenreChooseClick(SearchFiltersFragment.KEY_COUNTRY)
             }
             genreField.setOnClickListener {
-                filterTypeChooseClick(SearchFiltersFragment.KEY_GENRE)
+                cityOrGenreChooseClick(SearchFiltersFragment.KEY_GENRE)
             }
         }
     }
 
-    private fun filterTypeChooseClick(filterType: String) {
+    private fun cityOrGenreChooseClick(filterType: String) {
         val action = SearchSettingsFragmentDirections
             .actionSearchSettingsFragmentToSearchFiltersFragment(filterType)
         findNavController().navigate(action)
     }
 
     private fun setSortOrder() {
+
+        // SET MOVIE TYPE
         when (viewModel.getFilters().type) {
             Type.ALL.text -> binding.searchRadioAll.isChecked = true
             Type.FILM.text -> binding.searchRadioFilms.isChecked = true
@@ -167,7 +170,7 @@ class SearchSettingsFragment :
                 )
             }
         }
-
+        // SET SORT ORDER
         when (viewModel.getFilters().order) {
             Order.YEAR.text -> binding.searchRadioSortingDate.isChecked = true
             Order.NUM_VOTE.text -> binding.searchRadioSortingPopular.isChecked = true
@@ -197,63 +200,63 @@ class SearchSettingsFragment :
     private fun setRatingSlider() {
         binding.apply {
             searchSettingsRangeStart.text = viewModel.getFilters().ratingFrom.toString()
-//                resources.getInteger(R.integer.settings_rating_slider_start).toString()
             searchSettingsRangeEnd.text = viewModel.getFilters().ratingTo.toString()
-//                resources.getInteger(R.integer.settings_rating_slider_end).toString()
             searchSettingsRatingSlider.setValues(
                 viewModel.getFilters().ratingFrom.toFloat(),
                 viewModel.getFilters().ratingTo.toFloat()
             )
         }
 
-        binding.searchSettingsRatingSlider.addOnSliderTouchListener(object :
-            RangeSlider.OnSliderTouchListener {
-            override fun onStartTrackingTouch(slider: RangeSlider) {
-                if (slider.values == listOf(1f, 10f)) {
-                    binding.searchSettingsRatingTv.text = "любой"
-                } else {
-                    val values = slider.values.map { it.toInt() }
-                    binding.apply {
-                        searchSettingsRatingTv.text =
-                            resources.getString(
-                                R.string.search_settings_rating_text,
-                                values[0],
-                                values[1]
+        binding.searchSettingsRatingSlider.addOnSliderTouchListener(
+            object : RangeSlider.OnSliderTouchListener {
+                override fun onStartTrackingTouch(slider: RangeSlider) {
+                    if (slider.values == listOf(1f, 10f)) {
+                        binding.searchSettingsRatingTv.text = "любой"
+                    } else {
+                        val values = slider.values.map { it.toInt() }
+                        binding.apply {
+                            searchSettingsRatingTv.text =
+                                resources.getString(
+                                    R.string.search_settings_rating_text,
+                                    values[0],
+                                    values[1]
+                                )
+                            searchSettingsRangeStart.text = values[0].toString()
+                            searchSettingsRangeEnd.text = values[1].toString()
+                        }
+                        viewModel.updateFilters(
+                            viewModel.getFilters().copy(
+                                ratingFrom = values[0],
+                                ratingTo = values[1]
                             )
-                        searchSettingsRangeStart.text = values[0].toString()
-                        searchSettingsRangeEnd.text = values[1].toString()
-                    }
-                    viewModel.updateFilters(
-                        viewModel.getFilters().copy(
-                            ratingFrom = values[0], ratingTo = values[1]
                         )
-                    )
+                    }
                 }
-            }
 
-            override fun onStopTrackingTouch(slider: RangeSlider) {
-                if (slider.values == listOf(1f, 10f)) {
-                    binding.searchSettingsRatingTv.text = "любой"
-                } else {
-                    val values = slider.values.map { it.toInt() }
-                    binding.apply {
-                        searchSettingsRatingTv.text =
-                            resources.getString(
-                                R.string.search_settings_rating_text,
-                                values[0],
-                                values[1]
+                override fun onStopTrackingTouch(slider: RangeSlider) {
+                    if (slider.values == listOf(1f, 10f)) {
+                        binding.searchSettingsRatingTv.text = "любой"
+                    } else {
+                        val values = slider.values.map { it.toInt() }
+                        binding.apply {
+                            searchSettingsRatingTv.text =
+                                resources.getString(
+                                    R.string.search_settings_rating_text,
+                                    values[0],
+                                    values[1]
+                                )
+                            searchSettingsRangeStart.text = values[0].toString()
+                            searchSettingsRangeEnd.text = values[1].toString()
+                        }
+                        viewModel.updateFilters(
+                            viewModel.getFilters().copy(
+                                ratingFrom = values[0],
+                                ratingTo = values[1]
                             )
-                        searchSettingsRangeStart.text = values[0].toString()
-                        searchSettingsRangeEnd.text = values[1].toString()
-                    }
-                    viewModel.updateFilters(
-                        viewModel.getFilters().copy(
-                            ratingFrom = values[0], ratingTo = values[1]
                         )
-                    )
+                    }
                 }
-            }
-        })
+            })
     }
 
     companion object {

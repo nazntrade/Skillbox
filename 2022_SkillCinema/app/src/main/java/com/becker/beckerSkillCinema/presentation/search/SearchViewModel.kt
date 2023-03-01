@@ -18,9 +18,7 @@ import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.FilmsByFilterPagingSource
 import com.becker.beckerSkillCinema.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,7 +35,8 @@ class SearchViewModel @Inject constructor(
 
     private val repository = CinemaRepository()
 
-    private var filters = ParamsFilterFilm()
+    private var filters =
+        ParamsFilterFilm(order = SearchSettingsFragment.Companion.Order.NUM_VOTE.text)
     private var searchType = Constants.TYPE_FILM
 
     private val _isFilterChanged = MutableStateFlow(false)
@@ -53,8 +52,7 @@ class SearchViewModel @Inject constructor(
     val pagedFilms
         get() = _pagedFilms
 
-    private var _peopleFromSearch =
-        MutableStateFlow<List<PeopleFromSearch>>(emptyList())
+    private val _peopleFromSearch = MutableStateFlow<List<PeopleFromSearch>>(emptyList())
     val peopleFromSearch = _peopleFromSearch.asStateFlow()
 
     private val _loadingState = MutableStateFlow<StateLoading>(StateLoading.Default)
@@ -82,7 +80,6 @@ class SearchViewModel @Inject constructor(
                     }
                 ).flow
             } catch (e: Throwable) {
-                _loadingState.value = StateLoading.Error(e.message.toString())
                 Timber.e("getFilms error: $e")
             }
         }
