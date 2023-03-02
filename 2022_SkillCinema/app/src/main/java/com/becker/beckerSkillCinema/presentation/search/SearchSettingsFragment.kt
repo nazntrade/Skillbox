@@ -128,10 +128,10 @@ class SearchSettingsFragment :
 
         binding.apply {
             countryField.setOnClickListener {
-                cityOrGenreChooseClick(SearchFiltersFragment.KEY_COUNTRY)
+                cityOrGenreChooseClick(CountryGenreSearchFiltersFragment.KEY_COUNTRY)
             }
             genreField.setOnClickListener {
-                cityOrGenreChooseClick(SearchFiltersFragment.KEY_GENRE)
+                cityOrGenreChooseClick(CountryGenreSearchFiltersFragment.KEY_GENRE)
             }
         }
     }

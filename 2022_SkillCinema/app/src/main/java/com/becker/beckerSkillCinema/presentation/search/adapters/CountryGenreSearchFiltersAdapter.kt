@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.databinding.ItemSearchFiltersBinding
 import com.becker.beckerSkillCinema.entity.FilterCountryGenre
 
-class SearchFiltersAdapter(
+class CountryGenreSearchFiltersAdapter(
     private val onItemClick: (FilterCountryGenre) -> Unit
-) : ListAdapter<FilterCountryGenre, SearchFiltersAdapter.SearchFiltersViewHolder>(SearchFiltersDiffUtil()) {
+) : ListAdapter<FilterCountryGenre, CountryGenreSearchFiltersAdapter.SearchFiltersViewHolder>(SearchFiltersDiffUtil()) {
 
     class SearchFiltersDiffUtil : DiffUtil.ItemCallback<FilterCountryGenre>() {
         override fun areItemsTheSame(

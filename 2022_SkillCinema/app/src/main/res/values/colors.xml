@@ -26,5 +26,7 @@
     // AllMovie
     <color name="allMovieBarLight">#7C7AFD</color>
 
+    <color name="myGrey">#272727</color>
+    <color name="mySemiGrey">#838391</color>
 
 </resources>

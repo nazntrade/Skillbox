@@ -253,7 +253,7 @@
 
     <fragment
         android:id="@+id/searchFiltersFragment"
-        android:name="com.becker.beckerSkillCinema.presentation.search.SearchFiltersFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.search.CountryGenreSearchFiltersFragment"
         android:label="SearchFiltersFragment"
         tools:layout="@layout/fragment_search_filters">
         <argument

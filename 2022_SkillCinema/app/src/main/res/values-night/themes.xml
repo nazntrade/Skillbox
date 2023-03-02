@@ -18,4 +18,13 @@
         <item name="android:background">@color/purple_700</item>
     </style>
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchIcon">@drawable/search_icon</item>
+        <item name="queryBackground">@null</item>
+        <item name="searchHintIcon">@null</item>
+        <item name="font">@font/graphic_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/mySemiGrey</item>
+    </style>
+
 </resources>
