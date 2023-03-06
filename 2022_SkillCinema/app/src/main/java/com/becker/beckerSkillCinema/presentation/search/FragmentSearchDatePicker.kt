@@ -38,7 +38,7 @@ class FragmentSearchDatePicker :
             dataPickerBackBtn.setOnClickListener {
                 findNavController().popBackStack(R.id.searchSettingsFragment, false)
             }
-            btDatepickerSelect.setOnClickListener {
+            btnDatepickerSelect.setOnClickListener {
                 if (from <= to) {
                     val action =
                         FragmentSearchDatePickerDirections
@@ -53,8 +53,8 @@ class FragmentSearchDatePicker :
 
     private fun checkDate() {
         when (from <= to) {
-            true -> binding.btDatepickerSelect.isEnabled = true
-            false -> binding.btDatepickerSelect.isEnabled = false
+            true -> binding.btnDatepickerSelect.isEnabled = true
+            false -> binding.btnDatepickerSelect.isEnabled = false
         }
     }
 

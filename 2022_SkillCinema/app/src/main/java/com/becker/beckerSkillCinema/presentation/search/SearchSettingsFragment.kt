@@ -128,22 +128,21 @@ class SearchSettingsFragment :
 
         binding.apply {
             countryField.setOnClickListener {
-                cityOrGenreChooseClick(CountryGenreSearchFiltersFragment.KEY_COUNTRY)
+                countryOrGenreChooseClick(CountryGenreSearchFiltersFragment.KEY_COUNTRY)
             }
             genreField.setOnClickListener {
-                cityOrGenreChooseClick(CountryGenreSearchFiltersFragment.KEY_GENRE)
+                countryOrGenreChooseClick(CountryGenreSearchFiltersFragment.KEY_GENRE)
             }
         }
     }
 
-    private fun cityOrGenreChooseClick(filterType: String) {
+    private fun countryOrGenreChooseClick(filterType: String) {
         val action = SearchSettingsFragmentDirections
             .actionSearchSettingsFragmentToSearchFiltersFragment(filterType)
         findNavController().navigate(action)
     }
 
     private fun setSortOrder() {
-
         // SET MOVIE TYPE
         when (viewModel.getFilters().type) {
             Type.ALL.text -> binding.searchRadioAll.isChecked = true

@@ -37,6 +37,7 @@ class SearchViewModel @Inject constructor(
 
     private var filters =
         ParamsFilterFilm(order = SearchSettingsFragment.Companion.Order.NUM_VOTE.text)
+
     private var searchType = Constants.TYPE_FILM
 
     private val _isFilterChanged = MutableStateFlow(false)
