@@ -29,4 +29,7 @@
     <color name="myGrey">#272727</color>
     <color name="mySemiGrey">#838391</color>
 
+    <color name="transparent">#00FFFFFF</color>
+    <color name="myBlue">#3D3BFF</color>
+
 </resources>

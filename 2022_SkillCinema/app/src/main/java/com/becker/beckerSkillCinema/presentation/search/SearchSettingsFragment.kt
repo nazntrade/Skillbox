@@ -59,8 +59,9 @@ class SearchSettingsFragment :
 
     private fun setCheckBoxViewed() {
         binding.checkboxIsWatched.setOnClickListener {
-            if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text = "Просмотрен"
-            else binding.checkboxIsWatched.text = "Не просмотрен"
+            if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text =
+                getString(R.string.watched)
+            else binding.checkboxIsWatched.text = getString(R.string.did_not_watch)
         }
     }
 

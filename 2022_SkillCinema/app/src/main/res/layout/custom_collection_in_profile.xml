@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_collection_in_profile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="146dp"
+        android:layout_height="146dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/border_for_collections">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/my_ripple_gray_rect"
+            android:src="@drawable/cross_icon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/profile_icon_for_collections" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/custom_collection_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/graphic_regular"
+            android:text="@string/custom_collection"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/number_in_custom_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background_for_numbers_in_collection"
+            android:fontFamily="@font/graphic_regular"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:textSize="8sp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            tools:text="1" />
+
+    </FrameLayout>
+
+
+</FrameLayout>
