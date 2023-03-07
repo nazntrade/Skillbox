@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.becker.beckerSkillCinema.data.CinemaRepository
+import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
 import com.becker.beckerSkillCinema.data.GALLERY_TYPES
 import com.becker.beckerSkillCinema.data.ParamsFilterGallery
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm

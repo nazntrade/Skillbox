@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.OnBoardingResources
 import com.becker.beckerSkillCinema.databinding.FragmentOnboardingBinding
+import com.becker.beckerSkillCinema.presentation.MainActivity
+import com.becker.beckerSkillCinema.presentation.MainFragment
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.onBoarding.adapter.PagerAdapter
 import com.becker.beckerSkillCinema.utils.Constants
@@ -55,7 +57,7 @@ class OnBoardingFragment :
                 Context.MODE_PRIVATE
             )
         val firstRunEditor = sharedPref.edit()
-        firstRunEditor.putBoolean("FirstRun", false)
+        firstRunEditor.putBoolean(MainActivity.FIRST_RUN, false)
         firstRunEditor.apply()
         findNavController().navigate(R.id.mainFragment)
     }

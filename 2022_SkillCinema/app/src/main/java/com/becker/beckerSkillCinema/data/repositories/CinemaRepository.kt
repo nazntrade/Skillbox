@@ -1,5 +1,8 @@
-package com.becker.beckerSkillCinema.data
+package com.becker.beckerSkillCinema.data.repositories
 
+import com.becker.beckerSkillCinema.data.CategoriesFilms
+import com.becker.beckerSkillCinema.data.DataCentre
+import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseGenresCountries
 import com.becker.beckerSkillCinema.data.filmsPremier.FilmPremier

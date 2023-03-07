@@ -1,7 +1,7 @@
 package com.becker.beckerSkillCinema.domain
 
-import com.becker.beckerSkillCinema.data.CinemaRepository
-import com.becker.beckerSkillCinema.data.persomFromSearch.ResponsePeopleFromSearch
+import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
+import com.becker.beckerSkillCinema.data.persomFronSearch.ResponsePeopleFromSearch
 import javax.inject.Inject
 
 class GetPeopleFromSearchUseCase @Inject constructor(

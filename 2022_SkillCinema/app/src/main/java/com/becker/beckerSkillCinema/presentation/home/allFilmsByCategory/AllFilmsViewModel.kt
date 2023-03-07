@@ -7,6 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.becker.beckerSkillCinema.data.*
+import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.entity.HomeItem
 import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.currentMonth

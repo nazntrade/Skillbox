@@ -33,12 +33,14 @@ class MainActivity : AppCompatActivity() {
             Constants.SHARED_PREFS_NAME,
             Context.MODE_PRIVATE
         )
-        val firstRun = sharedPref.getBoolean("FirstRun", true)
+        val firstRun = sharedPref.getBoolean(FIRST_RUN, true)
         if (firstRun) {
             navController.navigate(R.id.onBoardingFragment)
         } else {
             navController.navigate(R.id.mainFragment)
         }
     }
+    companion object {
+        const val FIRST_RUN = "FirstRun"
+    }
 }
-

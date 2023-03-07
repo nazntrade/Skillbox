@@ -1,6 +1,6 @@
 package com.becker.beckerSkillCinema.domain
 
-import com.becker.beckerSkillCinema.data.CinemaRepository
+import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
 import javax.inject.Inject
 
 class GetGalleryByIdUseCase @Inject constructor(private val repository: CinemaRepository) {

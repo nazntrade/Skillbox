@@ -97,9 +97,9 @@ class HomeFragment : ViewBindingFragment<FragmentHomeBinding>(FragmentHomeBindin
     }
 
     private fun doOnSwipe() {
-        val swiperefresh = binding.swiperefresh
-        swiperefresh.setOnRefreshListener {
-            swiperefresh.isRefreshing = false
+        val swipeRefresh = binding.swiperefresh
+        swipeRefresh.setOnRefreshListener {
+            swipeRefresh.isRefreshing = false
             mainFunctions()
         }
     }

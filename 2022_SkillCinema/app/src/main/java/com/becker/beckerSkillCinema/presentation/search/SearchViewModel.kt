@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.becker.beckerSkillCinema.data.CinemaRepository
+import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
 import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterCountry
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterGenre
-import com.becker.beckerSkillCinema.data.persomFromSearch.PeopleFromSearch
+import com.becker.beckerSkillCinema.data.persomFronSearch.PeopleFromSearch
 import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetGenresCountriesUseCase
 import com.becker.beckerSkillCinema.domain.GetPeopleFromSearchUseCase

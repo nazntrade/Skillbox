@@ -95,6 +95,8 @@
     <string name="interesting_movies">Вам были интересны эти фильмы</string>
     <string name="custom_collection">Custom collection</string>
     <string name="choose_collection_name">Придумайте название для Вашей новой коллекции</string>
+    <string name="collection_title">collection title</string>
+    <string name="clear_history">Очистить историю</string>
 
 
     </resources>

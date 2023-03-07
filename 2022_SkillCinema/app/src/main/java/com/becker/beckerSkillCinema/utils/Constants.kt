@@ -42,13 +42,6 @@ object Constants {
     const val ID_LOOK_COLLECTION = 3
     const val SIZE_LIST_VIEW = 18
 
-    const val NAVIGATE__CATEGORY_PAGE = "navigate_from_home_fragment_to_category_Page_Fragment "
-    const val NAVIGATE__TO_INFO_FILM = "navigate_from_*_fragment_to_info_film "
-    const val NAVIGATE__TO_STAFF = "navigate_from_*_fragment_to_staff "
-    const val NAVIGATE__TO_GALLERY_LIST = "navigate_from_*_to_gallery_List "
-    const val NAVIGATE__TO_FILMOGRAPHY = "navigate_from_*_fragment_to_filmography "
-    const val NAVIGATE__TO_SEASONS = "navigate_from_*_to_seasons "
-
     const val GRID_ACTOR_SIZE = 4 * 5
     const val GRID_STAFF_SIZE = 2 * 3
 }
