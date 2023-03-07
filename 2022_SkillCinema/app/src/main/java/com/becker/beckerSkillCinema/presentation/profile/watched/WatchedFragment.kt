@@ -17,7 +17,6 @@ import com.becker.beckerSkillCinema.presentation.profile.watched.adapter.Watched
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
-
 @AndroidEntryPoint
 class WatchedFragment : ViewBindingFragment<FragmentWatchedBinding>(FragmentWatchedBinding::inflate) {
 
@@ -61,6 +60,6 @@ class WatchedFragment : ViewBindingFragment<FragmentWatchedBinding>(FragmentWatc
         profileMovieViewModel.getSimilarMovies(movie.movieId)
         profileMovieViewModel.getSeriesInfo(movie.movieId)
         profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_watchedFragment_to_movieDetailsFragment)
+        findNavController().navigate(R.id.action_watchedFragment_to_fragmentFilmDetail)
     }
 }

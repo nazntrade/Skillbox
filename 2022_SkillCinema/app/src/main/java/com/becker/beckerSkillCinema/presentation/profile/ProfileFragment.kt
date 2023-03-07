@@ -215,7 +215,7 @@ class ProfileFragment :
         profileMovieViewModel.getSimilarMovies(movie.movieId)
         profileMovieViewModel.getSeriesInfo(movie.movieId)
         profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_navigation_profile_to_movieDetailsFragment)
+        findNavController().navigate(R.id.action_navigation_profile_to_fragmentFilmDetail)
     }
 
 
@@ -232,7 +232,7 @@ class ProfileFragment :
         profileMovieViewModel.getSimilarMovies(movie.movieId)
         profileMovieViewModel.getSeriesInfo(movie.movieId)
         profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_navigation_profile_to_movieDetailsFragment)
+        findNavController().navigate(R.id.action_navigation_profile_to_fragmentFilmDetail)
     }
 
     private fun extendWatched() {
@@ -273,8 +273,6 @@ class ProfileFragment :
         }
 
         doneButton.setOnClickListener {
-
-
             val collectionNameInput = collectionTitleInputField.text
             val collectionNameFormatted = collectionNameInput.toString()
                 .trim { it <= ' ' }
@@ -288,7 +286,6 @@ class ProfileFragment :
 //                    showErrorWarning()
                 }
             }
-
 
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 val list = profileMovieViewModel.customCollectionNamesList.value
@@ -309,7 +306,6 @@ class ProfileFragment :
 
                     dialog.dismiss()
                 }
-
             }
         }
 
@@ -335,5 +331,4 @@ class ProfileFragment :
         profileMovieViewModel.chooseCollection(Collections.Custom)
         findNavController().navigate(R.id.action_navigation_profile_to_profileCollectionFragment)
     }
-
 }

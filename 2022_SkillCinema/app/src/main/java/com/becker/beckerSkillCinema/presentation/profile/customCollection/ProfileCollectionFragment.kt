@@ -19,7 +19,6 @@ import com.becker.beckerSkillCinema.presentation.profile.interesting.adapter.Int
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
-
 @AndroidEntryPoint
 class ProfileCollectionFragment :
     ViewBindingFragment<FragmentCollectionProfileBinding>(FragmentCollectionProfileBinding::inflate) {
@@ -62,7 +61,6 @@ class ProfileCollectionFragment :
                 profileMovieViewModel.buildCustomCollectionList(list)
             }
         }
-
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.collectionChosen.collectLatest {
@@ -112,7 +110,7 @@ class ProfileCollectionFragment :
         profileMovieViewModel.getSimilarMovies(movie.movieId)
         profileMovieViewModel.getSeriesInfo(movie.movieId)
         profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_profileCollectionFragment_to_movieDetailsFragment)
+        findNavController().navigate(R.id.action_profileCollectionFragment_to_fragmentFilmDetail)
     }
 
     companion object {

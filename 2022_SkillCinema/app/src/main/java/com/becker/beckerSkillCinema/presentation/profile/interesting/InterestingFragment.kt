@@ -61,6 +61,6 @@ class InterestingFragment :
         profileMovieViewModel.getSimilarMovies(movie.movieId)
         profileMovieViewModel.getSeriesInfo(movie.movieId)
         profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_interestingFragment_to_movieDetailsFragment)
+        findNavController().navigate(R.id.action_interestingFragment_to_fragmentFilmDetail)
     }
 }

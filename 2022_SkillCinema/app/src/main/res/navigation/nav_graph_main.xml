@@ -108,14 +108,43 @@
         <action
             android:id="@+id/action_fragmentSearch_to_fragmentStaffDetail"
             app:destination="@id/fragmentStaffDetail"
-            app:popUpTo="@id/fragmentSearch"/>
+            app:popUpTo="@id/fragmentSearch" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="com.becker.beckerSkillCinema.presentation.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profile_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_profile_to_profileCollectionFragment"
+            app:destination="@id/profileCollectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_profile_to_watchedFragment"
+            app:destination="@id/watchedFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_profile_to_interestingFragment"
+            app:destination="@id/interestingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentAllFilms"
@@ -238,7 +267,7 @@
         <action
             android:id="@+id/action_searchSettingsFragment_to_fragmentSearchDatePicker"
             app:destination="@id/fragmentSearchDatePicker"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false" />
         <argument
             android:name="year_from"
             android:defaultValue="@null"
@@ -269,7 +298,49 @@
         <action
             android:id="@+id/action_fragmentSearchDatePicker_to_searchSettingsFragment"
             app:destination="@id/searchSettingsFragment"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileCollectionFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.profile.customCollection.ProfileCollectionFragment"
+        android:label="fragment_collection_profile"
+        tools:layout="@layout/fragment_collection_profile">
+        <action
+            android:id="@+id/action_profileCollectionFragment_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/interestingFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.profile.interesting.InterestingFragment"
+        android:label="fragment_interesting"
+        tools:layout="@layout/fragment_interesting" >
+        <action
+            android:id="@+id/action_interestingFragment_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/watchedFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.profile.watched.WatchedFragment"
+        android:label="fragment_watched"
+        tools:layout="@layout/fragment_watched" >
+        <action
+            android:id="@+id/action_watchedFragment_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 </navigation>
