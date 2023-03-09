@@ -11,7 +11,7 @@ import com.becker.beckerSkillCinema.databinding.ItemFilmBinding
 import com.becker.beckerSkillCinema.presentation.profile.watched.adapter.DiffUtilCallBackWatched
 import com.bumptech.glide.Glide
 
-open class InterestingMoviesAdapterCommon(
+open class WishMoviesAdapter(
     val onInterestingItemClick: (Movie) -> Unit, val onClearInterestingClick: (View) -> Unit
 ) : ListAdapter<Movie, RecyclerView.ViewHolder>(DiffUtilCallBackWatched()) {
 

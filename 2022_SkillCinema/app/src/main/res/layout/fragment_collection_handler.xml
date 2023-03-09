@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pop_up_window"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".presentation.profile.CollectionHandlerFragment">
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/cross_button"
+        android:layout_width="@dimen/dimen_24"
+        android:layout_height="@dimen/dimen_24"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/dimen_8"
+        android:layout_marginEnd="@dimen/dimen_26"
+        android:background="@drawable/my_ripple_gray_rect"
+        android:src="@drawable/cross_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layout_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_24"
+        android:layout_marginEnd="@dimen/dimen_24"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cross_button">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/item_filmography_detail_cv"
+            android:layout_width="96dp"
+            android:layout_height="132dp"
+            android:layout_gravity="top"
+            app:cardCornerRadius="@dimen/dimen_8">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/movie_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                tools:src="@android:color/darker_gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/film_rating"
+                android:layout_width="17dp"
+                android:layout_height="10dp"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/dimen_4"
+                android:adjustViewBounds="true"
+                android:background="@drawable/bg_rating"
+                android:elevation="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/myGrey"
+                android:textSize="6sp"
+                tools:ignore="RtlCompat,SmallSp"
+                tools:text="8.0" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/film_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/graphic_bold"
+                android:text="@string/collection_title"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/film_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tabsDescriptions" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:layout_marginBottom="@dimen/dimen_24"
+        android:divider="@drawable/separator_horizontal"
+        android:dividerPadding="@dimen/dimen_2"
+        android:orientation="vertical"
+        android:showDividers="middle|beginning|end">
+
+        <LinearLayout
+            android:id="@+id/add_to_collection_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/add_to_collection_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_32"
+                android:background="@drawable/arrow_button_background"
+                android:src="@drawable/folder_plus_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/add_to_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:fontFamily="@font/graphic_bold"
+                android:text="@string/add_to_collection" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/favorites_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_8"
+            android:paddingBottom="@dimen/dimen_8">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkbox_icon_favorites"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/dimen_40"
+                android:button="@drawable/checkbox_background" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:fontFamily="@font/graphic_bold"
+                android:text="@string/favorites" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/number_favorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_40"
+                android:gravity="end"
+                tools:text="4" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/to_watch_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_8"
+            android:paddingBottom="@dimen/dimen_8">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkbox_icon_to_watch"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/dimen_40"
+                android:button="@drawable/checkbox_background" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:fontFamily="@font/graphic_bold"
+                android:text="@string/to_watch" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/number_to_watch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_40"
+                android:gravity="end"
+                tools:text="4" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/container_layout_for_custom_collection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/separator_horizontal"
+            android:dividerPadding="@dimen/dimen_2"
+            android:orientation="vertical"
+            android:showDividers="middle"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_watch_layout"
+            app:layout_constraintVertical_bias="0">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/create_custom_collection_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_8"
+            android:paddingBottom="@dimen/dimen_8"
+            tools:layout_marginBottom="@dimen/dimen_4">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/create_custom_collection_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/dimen_40"
+                android:background="@drawable/arrow_button_background"
+                android:src="@drawable/plus_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:fontFamily="@font/graphic_bold"
+                android:text="@string/create_own_collection" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

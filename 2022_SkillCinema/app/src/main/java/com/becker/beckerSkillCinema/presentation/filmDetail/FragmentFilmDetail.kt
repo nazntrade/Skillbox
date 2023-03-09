@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +28,8 @@ import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter.GalleryAdapter
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
+import com.becker.beckerSkillCinema.presentation.profile.CollectionHandlerFragment
+import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
 import com.becker.beckerSkillCinema.utils.loadImage
 import timber.log.Timber
 
@@ -35,6 +38,7 @@ class FragmentFilmDetail :
 
     // https://slack-chats.kotlinlang.org/t/471784/can-anyone-explain-what-is-by-activityviewmodels-by-fragment
     private val viewModel: FilmDetailViewModel by activityViewModels()
+    private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
     private var actorAdapter: StaffAdapter by autoCleared()
     private var makersAdapter: StaffAdapter by autoCleared()
     private var galleryAdapter: GalleryAdapter by autoCleared()
@@ -61,6 +65,33 @@ class FragmentFilmDetail :
         setFilmCrew()                       // Set ListFilmCrew
         setFilmGallery()                    // Set Gallery
         setSimilarFilms()                   // Set List Similar Films
+        actionOnPosterBtn()
+        addFilmToDataBase()
+    }
+
+    private fun addFilmToDataBase() {
+//        profileMovieViewModel.onAddMovieToDataBase(incomeArgs.filmId)
+        profileMovieViewModel.movieSelected(incomeArgs.filmId)
+        profileMovieViewModel.onInterestingButtonClick(incomeArgs.filmId)
+
+    }
+
+    private fun actionOnPosterBtn() {
+        binding.apply {
+            btnShowMore.setOnClickListener {
+                onClickCollectionHandler()
+            }
+
+
+        }
+    }
+
+    private fun onClickCollectionHandler() {
+        val popupWindow = CollectionHandlerFragment()
+        popupWindow.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
+        popupWindow.enterTransition = com.google.android.material.R.id.animateToStart
+        popupWindow.exitTransition = com.google.android.material.R.id.animateToEnd
+        popupWindow.show(requireActivity().supportFragmentManager, "POP_UP")
     }
 
     private fun stateLoadingListener() {
@@ -132,6 +163,9 @@ class FragmentFilmDetail :
                                     filmCountryLengthAgeLimitTv.text =
                                         getStrCountriesLengthAge(film)
                                 }
+                            }
+                            if (film != null) {
+                                profileMovieViewModel.addMovieToDataBase(film)
                             }
                         }
                     } catch (e: Throwable) {

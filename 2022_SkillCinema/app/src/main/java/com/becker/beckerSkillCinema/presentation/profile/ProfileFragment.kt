@@ -19,8 +19,10 @@ import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.data.profile.Collections
 import com.becker.beckerSkillCinema.databinding.FragmentProfileBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
+import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
+import com.becker.beckerSkillCinema.presentation.home.HomeFragmentDirections
 import com.becker.beckerSkillCinema.presentation.profile.customCollection.adapter.CustomCollectionAdapter
-import com.becker.beckerSkillCinema.presentation.profile.interesting.adapter.InterestingMoviesAdapterCommon
+import com.becker.beckerSkillCinema.presentation.profile.interesting.adapter.WishMoviesAdapter
 import com.becker.beckerSkillCinema.presentation.profile.watched.adapter.WatchedAdapterCommon
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
@@ -48,7 +50,7 @@ class ProfileFragment :
         onClearHistoryClick = { onClearWatchedClick() }
     )
 
-    private val interestingAdapter = InterestingMoviesAdapterCommon(
+    private val wishMoviesAdapter = WishMoviesAdapter(
         onInterestingItemClick = { movie -> onInterestingItemClick(movie) },
         onClearInterestingClick = { onClearInterestingClick() }
     )
@@ -59,6 +61,7 @@ class ProfileFragment :
     )
 
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
+    private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,7 +82,7 @@ class ProfileFragment :
         collectionRecyclerView = binding.containerLayoutForCustomCollections
 
         watchedRecyclerView.adapter = watchedAdapter
-        interestingRecyclerView.adapter = interestingAdapter
+        interestingRecyclerView.adapter = wishMoviesAdapter
         collectionRecyclerView.adapter = collectionAdapter
 
 
@@ -112,7 +115,7 @@ class ProfileFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list->
+            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
                 profileMovieViewModel.getCustomCollections(list)
             }
         }
@@ -186,7 +189,7 @@ class ProfileFragment :
             profileMovieViewModel.interestingList.collectLatest {
                 if (it.isNotEmpty()) {
                     interestingRecyclerView.isVisible = true
-                    interestingAdapter.submitList(it.take(11))
+                    wishMoviesAdapter.submitList(it.take(11))
                 } else interestingRecyclerView.isVisible = false
             }
         }
@@ -207,15 +210,11 @@ class ProfileFragment :
         watchedRecyclerView.isVisible = false
     }
 
-    private fun onWatchedItemClick(movie: Movie) {
-        profileMovieViewModel.movieSelected(movie.movieId)
-        profileMovieViewModel.getImagesList(movie.movieId)
-        profileMovieViewModel.getStaffInfo(movie.movieId)
-        profileMovieViewModel.getActorsInfo(movie.movieId)
-        profileMovieViewModel.getSimilarMovies(movie.movieId)
-        profileMovieViewModel.getSeriesInfo(movie.movieId)
-        profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_navigation_profile_to_fragmentFilmDetail)
+    private fun onWatchedItemClick(movie: Movie) {/////////////////////////////
+        filmDetailViewModel.putFilmId(movie.movieId)
+        val action =
+            ProfileFragmentDirections.actionNavigationProfileToFragmentFilmDetail(movie.movieId)
+        findNavController().navigate(action)
     }
 
 
@@ -224,15 +223,11 @@ class ProfileFragment :
         interestingRecyclerView.isVisible = false
     }
 
-    private fun onInterestingItemClick(movie: Movie) {
-        profileMovieViewModel.movieSelected(movie.movieId)
-        profileMovieViewModel.getImagesList(movie.movieId)
-        profileMovieViewModel.getStaffInfo(movie.movieId)
-        profileMovieViewModel.getActorsInfo(movie.movieId)
-        profileMovieViewModel.getSimilarMovies(movie.movieId)
-        profileMovieViewModel.getSeriesInfo(movie.movieId)
-        profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_navigation_profile_to_fragmentFilmDetail)
+    private fun onInterestingItemClick(movie: Movie) {////////////////////////
+        filmDetailViewModel.putFilmId(movie.movieId)
+        val action =
+            ProfileFragmentDirections.actionNavigationProfileToFragmentFilmDetail(movie.movieId)
+        findNavController().navigate(action)
     }
 
     private fun extendWatched() {

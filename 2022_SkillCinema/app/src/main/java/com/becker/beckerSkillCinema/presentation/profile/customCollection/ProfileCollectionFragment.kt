@@ -104,11 +104,11 @@ class ProfileCollectionFragment :
 
     private fun onItemClick(movie: Movie) {
         profileMovieViewModel.movieSelected(movie.movieId)
-        profileMovieViewModel.getImagesList(movie.movieId)
-        profileMovieViewModel.getStaffInfo(movie.movieId)
-        profileMovieViewModel.getActorsInfo(movie.movieId)
-        profileMovieViewModel.getSimilarMovies(movie.movieId)
-        profileMovieViewModel.getSeriesInfo(movie.movieId)
+//        profileMovieViewModel.getImagesList(movie.movieId)
+//        profileMovieViewModel.getStaffInfo(movie.movieId)
+//        profileMovieViewModel.getActorsInfo(movie.movieId)
+//        profileMovieViewModel.getSimilarMovies(movie.movieId)
+//        profileMovieViewModel.getSeriesInfo(movie.movieId)
         profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
         findNavController().navigate(R.id.action_profileCollectionFragment_to_fragmentFilmDetail)
     }
