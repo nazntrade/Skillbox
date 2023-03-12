@@ -53,7 +53,7 @@ class InterestingFragment :
         }
     }
 
-    private fun onItemClickInteresting(movie: Movie) {
+    private fun onItemClickInteresting(movie: Movie) {////////////////////////////////////////////
         profileMovieViewModel.movieSelected(movie.movieId)
 //        profileMovieViewModel.getImagesList(movie.movieId)
 //        profileMovieViewModel.getStaffInfo(movie.movieId)

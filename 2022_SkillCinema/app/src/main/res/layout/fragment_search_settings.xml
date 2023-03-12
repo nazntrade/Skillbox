@@ -355,6 +355,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- isViewed -->
+
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/checkbox_is_watched"
                     android:layout_width="match_parent"
@@ -363,7 +364,7 @@
                     android:layout_marginTop="@dimen/dimen_24"
                     android:button="@drawable/search_settings_checkbox_selector"
                     android:paddingHorizontal="36dp"
-                    android:text="@string/did_not_watch"
+                    android:text="@string/marked_watched"
                     android:textSize="16sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout

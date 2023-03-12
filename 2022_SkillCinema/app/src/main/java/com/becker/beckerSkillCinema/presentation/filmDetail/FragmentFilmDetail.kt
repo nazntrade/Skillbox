@@ -1,6 +1,7 @@
 package com.becker.beckerSkillCinema.presentation.filmDetail
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -31,6 +32,7 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.S
 import com.becker.beckerSkillCinema.presentation.profile.CollectionHandlerFragment
 import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
 import com.becker.beckerSkillCinema.utils.loadImage
+import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
 
 class FragmentFilmDetail :
@@ -66,23 +68,71 @@ class FragmentFilmDetail :
         setFilmGallery()                    // Set Gallery
         setSimilarFilms()                   // Set List Similar Films
         actionOnPosterBtn()
-        addFilmToDataBase()
+        addFilmToDataBase()                 // Add watched film to DB
     }
 
     private fun addFilmToDataBase() {
-//        profileMovieViewModel.onAddMovieToDataBase(incomeArgs.filmId)
-        profileMovieViewModel.movieSelected(incomeArgs.filmId)
+        profileMovieViewModel.movieSelected(incomeArgs.filmId) //to store current movie in viewModel
         profileMovieViewModel.onInterestingButtonClick(incomeArgs.filmId)
 
     }
 
     private fun actionOnPosterBtn() {
         binding.apply {
+
+            //Btn heart
+            btnToFavorite.setOnClickListener {
+                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.onFavoritesButtonClick(movieId)
+                    }
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                profileMovieViewModel.addedToFavorites.collectLatest {
+                    btnToFavorite.isActivated = it
+                }
+            }
+            //Btn bookmark
+            btnToBookmark.setOnClickListener {
+                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.onToWatchButtonClick(movieId)
+                    }
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                profileMovieViewModel.addedToWatch.collectLatest {
+                    btnToBookmark.isActivated = it
+                }
+            }
+            //Btn watched or not watched
+            btnIsWatched.setOnClickListener {
+                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.onWatchedButtonClick(movieId)
+                    }
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                profileMovieViewModel.addedToWatched.collectLatest {
+                    btnIsWatched.isActivated = it
+                }
+            }
+            //Btn SHARE
+            btnShare.setOnClickListener {
+                val share = Intent(Intent.ACTION_SEND)
+                share.type = "text/plain"
+                share.putExtra(
+                    Intent.EXTRA_TEXT, "https://www.kinopoisk.ru/film/${incomeArgs.filmId}/"
+                )
+                startActivity(Intent.createChooser(share, "Share Link"))
+            }
+            //Btn show more
             btnShowMore.setOnClickListener {
+                profileMovieViewModel.getMovieFromDataBaseById(incomeArgs.filmId)
                 onClickCollectionHandler()
             }
-
-
         }
     }
 

@@ -74,7 +74,7 @@
     <string name="search_filters_genres_default">Все жанры</string>
     <string name="apply">Применить</string>
     <string name="watched">Просмотрен</string>
-    <string name="did_not_watch">Не просмотрен</string>
+    <string name="marked_watched">Отмечены просмотренными"</string>
 
     <string name="period">Период</string>
     <string name="period_from">Искать в период с:</string>
@@ -90,7 +90,7 @@
     <string name="create_custom_collection">Создать свою коллекцию</string>
     <string name="favorites">Любимые</string>
     <string name="want_to_watch">Хочу посмотреть</string>
-    <string name="interesting">Вам было интересно</string>
+    <string name="history">История</string>
     <string name="watched_movies">Просмотренные фильмы</string>
     <string name="interesting_movies">Вам были интересны эти фильмы</string>
     <string name="custom_collection">Custom collection</string>

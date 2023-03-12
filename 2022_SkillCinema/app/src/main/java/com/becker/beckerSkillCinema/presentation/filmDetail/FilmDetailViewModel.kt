@@ -199,11 +199,15 @@ class FilmDetailViewModel @Inject constructor(
         filmId: Int? = currentFilmId,
         galleryType: String = "STILL"
     ) {
-        val newParamsFilterGallery = ParamsFilterGallery(
-            filmId = filmId!!,
-            galleryType = galleryType
-        )
-        currentParamsFilterGallery = newParamsFilterGallery
+        val newParamsFilterGallery = filmId?.let {
+            ParamsFilterGallery(
+                filmId = it,
+                galleryType = galleryType
+            )
+        }
+        if (newParamsFilterGallery != null) {
+            currentParamsFilterGallery = newParamsFilterGallery
+        }
     }
 
     fun putFilmId(filmId: Int) {

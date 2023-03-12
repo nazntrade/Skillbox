@@ -103,54 +103,54 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="367dp" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_to_favorite"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
                 android:layout_marginBottom="@dimen/dimen_26"
-                android:src="@drawable/ic_favorite"
+                android:background="@drawable/favorites_icon_background"
                 app:layout_constraintBottom_toBottomOf="@id/guideline3"
                 app:layout_constraintEnd_toStartOf="@id/btn_to_bookmark"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toTopOf="@id/guideline3" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_to_bookmark"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
                 android:layout_marginBottom="@dimen/dimen_26"
-                android:src="@drawable/ic_bookmark"
+                android:background="@drawable/towatch_icon_background"
                 app:layout_constraintBottom_toBottomOf="@id/guideline3"
-                app:layout_constraintEnd_toStartOf="@id/btn_is_viewed"
+                app:layout_constraintEnd_toStartOf="@id/btn_is_watched"
                 app:layout_constraintStart_toEndOf="@id/btn_to_favorite"
                 app:layout_constraintTop_toTopOf="@id/guideline3" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_is_viewed"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_is_watched"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
                 android:layout_marginBottom="@dimen/dimen_26"
-                android:src="@drawable/ic_film_not_viewed"
+                android:background="@drawable/watched_icon_background"
                 app:layout_constraintBottom_toBottomOf="@id/guideline3"
                 app:layout_constraintEnd_toStartOf="@id/btn_share"
                 app:layout_constraintStart_toEndOf="@id/btn_to_bookmark"
                 app:layout_constraintTop_toTopOf="@id/guideline3" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_share"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
                 android:layout_marginBottom="@dimen/dimen_26"
-                android:src="@drawable/ic_share"
+                android:background="@drawable/share_icon_background"
                 app:layout_constraintBottom_toBottomOf="@id/guideline3"
                 app:layout_constraintEnd_toStartOf="@id/btn_show_more"
-                app:layout_constraintStart_toEndOf="@id/btn_is_viewed"
+                app:layout_constraintStart_toEndOf="@id/btn_is_watched"
                 app:layout_constraintTop_toTopOf="@id/guideline3" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btn_show_more"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
                 android:layout_marginBottom="@dimen/dimen_26"
                 android:src="@drawable/ic_show_more"
                 app:layout_constraintBottom_toBottomOf="@id/guideline3"

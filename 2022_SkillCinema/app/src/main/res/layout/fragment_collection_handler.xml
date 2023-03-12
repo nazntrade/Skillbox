@@ -137,7 +137,7 @@
                 android:id="@+id/checkbox_icon_favorites"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="@dimen/dimen_40"
+                android:layout_marginStart="@dimen/dimen_60"
                 android:button="@drawable/checkbox_background" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -168,7 +168,7 @@
                 android:id="@+id/checkbox_icon_to_watch"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="@dimen/dimen_40"
+                android:layout_marginStart="@dimen/dimen_60"
                 android:button="@drawable/checkbox_background" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -200,8 +200,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/to_watch_layout"
-            app:layout_constraintVertical_bias="0">
+            app:layout_constraintTop_toBottomOf="@id/to_watch_layout">
 
         </LinearLayout>
 
@@ -222,6 +221,7 @@
                 android:src="@drawable/plus_icon" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/create_custom_collection_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_8"

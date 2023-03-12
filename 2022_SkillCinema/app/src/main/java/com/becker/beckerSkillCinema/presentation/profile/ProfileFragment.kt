@@ -30,6 +30,7 @@ import java.util.*
 class ProfileFragment :
     ViewBindingFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
+////////////////////////////// here many superfluous////////////////////////////////
     private lateinit var loader: AppCompatImageView
     private lateinit var allWatchedNumber: AppCompatButton
     private lateinit var extendWatched: AppCompatImageButton
@@ -217,7 +218,6 @@ class ProfileFragment :
         findNavController().navigate(action)
     }
 
-
     private fun onClearInterestingClick() {
         profileMovieViewModel.onCleanInterestingClick()
         interestingRecyclerView.isVisible = false
@@ -298,7 +298,6 @@ class ProfileFragment :
                         )
 
                     customCollectionView.id = View.generateViewId()
-
                     dialog.dismiss()
                 }
             }
@@ -308,14 +307,6 @@ class ProfileFragment :
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
-
-//    private fun showErrorWarning() {
-//        val popupWindow = ErrorFragment()
-//        popupWindow.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
-//        popupWindow.enterTransition = com.google.android.material.R.id.animateToStart
-//        popupWindow.exitTransition = com.google.android.material.R.id.animateToEnd
-//        popupWindow.show(requireActivity().supportFragmentManager, "ERROR")
-//    }
 
     private fun onDeleteCollectionButtonClick(collectionName: String) {
         profileMovieViewModel.onDeleteCollectionButtonClick(collectionName)

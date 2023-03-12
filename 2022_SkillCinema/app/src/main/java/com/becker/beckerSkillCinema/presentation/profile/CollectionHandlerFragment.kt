@@ -25,8 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
 @AndroidEntryPoint
-class CollectionHandlerFragment :
-    BottomSheetDialogFragment() {
+class CollectionHandlerFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentCollectionHandlerBinding? = null
     private val binding get() = _binding!!
@@ -41,10 +40,10 @@ class CollectionHandlerFragment :
     private lateinit var numberFavorites: AppCompatTextView
     private lateinit var checkBoxToWatch: AppCompatCheckBox
     private lateinit var numberToWatch: AppCompatTextView
-    private lateinit var createCustomCollectionButton: AppCompatImageButton
-    private lateinit var containerLayout: LinearLayout
+    private lateinit var createCustomCollectionLayout: LinearLayout
+    private lateinit var containerLayoutForCustomCollection: LinearLayout
 
-    private val movieViewModel: ProfileMovieViewModel by activityViewModels()
+    private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +52,6 @@ class CollectionHandlerFragment :
         _binding = FragmentCollectionHandlerBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,24 +66,27 @@ class CollectionHandlerFragment :
         numberFavorites = binding.numberFavorites
         checkBoxToWatch = binding.checkboxIconToWatch
         numberToWatch = binding.numberToWatch
-        createCustomCollectionButton = binding.createCustomCollectionButton
-        containerLayout = binding.containerLayoutForCustomCollection
+        createCustomCollectionLayout = binding.createCustomCollectionLayout
+        containerLayoutForCustomCollection = binding.containerLayoutForCustomCollection
 
+        getCurrentMovie()
+        setOnClickListeners()
+        setCollectionsData()
+
+    }
+
+    private fun getCurrentMovie() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.movieInfo.collectLatest {
-                movieViewModel.movieById.collectLatest { movieFromDB ->
+            profileMovieViewModel.movieInfo.collectLatest {
+                profileMovieViewModel.movieById.collectLatest { movieFromDB ->
                     if (movieFromDB != null) {
                         Glide
                             .with(moviePoster.context)
                             .load(movieFromDB.posterUri)
                             .centerCrop()
                             .into(moviePoster)
-
                         movieRating.text = movieFromDB.rating.toString()
-
-
                         movieTitle.text = movieFromDB.movieName
-
                         movieInfo.text = buildString {
                             append(movieFromDB.year ?: "")
                             val genre = movieFromDB.genre
@@ -101,7 +102,6 @@ class CollectionHandlerFragment :
                                 .load(it.posterUrl)
                                 .centerCrop()
                                 .into(moviePoster)
-
                             movieRating.text =
                                 when {
                                     it.ratingKinopoisk != null -> it.ratingKinopoisk.toString()
@@ -109,12 +109,10 @@ class CollectionHandlerFragment :
                                     it.ratingMpaa != null -> it.ratingMpaa
                                     else -> ""
                                 }
-
                             movieTitle.text = it.nameRu ?: it.nameEn ?: it.nameOriginal ?: ""
-
                             movieInfo.text = buildString {
                                 append(it.year ?: it.startYear ?: it.endYear ?: "")
-                                val genre = it.genres?.firstOrNull()?.genre
+                                val genre = it.genres.firstOrNull()?.genre
                                 if (genre != null) {
                                     append(", ")
                                     append(genre)
@@ -125,23 +123,48 @@ class CollectionHandlerFragment :
                 }
             }
         }
+    }
 
+    private fun setOnClickListeners() {
+        checkBoxFavorites.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxFavorites.isActivated = isChecked
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                profileMovieViewModel.movieSelected.collectLatest {
+                    profileMovieViewModel.onFavoritesButtonClick(it)
+                }
+            }
+        }
+        checkBoxToWatch.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxToWatch.isActivated = isChecked
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                profileMovieViewModel.movieSelected.collectLatest {
+                    profileMovieViewModel.onToWatchButtonClick(it)
+                }
+            }
+        }
+        createCustomCollectionLayout.setOnClickListener {
+            createDialog()
+        }
+        closeButton.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun setCollectionsData() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                movieViewModel.getCustomCollectionNames(list)
+            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                profileMovieViewModel.getCustomCollectionNames(list)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                profileMovieViewModel.getCustomCollections(list)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                movieViewModel.getCustomCollections(list)
-            }
-        }
-
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.movieSelected.collectLatest { movieId ->
-                movieViewModel.customCollections.collectLatest { list ->
+            profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                profileMovieViewModel.customCollections.collectLatest { list ->
                     list.forEachIndexed { index, customCollection ->
                         val customCollectionView =
                             inflateView(
@@ -152,77 +175,51 @@ class CollectionHandlerFragment :
                                 customCollection.movieId
                             )
                         customCollectionView.contentDescription = customCollection.collectionName
-                        containerLayout.isVisible = true
-                        if (containerLayout.children.all {
+                        containerLayoutForCustomCollection.isVisible = true
+                        if (containerLayoutForCustomCollection.children.all {
                                 it.contentDescription != customCollectionView.contentDescription
                             }) {
-                            containerLayout.addView(customCollectionView)
+                            containerLayoutForCustomCollection.addView(customCollectionView)
                         } else {
                             val existingView =
-                                containerLayout.children.find { it.contentDescription == customCollectionView.contentDescription }
-                            containerLayout.removeView(existingView)
-                            containerLayout.addView(customCollectionView)
+                                containerLayoutForCustomCollection.children.find {
+                                    it.contentDescription == customCollectionView.contentDescription
+                                }
+                            containerLayoutForCustomCollection.removeView(existingView)
+                            containerLayoutForCustomCollection.addView(customCollectionView)
                         }
                     }
                 }
             }
         }
 
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.getAllToWatch().collectLatest {
+            profileMovieViewModel.getAllToWatch().collectLatest {
                 numberToWatch.text = it.size.toString()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.getAllFavorites().collectLatest {
+            profileMovieViewModel.getAllFavorites().collectLatest {
                 numberFavorites.text = it.size.toString()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.addedToFavorites.collectLatest {
+            profileMovieViewModel.addedToFavorites.collectLatest {
                 checkBoxFavorites.isActivated = it
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.addedToWatch.collectLatest {
+            profileMovieViewModel.addedToWatch.collectLatest {
                 checkBoxToWatch.isActivated = it
             }
-        }
-
-        checkBoxFavorites.setOnCheckedChangeListener { _, isChecked ->
-            checkBoxFavorites.isActivated = isChecked
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                movieViewModel.movieSelected.collectLatest {
-                    movieViewModel.onFavoritesButtonClick(it)
-                }
-            }
-        }
-
-        checkBoxToWatch.setOnCheckedChangeListener { _, isChecked ->
-            checkBoxToWatch.isActivated = isChecked
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                movieViewModel.movieSelected.collectLatest {
-                    movieViewModel.onToWatchButtonClick(it)
-                }
-            }
-        }
-
-        createCustomCollectionButton.setOnClickListener {
-            createDialog()
-        }
-
-        closeButton.setOnClickListener {
-            dismiss()
         }
     }
 
     @SuppressLint("MissingInflatedId")
     private fun createDialog() {
-
         val dialog = Dialog(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.alert_dialog, null)
         val collectionTitleInputField =
@@ -249,44 +246,33 @@ class CollectionHandlerFragment :
         }
 
         doneButton.setOnClickListener {
-
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                movieViewModel.movieSelected.collectLatest { movieId ->
-
+                profileMovieViewModel.movieSelected.collectLatest { movieId ->
                     val collectionNameInput = collectionTitleInputField.text
                     val collectionNameFormatted = collectionNameInput.toString()
                         .trim { it <= ' ' }
                         .lowercase(Locale.ROOT)
                         .replaceFirstChar { it.uppercaseChar() }
-
                     viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                        val list = movieViewModel.customCollectionNamesList.value
+                        val list = profileMovieViewModel.customCollectionNamesList.value
                         if (!list.all { it != collectionNameFormatted }) {
                             dialog.dismiss()
-//                            showErrorWarning()
                         }
                     }
-
                     viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                        val list = movieViewModel.customCollectionNamesList.value
-
+                        val list = profileMovieViewModel.customCollectionNamesList.value
                         if (list.all { it != collectionNameFormatted }) {
-
-                            movieViewModel.addMovieToCustomCollection(
+                            profileMovieViewModel.addMovieToCustomCollection(
                                 collectionNameFormatted,
                                 movieId
                             )
-
                             dialog.dismiss()
                         }
-
                     }
                 }
                 dialog.dismiss()
             }
-
         }
-
         dialog.setContentView(dialogView)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
@@ -299,7 +285,6 @@ class CollectionHandlerFragment :
         collectionNumber: Int,
         collectionSize: Int
     ): View {
-
         val customCollectionView =
             layoutInflater.inflate(
                 R.layout.custom_collection,
@@ -318,31 +303,28 @@ class CollectionHandlerFragment :
         val checkbox =
             customCollectionView.findViewById<AppCompatCheckBox>(R.id.checkbox_custom_collection)
         checkbox.contentDescription = collectionNameFormatted
-
-
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                movieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                    movieViewModel.checkCustomCollection(
-                        collectionNameFormatted,
-                        movieId,
-                        index,
-                        collectionNumber,
-                        list
-                    )
-                }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                profileMovieViewModel.checkCustomCollection(
+                    collectionNameFormatted,
+                    movieId,
+                    index,
+                    collectionNumber,
+                    list
+                )
             }
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            movieViewModel.addedToCustomCollection.collectLatest { collectionStatus ->
+            profileMovieViewModel.addedToCustomCollection.collectLatest { collectionStatus ->
                 checkbox.isActivated = collectionStatus[checkbox.contentDescription] == true
             }
         }
 
-
         checkbox.setOnCheckedChangeListener { _, isChecked ->
             checkbox.isActivated = isChecked
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                movieViewModel.onCustomCollectionButtonClick(
+                profileMovieViewModel.onCustomCollectionButtonClick(
                     checkbox.contentDescription.toString(),
                     movieId
                 )
@@ -350,15 +332,6 @@ class CollectionHandlerFragment :
         }
         return customCollectionView
     }
-
-//    private fun showErrorWarning() {
-//        val popupWindow = ErrorFragment()
-//        popupWindow.setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme)
-//        popupWindow.enterTransition = com.google.android.material.R.id.animateToStart
-//        popupWindow.exitTransition = com.google.android.material.R.id.animateToEnd
-//        popupWindow.show(requireActivity().supportFragmentManager, "ERROR")
-//    }
-//
 
     override fun onDestroyView() {
         super.onDestroyView()

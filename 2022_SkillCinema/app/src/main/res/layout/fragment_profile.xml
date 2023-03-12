@@ -34,11 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16"
-                android:text="@string/did_not_watch"
+                android:text="@string/marked_watched"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/all_watched_number"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,24 +48,25 @@
                 android:id="@+id/all_watched_number"
                 android:layout_width="@dimen/dimen_40"
                 android:layout_height="@dimen/dimen_40"
-                android:layout_marginEnd="@dimen/dimen_16"
                 android:background="@drawable/arrow_button_background"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/extend_watched"
+                app:layout_constraintBottom_toBottomOf="@+id/watched_title"
                 app:layout_constraintEnd_toStartOf="@+id/extend_watched"
-                app:layout_constraintTop_toTopOf="@+id/extend_watched" />
+                app:layout_constraintStart_toEndOf="@id/watched_title"
+                app:layout_constraintTop_toTopOf="@+id/watched_title" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/extend_watched"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16"
                 android:layout_marginEnd="@dimen/dimen_16"
                 android:background="@drawable/arrow_button_background"
                 android:elevation="@dimen/dimen_2"
                 android:src="@drawable/ic_small_arrow_show_all"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/watched_title"
+                app:layout_constraintBottom_toBottomOf="@id/watched_title"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/watched_recycler_view"
@@ -125,7 +126,7 @@
 
             <LinearLayout
                 android:id="@+id/linear_layout"
-                android:layout_width="324dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16"
                 android:layout_marginEnd="@dimen/dimen_26"
@@ -171,6 +172,9 @@
                         android:layout_marginTop="30dp"
                         android:background="@drawable/background_for_numbers_in_collection"
                         android:fontFamily="@font/graphic_regular"
+                        android:gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
                         android:text="20"
                         android:textSize="8sp"
                         android:textAlignment="center"
@@ -216,9 +220,15 @@
                         android:layout_marginTop="30dp"
                         android:background="@drawable/background_for_numbers_in_collection"
                         android:fontFamily="@font/graphic_regular"
+                        android:gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
                         android:text="20"
+                        android:textSize="8sp"
                         android:textAlignment="center"
-                        android:visibility="invisible" />
+                        android:textColor="@color/white"
+                        android:visibility="invisible"
+                        tools:visibility="visible" />
 
                 </FrameLayout>
 
@@ -226,13 +236,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/container_layout_for_custom_collections"
-                android:layout_width="324dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dimen_26"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear_layout"
                 tools:listitem="@layout/custom_collection_in_profile">
@@ -245,7 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16"
                 android:fontFamily="@font/graphic_regular"
-                android:text="@string/interesting"
+                android:text="@string/history"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -264,6 +272,7 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/graphic_regular"
                 android:textStyle="bold"
+                tools:text="@tools:sample/date/hhmm"
                 app:layout_constraintBottom_toBottomOf="@+id/interesting_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/extend_interesting"

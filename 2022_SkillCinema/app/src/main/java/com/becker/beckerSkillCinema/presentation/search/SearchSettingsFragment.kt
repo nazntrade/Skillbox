@@ -61,7 +61,7 @@ class SearchSettingsFragment :
         binding.checkboxIsWatched.setOnClickListener {
             if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text =
                 getString(R.string.watched)
-            else binding.checkboxIsWatched.text = getString(R.string.did_not_watch)
+            else binding.checkboxIsWatched.text = getString(R.string.marked_watched)
         }
     }
 
