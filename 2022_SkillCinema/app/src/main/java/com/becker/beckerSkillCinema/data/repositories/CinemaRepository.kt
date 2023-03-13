@@ -26,7 +26,8 @@ class CinemaRepository @Inject constructor() {
         return Networking.kinopoiskApi.getFilmsByFilter(
             countries = if (filters.countries.isNotEmpty()) filters.countries.keys.first()
                 .toString() else "",
-            genres = if (filters.genres.isNotEmpty()) filters.genres.keys.first().toString() else "",
+            genres = if (filters.genres.isNotEmpty()) filters.genres.keys.first()
+                .toString() else "",
             order = filters.order,
             type = filters.type,
             ratingFrom = filters.ratingFrom,

@@ -72,7 +72,8 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
                 || destination.id == R.id.searchSettingsFragment
                 || destination.id == R.id.searchFiltersFragment
                 || destination.id == R.id.fragmentBigImage
-                || destination.id == R.id.fragmentSearchDatePicker) {
+                || destination.id == R.id.fragmentSearchDatePicker
+            ) {
                 binding.bottomNavigation.visibility = View.GONE
             } else {
                 binding.bottomNavigation.visibility = View.VISIBLE

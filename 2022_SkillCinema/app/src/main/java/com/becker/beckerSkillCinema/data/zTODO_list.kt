@@ -2,8 +2,8 @@ package com.becker.beckerSkillCinema.data
 
 /**
 
-    PROFILE - current task
-    All Strings !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+PROFILE - current task
+All Strings !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 10. !!!!!!!!!!!!!!!!!! all STRINGS to resources, Keys to constants, file constants
 11. more Beautifully animation katachi
@@ -14,13 +14,13 @@ more categories on homeScreen
 
 especially works well on black theme
 
-    on search settings button watched
+on search settings button watched
 
 Errors:
-    не смог отловить ошибку на экране поиска, когда откл.инет или кончается ключ.
+не смог отловить ошибку на экране поиска, когда откл.инет или кончается ключ.
 
 
-    app doesn't have code to search actors
+app doesn't have code to search actors
  */
 
 

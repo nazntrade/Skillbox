@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="datepicker">
-        <attr name="picker_border_color" format="color"/>
-        <attr name="picker_text_color" format="color"/>
-        <attr name="picker_text_select_color" format="color"/>
-        <attr name="picker_title" format="string"/>
-        <attr name="picker_border_width" format="dimension"/>
-        <attr name="picker_border_corner_radius" format="dimension"/>
-        <attr name="picker_text_size" format="dimension"/>
-        <attr name="picker_start_date" format="integer"/>
-            </declare-styleable>
+        <attr name="picker_border_color" format="color" />
+        <attr name="picker_text_color" format="color" />
+        <attr name="picker_text_select_color" format="color" />
+        <attr name="picker_title" format="string" />
+        <attr name="picker_border_width" format="dimension" />
+        <attr name="picker_border_corner_radius" format="dimension" />
+        <attr name="picker_text_size" format="dimension" />
+        <attr name="picker_start_date" format="integer" />
+    </declare-styleable>
 </resources>

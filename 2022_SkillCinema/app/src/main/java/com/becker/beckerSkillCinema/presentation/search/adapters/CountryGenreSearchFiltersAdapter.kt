@@ -12,7 +12,9 @@ import com.becker.beckerSkillCinema.entity.FilterCountryGenre
 
 class CountryGenreSearchFiltersAdapter(
     private val onItemClick: (FilterCountryGenre) -> Unit
-) : ListAdapter<FilterCountryGenre, CountryGenreSearchFiltersAdapter.SearchFiltersViewHolder>(SearchFiltersDiffUtil()) {
+) : ListAdapter<FilterCountryGenre, CountryGenreSearchFiltersAdapter.SearchFiltersViewHolder>(
+    SearchFiltersDiffUtil()
+) {
 
     class SearchFiltersDiffUtil : DiffUtil.ItemCallback<FilterCountryGenre>() {
         override fun areItemsTheSame(

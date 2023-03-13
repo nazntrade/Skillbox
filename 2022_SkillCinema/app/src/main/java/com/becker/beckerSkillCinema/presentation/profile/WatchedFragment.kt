@@ -32,11 +32,9 @@ class WatchedFragment :
     }
 
     private lateinit var watchedRecycler: RecyclerView
-
     private val watchedAdapter = WatchedAdapterIndividual(
         onWatchedItemClick = { movie -> onItemClickWatched(movie) }
     )
-
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
     private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 

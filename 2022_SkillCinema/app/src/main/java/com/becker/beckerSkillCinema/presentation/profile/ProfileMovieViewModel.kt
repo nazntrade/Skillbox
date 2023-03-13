@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -104,24 +105,36 @@ class ProfileMovieViewModel @Inject constructor(
 
     fun onInterestingButtonClick(movieId: Int) {
         viewModelScope.launch {
-            addMovieToInteresting(movieId)
+            try {
+                addMovieToInteresting(movieId)
+            } catch (e: Throwable) {
+                Timber.e("onInterestingButtonClick $e")
+            }
         }
     }
 
     fun onCleanInterestingClick() {
         viewModelScope.launch {
-            deleteAllMoviesFromInteresting()
+            try {
+                deleteAllMoviesFromInteresting()
+            } catch (e: Throwable) {
+                Timber.e("onCleanInterestingClick $e")
+            }
         }
     }
 
     fun buildInterestingList(allInteresting: List<Interesting>) {
         viewModelScope.launch {
-            val interestingList = mutableListOf<Movie>()
-            allInteresting.forEach { item ->
-                val interestingMovie = useCaseLocal.getMovieFromDataBaseById(item.interestingId)
-                interestingList.add(interestingMovie)
+            try {
+                val interestingList = mutableListOf<Movie>()
+                allInteresting.forEach { item ->
+                    val interestingMovie = useCaseLocal.getMovieFromDataBaseById(item.interestingId)
+                    interestingList.add(interestingMovie)
+                }
+                _interestingList.value = interestingList
+            } catch (e: Throwable) {
+                Timber.e("buildInterestingList $e")
             }
-            _interestingList.value = interestingList
         }
     }
 
@@ -145,66 +158,86 @@ class ProfileMovieViewModel @Inject constructor(
 
     fun onDeleteCollectionButtonClick(collectionName: String) {
         viewModelScope.launch {
-            deleteCustomCollection(collectionName = collectionName)
+            try {
+                deleteCustomCollection(collectionName = collectionName)
+            } catch (e: Throwable) {
+                Timber.e("onDeleteCollectionButtonClick $e")
+            }
         }
     }
 
     fun getCustomCollectionNames(allMovies: List<CustomCollection>) {
         viewModelScope.launch {
-            val names = mutableListOf<String>()
-            allMovies.forEach {
-                names.add(it.collectionName)
+            try {
+                val names = mutableListOf<String>()
+                allMovies.forEach {
+                    names.add(it.collectionName)
+                }
+                _customCollectionNamesList.value = names
+            } catch (e: Throwable) {
+                Timber.e("getCustomCollectionNames $e")
             }
-            _customCollectionNamesList.value = names
         }
     }
 
     fun buildCustomCollectionList(allMovies: List<CustomCollection>) {
         viewModelScope.launch {
-            val customCollectionList = mutableListOf<Movie>()
-            _customCollectionChosen.collectLatest {
-                val chosenCollection = it
-                if (chosenCollection != null) {
-                    val filteredList =
-                        allMovies.filter { it.collectionName == chosenCollection.collectionName }
-                    filteredList.forEach { item ->
-                        if (item.movieId != 0) {
-                            val customCollectionMovie =
-                                useCaseLocal.getMovieFromDataBaseById(item.movieId)
-                            customCollectionList.add(customCollectionMovie)
+            try {
+                val customCollectionList = mutableListOf<Movie>()
+                _customCollectionChosen.collectLatest {
+                    val chosenCollection = it
+                    if (chosenCollection != null) {
+                        val filteredList =
+                            allMovies.filter { it.collectionName == chosenCollection.collectionName }
+                        filteredList.forEach { item ->
+                            if (item.movieId != 0) {
+                                val customCollectionMovie =
+                                    useCaseLocal.getMovieFromDataBaseById(item.movieId)
+                                customCollectionList.add(customCollectionMovie)
+                            }
                         }
                     }
+                    _customCollectionList.value = customCollectionList
                 }
-                _customCollectionList.value = customCollectionList
+            } catch (e: Throwable) {
+                Timber.e("buildCustomCollectionList $e")
             }
         }
     }
 
     fun getCustomCollections(allMovies: List<CustomCollection>) {
         viewModelScope.launch {
-            val filteredCollections = mutableListOf<CustomCollection>()
-            val emptyMovie = mutableListOf<CustomCollection>()
-            allMovies.forEach { if (it.movieId == 0) emptyMovie.add(it) }
-            emptyMovie.forEach { emptyCollection ->
-                val groupedCollections =
-                    allMovies.filter { it.collectionName == emptyCollection.collectionName }
-                if (groupedCollections.size > 1) {
-                    deleteMovieFromCustomCollection(emptyCollection.collectionName, 0)
+            try {
+                val filteredCollections = mutableListOf<CustomCollection>()
+                val emptyMovie = mutableListOf<CustomCollection>()
+                allMovies.forEach { if (it.movieId == 0) emptyMovie.add(it) }
+                emptyMovie.forEach { emptyCollection ->
+                    val groupedCollections =
+                        allMovies.filter { it.collectionName == emptyCollection.collectionName }
+                    if (groupedCollections.size > 1) {
+                        deleteMovieFromCustomCollection(emptyCollection.collectionName, 0)
+                    }
                 }
+                val names = allMovies.groupBy { it.collectionName }
+                names.forEach { (t, u) ->
+                    if (u.contains(CustomCollection(t, 0))) {
+                        filteredCollections.add(CustomCollection(t, u.size - 1))
+                    } else filteredCollections.add(CustomCollection(t, u.size))
+                }
+                _customCollections.value = filteredCollections
+            } catch (e: Throwable) {
+                Timber.e("getCustomCollections $e")
             }
-            val names = allMovies.groupBy { it.collectionName }
-            names.forEach { (t, u) ->
-                if (u.contains(CustomCollection(t, 0))) {
-                    filteredCollections.add(CustomCollection(t, u.size - 1))
-                } else filteredCollections.add(CustomCollection(t, u.size))
-            }
-            _customCollections.value = filteredCollections
         }
     }
 
     fun onCustomCollectionClick(customCollection: CustomCollection) {
         viewModelScope.launch {
-            _customCollectionChosen.value = customCollection
+            try {
+                _customCollectionChosen.value = customCollection
+            } catch (e: Throwable) {
+                Timber.e("onCustomCollectionClick $e")
+            }
         }
     }
 
@@ -216,33 +249,42 @@ class ProfileMovieViewModel @Inject constructor(
         allMovies: List<CustomCollection>
     ) {
         viewModelScope.launch {
-            val customCollectionChosen = allMovies.filter { it.collectionName == collectionName }
-            if (index <= collectionNumber - 1) {
-                val initialStatus = _addedToCustomCollection.value.entries
-                val status = mutableMapOf<String, Boolean>()
-                initialStatus.forEach { status[it.key] = it.value }
-                status[collectionName] = !customCollectionChosen.all { it.movieId != movieId }
-                _addedToCustomCollection.value = status
+            try {
+                val customCollectionChosen =
+                    allMovies.filter { it.collectionName == collectionName }
+                if (index <= collectionNumber - 1) {
+                    val initialStatus = _addedToCustomCollection.value.entries
+                    val status = mutableMapOf<String, Boolean>()
+                    initialStatus.forEach { status[it.key] = it.value }
+                    status[collectionName] = !customCollectionChosen.all { it.movieId != movieId }
+                    _addedToCustomCollection.value = status
+                }
+            } catch (e: Throwable) {
+                Timber.e("checkCustomCollection $e")
             }
         }
     }
 
     fun onCustomCollectionButtonClick(collectionName: String, movieId: Int) {
         viewModelScope.launch {
-            if (_addedToCustomCollection.value[collectionName] == false) {
-                val initialStatus = _addedToCustomCollection.value.entries
-                val status = mutableMapOf<String, Boolean>()
-                initialStatus.forEach { status[it.key] = it.value }
-                status[collectionName] = true
-                _addedToCustomCollection.value = status
-                addMovieToCustomCollection(collectionName, movieId)
-            } else {
-                val initialStatus = _addedToCustomCollection.value.entries
-                val status = mutableMapOf<String, Boolean>()
-                initialStatus.forEach { status[it.key] = it.value }
-                status[collectionName] = false
-                _addedToCustomCollection.value = status
-                deleteMovieFromCustomCollection(collectionName, movieId)
+            try {
+                if (_addedToCustomCollection.value[collectionName] == false) {
+                    val initialStatus = _addedToCustomCollection.value.entries
+                    val status = mutableMapOf<String, Boolean>()
+                    initialStatus.forEach { status[it.key] = it.value }
+                    status[collectionName] = true
+                    _addedToCustomCollection.value = status
+                    addMovieToCustomCollection(collectionName, movieId)
+                } else {
+                    val initialStatus = _addedToCustomCollection.value.entries
+                    val status = mutableMapOf<String, Boolean>()
+                    initialStatus.forEach { status[it.key] = it.value }
+                    status[collectionName] = false
+                    _addedToCustomCollection.value = status
+                    deleteMovieFromCustomCollection(collectionName, movieId)
+                }
+            } catch (e: Throwable) {
+                Timber.e("onCustomCollectionButtonClick $e")
             }
         }
     }
@@ -251,133 +293,122 @@ class ProfileMovieViewModel @Inject constructor(
 
     fun getMovieFromDataBaseById(movieId: Int) {
         viewModelScope.launch {
-            _movieById.value = useCaseLocal.getMovieFromDataBaseById(movieId)
+            try {
+                _movieById.value = useCaseLocal.getMovieFromDataBaseById(movieId)
+            } catch (e: Throwable) {
+                Timber.e("getMovieFromDataBaseById $e")
+            }
         }
     }
 
-    fun addMovieToDataBase(
-        movie: ResponseCurrentFilm
-    ) {
+    fun addMovieToDataBase(movie: ResponseCurrentFilm) {
         viewModelScope.launch {
-            useCaseLocal.addMovie(
-                movie = Movie(
-                    movieId = movie.kinopoiskId,
-                    posterUri = movie.posterUrl,
-                    rating = movie.ratingKinopoisk ?: movie.ratingImdb
-                    ?: movie.ratingFilmCritics ?: movie.ratingRfCritics,
-                    genre = movie.genres.firstOrNull()?.genre,
-                    movieName = movie.nameRu ?: movie.nameEn ?: movie.nameOriginal,
-                    country = movie.countries.firstOrNull()?.country,
-                    logoUrl = movie.logoUrl,
-                    description = movie.description,
-                    shortDescription = movie.shortDescription,
-                    filmLength = movie.filmLength,
-                    imdbId = movie.imdbId,
-                    nameEn = movie.nameEn ?: movie.nameOriginal,
-                    ratingAgeLimits = movie.ratingAgeLimits,
-                    serial = movie.serial,
-                    shortFilm = movie.shortFilm,
-                    year = movie.year
+            try {
+                useCaseLocal.addMovie(
+                    movie = Movie(
+                        movieId = movie.kinopoiskId,
+                        posterUri = movie.posterUrl,
+                        rating = movie.ratingKinopoisk ?: movie.ratingImdb
+                        ?: movie.ratingFilmCritics ?: movie.ratingRfCritics,
+                        genre = movie.genres.firstOrNull()?.genre,
+                        movieName = movie.nameRu ?: movie.nameEn ?: movie.nameOriginal,
+                        country = movie.countries.firstOrNull()?.country,
+                        logoUrl = movie.logoUrl,
+                        description = movie.description,
+                        shortDescription = movie.shortDescription,
+                        filmLength = movie.filmLength,
+                        imdbId = movie.imdbId,
+                        nameEn = movie.nameEn ?: movie.nameOriginal,
+                        ratingAgeLimits = movie.ratingAgeLimits,
+                        serial = movie.serial,
+                        shortFilm = movie.shortFilm,
+                        year = movie.year
+                    )
                 )
-            )
+            } catch (e: Throwable) {
+                Timber.e("addMovieToDataBase $e")
+            }
         }
     }
 
-
-//    private suspend fun addMovieToDataBase(
-//        movieId: Int
-//    ) {
-//        viewModelScope.launch {
-//            _movieInfo.collectLatest {
-//                val info = it
-//                if (info != null && info.kinopoiskId == movieId) {
-//                    useCaseLocal.addMovie(
-//                        movie = Movie(
-//                            movieId = movieId,
-//                            posterUri = info.posterUrl,
-//                            rating = info.ratingKinopoisk ?: info.ratingImdb
-//                            ?: info.ratingFilmCritics ?: info.ratingRfCritics,
-//                            genre = info.genres.firstOrNull()?.genre,
-//                            movieName = info.nameRu ?: info.nameEn ?: info.nameOriginal,
-//                            country = info.countries.firstOrNull()?.country,
-//                            logoUrl = info.logoUrl,
-//                            description = info.description,
-//                            shortDescription = info.shortDescription,
-//                            filmLength = info.filmLength,
-//                            imdbId = info.imdbId,
-//                            nameEn = info.nameEn ?: info.nameOriginal,
-//                            ratingAgeLimits = info.ratingAgeLimits,
-//                            serial = info.serial,
-//                            shortFilm = info.shortFilm,
-//                            year = info.year
-//                        )
-//                    )
-//                }
-//            }
-//        }
-//    }
-//
-//    fun onAddMovieToDataBase(movieId: Int) {
-//        viewModelScope.launch {
-//            addMovieToDataBase(movieId)
-//        }
-//    }
-
-    fun getAllWatched() = useCaseLocal
-        .getAllWatched()
+    fun getAllWatched() = useCaseLocal.getAllWatched()
 
     private suspend fun addToWatched(movieId: Int) {
         viewModelScope.launch {
-            _loadingState.value = StateLoading.Loading
-            useCaseLocal.addToWatched(
-                watched = Watched(
-                    watchedId = movieId
+            try {
+                _loadingState.value = StateLoading.Loading
+                useCaseLocal.addToWatched(
+                    watched = Watched(
+                        watchedId = movieId
+                    )
                 )
-            )
-            _loadingState.value = StateLoading.Success
+                _loadingState.value = StateLoading.Success
+            } catch (e: Throwable) {
+                Timber.e("addToWatched $e")
+            }
         }
     }
 
     private suspend fun deleteFromWatched(movieId: Int) {
         viewModelScope.launch {
-            useCaseLocal.deleteFromWatched(movieId)
+            try {
+                useCaseLocal.deleteFromWatched(movieId)
+            } catch (e: Throwable) {
+                Timber.e("deleteFromWatched $e")
+            }
         }
     }
 
     fun checkWatched(movieId: Int, allWatched: List<Watched>) {
         viewModelScope.launch {
-            _addedToWatched.value = !allWatched.all { it.watchedId != movieId }
+            try {
+                _addedToWatched.value = !allWatched.all { it.watchedId != movieId }
+            } catch (e: Throwable) {
+                Timber.e("checkWatched $e")
+            }
         }
     }
 
     fun onWatchedButtonClick(movieId: Int) {
         viewModelScope.launch {
-            if (!_addedToWatched.value) {
-                addToWatched(movieId)
-                _addedToWatched.value = true
-                _addedToWatch.value = false
-                deleteFromToWatch(movieId)
-            } else {
-                deleteFromWatched(movieId)
-                _addedToWatched.value = false
+            try {
+                if (!_addedToWatched.value) {
+                    addToWatched(movieId)
+                    _addedToWatched.value = true
+                    _addedToWatch.value = false
+                    deleteFromToWatch(movieId)
+                } else {
+                    deleteFromWatched(movieId)
+                    _addedToWatched.value = false
+                }
+            } catch (e: Throwable) {
+                Timber.e("onWatchedButtonClick $e")
             }
         }
     }
 
     fun buildWatchedList(allWatched: List<Watched>) {
         viewModelScope.launch {
-            val watchedList = mutableListOf<Movie>()
-            allWatched.forEach { item ->
-                val watchedMovie = useCaseLocal.getMovieFromDataBaseById(item.watchedId)
-                watchedList.add(watchedMovie)
+            try {
+                val watchedList = mutableListOf<Movie>()
+                allWatched.forEach { item ->
+                    val watchedMovie = useCaseLocal.getMovieFromDataBaseById(item.watchedId)
+                    watchedList.add(watchedMovie)
+                }
+                _watchedList.value = watchedList
+            } catch (e: Throwable) {
+                Timber.e("buildWatchedList $e")
             }
-            _watchedList.value = watchedList
         }
     }
 
     fun getWatchedMovies(allWatched: List<Watched>) {
         viewModelScope.launch {
-            _watchedMovies.value = allWatched
+            try {
+                _watchedMovies.value = allWatched
+            } catch (e: Throwable) {
+                Timber.e("getWatchedMovies $e")
+            }
         }
     }
 
@@ -387,7 +418,11 @@ class ProfileMovieViewModel @Inject constructor(
 
     fun onCleanWatchedClick() {
         viewModelScope.launch {
-            deleteAllMoviesFromWatched()
+            try {
+                deleteAllMoviesFromWatched()
+            } catch (e: Throwable) {
+                Timber.e("onCleanWatchedClick $e")
+            }
         }
     }
 
@@ -395,46 +430,66 @@ class ProfileMovieViewModel @Inject constructor(
 
     private suspend fun addToFavorites(movieId: Int) {
         viewModelScope.launch {
-            useCaseLocal.addToFavorites(
-                favorites = Favorites(
-                    favoritesId = movieId
+            try {
+                useCaseLocal.addToFavorites(
+                    favorites = Favorites(
+                        favoritesId = movieId
+                    )
                 )
-            )
+            } catch (e: Throwable) {
+                Timber.e("addToFavorites $e")
+            }
         }
     }
 
     private suspend fun deleteFromFavorites(movieId: Int) {
         viewModelScope.launch {
-            useCaseLocal.deleteFromFavorites(movieId)
+            try {
+                useCaseLocal.deleteFromFavorites(movieId)
+            } catch (e: Throwable) {
+                Timber.e("deleteFromFavorites $e")
+            }
         }
     }
 
     fun checkFavorites(movieId: Int, allFavorites: List<Favorites>) {
         viewModelScope.launch {
-            _addedToFavorites.value = !allFavorites.all { it.favoritesId != movieId }
+            try {
+                _addedToFavorites.value = !allFavorites.all { it.favoritesId != movieId }
+            } catch (e: Throwable) {
+                Timber.e("checkFavorites $e")
+            }
         }
     }
 
     fun onFavoritesButtonClick(movieId: Int) {
         viewModelScope.launch {
-            if (!_addedToFavorites.value) {
-                addToFavorites(movieId)
-                _addedToFavorites.value = true
-            } else {
-                deleteFromFavorites(movieId)
-                _addedToFavorites.value = false
+            try {
+                if (!_addedToFavorites.value) {
+                    addToFavorites(movieId)
+                    _addedToFavorites.value = true
+                } else {
+                    deleteFromFavorites(movieId)
+                    _addedToFavorites.value = false
+                }
+            } catch (e: Throwable) {
+                Timber.e("onFavoritesButtonClick $e")
             }
         }
     }
 
     fun buildFavoritesList(allFavorites: List<Favorites>) {
         viewModelScope.launch {
-            val favoritesList = mutableListOf<Movie>()
-            allFavorites.forEach { item ->
-                val favoriteMovie = useCaseLocal.getMovieFromDataBaseById(item.favoritesId)
-                favoritesList.add(favoriteMovie)
+            try {
+                val favoritesList = mutableListOf<Movie>()
+                allFavorites.forEach { item ->
+                    val favoriteMovie = useCaseLocal.getMovieFromDataBaseById(item.favoritesId)
+                    favoritesList.add(favoriteMovie)
+                }
+                _favoritesList.value = favoritesList
+            } catch (e: Throwable) {
+                Timber.e("buildFavoritesList $e")
             }
-            _favoritesList.value = favoritesList
         }
     }
 
@@ -442,65 +497,96 @@ class ProfileMovieViewModel @Inject constructor(
 
     private suspend fun addToWatch(movieId: Int) {
         viewModelScope.launch {
-            useCaseLocal.addToWatch(
-                toWatch = ToWatch(
-                    toWatchId = movieId
+            try {
+                useCaseLocal.addToWatch(
+                    toWatch = ToWatch(
+                        toWatchId = movieId
+                    )
                 )
-            )
+            } catch (e: Throwable) {
+                Timber.e("addToWatch $e")
+            }
         }
     }
 
     private suspend fun deleteFromToWatch(movieId: Int) {
         viewModelScope.launch {
-            useCaseLocal.deleteFromToWatch(movieId)
+            try {
+                useCaseLocal.deleteFromToWatch(movieId)
+            } catch (e: Throwable) {
+                Timber.e("deleteFromToWatch $e")
+            }
         }
     }
 
     fun checkToWatch(movieId: Int, allToWatch: List<ToWatch>) {
         viewModelScope.launch {
-            _addedToWatch.value = !allToWatch.all { it.toWatchId != movieId }
+            try {
+                _addedToWatch.value = !allToWatch.all { it.toWatchId != movieId }
+            } catch (e: Throwable) {
+                Timber.e("checkToWatch $e")
+            }
         }
     }
 
     fun onToWatchButtonClick(movieId: Int) {
         viewModelScope.launch {
-            if (!_addedToWatch.value) {
-                addToWatch(movieId)
-                _addedToWatch.value = true
-            } else {
-                deleteFromToWatch(movieId)
-                _addedToWatch.value = false
+            try {
+                if (!_addedToWatch.value) {
+                    addToWatch(movieId)
+                    _addedToWatch.value = true
+                } else {
+                    deleteFromToWatch(movieId)
+                    _addedToWatch.value = false
+                }
+            } catch (e: Throwable) {
+                Timber.e("onToWatchButtonClick $e")
             }
         }
     }
 
     fun buildToWatchList(allToWatch: List<ToWatch>) {
         viewModelScope.launch {
-            val toWatchList = mutableListOf<Movie>()
-            allToWatch.forEach { item ->
-                val toWatchMovie = useCaseLocal.getMovieFromDataBaseById(item.toWatchId)
-                toWatchList.add(toWatchMovie)
+            try {
+                val toWatchList = mutableListOf<Movie>()
+                allToWatch.forEach { item ->
+                    val toWatchMovie = useCaseLocal.getMovieFromDataBaseById(item.toWatchId)
+                    toWatchList.add(toWatchMovie)
+                }
+                _toWatchList.value = toWatchList
+            } catch (e: Throwable) {
+                Timber.e("buildToWatchList $e")
             }
-            _toWatchList.value = toWatchList
-
         }
     }
 
     fun showWatchedMoviesAtSearchResult() {
         viewModelScope.launch {
-            _showWatchedAtSearchResult.value = !_showWatchedAtSearchResult.value
+            try {
+                _showWatchedAtSearchResult.value = !_showWatchedAtSearchResult.value
+            } catch (e: Throwable) {
+                Timber.e("showWatchedMoviesAtSearchResult $e")
+            }
         }
     }
 
     fun chooseCollection(collections: Collections) {
         viewModelScope.launch {
-            _collectionChosen.value = collections
+            try {
+                _collectionChosen.value = collections
+            } catch (e: Throwable) {
+                Timber.e("chooseCollection $e")
+            }
         }
     }
 
     fun movieSelected(itemId: Int) {
         viewModelScope.launch {
-            _movieSelected.value = itemId
+            try {
+                _movieSelected.value = itemId
+            } catch (e: Throwable) {
+                Timber.e("movieSelected $e")
+            }
         }
     }
 }

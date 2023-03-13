@@ -32,11 +32,9 @@ class InterestingFragment :
     }
 
     private lateinit var interestingRecycler: RecyclerView
-
     private val interestingAdapter = InterestingAdapterIndividual(
         onInterestingItemClick = { movie -> onItemClickInteresting(movie) }
     )
-
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
     private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 

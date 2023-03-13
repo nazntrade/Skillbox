@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.mainFragment)
         }
     }
+
     companion object {
         const val FIRST_RUN = "FirstRun"
     }

@@ -79,7 +79,6 @@ class FragmentFilmDetail :
 
     private fun actionOnPosterBtn() {
         binding.apply {
-
             //Btn heart
             btnToFavorite.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {

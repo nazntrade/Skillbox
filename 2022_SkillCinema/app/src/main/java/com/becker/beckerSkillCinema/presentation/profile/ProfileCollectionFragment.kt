@@ -34,13 +34,10 @@ class ProfileCollectionFragment :
     }
 
     private lateinit var collectionTitle: AppCompatTextView
-
     private lateinit var collectionRecycler: RecyclerView
-
     private val collectionAdapter = InterestingAdapterIndividual(
         onInterestingItemClick = { movie -> onItemClick(movie) }
     )
-
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
     private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 

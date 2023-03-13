@@ -51,17 +51,14 @@ class ProfileFragment :
         onWatchedItemClick = { movie -> onWatchedItemClick(movie) },
         onClearHistoryClick = { onClearWatchedClick() }
     )
-
     private val wishMoviesAdapter = WishMoviesAdapter(
         onInterestingItemClick = { movie -> onInterestingItemClick(movie) },
         onClearInterestingClick = { onClearInterestingClick() }
     )
-
     private val collectionAdapter = CustomCollectionAdapter(
         onCollectionItemClick = { customCollection -> onCollectionItemClick(customCollection) },
         onDeleteCollectionClick = { collectionName -> onDeleteCollectionButtonClick(collectionName) }
     )
-
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
     private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 
@@ -99,44 +96,18 @@ class ProfileFragment :
         collectionRecyclerView.adapter = collectionAdapter
     }
 
-    private fun getMoviesFromCollections(){
-
+    private fun getMoviesFromCollections() {
+        //AllMoviesFromCustomCollection
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
                 profileMovieViewModel.getCustomCollectionNames(list)
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
                 profileMovieViewModel.getCustomCollections(list)
             }
         }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllInteresting().collectLatest { list ->
-                profileMovieViewModel.buildInterestingList(list)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllWatched().collectLatest { list ->
-                profileMovieViewModel.buildWatchedList(list)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllWatched().collectLatest {
-                allWatchedNumber.text = it.size.toString()
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllInteresting().collectLatest {
-                allHistoryNumber.text = it.size.toString()
-            }
-        }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.customCollections.collectLatest {
                 if (it.isNotEmpty()) {
@@ -145,25 +116,17 @@ class ProfileFragment :
                 } else collectionRecyclerView.isVisible = false
             }
         }
-
+        //get all movie from history
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllFavorites().collectLatest {
-                if (it.isNotEmpty()) {
-                    numberInFavoritesCollection.isVisible = true
-                    numberInFavoritesCollection.text = it.size.toString()
-                } else numberInFavoritesCollection.isVisible = false
+            profileMovieViewModel.getAllInteresting().collectLatest { list ->
+                profileMovieViewModel.buildInterestingList(list)
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllToWatch().collectLatest {
-                if (it.isNotEmpty()) {
-                    numberInToWatchCollection.isVisible = true
-                    numberInToWatchCollection.text = it.size.toString()
-                } else numberInToWatchCollection.isVisible = false
+            profileMovieViewModel.getAllInteresting().collectLatest {
+                allHistoryNumber.text = it.size.toString()
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.interestingList.collectLatest {
                 if (it.isNotEmpty()) {
@@ -172,13 +135,41 @@ class ProfileFragment :
                 } else historyRecyclerView.isVisible = false
             }
         }
-
+        //get watched
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllWatched().collectLatest { list ->
+                profileMovieViewModel.buildWatchedList(list)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllWatched().collectLatest {
+                allWatchedNumber.text = it.size.toString()
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.watchedList.collectLatest {
                 if (it.isNotEmpty()) {
                     watchedRecyclerView.isVisible = true
                     watchedAdapter.submitList(it.take(11))
                 } else watchedRecyclerView.isVisible = false
+            }
+        }
+        //To Watch
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllToWatch().collectLatest {
+                if (it.isNotEmpty()) {
+                    numberInToWatchCollection.isVisible = true
+                    numberInToWatchCollection.text = it.size.toString()
+                } else numberInToWatchCollection.isVisible = false
+            }
+        }
+        //Favorites
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllFavorites().collectLatest {
+                if (it.isNotEmpty()) {
+                    numberInFavoritesCollection.isVisible = true
+                    numberInFavoritesCollection.text = it.size.toString()
+                } else numberInFavoritesCollection.isVisible = false
             }
         }
     }

@@ -54,7 +54,8 @@ class DatePicker @Inject constructor(
         setting.radius = typArray.getDimension(
             R.styleable.datepicker_picker_border_corner_radius, context.dpToPx(10)
         )
-        setting.startDate = typArray.getInt(R.styleable.datepicker_picker_start_date, setting.startDate)
+        setting.startDate =
+            typArray.getInt(R.styleable.datepicker_picker_start_date, setting.startDate)
         setting.textSizeSP =
             typArray.getDimension(R.styleable.datepicker_picker_text_size, context.dpToSp(14))
         typArray.recycle()
