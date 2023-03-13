@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.profile.watched.adapter
+package com.becker.beckerSkillCinema.presentation.profile.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -43,7 +43,6 @@ class WatchedHolderIndividual(
                 .load(item.posterUri)
                 .centerCrop()
                 .into(itemFilmPoster)
-
             itemFilmGenre.text = item.genre ?: ""
             itemFilmName.text = item.movieName ?: item.nameEn
             itemFilmRating.text = item.rating.toString()

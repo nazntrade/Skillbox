@@ -56,6 +56,13 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getLayoutElements()
+        getCurrentMovie()
+        setOnClickListeners()
+        setCollectionsData()
+    }
+
+    private fun getLayoutElements() {
         moviePoster = binding.moviePoster
         movieRating = binding.filmRating
         movieTitle = binding.filmTitle
@@ -68,11 +75,6 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
         numberToWatch = binding.numberToWatch
         createCustomCollectionLayout = binding.createCustomCollectionLayout
         containerLayoutForCustomCollection = binding.containerLayoutForCustomCollection
-
-        getCurrentMovie()
-        setOnClickListeners()
-        setCollectionsData()
-
     }
 
     private fun getCurrentMovie() {
@@ -161,7 +163,6 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
                 profileMovieViewModel.getCustomCollections(list)
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.movieSelected.collectLatest { movieId ->
                 profileMovieViewModel.customCollections.collectLatest { list ->
@@ -192,25 +193,21 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
                 }
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.getAllToWatch().collectLatest {
                 numberToWatch.text = it.size.toString()
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.getAllFavorites().collectLatest {
                 numberFavorites.text = it.size.toString()
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.addedToFavorites.collectLatest {
                 checkBoxFavorites.isActivated = it
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             profileMovieViewModel.addedToWatch.collectLatest {
                 checkBoxToWatch.isActivated = it
@@ -218,7 +215,7 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "InflateParams")
     private fun createDialog() {
         val dialog = Dialog(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.alert_dialog, null)
@@ -278,6 +275,7 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
         dialog.show()
     }
 
+    @SuppressLint("InflateParams")
     private fun inflateView(
         collectionNameFormatted: String,
         movieId: Int,

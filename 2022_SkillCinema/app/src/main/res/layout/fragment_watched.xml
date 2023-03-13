@@ -5,41 +5,45 @@
     android:id="@+id/fragment_watched"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.profile.watched.WatchedFragment">
+    tools:context=".presentation.profile.WatchedFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewSelection"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/watched_movies_actionbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/watched_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/onAllMovie"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:elevation="2dp"
-            android:text="@string/watched_movies"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:fontFamily="@font/graphic_regular"/>
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="33dp"
-            android:background="@drawable/arrow_button_background"
-            android:src="@drawable/ic_back" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back_btn"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="@dimen/dimen_26"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/search_filters_category_tv"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/graphic_bold"
+                android:gravity="center"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/watched_movies" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/watched_recycler_view"
         android:layout_width="wrap_content"
@@ -49,7 +53,7 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewSelection"
+        app:layout_constraintTop_toBottomOf="@+id/watched_movies_actionbar"
         app:spanCount="2"
         tools:listitem="@layout/item_film" />
 

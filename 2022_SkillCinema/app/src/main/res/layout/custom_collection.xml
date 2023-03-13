@@ -12,8 +12,8 @@
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checkbox_custom_collection"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/dimen_32"
+            android:layout_height="@dimen/dimen_32"
             android:layout_marginStart="@dimen/dimen_60"
             android:button="@drawable/checkbox_background" />
 

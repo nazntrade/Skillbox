@@ -36,7 +36,6 @@
                 android:layout_marginTop="@dimen/dimen_16"
                 android:text="@string/marked_watched"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/all_watched_number"
                 app:layout_constraintHorizontal_bias="0"
@@ -48,13 +47,13 @@
                 android:id="@+id/all_watched_number"
                 android:layout_width="@dimen/dimen_40"
                 android:layout_height="@dimen/dimen_40"
-                android:background="@drawable/arrow_button_background"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/watched_title"
                 app:layout_constraintEnd_toStartOf="@+id/extend_watched"
                 app:layout_constraintStart_toEndOf="@id/watched_title"
-                app:layout_constraintTop_toTopOf="@+id/watched_title" />
+                app:layout_constraintTop_toTopOf="@+id/watched_title"
+                tools:text="@tools:sample/date/hhmm" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/extend_watched"
@@ -64,9 +63,9 @@
                 android:background="@drawable/arrow_button_background"
                 android:elevation="@dimen/dimen_2"
                 android:src="@drawable/ic_small_arrow_show_all"
+                app:layout_constraintBottom_toBottomOf="@id/watched_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/watched_title"
-                app:layout_constraintBottom_toBottomOf="@id/watched_title"/>
+                app:layout_constraintTop_toTopOf="@id/watched_title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/watched_recycler_view"
@@ -176,9 +175,9 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:text="20"
-                        android:textSize="8sp"
                         android:textAlignment="center"
                         android:textColor="@color/white"
+                        android:textSize="8sp"
                         android:visibility="invisible"
                         tools:visibility="visible" />
 
@@ -224,9 +223,9 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:text="20"
-                        android:textSize="8sp"
                         android:textAlignment="center"
                         android:textColor="@color/white"
+                        android:textSize="8sp"
                         android:visibility="invisible"
                         tools:visibility="visible" />
 
@@ -248,7 +247,7 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/interesting_title"
+                android:id="@+id/history_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16"
@@ -264,34 +263,32 @@
                 app:layout_constraintVertical_bias="0" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/all_interesting_number"
+                android:id="@+id/all_history_number"
                 android:layout_width="@dimen/dimen_40"
                 android:layout_height="@dimen/dimen_40"
                 android:layout_marginEnd="@dimen/dimen_16"
-                android:background="@drawable/arrow_button_background"
                 android:textSize="14sp"
-                android:fontFamily="@font/graphic_regular"
                 android:textStyle="bold"
-                tools:text="@tools:sample/date/hhmm"
-                app:layout_constraintBottom_toBottomOf="@+id/interesting_title"
+                app:layout_constraintBottom_toBottomOf="@+id/history_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/extend_interesting"
-                app:layout_constraintTop_toTopOf="@+id/interesting_title" />
+                app:layout_constraintEnd_toStartOf="@+id/extend_history"
+                app:layout_constraintTop_toTopOf="@+id/history_title"
+                tools:text="@tools:sample/date/hhmm" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/extend_interesting"
+                android:id="@+id/extend_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_16"
                 android:background="@drawable/arrow_button_background"
                 android:elevation="@dimen/dimen_2"
                 android:src="@drawable/ic_small_arrow_show_all"
-                app:layout_constraintBottom_toBottomOf="@+id/interesting_title"
+                app:layout_constraintBottom_toBottomOf="@+id/history_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/interesting_title" />
+                app:layout_constraintTop_toTopOf="@+id/history_title" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/interesting_recycler_view"
+                android:id="@+id/history_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_24"
@@ -301,7 +298,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/interesting_title"
+                app:layout_constraintTop_toBottomOf="@id/history_title"
                 app:layout_constraintVertical_bias="0"
                 tools:listitem="@layout/item_film" />
 

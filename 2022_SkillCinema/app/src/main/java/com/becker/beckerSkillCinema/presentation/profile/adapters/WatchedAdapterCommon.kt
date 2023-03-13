@@ -1,32 +1,40 @@
-package com.becker.beckerSkillCinema.presentation.profile.interesting.adapter
+package com.becker.beckerSkillCinema.presentation.profile.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.databinding.ClearHistoryItemBinding
 import com.becker.beckerSkillCinema.databinding.ItemFilmBinding
-import com.becker.beckerSkillCinema.presentation.profile.watched.adapter.DiffUtilCallBackWatched
 import com.bumptech.glide.Glide
 
-open class WishMoviesAdapter(
-    val onInterestingItemClick: (Movie) -> Unit, val onClearInterestingClick: (View) -> Unit
-) : ListAdapter<Movie, RecyclerView.ViewHolder>(DiffUtilCallBackWatched()) {
+open class WatchedAdapterCommon(
+    val onWatchedItemClick: (Movie) -> Unit,
+    val onClearHistoryClick: (View) -> Unit
+) :
+    ListAdapter<Movie, RecyclerView.ViewHolder>(DiffUtilCallBackWatched()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return if (viewType == ITEM_MOVIES) {
-            InterestingViewHolderCommon(
+            WatchedViewHolderCommon(
                 binding = ItemFilmBinding.inflate(
-                    layoutInflater, parent, false
-                ), onInterestingItemClick = onInterestingItemClick
+                    layoutInflater,
+                    parent,
+                    false
+                ),
+                onWatchedItemClick = onWatchedItemClick
             )
-        } else ClearInterestingViewHolder(
+        } else ClearHistoryViewHolder(
             binding = ClearHistoryItemBinding.inflate(
-                layoutInflater, parent, false
-            ), onClearInterestingClick = onClearInterestingClick
+                layoutInflater,
+                parent,
+                false
+            ),
+            onClearHistoryClick = onClearHistoryClick
         )
     }
 
@@ -34,8 +42,8 @@ open class WishMoviesAdapter(
         val item = getItem(position)
         item?.let {
             if (getItemViewType(position) == ITEM_MOVIES) {
-                (holder as InterestingViewHolderCommon).bind(it)
-            } else (holder as ClearInterestingViewHolder).bind()
+                (holder as WatchedViewHolderCommon).bind(it)
+            } else (holder as ClearHistoryViewHolder).bind()
         }
     }
 
@@ -50,35 +58,49 @@ open class WishMoviesAdapter(
     }
 }
 
-class ClearInterestingViewHolder(
-    val binding: ClearHistoryItemBinding, val onClearInterestingClick: (View) -> Unit
+class ClearHistoryViewHolder(
+    val binding: ClearHistoryItemBinding,
+    val onClearHistoryClick: (View) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind() {
         with(binding) {
             trashPicture.setOnClickListener {
-                onClearInterestingClick(it)
+                onClearHistoryClick(it)
             }
         }
     }
 }
 
-class InterestingViewHolderCommon(
-    val binding: ItemFilmBinding, val onInterestingItemClick: (Movie) -> Unit
-) : RecyclerView.ViewHolder(binding.root) {
+class WatchedViewHolderCommon(
+    val binding: ItemFilmBinding,
+    val onWatchedItemClick: (Movie) -> Unit
+) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Movie) {
         with(binding) {
-            Glide.with(itemFilmPoster.context).load(item.posterUri).centerCrop()
+            Glide
+                .with(itemFilmPoster.context)
+                .load(item.posterUri)
+                .centerCrop()
                 .into(itemFilmPoster)
 
             itemFilmGenre.text = item.genre ?: ""
             itemFilmName.text = item.movieName ?: item.nameEn
             itemFilmRating.text = item.rating.toString()
         }
-
         binding.root.setOnClickListener {
-            onInterestingItemClick(item)
+            onWatchedItemClick(item)
         }
     }
 }
 
+class DiffUtilCallBackWatched : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.movieId == newItem.movieId
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
+    }
+}
 

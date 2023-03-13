@@ -1,19 +1,19 @@
-package com.becker.beckerSkillCinema.presentation.profile.interesting
+package com.becker.beckerSkillCinema.presentation.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.AppCompatImageButton
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.databinding.FragmentInterestingBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
-import com.becker.beckerSkillCinema.presentation.profile.interesting.adapter.InterestingAdapterIndividual
+import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
+import com.becker.beckerSkillCinema.presentation.profile.adapters.InterestingAdapterIndividual
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -21,7 +21,15 @@ import kotlinx.coroutines.flow.collectLatest
 class InterestingFragment :
     ViewBindingFragment<FragmentInterestingBinding>(FragmentInterestingBinding::inflate) {
 
-    private lateinit var backButton: AppCompatImageButton
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     private lateinit var interestingRecycler: RecyclerView
 
@@ -30,13 +38,13 @@ class InterestingFragment :
     )
 
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
+    private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        backButton = binding.backButton
-
-        interestingRecycler = binding.interestingRecyclerView
+        binding.backBtn.setOnClickListener { findNavController().popBackStack() }
+        interestingRecycler = binding.historyRecyclerView
         interestingRecycler.adapter = interestingAdapter
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -47,20 +55,12 @@ class InterestingFragment :
                 } else interestingRecycler.isVisible = false
             }
         }
-
-        backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
     }
 
-    private fun onItemClickInteresting(movie: Movie) {////////////////////////////////////////////
-        profileMovieViewModel.movieSelected(movie.movieId)
-//        profileMovieViewModel.getImagesList(movie.movieId)
-//        profileMovieViewModel.getStaffInfo(movie.movieId)
-//        profileMovieViewModel.getActorsInfo(movie.movieId)
-//        profileMovieViewModel.getSimilarMovies(movie.movieId)
-//        profileMovieViewModel.getSeriesInfo(movie.movieId)
-        profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_interestingFragment_to_fragmentFilmDetail)
+    private fun onItemClickInteresting(movie: Movie) {
+        filmDetailViewModel.putFilmId(movie.movieId)
+        val action =
+            InterestingFragmentDirections.actionInterestingFragmentToFragmentFilmDetail(movie.movieId)
+        findNavController().navigate(action)
     }
 }

@@ -122,28 +122,32 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentProfile" />
         <action
             android:id="@+id/action_navigation_profile_to_profileCollectionFragment"
             app:destination="@id/profileCollectionFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentProfile" />
         <action
             android:id="@+id/action_navigation_profile_to_watchedFragment"
             app:destination="@id/watchedFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentProfile" />
         <action
             android:id="@+id/action_navigation_profile_to_interestingFragment"
             app:destination="@id/interestingFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentProfile" />
     </fragment>
 
     <fragment
@@ -250,7 +254,8 @@
     <fragment
         android:id="@+id/fragmentVideo"
         android:name="com.becker.beckerSkillCinema.presentation.filmDetail.video.FragmentVideo"
-        android:label="FragmentVideo">
+        android:label="FragmentVideo"
+        tools:layout="@layout/fragment_video">
         <argument
             android:name="filmName"
             app:argType="string" />
@@ -303,7 +308,7 @@
 
     <fragment
         android:id="@+id/profileCollectionFragment"
-        android:name="com.becker.beckerSkillCinema.presentation.profile.customCollection.ProfileCollectionFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.profile.ProfileCollectionFragment"
         android:label="fragment_collection_profile"
         tools:layout="@layout/fragment_collection_profile">
         <action
@@ -317,9 +322,9 @@
 
     <fragment
         android:id="@+id/interestingFragment"
-        android:name="com.becker.beckerSkillCinema.presentation.profile.interesting.InterestingFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.profile.InterestingFragment"
         android:label="fragment_interesting"
-        tools:layout="@layout/fragment_interesting" >
+        tools:layout="@layout/fragment_interesting">
         <action
             android:id="@+id/action_interestingFragment_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail"
@@ -331,9 +336,9 @@
 
     <fragment
         android:id="@+id/watchedFragment"
-        android:name="com.becker.beckerSkillCinema.presentation.profile.watched.WatchedFragment"
+        android:name="com.becker.beckerSkillCinema.presentation.profile.WatchedFragment"
         android:label="fragment_watched"
-        tools:layout="@layout/fragment_watched" >
+        tools:layout="@layout/fragment_watched">
         <action
             android:id="@+id/action_watchedFragment_to_fragmentFilmDetail"
             app:destination="@id/fragmentFilmDetail"

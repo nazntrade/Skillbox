@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.presentation.profile.customCollection.adapter
+package com.becker.beckerSkillCinema.presentation.profile.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.localData.entities.CustomCollection
 import com.becker.beckerSkillCinema.databinding.CustomCollectionInProfileBinding
 
-
 open class CustomCollectionAdapter(
     val onCollectionItemClick: (CustomCollection) -> Unit,
     val onDeleteCollectionClick: (String) -> Unit
 ) : ListAdapter<CustomCollection, CustomSelectionViewHolder>(DiffUtilCallBackCustomCollection()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomSelectionViewHolder {
-
         return CustomSelectionViewHolder(
             binding = CustomCollectionInProfileBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
@@ -40,18 +38,15 @@ class CustomSelectionViewHolder(
     fun bind(item: CustomCollection) {
         with(binding) {
             customCollectionTitle.text = item.collectionName
-
             if (item.movieId == 0) {
                 numberInCustomCollection.isVisible = false
             } else {
                 numberInCustomCollection.isVisible = true
                 numberInCustomCollection.text = item.movieId.toString()
             }
-
             binding.root.setOnClickListener {
                 onCollectionItemClick(item)
             }
-
             closeButton.setOnClickListener {
                 onDeleteCollectionClick(item.collectionName)
             }

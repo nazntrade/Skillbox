@@ -1,26 +1,35 @@
-package com.becker.beckerSkillCinema.presentation.profile.watched
+package com.becker.beckerSkillCinema.presentation.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.AppCompatImageButton
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.databinding.FragmentWatchedBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
-import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
-import com.becker.beckerSkillCinema.presentation.profile.watched.adapter.WatchedAdapterIndividual
+import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
+import com.becker.beckerSkillCinema.presentation.profile.adapters.WatchedAdapterIndividual
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class WatchedFragment : ViewBindingFragment<FragmentWatchedBinding>(FragmentWatchedBinding::inflate) {
+class WatchedFragment :
+    ViewBindingFragment<FragmentWatchedBinding>(FragmentWatchedBinding::inflate) {
 
-    private lateinit var backButton: AppCompatImageButton
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     private lateinit var watchedRecycler: RecyclerView
 
@@ -29,12 +38,12 @@ class WatchedFragment : ViewBindingFragment<FragmentWatchedBinding>(FragmentWatc
     )
 
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
+    private val filmDetailViewModel: FilmDetailViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        backButton = binding.backButton
-
+        binding.backBtn.setOnClickListener { findNavController().popBackStack() }
         watchedRecycler = binding.watchedRecyclerView
         watchedRecycler.adapter = watchedAdapter
 
@@ -46,20 +55,12 @@ class WatchedFragment : ViewBindingFragment<FragmentWatchedBinding>(FragmentWatc
                 } else watchedRecycler.isVisible = false
             }
         }
-
-        backButton.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
     }
 
-    private fun onItemClickWatched(movie: Movie){
-        profileMovieViewModel.movieSelected(movie.movieId)
-//        profileMovieViewModel.getImagesList(movie.movieId)
-//        profileMovieViewModel.getStaffInfo(movie.movieId)
-//        profileMovieViewModel.getActorsInfo(movie.movieId)
-//        profileMovieViewModel.getSimilarMovies(movie.movieId)
-//        profileMovieViewModel.getSeriesInfo(movie.movieId)
-        profileMovieViewModel.getMovieFromDataBaseById(movie.movieId)
-        findNavController().navigate(R.id.action_watchedFragment_to_fragmentFilmDetail)
+    private fun onItemClickWatched(movie: Movie) {
+        filmDetailViewModel.putFilmId(movie.movieId)
+        val action =
+            WatchedFragmentDirections.actionWatchedFragmentToFragmentFilmDetail(movie.movieId)
+        findNavController().navigate(action)
     }
 }
