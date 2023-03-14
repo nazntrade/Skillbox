@@ -13,7 +13,7 @@ interface FavoritesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToFavorites(vararg favorites: Favorites)
 
-    @Query("SELECT * FROM Favorites")
+    @Query("SELECT * FROM Favorites ORDER BY dateAdded DESC")
     fun getAllFavorites(): Flow<List<Favorites>>
 
     @Query("DELETE FROM Favorites WHERE favoritesId = :movieId")

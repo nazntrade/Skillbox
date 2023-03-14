@@ -13,7 +13,7 @@ interface CustomCollectionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addMovieToCustomCollection(vararg customCollection: CustomCollection)
 
-    @Query("SELECT * FROM CustomCollection")
+    @Query("SELECT * FROM CustomCollection ORDER BY dateAdded DESC")
     fun getAllMoviesFromCustomCollection(): Flow<List<CustomCollection>>
 
     @Query("DELETE FROM CustomCollection WHERE collectionName =:collectionName AND movieId = :movieId")

@@ -13,7 +13,7 @@ interface InterestingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToInteresting(vararg interesting: Interesting)
 
-    @Query("SELECT * FROM Interesting")
+    @Query("SELECT * FROM Interesting ORDER BY dateAdded DESC")
     fun getAllInteresting(): Flow<List<Interesting>>
 
     @Query("DELETE FROM Interesting")

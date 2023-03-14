@@ -3,6 +3,7 @@ package com.becker.beckerSkillCinema.domain
 import com.becker.beckerSkillCinema.data.localData.entities.*
 import com.becker.beckerSkillCinema.data.repositories.RepositoryDataBase
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 import javax.inject.Inject
 
 class UseCaseLocal @Inject constructor(private val repositoryDataBase: RepositoryDataBase) {
@@ -86,5 +87,4 @@ class UseCaseLocal @Inject constructor(private val repositoryDataBase: Repositor
     suspend fun deleteFromToWatch(movieId: Int) {
         return repositoryDataBase.deleteFromToWatch(movieId)
     }
-
 }

@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 data class Watched(
     @PrimaryKey
     @ColumnInfo(name = "watchedId")
-    val watchedId: Int
+    val watchedId: Int,
+    @ColumnInfo(name = "dateAdded")
+    val dateAdded: String
 )

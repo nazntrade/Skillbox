@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 data class Favorites(
     @PrimaryKey
     @ColumnInfo(name = "favoritesId")
-    val favoritesId: Int
+    val favoritesId: Int,
+    @ColumnInfo(name = "dateAdded")
+    val dateAdded: String
 )

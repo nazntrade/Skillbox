@@ -13,11 +13,9 @@ interface ToWatchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToWatch(vararg toWatch: ToWatch)
 
-    @Query("SELECT * FROM ToWatch")
+    @Query("SELECT * FROM ToWatch ORDER BY dateAdded DESC")
     fun getAllToWatch(): Flow<List<ToWatch>>
 
     @Query("DELETE FROM ToWatch WHERE toWatchId = :movieId")
     suspend fun deleteFromToWatch(movieId: Int)
-
-
 }

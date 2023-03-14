@@ -3,6 +3,8 @@ package com.becker.beckerSkillCinema.presentation.profile.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -86,7 +88,13 @@ class WatchedViewHolderCommon(
 
             itemFilmGenre.text = item.genre ?: ""
             itemFilmName.text = item.movieName ?: item.nameEn
-            itemFilmRating.text = item.rating.toString()
+            if (item.rating == null) {
+                itemFilmRating.isInvisible = true
+            } else {
+                itemFilmRating.isVisible = true
+                itemFilmRating.text = item.rating.toString()
+            }
+            itemFilmYear.text = item.year.toString()
         }
         binding.root.setOnClickListener {
             onWatchedItemClick(item)

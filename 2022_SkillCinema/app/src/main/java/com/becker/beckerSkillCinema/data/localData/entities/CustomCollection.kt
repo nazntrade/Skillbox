@@ -8,5 +8,7 @@ data class CustomCollection(
     @ColumnInfo(name = "collectionName")
     val collectionName: String,
     @ColumnInfo(name = "movieId")
-    val movieId: Int
+    val movieId: Int,
+    @ColumnInfo(name = "dateAdded")
+    val dateAdded: String
 )

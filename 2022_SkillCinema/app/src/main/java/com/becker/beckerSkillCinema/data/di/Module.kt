@@ -46,19 +46,4 @@ object Module {
     @Provides
     @ViewModelScoped
     fun provideCustomSelectionDao(dataBase: MovieDataBase) = dataBase.customCollectionDao()
-
-//    @Provides
-//    @ViewModelScoped
-//    fun provideMovieApi(): MovieApi {
-//
-//        val moshi = Moshi.Builder()
-//            .add(KotlinJsonAdapterFactory())
-//            .build()
-//
-//        return Retrofit.Builder()
-//            .baseUrl(MovieApi.BASE_URl)
-//            .addConverterFactory(MoshiConverterFactory.create(moshi))
-//            .build()
-//            .create(MovieApi::class.java)
-//    }
 }

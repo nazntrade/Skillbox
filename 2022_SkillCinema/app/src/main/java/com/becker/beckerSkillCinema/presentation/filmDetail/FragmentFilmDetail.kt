@@ -68,10 +68,10 @@ class FragmentFilmDetail :
         setFilmGallery()                    // Set Gallery
         setSimilarFilms()                   // Set List Similar Films
         actionOnPosterBtn()
-        addFilmToDataBase()                 // Add watched film to DB
+        addCurrentFilmToDataBase()                 // Add watched film to DB
     }
 
-    private fun addFilmToDataBase() {
+    private fun addCurrentFilmToDataBase() {
         profileMovieViewModel.movieSelected(incomeArgs.filmId) //to store current movie in viewModel
         profileMovieViewModel.onInterestingButtonClick(incomeArgs.filmId)
     }

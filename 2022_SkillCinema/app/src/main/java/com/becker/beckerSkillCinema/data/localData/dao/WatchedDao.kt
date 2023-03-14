@@ -13,7 +13,7 @@ interface WatchedDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToWatched(vararg watched: Watched)
 
-    @Query("SELECT * FROM Watched")
+    @Query("SELECT * FROM Watched ORDER BY dateAdded DESC")
     fun getAllWatched(): Flow<List<Watched>>
 
     @Query("DELETE FROM Watched WHERE watchedId = :movieId")

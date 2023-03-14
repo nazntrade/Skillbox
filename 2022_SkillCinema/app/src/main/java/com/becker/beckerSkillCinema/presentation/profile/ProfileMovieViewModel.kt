@@ -7,7 +7,6 @@ import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.localData.entities.*
 import com.becker.beckerSkillCinema.data.profile.Collections
 import com.becker.beckerSkillCinema.domain.UseCaseLocal
-import com.becker.beckerSkillCinema.presentation.StateLoading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -73,7 +74,7 @@ class ProfileMovieViewModel @Inject constructor(
     private val _customCollections = MutableStateFlow<List<CustomCollection>>(emptyList())
     val customCollections = _customCollections.asStateFlow()
 
-//    private val _showWatchedAtSearchResult = MutableStateFlow(true)
+    //    private val _showWatchedAtSearchResult = MutableStateFlow(true)
 //    val showWatchedAtSearchResult = _showWatchedAtSearchResult.asStateFlow()
 //
     fun getAllInteresting() = useCaseLocal.getAllInterestingMovies()
@@ -81,9 +82,16 @@ class ProfileMovieViewModel @Inject constructor(
     private suspend fun addMovieToInteresting(movieId: Int) {
         useCaseLocal.addMovieToInteresting(
             interesting = Interesting(
-                interestingId = movieId
+                interestingId = movieId,
+                dateAdded = getDateTime()
             )
         )
+    }
+
+    private fun getDateTime(): String {
+        val watchedDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
+        return dateFormat.format(watchedDate).toString()
     }
 
     private suspend fun deleteAllMoviesFromInteresting() {
@@ -130,7 +138,9 @@ class ProfileMovieViewModel @Inject constructor(
     suspend fun addMovieToCustomCollection(collectionName: String, movieId: Int) {
         useCaseLocal.addMovieToCustomCollection(
             customCollection = CustomCollection(
-                collectionName = collectionName, movieId = movieId
+                collectionName = collectionName,
+                movieId = movieId,
+                dateAdded = getDateTime()
             )
         )
     }
@@ -192,6 +202,7 @@ class ProfileMovieViewModel @Inject constructor(
     }
 
     fun getCustomCollections(allMovies: List<CustomCollection>) {
+        val date = getDateTime()
         viewModelScope.launch {
             try {
                 val filteredCollections = mutableListOf<CustomCollection>()
@@ -206,9 +217,9 @@ class ProfileMovieViewModel @Inject constructor(
                 }
                 val names = allMovies.groupBy { it.collectionName }
                 names.forEach { (t, u) ->
-                    if (u.contains(CustomCollection(t, 0))) {
-                        filteredCollections.add(CustomCollection(t, u.size - 1))
-                    } else filteredCollections.add(CustomCollection(t, u.size))
+                    if (u.contains(CustomCollection(t, 0, date))) {
+                        filteredCollections.add(CustomCollection(t, u.size - 1, date))
+                    } else filteredCollections.add(CustomCollection(t, u.size, date))
                 }
                 _customCollections.value = filteredCollections
             } catch (e: Throwable) {
@@ -324,7 +335,8 @@ class ProfileMovieViewModel @Inject constructor(
             try {
                 useCaseLocal.addToWatched(
                     watched = Watched(
-                        watchedId = movieId
+                        watchedId = movieId,
+                        dateAdded = getDateTime()
                     )
                 )
             } catch (e: Throwable) {
@@ -386,7 +398,7 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-//    fun getWatchedMovies(allWatched: List<Watched>) {
+    //    fun getWatchedMovies(allWatched: List<Watched>) {
 //        viewModelScope.launch {
 //            try {
 //                _watchedMovies.value = allWatched
@@ -417,7 +429,8 @@ class ProfileMovieViewModel @Inject constructor(
             try {
                 useCaseLocal.addToFavorites(
                     favorites = Favorites(
-                        favoritesId = movieId
+                        favoritesId = movieId,
+                        dateAdded = getDateTime()
                     )
                 )
             } catch (e: Throwable) {
@@ -484,7 +497,8 @@ class ProfileMovieViewModel @Inject constructor(
             try {
                 useCaseLocal.addToWatch(
                     toWatch = ToWatch(
-                        toWatchId = movieId
+                        toWatchId = movieId,
+                        dateAdded = getDateTime()
                     )
                 )
             } catch (e: Throwable) {
@@ -544,7 +558,7 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-//    fun showWatchedMoviesAtSearchResult() {
+    //    fun showWatchedMoviesAtSearchResult() {
 //        viewModelScope.launch {
 //            try {
 //                _showWatchedAtSearchResult.value = !_showWatchedAtSearchResult.value
