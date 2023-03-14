@@ -30,8 +30,9 @@ class FilmographyAdapter(
 
     override fun onBindViewHolder(holder: FilmographyViewHolder, position: Int) {
         val item = getItem(position)
+        val poster = "https://kinopoiskapiunofficial.tech/images/posters/kp/${item.filmId}.jpg"
         holder.binding.apply {
-            itemFilmographyImage.loadImage(item.posterUrlPreview)
+            itemFilmographyImage.loadImage(poster)
             itemFilmographyName.text = item.nameRu ?: item.nameEn
             itemFilmographyGenre.text = PROFESSIONS[item.professionKey]
         }

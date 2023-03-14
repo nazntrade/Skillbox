@@ -21,6 +21,4 @@ interface MovieDao {
 
     @Query("SELECT * FROM Movie WHERE movieId = :movieId")
     suspend fun getMovieById(movieId: Int): Movie
-
-
 }

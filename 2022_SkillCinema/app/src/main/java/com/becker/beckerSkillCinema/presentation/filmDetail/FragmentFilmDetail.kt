@@ -74,12 +74,40 @@ class FragmentFilmDetail :
     private fun addFilmToDataBase() {
         profileMovieViewModel.movieSelected(incomeArgs.filmId) //to store current movie in viewModel
         profileMovieViewModel.onInterestingButtonClick(incomeArgs.filmId)
-
     }
 
     private fun actionOnPosterBtn() {
+        //Btn heart
+        checkOrDoOnHeartBtn()
+        //Btn bookmark
+        checkOrDoOnBookMarkBtn()
+        //Btn watched or not watched
+        checkOrDoOnWatchedBtn()
+        //Btn SHARE
+        binding.btnShare.setOnClickListener {
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "text/plain"
+            share.putExtra(
+                Intent.EXTRA_TEXT, "https://www.kinopoisk.ru/film/${incomeArgs.filmId}/"
+            )
+            startActivity(Intent.createChooser(share, "Share Link"))
+        }
+        //Btn show more
+        binding.btnShowMore.setOnClickListener {
+            profileMovieViewModel.getMovieFromDataBaseById(incomeArgs.filmId)
+            onClickCollectionHandler()
+        }
+    }
+
+    private fun checkOrDoOnHeartBtn() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllFavorites().collectLatest { list ->
+                profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                    profileMovieViewModel.checkFavorites(movieId, list)
+                }
+            }
+        }
         binding.apply {
-            //Btn heart
             btnToFavorite.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     profileMovieViewModel.movieSelected.collectLatest { movieId ->
@@ -92,7 +120,11 @@ class FragmentFilmDetail :
                     btnToFavorite.isActivated = it
                 }
             }
-            //Btn bookmark
+        }
+    }
+
+    private fun checkOrDoOnBookMarkBtn() {
+        binding.apply {
             btnToBookmark.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     profileMovieViewModel.movieSelected.collectLatest { movieId ->
@@ -105,7 +137,18 @@ class FragmentFilmDetail :
                     btnToBookmark.isActivated = it
                 }
             }
-            //Btn watched or not watched
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllToWatch().collectLatest { list ->
+                profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                    profileMovieViewModel.checkToWatch(movieId, list)
+                }
+            }
+        }
+    }
+
+    private fun checkOrDoOnWatchedBtn() {
+        binding.apply {
             btnIsWatched.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                     profileMovieViewModel.movieSelected.collectLatest { movieId ->
@@ -118,19 +161,12 @@ class FragmentFilmDetail :
                     btnIsWatched.isActivated = it
                 }
             }
-            //Btn SHARE
-            btnShare.setOnClickListener {
-                val share = Intent(Intent.ACTION_SEND)
-                share.type = "text/plain"
-                share.putExtra(
-                    Intent.EXTRA_TEXT, "https://www.kinopoisk.ru/film/${incomeArgs.filmId}/"
-                )
-                startActivity(Intent.createChooser(share, "Share Link"))
-            }
-            //Btn show more
-            btnShowMore.setOnClickListener {
-                profileMovieViewModel.getMovieFromDataBaseById(incomeArgs.filmId)
-                onClickCollectionHandler()
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileMovieViewModel.getAllWatched().collectLatest { list ->
+                profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                    profileMovieViewModel.checkWatched(movieId, list)
+                }
             }
         }
     }

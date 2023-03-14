@@ -60,12 +60,13 @@ class FilmAdapter(
         }
 
         fun bindItem(item: HomeItem, clickFilms: (filmId: Int) -> Unit) {
+            val poster = "https://kinopoiskapiunofficial.tech/images/posters/kp/${item.filmId}.jpg"
             binding.apply {
                 showAll.isInvisible = true
                 itemFilm.isInvisible = false
                 itemFilmName.text = item.nameRu
                 itemFilmGenre.text = getGenreName(item.genres)
-                itemFilmPoster.loadImage(item.posterUrlPreview)
+                itemFilmPoster.loadImage(poster)
                 if (item.rating != null) {
                     itemFilmRating.isInvisible = false
                     itemFilmRating.text = item.rating

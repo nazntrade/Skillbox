@@ -18,6 +18,4 @@ interface InterestingDao {
 
     @Query("DELETE FROM Interesting")
     suspend fun cleanInteresting()
-
-
 }

@@ -10,7 +10,7 @@ import com.becker.beckerSkillCinema.databinding.ClearHistoryItemBinding
 import com.becker.beckerSkillCinema.databinding.ItemFilmBinding
 import com.bumptech.glide.Glide
 
-open class WishMoviesAdapter(
+open class HistoryAdapter(
     val onInterestingItemClick: (Movie) -> Unit, val onClearInterestingClick: (View) -> Unit
 ) : ListAdapter<Movie, RecyclerView.ViewHolder>(DiffUtilCallBackWatched()) {
 

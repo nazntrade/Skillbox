@@ -22,7 +22,7 @@ import com.becker.beckerSkillCinema.databinding.FragmentProfileBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.profile.adapters.CustomCollectionAdapter
-import com.becker.beckerSkillCinema.presentation.profile.adapters.WishMoviesAdapter
+import com.becker.beckerSkillCinema.presentation.profile.adapters.HistoryAdapter
 import com.becker.beckerSkillCinema.presentation.profile.adapters.WatchedAdapterCommon
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
@@ -51,7 +51,7 @@ class ProfileFragment :
         onWatchedItemClick = { movie -> onWatchedItemClick(movie) },
         onClearHistoryClick = { onClearWatchedClick() }
     )
-    private val wishMoviesAdapter = WishMoviesAdapter(
+    private val historyAdapter = HistoryAdapter(
         onInterestingItemClick = { movie -> onInterestingItemClick(movie) },
         onClearInterestingClick = { onClearInterestingClick() }
     )
@@ -92,7 +92,7 @@ class ProfileFragment :
 
     private fun setAdapters() {
         watchedRecyclerView.adapter = watchedAdapter
-        historyRecyclerView.adapter = wishMoviesAdapter
+        historyRecyclerView.adapter = historyAdapter
         collectionRecyclerView.adapter = collectionAdapter
     }
 
@@ -131,7 +131,7 @@ class ProfileFragment :
             profileMovieViewModel.interestingList.collectLatest {
                 if (it.isNotEmpty()) {
                     historyRecyclerView.isVisible = true
-                    wishMoviesAdapter.submitList(it.take(11))
+                    historyAdapter.submitList(it.take(11))
                 } else historyRecyclerView.isVisible = false
             }
         }

@@ -53,17 +53,17 @@ class SearchSettingsFragment :
         setTextCountryGenre()
         setSortOrder()
         setRatingSlider()
-        setCheckBoxViewed()
+//        setCheckBoxViewed()
         resetSettings()
     }
-
-    private fun setCheckBoxViewed() {
-        binding.checkboxIsWatched.setOnClickListener {
-            if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text =
-                getString(R.string.watched)
-            else binding.checkboxIsWatched.text = getString(R.string.marked_watched)
-        }
-    }
+//
+//    private fun setCheckBoxViewed() {
+//        binding.checkboxIsWatched.setOnClickListener {
+//            if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text =
+//                getString(R.string.watched)
+//            else binding.checkboxIsWatched.text = getString(R.string.marked_watched)
+//        }
+//    }
 
     private fun resetSettings() {
         binding.resetSettingsBtn.setOnClickListener {
