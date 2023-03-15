@@ -9,7 +9,7 @@ import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
 import com.becker.beckerSkillCinema.data.ParamsFilterFilm
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterCountry
 import com.becker.beckerSkillCinema.data.filmByFilter.FilterGenre
-import com.becker.beckerSkillCinema.data.persomFronSearch.PeopleFromSearch
+import com.becker.beckerSkillCinema.data.personFromSearch.PeopleFromSearch
 import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetGenresCountriesUseCase
 import com.becker.beckerSkillCinema.domain.GetPeopleFromSearchUseCase

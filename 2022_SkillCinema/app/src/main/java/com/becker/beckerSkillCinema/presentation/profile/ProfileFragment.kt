@@ -11,7 +11,9 @@ import androidx.appcompat.widget.*
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
@@ -25,6 +27,7 @@ import com.becker.beckerSkillCinema.presentation.profile.adapters.CustomCollecti
 import com.becker.beckerSkillCinema.presentation.profile.adapters.HistoryAdapter
 import com.becker.beckerSkillCinema.presentation.profile.adapters.WatchedAdapterCommon
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.util.*
 
 class ProfileFragment :
@@ -98,91 +101,115 @@ class ProfileFragment :
 
     private fun getMoviesFromCollections() {
         //AllMoviesFromCustomCollection
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                profileMovieViewModel.getCustomCollectionNames(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                    profileMovieViewModel.getCustomCollectionNames(list)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                profileMovieViewModel.getCustomCollections(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                    profileMovieViewModel.getCustomCollections(list)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.customCollections.collectLatest {
-                if (it.isNotEmpty()) {
-                    collectionRecyclerView.isVisible = true
-                    collectionAdapter.submitList(it)
-                } else collectionRecyclerView.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.customCollections.collectLatest {
+                    if (it.isNotEmpty()) {
+                        collectionRecyclerView.isVisible = true
+                        collectionAdapter.submitList(it)
+                    } else collectionRecyclerView.isVisible = false
+                }
             }
         }
         //get all movie from history
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllInteresting().collectLatest { list ->
-                profileMovieViewModel.buildInterestingList(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllInteresting().collectLatest { list ->
+                    profileMovieViewModel.buildInterestingList(list)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllInteresting().collectLatest {
-                allHistoryNumber.text = it.size.toString()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllInteresting().collectLatest {
+                    allHistoryNumber.text = it.size.toString()
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.interestingList.collectLatest {
-                if (it.isNotEmpty()) {
-                    historyRecyclerView.isVisible = true
-                    historyAdapter.submitList(it.take(11))
-                } else historyRecyclerView.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.interestingList.collectLatest {
+                    if (it.isNotEmpty()) {
+                        historyRecyclerView.isVisible = true
+                        historyAdapter.submitList(it.take(11))
+                    } else historyRecyclerView.isVisible = false
+                }
             }
         }
         //get watched
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllWatched().collectLatest { list ->
-                profileMovieViewModel.buildWatchedList(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllWatched().collectLatest { list ->
+                    profileMovieViewModel.buildWatchedList(list)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllWatched().collectLatest {
-                allWatchedNumber.text = it.size.toString()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllWatched().collectLatest {
+                    allWatchedNumber.text = it.size.toString()
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.watchedList.collectLatest {
-                if (it.isNotEmpty()) {
-                    watchedRecyclerView.isVisible = true
-                    watchedAdapter.submitList(it.take(11))
-                } else watchedRecyclerView.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.watchedList.collectLatest {
+                    if (it.isNotEmpty()) {
+                        watchedRecyclerView.isVisible = true
+                        watchedAdapter.submitList(it.take(11))
+                    } else watchedRecyclerView.isVisible = false
+                }
             }
         }
         //To Watch
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllToWatch().collectLatest {
-                if (it.isNotEmpty()) {
-                    numberInToWatchCollection.isVisible = true
-                    numberInToWatchCollection.text = it.size.toString()
-                } else numberInToWatchCollection.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllToWatch().collectLatest {
+                    if (it.isNotEmpty()) {
+                        numberInToWatchCollection.isVisible = true
+                        numberInToWatchCollection.text = it.size.toString()
+                    } else numberInToWatchCollection.isVisible = false
+                }
             }
         }
         //Favorites
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllFavorites().collectLatest {
-                if (it.isNotEmpty()) {
-                    numberInFavoritesCollection.isVisible = true
-                    numberInFavoritesCollection.text = it.size.toString()
-                } else numberInFavoritesCollection.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllFavorites().collectLatest {
+                    if (it.isNotEmpty()) {
+                        numberInFavoritesCollection.isVisible = true
+                        numberInFavoritesCollection.text = it.size.toString()
+                    } else numberInFavoritesCollection.isVisible = false
+                }
             }
         }
     }
 
     private fun setListeners() {
         //Create collection
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                createCollectionText.setOnClickListener {
-                    createCollection(list)
-                }
-                createCollectionButton.setOnClickListener {
-                    createCollection(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                    createCollectionText.setOnClickListener {
+                        createCollection(list)
+                    }
+                    createCollectionButton.setOnClickListener {
+                        createCollection(list)
+                    }
                 }
             }
         }
@@ -283,27 +310,31 @@ class ProfileFragment :
                 .trim { it <= ' ' }
                 .lowercase(Locale.ROOT)
                 .replaceFirstChar { it.uppercaseChar() }
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                val tempList = profileMovieViewModel.customCollectionNamesList.value
-                if (!tempList.all { it != collectionNameFormatted }) {
-                    dialog.dismiss()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    val tempList = profileMovieViewModel.customCollectionNamesList.value
+                    if (!tempList.all { it != collectionNameFormatted }) {
+                        dialog.dismiss()
+                    }
                 }
             }
 
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                val tempList = profileMovieViewModel.customCollectionNamesList.value
-                if (tempList.all { it != collectionNameFormatted }) {
-                    profileMovieViewModel.addMovieToCustomCollection(
-                        collectionNameFormatted,
-                        0
-                    )
-                    val customCollectionView =
-                        layoutInflater.inflate(
-                            R.layout.custom_collection_in_profile,
-                            null
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    val tempList = profileMovieViewModel.customCollectionNamesList.value
+                    if (tempList.all { it != collectionNameFormatted }) {
+                        profileMovieViewModel.addMovieToCustomCollection(
+                            collectionNameFormatted,
+                            0
                         )
-                    customCollectionView.id = View.generateViewId()
-                    dialog.dismiss()
+                        val customCollectionView =
+                            layoutInflater.inflate(
+                                R.layout.custom_collection_in_profile,
+                                null
+                            )
+                        customCollectionView.id = View.generateViewId()
+                        dialog.dismiss()
+                    }
                 }
             }
         }
@@ -323,3 +354,6 @@ class ProfileFragment :
         findNavController().navigate(R.id.action_navigation_profile_to_profileCollectionFragment)
     }
 }
+
+//viewLifecycleOwner.lifecycleScope.launch {
+//                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

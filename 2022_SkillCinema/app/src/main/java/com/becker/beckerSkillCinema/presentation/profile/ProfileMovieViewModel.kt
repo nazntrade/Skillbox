@@ -206,13 +206,13 @@ class ProfileMovieViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val filteredCollections = mutableListOf<CustomCollection>()
-                val emptyMovie = mutableListOf<CustomCollection>()
-                allMovies.forEach { if (it.movieId == 0) emptyMovie.add(it) }
-                emptyMovie.forEach { emptyCollection ->
+                val emptyMovies = mutableListOf<CustomCollection>()
+                allMovies.forEach { if (it.movieId == 0) emptyMovies.add(it) }
+                emptyMovies.forEach { itemEmptyMovie ->
                     val groupedCollections =
-                        allMovies.filter { it.collectionName == emptyCollection.collectionName }
+                        allMovies.filter { it.collectionName == itemEmptyMovie.collectionName }
                     if (groupedCollections.size > 1) {
-                        deleteMovieFromCustomCollection(emptyCollection.collectionName, 0)
+                        deleteMovieFromCustomCollection(itemEmptyMovie.collectionName, 0)
                     }
                 }
                 val names = allMovies.groupBy { it.collectionName }

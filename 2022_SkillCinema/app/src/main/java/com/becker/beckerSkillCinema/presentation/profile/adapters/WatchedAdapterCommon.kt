@@ -76,8 +76,7 @@ class ClearHistoryViewHolder(
 class WatchedViewHolderCommon(
     val binding: ItemFilmBinding,
     val onWatchedItemClick: (Movie) -> Unit
-) :
-    RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Movie) {
         with(binding) {
             Glide
@@ -85,7 +84,6 @@ class WatchedViewHolderCommon(
                 .load(item.posterUri)
                 .centerCrop()
                 .into(itemFilmPoster)
-
             itemFilmGenre.text = item.genre ?: ""
             itemFilmName.text = item.movieName ?: item.nameEn
             if (item.rating == null) {
@@ -111,4 +109,3 @@ class DiffUtilCallBackWatched : DiffUtil.ItemCallback<Movie>() {
         return oldItem == newItem
     }
 }
-

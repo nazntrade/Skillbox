@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.becker.beckerSkillCinema.data.persomFronSearch.PeopleFromSearch
+import com.becker.beckerSkillCinema.data.personFromSearch.PeopleFromSearch
 import com.becker.beckerSkillCinema.databinding.ItemFilmSearchBinding
 import com.becker.beckerSkillCinema.utils.loadImage
 

@@ -3,7 +3,7 @@ package com.becker.beckerSkillCinema.data
 /**
 
 PROFILE - current task
-All Strings !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+All Strings and constants!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 10. !!!!!!!!!!!!!!!!!! all STRINGS to resources, Keys to constants, file constants
 11. more Beautifully animation katachi

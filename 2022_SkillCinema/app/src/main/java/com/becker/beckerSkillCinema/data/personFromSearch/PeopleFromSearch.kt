@@ -1,4 +1,4 @@
-package com.becker.beckerSkillCinema.data.persomFronSearch
+package com.becker.beckerSkillCinema.data.personFromSearch
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

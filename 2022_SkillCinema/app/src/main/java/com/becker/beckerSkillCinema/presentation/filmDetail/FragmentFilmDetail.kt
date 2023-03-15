@@ -100,24 +100,30 @@ class FragmentFilmDetail :
     }
 
     private fun checkOrDoOnHeartBtn() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllFavorites().collectLatest { list ->
-                profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                    profileMovieViewModel.checkFavorites(movieId, list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllFavorites().collectLatest { list ->
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.checkFavorites(movieId, list)
+                    }
                 }
             }
         }
         binding.apply {
             btnToFavorite.setOnClickListener {
-                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                        profileMovieViewModel.onFavoritesButtonClick(movieId)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                            profileMovieViewModel.onFavoritesButtonClick(movieId)
+                        }
                     }
                 }
             }
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                profileMovieViewModel.addedToFavorites.collectLatest {
-                    btnToFavorite.isActivated = it
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    profileMovieViewModel.addedToFavorites.collectLatest {
+                        btnToFavorite.isActivated = it
+                    }
                 }
             }
         }
@@ -126,22 +132,28 @@ class FragmentFilmDetail :
     private fun checkOrDoOnBookMarkBtn() {
         binding.apply {
             btnToBookmark.setOnClickListener {
-                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                        profileMovieViewModel.onToWatchButtonClick(movieId)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                            profileMovieViewModel.onToWatchButtonClick(movieId)
+                        }
                     }
                 }
             }
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                profileMovieViewModel.addedToWatch.collectLatest {
-                    btnToBookmark.isActivated = it
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    profileMovieViewModel.addedToWatch.collectLatest {
+                        btnToBookmark.isActivated = it
+                    }
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllToWatch().collectLatest { list ->
-                profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                    profileMovieViewModel.checkToWatch(movieId, list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllToWatch().collectLatest { list ->
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.checkToWatch(movieId, list)
+                    }
                 }
             }
         }
@@ -150,22 +162,28 @@ class FragmentFilmDetail :
     private fun checkOrDoOnWatchedBtn() {
         binding.apply {
             btnIsWatched.setOnClickListener {
-                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                        profileMovieViewModel.onWatchedButtonClick(movieId)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                            profileMovieViewModel.onWatchedButtonClick(movieId)
+                        }
                     }
                 }
             }
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                profileMovieViewModel.addedToWatched.collectLatest {
-                    btnIsWatched.isActivated = it
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    profileMovieViewModel.addedToWatched.collectLatest {
+                        btnIsWatched.isActivated = it
+                    }
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllWatched().collectLatest { list ->
-                profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                    profileMovieViewModel.checkWatched(movieId, list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllWatched().collectLatest { list ->
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.checkWatched(movieId, list)
+                    }
                 }
             }
         }
@@ -183,33 +201,35 @@ class FragmentFilmDetail :
         binding.progressGroupContainer.loadingRefreshBtn
             .setOnClickListener { viewModel.getFilmById() }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.loadingCurrentFilmState.collect { state ->
-                when (state) {
-                    is StateLoading.Loading -> {
-                        binding.apply {
-                            filmDetailMotionLayout.isGone = true
-                            progressGroupContainer.progressGroup.isVisible = true
-                            progressGroupContainer.loadingProgressBar.isVisible = true
-                            progressGroupContainer.loadingRefreshBtn.isVisible = false
-                            progressGroupContainer.noAnswerText.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadingCurrentFilmState.collect { state ->
+                    when (state) {
+                        is StateLoading.Loading -> {
+                            binding.apply {
+                                filmDetailMotionLayout.isGone = true
+                                progressGroupContainer.progressGroup.isVisible = true
+                                progressGroupContainer.loadingProgressBar.isVisible = true
+                                progressGroupContainer.loadingRefreshBtn.isVisible = false
+                                progressGroupContainer.noAnswerText.isVisible = false
+                            }
                         }
-                    }
-                    is StateLoading.Success -> {
-                        binding.apply {
-                            filmDetailMotionLayout.isGone = false
-                            progressGroupContainer.progressGroup.isVisible = false
-                            filmMainGroupWithPoster.isVisible = true
-                            filmDescriptionGroup.isVisible = true
+                        is StateLoading.Success -> {
+                            binding.apply {
+                                filmDetailMotionLayout.isGone = false
+                                progressGroupContainer.progressGroup.isVisible = false
+                                filmMainGroupWithPoster.isVisible = true
+                                filmDescriptionGroup.isVisible = true
+                            }
                         }
-                    }
-                    else -> {
-                        binding.apply {
-                            filmDetailMotionLayout.isGone = true
-                            progressGroupContainer.progressGroup.isVisible = true
-                            progressGroupContainer.loadingProgressBar.isVisible = false
-                            progressGroupContainer.loadingRefreshBtn.isVisible = true
-                            progressGroupContainer.noAnswerText.isVisible = true
+                        else -> {
+                            binding.apply {
+                                filmDetailMotionLayout.isGone = true
+                                progressGroupContainer.progressGroup.isVisible = true
+                                progressGroupContainer.loadingProgressBar.isVisible = false
+                                progressGroupContainer.loadingRefreshBtn.isVisible = true
+                                progressGroupContainer.noAnswerText.isVisible = true
+                            }
                         }
                     }
                 }
@@ -223,38 +243,41 @@ class FragmentFilmDetail :
             viewModel.getFilmId()
             viewModel.getFilmById()
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            lifecycleScope.launch {
-                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    try {
-                        viewModel.currentFilm.collect { film ->
-                            if (film != null) {
-                                if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
-                                    binding.seasonsGroup.isVisible = true
-                                    viewModel.getSeasons(film.kinopoiskId)
-                                    getSeriesSeasons(getName(film))
-                                } else {
-                                    binding.seasonsGroup.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                lifecycleScope.launch {
+                    lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        try {
+                            viewModel.currentFilm.collect { film ->
+                                if (film != null) {
+                                    if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
+                                        binding.seasonsGroup.isVisible = true
+                                        viewModel.getSeasons(film.kinopoiskId)
+                                        getSeriesSeasons(getName(film))
+                                    } else {
+                                        binding.seasonsGroup.isVisible = false
+                                    }
+                                    binding.apply {
+                                        val filmNameExtracted = getName(film)
+                                        filmName.text = filmNameExtracted
+                                        getVideo(filmNameExtracted)
+                                        filmPoster.loadImage(film.posterUrl)
+                                        filmDescriptionShort.text = film.shortDescription
+                                        filmDescriptionFull.text = film.description
+                                        filmRatingNameTv.text = getRatingName(film)
+                                        filmYearGenresTv.text =
+                                            getYearAndGenres(film, requireContext())
+                                        filmCountryLengthAgeLimitTv.text =
+                                            getStrCountriesLengthAge(film)
+                                    }
                                 }
-                                binding.apply {
-                                    val filmNameExtracted = getName(film)
-                                    filmName.text = filmNameExtracted
-                                    getVideo(filmNameExtracted)
-                                    filmPoster.loadImage(film.posterUrl)
-                                    filmDescriptionShort.text = film.shortDescription
-                                    filmDescriptionFull.text = film.description
-                                    filmRatingNameTv.text = getRatingName(film)
-                                    filmYearGenresTv.text = getYearAndGenres(film, requireContext())
-                                    filmCountryLengthAgeLimitTv.text =
-                                        getStrCountriesLengthAge(film)
+                                if (film != null) {
+                                    profileMovieViewModel.addMovieToDataBase(film)
                                 }
                             }
-                            if (film != null) {
-                                profileMovieViewModel.addMovieToDataBase(film)
-                            }
+                        } catch (e: Throwable) {
+                            Timber.e("setFilmDetails $e")
                         }
-                    } catch (e: Throwable) {
-                        Timber.e("setFilmDetails $e")
                     }
                 }
             }
@@ -312,25 +335,27 @@ class FragmentFilmDetail :
 
         binding.filmActorsList.adapter = actorAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentFilmActors.collect { actorList ->
-                binding.filmActorsCount.text = actorList.size.toString()
-                if (actorList.size < MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) {
-                    binding.filmActorsCount.isEnabled = false
-                    binding.filmActorsBtn.isEnabled = false
-                    actorAdapter.submitList(actorList)
-                } else {    // set only if fewer 20
-                    binding.filmActorsCount.isEnabled = true
-                    binding.filmActorsBtn.isEnabled = true
-                    val actorsListTemp = mutableListOf<ResponseStaffByFilmId>()
-                    repeat(MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) {
-                        actorsListTemp.add(actorList[it])
-                    }
-                    actorAdapter.submitList(actorsListTemp)
-                    binding.apply {
-                        filmActorsLabel.setOnClickListener { showAllStaffs("ACTOR") }
-                        filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
-                        filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentFilmActors.collect { actorList ->
+                    binding.filmActorsCount.text = actorList.size.toString()
+                    if (actorList.size < MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) {
+                        binding.filmActorsCount.isEnabled = false
+                        binding.filmActorsBtn.isEnabled = false
+                        actorAdapter.submitList(actorList)
+                    } else {    // set only if fewer 20
+                        binding.filmActorsCount.isEnabled = true
+                        binding.filmActorsBtn.isEnabled = true
+                        val actorsListTemp = mutableListOf<ResponseStaffByFilmId>()
+                        repeat(MAX_ACTORS_COLUMN * MAX_ACTORS_ROWS) {
+                            actorsListTemp.add(actorList[it])
+                        }
+                        actorAdapter.submitList(actorsListTemp)
+                        binding.apply {
+                            filmActorsLabel.setOnClickListener { showAllStaffs("ACTOR") }
+                            filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
+                            filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
+                        }
                     }
                 }
             }
@@ -347,23 +372,25 @@ class FragmentFilmDetail :
 
         binding.filmMakersList.adapter = makersAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentFilmMakers.collect { makersList ->
-                binding.filmMakersCount.text = makersList.size.toString()
-                if (makersList.size < MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) {
-                    binding.filmMakersCount.isEnabled = false
-                    binding.filmMakersBtn.isEnabled = false
-                    makersAdapter.submitList(makersList)
-                } else {    // set only if fewer 6
-                    binding.filmMakersCount.isEnabled = true
-                    binding.filmMakersBtn.isEnabled = true
-                    val makersListTemp = mutableListOf<ResponseStaffByFilmId>()
-                    repeat(MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) { makersListTemp.add(makersList[it]) }
-                    makersAdapter.submitList(makersListTemp)
-                    binding.apply {
-                        filmMakersLabel.setOnClickListener { showAllStaffs("") }
-                        filmMakersBtn.setOnClickListener { showAllStaffs("") }
-                        filmMakersCount.setOnClickListener { showAllStaffs("") }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentFilmMakers.collect { makersList ->
+                    binding.filmMakersCount.text = makersList.size.toString()
+                    if (makersList.size < MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) {
+                        binding.filmMakersCount.isEnabled = false
+                        binding.filmMakersBtn.isEnabled = false
+                        makersAdapter.submitList(makersList)
+                    } else {    // set only if fewer 6
+                        binding.filmMakersCount.isEnabled = true
+                        binding.filmMakersBtn.isEnabled = true
+                        val makersListTemp = mutableListOf<ResponseStaffByFilmId>()
+                        repeat(MAX_MAKERS_COLUMN * MAX_MAKERS_ROWS) { makersListTemp.add(makersList[it]) }
+                        makersAdapter.submitList(makersListTemp)
+                        binding.apply {
+                            filmMakersLabel.setOnClickListener { showAllStaffs("") }
+                            filmMakersBtn.setOnClickListener { showAllStaffs("") }
+                            filmMakersCount.setOnClickListener { showAllStaffs("") }
+                        }
                     }
                 }
             }
@@ -389,21 +416,25 @@ class FragmentFilmDetail :
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.filmGalleryList.adapter = galleryAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentFilmGallery.collect { responseGallery ->
-                galleryAdapter.submitList(responseGallery)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentFilmGallery.collect { responseGallery ->
+                    galleryAdapter.submitList(responseGallery)
+                }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.totalNumberOfPictures.collect {
-                binding.filmGalleryCount.text = it.toString()
-                if (it > 20) {
-                    binding.filmGalleryBtn.isEnabled = true
-                    binding.filmGalleryCount.isEnabled = true
-                } else {
-                    binding.filmGalleryBtn.isEnabled = false
-                    binding.filmGalleryCount.isEnabled = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.totalNumberOfPictures.collect {
+                    binding.filmGalleryCount.text = it.toString()
+                    if (it > 20) {
+                        binding.filmGalleryBtn.isEnabled = true
+                        binding.filmGalleryCount.isEnabled = true
+                    } else {
+                        binding.filmGalleryBtn.isEnabled = false
+                        binding.filmGalleryCount.isEnabled = false
+                    }
                 }
             }
         }
@@ -441,14 +472,18 @@ class FragmentFilmDetail :
 
         binding.filmSimilarList.adapter = similarAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentFilmSimilar.collect {
-                similarAdapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentFilmSimilar.collect {
+                    similarAdapter.submitList(it)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.countSimilarFilm.collect {
-                binding.filmSimilarCount.text = it.toString()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.countSimilarFilm.collect {
+                    binding.filmSimilarCount.text = it.toString()
+                }
             }
         }
         binding.apply {

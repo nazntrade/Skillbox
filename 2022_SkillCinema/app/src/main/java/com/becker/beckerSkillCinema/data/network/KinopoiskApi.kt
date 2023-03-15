@@ -6,7 +6,7 @@ import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.filmGallery.ResponseFilmGallery
 import com.becker.beckerSkillCinema.data.filmsPremier.ResponsePremier
 import com.becker.beckerSkillCinema.data.filmsTop.ResponseTop
-import com.becker.beckerSkillCinema.data.persomFronSearch.ResponsePeopleFromSearch
+import com.becker.beckerSkillCinema.data.personFromSearch.ResponsePeopleFromSearch
 import com.becker.beckerSkillCinema.data.seasons.ResponseSeasons
 import com.becker.beckerSkillCinema.data.similarFilm.ResponseSimilarFilms
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
