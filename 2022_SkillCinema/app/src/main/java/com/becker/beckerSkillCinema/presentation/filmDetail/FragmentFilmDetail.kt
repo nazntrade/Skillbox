@@ -95,7 +95,7 @@ class FragmentFilmDetail :
 
     private fun doOnClickShowMoreBtn() {
         binding.btnShowMore.setOnClickListener {
-            profileMovieViewModel.getMovieFromDataBaseById(incomeArgs.filmId)
+            profileMovieViewModel.getCurrentMovieFromDataBaseById(incomeArgs.filmId)
             onClickCollectionHandler()
         }
     }
@@ -112,6 +112,7 @@ class FragmentFilmDetail :
     }
 
     private fun checkOrDoOnHeartBtn() {
+        //check favorites
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllFavorites().collectLatest { list ->
@@ -121,6 +122,7 @@ class FragmentFilmDetail :
                 }
             }
         }
+        //add movie_favorites to data base (or delete if it already there)
         binding.apply {
             btnToFavorite.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -143,24 +145,7 @@ class FragmentFilmDetail :
     }
 
     private fun checkOrDoOnBookMarkBtn() {
-        binding.apply {
-            btnToBookmark.setOnClickListener {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                            profileMovieViewModel.onToWatchButtonClick(movieId)
-                        }
-                    }
-                }
-            }
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    profileMovieViewModel.addedToWatch.collectLatest {
-                        btnToBookmark.isActivated = it
-                    }
-                }
-            }
-        }
+        //check toWatch (bookmark Btn)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllToWatch().collectLatest { list ->
@@ -170,9 +155,40 @@ class FragmentFilmDetail :
                 }
             }
         }
+        //add movie_want_toWatch to data base (or delete if it already there)
+        binding.apply {
+            btnToBookmark.setOnClickListener {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                            profileMovieViewModel.doOnBookmarkBtnClick(movieId)
+                        }
+                    }
+                }
+            }
+            //toggle Btn state
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    profileMovieViewModel.addedToWatch.collectLatest {
+                        btnToBookmark.isActivated = it
+                    }
+                }
+            }
+        }
     }
 
     private fun checkOrDoOnWatchedBtn() {
+        //check watched
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllWatched().collectLatest { list ->
+                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
+                        profileMovieViewModel.checkWatched(movieId, list)
+                    }
+                }
+            }
+        }
+        //add watched_movie to data base (or delete if it already there)
         binding.apply {
             btnIsWatched.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -183,19 +199,11 @@ class FragmentFilmDetail :
                     }
                 }
             }
+            //toggle Btn state
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     profileMovieViewModel.addedToWatched.collectLatest {
                         btnIsWatched.isActivated = it
-                    }
-                }
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileMovieViewModel.getAllWatched().collectLatest { list ->
-                    profileMovieViewModel.movieSelected.collectLatest { movieId ->
-                        profileMovieViewModel.checkWatched(movieId, list)
                     }
                 }
             }
@@ -519,106 +527,108 @@ class FragmentFilmDetail :
         binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
     }
 
+
+    private fun getRatingName(film: ResponseCurrentFilm): String {
+        val result = mutableListOf<String>()
+        val rating = when {
+            film.ratingImdb != null -> film.ratingImdb.toString()  //this is my priority
+            film.ratingKinopoisk != null -> film.ratingKinopoisk.toString()
+            film.ratingMpaa != null -> film.ratingMpaa.toString()
+            else -> null
+        }
+        if (rating != null) result.add(rating)
+        val name = when {
+            film.nameOriginal != null -> film.nameOriginal  //this is my priority
+            film.nameRu != null -> film.nameRu
+            film.nameEn != null -> film.nameEn
+            else -> null
+        }
+        if (name != null) result.add(name)
+        return result.joinToString(", ")
+    }
+
+    private fun getName(film: ResponseCurrentFilm): String {
+        return when {
+            film.nameRu != null -> film.nameRu
+            film.nameEn != null -> film.nameEn
+            film.nameOriginal != null -> film.nameOriginal
+            else -> ""
+        }
+    }
+
+    private fun getYearAndGenres(film: ResponseCurrentFilm, context: Context): String {
+        val result = mutableListOf<String>()
+
+        if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
+            val tempStr = mutableListOf<String>()
+            if (film.startYear != null && film.endYear != null) {
+                tempStr.add(film.startYear.toString())
+                tempStr.add(film.endYear.toString())
+            } else {
+                if (film.startYear != null) tempStr.add(film.startYear.toString())
+                else context.getString(R.string.placeholder_series_start_year)
+                if (film.endYear != null) tempStr.add(film.endYear.toString())
+                else context.getString(R.string.placeholder_series_end_year)
+            }
+            result.add(tempStr.joinToString("-"))
+        } else {
+            if (film.year != null) result.add(film.year.toString())
+        }
+
+        if (film.genres.size > 1) {
+            val genreNameList = mutableListOf<String>()
+            repeat(2) {
+                genreNameList.add(film.genres[it].genre)
+            }
+            result.add(genreNameList.joinToString(", "))
+        } else if (film.genres.size == 1) {
+            result.add(film.genres[0].genre)
+        } else result.add("")
+
+        return result.joinToString(", ")
+    }
+
+    private fun getStrCountriesLengthAge(film: ResponseCurrentFilm): String {
+        val result = mutableListOf<String?>()
+        result.add(film.getCountries())
+        if (film.getLength() != null) result.add(film.getLength())
+        if (film.getAgeLimit() != null) result.add("${film.getAgeLimit()}+")
+
+        return result.joinToString(", ")
+    }
+
+    private fun ResponseCurrentFilm.getCountries(): String {
+        return if (this.countries.size > 1) {
+            val list = mutableListOf<String>()
+            repeat(this.countries.size - 1) {
+                list.add(this.countries[it].country)
+            }
+            list.joinToString(", ")
+        } else if (this.countries.size == 1) {
+            this.countries[0].country
+        } else {
+            ""
+        }
+    }
+
+    private fun ResponseCurrentFilm.getLength(): String? {
+        return if (this.filmLength != null) {
+            val hours = this.filmLength.div(60)
+            val minutes = this.filmLength.rem(60)
+            "$hours ч $minutes мин"
+        } else null
+    }
+
+    private fun ResponseCurrentFilm.getAgeLimit(): String? {
+        return if (this.ratingAgeLimits != null) this.ratingAgeLimits.removePrefix("age")
+        else null
+    }
+
     companion object {
         private const val MAX_ACTORS_COLUMN = 5
         private const val MAX_ACTORS_ROWS = 4
         private const val MAX_MAKERS_COLUMN = 3
         private const val MAX_MAKERS_ROWS = 2
 
-        private fun getRatingName(film: ResponseCurrentFilm): String {
-            val result = mutableListOf<String>()
-            val rating = when {
-                film.ratingImdb != null -> film.ratingImdb.toString()  //this is my priority
-                film.ratingKinopoisk != null -> film.ratingKinopoisk.toString()
-                film.ratingMpaa != null -> film.ratingMpaa.toString()
-                else -> null
-            }
-            if (rating != null) result.add(rating)
-            val name = when {
-                film.nameOriginal != null -> film.nameOriginal  //this is my priority
-                film.nameRu != null -> film.nameRu
-                film.nameEn != null -> film.nameEn
-                else -> null
-            }
-            if (name != null) result.add(name)
-            return result.joinToString(", ")
-        }
-
-        private fun getName(film: ResponseCurrentFilm): String {
-            return when {
-                film.nameRu != null -> film.nameRu
-                film.nameEn != null -> film.nameEn
-                film.nameOriginal != null -> film.nameOriginal
-                else -> ""
-            }
-        }
-
-        private fun getYearAndGenres(film: ResponseCurrentFilm, context: Context): String {
-            val result = mutableListOf<String>()
-
-            if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
-                val tempStr = mutableListOf<String>()
-                if (film.startYear != null && film.endYear != null) {
-                    tempStr.add(film.startYear.toString())
-                    tempStr.add(film.endYear.toString())
-                } else {
-                    if (film.startYear != null) tempStr.add(film.startYear.toString())
-                    else context.getString(R.string.placeholder_series_start_year)
-                    if (film.endYear != null) tempStr.add(film.endYear.toString())
-                    else context.getString(R.string.placeholder_series_end_year)
-                }
-                result.add(tempStr.joinToString("-"))
-            } else {
-                if (film.year != null) result.add(film.year.toString())
-            }
-
-            if (film.genres.size > 1) {
-                val genreNameList = mutableListOf<String>()
-                repeat(2) {
-                    genreNameList.add(film.genres[it].genre)
-                }
-                result.add(genreNameList.joinToString(", "))
-            } else if (film.genres.size == 1) {
-                result.add(film.genres[0].genre)
-            } else result.add("")
-
-            return result.joinToString(", ")
-        }
-
-        private fun getStrCountriesLengthAge(film: ResponseCurrentFilm): String {
-            val result = mutableListOf<String?>()
-            result.add(film.getCountries())
-            if (film.getLength() != null) result.add(film.getLength())
-            if (film.getAgeLimit() != null) result.add("${film.getAgeLimit()}+")
-
-            return result.joinToString(", ")
-        }
-
-        private fun ResponseCurrentFilm.getCountries(): String {
-            return if (this.countries.size > 1) {
-                val list = mutableListOf<String>()
-                repeat(this.countries.size - 1) {
-                    list.add(this.countries[it].country)
-                }
-                list.joinToString(", ")
-            } else if (this.countries.size == 1) {
-                this.countries[0].country
-            } else {
-                ""
-            }
-        }
-
-        private fun ResponseCurrentFilm.getLength(): String? {
-            return if (this.filmLength != null) {
-                val hours = this.filmLength.div(60)
-                val minutes = this.filmLength.rem(60)
-                "$hours ч $minutes мин"
-            } else null
-        }
-
-        private fun ResponseCurrentFilm.getAgeLimit(): String? {
-            return if (this.ratingAgeLimits != null) this.ratingAgeLimits.removePrefix("age")
-            else null
-        }
     }
 }

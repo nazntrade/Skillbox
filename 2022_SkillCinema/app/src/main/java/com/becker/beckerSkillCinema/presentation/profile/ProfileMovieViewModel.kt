@@ -83,12 +83,6 @@ class ProfileMovieViewModel @Inject constructor(
         )
     }
 
-    private fun getDateTime(): String {
-        val watchedDate = Calendar.getInstance().time
-        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
-        return dateFormat.format(watchedDate).toString()
-    }
-
     private suspend fun deleteAllMoviesFromInteresting() {
         useCaseLocal.cleanInteresting()
     }
@@ -281,7 +275,7 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    fun getMovieFromDataBaseById(movieId: Int) {
+    fun getCurrentMovieFromDataBaseById(movieId: Int) {
         viewModelScope.launch {
             try {
                 _movieById.value = useCaseLocal.getMovieFromDataBaseById(movieId)
@@ -510,7 +504,7 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    fun onToWatchButtonClick(movieId: Int) {
+    fun doOnBookmarkBtnClick(movieId: Int) {
         viewModelScope.launch {
             try {
                 if (!_addedToWatch.value) {
@@ -521,7 +515,7 @@ class ProfileMovieViewModel @Inject constructor(
                     _addedToWatch.value = false
                 }
             } catch (e: Throwable) {
-                Timber.e("onToWatchButtonClick $e")
+                Timber.e("doOnBookmarkBtnClick $e")
             }
         }
     }
@@ -559,5 +553,11 @@ class ProfileMovieViewModel @Inject constructor(
                 Timber.e("movieSelected $e")
             }
         }
+    }
+
+    private fun getDateTime(): String {
+        val watchedDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
+        return dateFormat.format(watchedDate).toString()
     }
 }

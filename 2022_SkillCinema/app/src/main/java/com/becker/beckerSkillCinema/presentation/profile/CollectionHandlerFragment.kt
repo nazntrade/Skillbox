@@ -140,7 +140,7 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
             checkBoxToWatch.isActivated = isChecked
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 profileMovieViewModel.movieSelected.collectLatest {
-                    profileMovieViewModel.onToWatchButtonClick(it)
+                    profileMovieViewModel.doOnBookmarkBtnClick(it)
                 }
             }
         }
