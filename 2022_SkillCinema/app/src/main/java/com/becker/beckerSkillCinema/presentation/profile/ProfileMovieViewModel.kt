@@ -54,8 +54,6 @@ class ProfileMovieViewModel @Inject constructor(
     private val _watchedList = MutableStateFlow<List<Movie>>(emptyList())
     val watchedList = _watchedList.asStateFlow()
 
-//    private val _watchedMovies = MutableStateFlow<List<Watched>>(emptyList())
-
     private val _favoritesList = MutableStateFlow<List<Movie>>(emptyList())
     val favoritesList = _favoritesList.asStateFlow()
 
@@ -74,9 +72,6 @@ class ProfileMovieViewModel @Inject constructor(
     private val _customCollections = MutableStateFlow<List<CustomCollection>>(emptyList())
     val customCollections = _customCollections.asStateFlow()
 
-    //    private val _showWatchedAtSearchResult = MutableStateFlow(true)
-//    val showWatchedAtSearchResult = _showWatchedAtSearchResult.asStateFlow()
-//
     fun getAllInteresting() = useCaseLocal.getAllInterestingMovies()
 
     private suspend fun addMovieToInteresting(movieId: Int) {
@@ -98,12 +93,12 @@ class ProfileMovieViewModel @Inject constructor(
         useCaseLocal.cleanInteresting()
     }
 
-    fun onInterestingButtonClick(movieId: Int) {
+    fun addCurrentFilmToHistory(movieId: Int) {
         viewModelScope.launch {
             try {
                 addMovieToInteresting(movieId)
             } catch (e: Throwable) {
-                Timber.e("onInterestingButtonClick $e")
+                Timber.e("addCurrentFilmToHistory $e")
             }
         }
     }
@@ -286,8 +281,6 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-//    private fun getAllMoviesFromDataBase() = useCaseLocal.getAllMovies()
-
     fun getMovieFromDataBaseById(movieId: Int) {
         viewModelScope.launch {
             try {
@@ -398,16 +391,6 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    //    fun getWatchedMovies(allWatched: List<Watched>) {
-//        viewModelScope.launch {
-//            try {
-//                _watchedMovies.value = allWatched
-//            } catch (e: Throwable) {
-//                Timber.e("getWatchedMovies $e")
-//            }
-//        }
-//    }
-//
     private suspend fun deleteAllMoviesFromWatched() {
         useCaseLocal.cleanWatched()
     }
@@ -558,16 +541,6 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    //    fun showWatchedMoviesAtSearchResult() {
-//        viewModelScope.launch {
-//            try {
-//                _showWatchedAtSearchResult.value = !_showWatchedAtSearchResult.value
-//            } catch (e: Throwable) {
-//                Timber.e("showWatchedMoviesAtSearchResult $e")
-//            }
-//        }
-//    }
-//
     fun chooseCollection(collections: Collections) {
         viewModelScope.launch {
             try {

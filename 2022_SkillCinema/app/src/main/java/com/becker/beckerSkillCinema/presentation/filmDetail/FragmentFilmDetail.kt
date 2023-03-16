@@ -60,23 +60,23 @@ class FragmentFilmDetail :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //to store current movie in viewModel
+        profileMovieViewModel.movieSelected(incomeArgs.filmId)
+
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
         stateLoadingListener()              // Set listener downloads
-        setFilmDetails()                    // Set poster with info on it
+        setFilmDetailsAndAddToDataBase()    // set Film Details And Add To DataBase
         setFilmActors()                     // Ser ListActors
         setFilmCrew()                       // Set ListFilmCrew
         setFilmGallery()                    // Set Gallery
         setSimilarFilms()                   // Set List Similar Films
         actionOnPosterBtn()
-        addCurrentFilmToDataBase()                 // Add watched film to DB
     }
 
-    private fun addCurrentFilmToDataBase() {
-        profileMovieViewModel.movieSelected(incomeArgs.filmId) //to store current movie in viewModel
-        profileMovieViewModel.onInterestingButtonClick(incomeArgs.filmId)
-    }
 
     private fun actionOnPosterBtn() {
+        // add current film to history
+        addCurrentFilmToHistory()
         //Btn heart
         checkOrDoOnHeartBtn()
         //Btn bookmark
@@ -84,6 +84,23 @@ class FragmentFilmDetail :
         //Btn watched or not watched
         checkOrDoOnWatchedBtn()
         //Btn SHARE
+        doOnClickShareBtn()
+        //Btn show more
+        doOnClickShowMoreBtn()
+    }
+
+    private fun addCurrentFilmToHistory() {
+        profileMovieViewModel.addCurrentFilmToHistory(incomeArgs.filmId)
+    }
+
+    private fun doOnClickShowMoreBtn() {
+        binding.btnShowMore.setOnClickListener {
+            profileMovieViewModel.getMovieFromDataBaseById(incomeArgs.filmId)
+            onClickCollectionHandler()
+        }
+    }
+
+    private fun doOnClickShareBtn() {
         binding.btnShare.setOnClickListener {
             val share = Intent(Intent.ACTION_SEND)
             share.type = "text/plain"
@@ -91,11 +108,6 @@ class FragmentFilmDetail :
                 Intent.EXTRA_TEXT, "https://www.kinopoisk.ru/film/${incomeArgs.filmId}/"
             )
             startActivity(Intent.createChooser(share, "Share Link"))
-        }
-        //Btn show more
-        binding.btnShowMore.setOnClickListener {
-            profileMovieViewModel.getMovieFromDataBaseById(incomeArgs.filmId)
-            onClickCollectionHandler()
         }
     }
 
@@ -119,6 +131,7 @@ class FragmentFilmDetail :
                     }
                 }
             }
+            //toggle Btn state
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     profileMovieViewModel.addedToFavorites.collectLatest {
@@ -238,7 +251,7 @@ class FragmentFilmDetail :
     }
 
     // About film
-    private fun setFilmDetails() {
+    private fun setFilmDetailsAndAddToDataBase() {
         if (incomeArgs.filmId != viewModel.currentFilmId) {
             viewModel.getFilmId()
             viewModel.getFilmById()
@@ -272,6 +285,7 @@ class FragmentFilmDetail :
                                     }
                                 }
                                 if (film != null) {
+ // Add film to DataBase !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                     profileMovieViewModel.addMovieToDataBase(film)
                                 }
                             }
