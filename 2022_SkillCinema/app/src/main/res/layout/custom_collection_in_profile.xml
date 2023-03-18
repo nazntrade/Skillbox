@@ -2,14 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/custom_collection_in_profile"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <FrameLayout
-        android:layout_width="146dp"
-        android:layout_height="146dp"
-        android:layout_margin="8dp"
-        android:background="@drawable/border_for_collections">
+    android:layout_width="146dp"
+    android:layout_height="146dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/border_for_collections">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/close_button"
@@ -49,13 +45,10 @@
             android:fontFamily="@font/graphic_regular"
             android:gravity="center"
             android:paddingStart="20dp"
-            android:textSize="8sp"
+            android:textSize="11sp"
             android:paddingEnd="20dp"
             android:textColor="@color/white"
             android:textAlignment="center"
             tools:text="1" />
-
-    </FrameLayout>
-
 
 </FrameLayout>

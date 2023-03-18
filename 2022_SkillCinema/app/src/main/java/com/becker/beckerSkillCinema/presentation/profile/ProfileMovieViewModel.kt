@@ -231,14 +231,15 @@ class ProfileMovieViewModel @Inject constructor(
         collectionName: String,
         movieId: Int,
         index: Int,
-        collectionNumber: Int,
+        collectionsCount: Int,
         allMovies: List<CustomCollection>
     ) {
         viewModelScope.launch {
             try {
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 val customCollectionChosen =
                     allMovies.filter { it.collectionName == collectionName }
-                if (index <= collectionNumber - 1) {
+                if (index <= (collectionsCount - 1)) {
                     val initialStatus = _addedToCustomCollection.value.entries
                     val status = mutableMapOf<String, Boolean>()
                     initialStatus.forEach { status[it.key] = it.value }
@@ -254,6 +255,7 @@ class ProfileMovieViewModel @Inject constructor(
     fun onCustomCollectionButtonClick(collectionName: String, movieId: Int) {
         viewModelScope.launch {
             try {
+            // add or delete movie to or from custom collection
                 if (_addedToCustomCollection.value[collectionName] == false) {
                     val initialStatus = _addedToCustomCollection.value.entries
                     val status = mutableMapOf<String, Boolean>()
