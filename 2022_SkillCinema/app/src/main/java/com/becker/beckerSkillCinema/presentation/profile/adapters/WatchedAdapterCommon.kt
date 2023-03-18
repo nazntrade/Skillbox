@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 
 open class WatchedAdapterCommon(
     val onWatchedItemClick: (Movie) -> Unit,
-    val onClearHistoryClick: (View) -> Unit
+    val onClearClick: (View) -> Unit
 ) :
     ListAdapter<Movie, RecyclerView.ViewHolder>(DiffUtilCallBackWatched()) {
 
@@ -30,13 +30,13 @@ open class WatchedAdapterCommon(
                 ),
                 onWatchedItemClick = onWatchedItemClick
             )
-        } else ClearHistoryViewHolder(
+        } else ClearViewHolder(
             binding = ClearHistoryItemBinding.inflate(
                 layoutInflater,
                 parent,
                 false
             ),
-            onClearHistoryClick = onClearHistoryClick
+            onClearClick = onClearClick
         )
     }
 
@@ -45,7 +45,7 @@ open class WatchedAdapterCommon(
         item?.let {
             if (getItemViewType(position) == ITEM_MOVIES) {
                 (holder as WatchedViewHolderCommon).bind(it)
-            } else (holder as ClearHistoryViewHolder).bind()
+            } else (holder as ClearViewHolder).bind()
         }
     }
 
@@ -60,14 +60,14 @@ open class WatchedAdapterCommon(
     }
 }
 
-class ClearHistoryViewHolder(
+class ClearViewHolder(
     val binding: ClearHistoryItemBinding,
-    val onClearHistoryClick: (View) -> Unit
+    val onClearClick: (View) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind() {
         with(binding) {
             trashPicture.setOnClickListener {
-                onClearHistoryClick(it)
+                onClearClick(it)
             }
         }
     }

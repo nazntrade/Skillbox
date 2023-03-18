@@ -97,7 +97,7 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    fun onCleanInterestingClick() {
+    fun onCleanInteresting() {
         viewModelScope.launch {
             try {
                 deleteAllMoviesFromInteresting()
@@ -142,7 +142,7 @@ class ProfileMovieViewModel @Inject constructor(
         useCaseLocal.deleteCustomCollection(collectionName)
     }
 
-    fun onDeleteCollectionButtonClick(collectionName: String) {
+    fun deleteCollection(collectionName: String) {
         viewModelScope.launch {
             try {
                 deleteCustomCollection(collectionName = collectionName)
@@ -205,10 +205,10 @@ class ProfileMovieViewModel @Inject constructor(
                     }
                 }
                 val names = allMovies.groupBy { it.collectionName }
-                names.forEach { (t, u) ->
-                    if (u.contains(CustomCollection(t, 0, date))) {
-                        filteredCollections.add(CustomCollection(t, u.size - 1, date))
-                    } else filteredCollections.add(CustomCollection(t, u.size, date))
+                names.forEach { (name, list) ->
+                    if (list.contains(CustomCollection(name, 0, date))) {
+                        filteredCollections.add(CustomCollection(name, list.size - 1, date))
+                    } else filteredCollections.add(CustomCollection(name, list.size, date))
                 }
                 _customCollections.value = filteredCollections
             } catch (e: Throwable) {
@@ -391,7 +391,7 @@ class ProfileMovieViewModel @Inject constructor(
         useCaseLocal.cleanWatched()
     }
 
-    fun onCleanWatchedClick() {
+    fun onCleanWatched() {
         viewModelScope.launch {
             try {
                 deleteAllMoviesFromWatched()
