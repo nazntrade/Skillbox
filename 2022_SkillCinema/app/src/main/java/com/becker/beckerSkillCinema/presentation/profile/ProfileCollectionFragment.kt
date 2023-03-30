@@ -7,7 +7,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
@@ -18,6 +20,7 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.profile.adapters.InterestingAdapterIndividual
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileCollectionFragment :
@@ -53,53 +56,61 @@ class ProfileCollectionFragment :
     }
 
     private fun getMovies() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllToWatch().collectLatest { list ->
-                profileMovieViewModel.buildToWatchList(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllToWatch().collectLatest { list ->
+                    profileMovieViewModel.buildToWatchList(list)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllFavorites().collectLatest { list ->
-                profileMovieViewModel.buildFavoritesList(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllFavorites().collectLatest { list ->
+                    profileMovieViewModel.buildFavoritesList(list)
+                }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                profileMovieViewModel.buildCustomCollectionList(list)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                    profileMovieViewModel.buildCustomCollectionList(list)
+                }
             }
         }
     }
 
     private fun chooseWhichListDownloadAndDisplay() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.collectionChosen.collectLatest { collections ->
-                when (collections) {
-                    Collections.Favorites -> {
-                        collectionTitle.text = FAVORITES
-                        profileMovieViewModel.favoritesList.collectLatest {
-                            if (it.isNotEmpty()) {
-                                collectionRecycler.isVisible = true
-                                collectionAdapter.submitList(it)
-                            } else collectionRecycler.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.collectionChosen.collectLatest { collections ->
+                    when (collections) {
+                        Collections.Favorites -> {
+                            collectionTitle.text = FAVORITES
+                            profileMovieViewModel.favoritesList.collectLatest {
+                                if (it.isNotEmpty()) {
+                                    collectionRecycler.isVisible = true
+                                    collectionAdapter.submitList(it)
+                                } else collectionRecycler.isVisible = false
+                            }
                         }
-                    }
-                    Collections.Custom -> {
-                        collectionTitle.text =
-                            profileMovieViewModel.customCollectionChosen.value?.collectionName
-                        profileMovieViewModel.customCollectionList.collectLatest {
-                            if (it.isNotEmpty()) {
-                                collectionRecycler.isVisible = true
-                                collectionAdapter.submitList(it)
-                            } else collectionRecycler.isVisible = false
+                        Collections.Custom -> {
+                            collectionTitle.text =
+                                profileMovieViewModel.customCollectionChosen.value?.collectionName
+                            profileMovieViewModel.customCollectionList.collectLatest {
+                                if (it.isNotEmpty()) {
+                                    collectionRecycler.isVisible = true
+                                    collectionAdapter.submitList(it)
+                                } else collectionRecycler.isVisible = false
+                            }
                         }
-                    }
-                    Collections.ToWatch -> {
-                        collectionTitle.text = TO_WATCH
-                        profileMovieViewModel.toWatchList.collectLatest {
-                            if (it.isNotEmpty()) {
-                                collectionRecycler.isVisible = true
-                                collectionAdapter.submitList(it)
-                            } else collectionRecycler.isVisible = false
+                        Collections.ToWatch -> {
+                            collectionTitle.text = TO_WATCH
+                            profileMovieViewModel.toWatchList.collectLatest {
+                                if (it.isNotEmpty()) {
+                                    collectionRecycler.isVisible = true
+                                    collectionAdapter.submitList(it)
+                                } else collectionRecycler.isVisible = false
+                            }
                         }
                     }
                 }

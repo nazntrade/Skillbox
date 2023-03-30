@@ -337,9 +337,9 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
         nameToDisplay.text = collectionNameFormatted
 
         val countMovieInCollection =
-            customCollectionView.findViewById<AppCompatTextView>(R.id.number_in_custom_collection)
+            customCollectionView.findViewById<AppCompatTextView>(R.id.count_in_custom_collection)
 
-        countMovieInCollection.text = collectionSize.toString()
+        countMovieInCollection.text = (collectionSize -1).toString()
 
         val checkbox =
             customCollectionView.findViewById<AppCompatCheckBox>(R.id.checkbox_custom_collection)

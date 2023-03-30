@@ -21,5 +21,4 @@ interface CustomCollectionDao {
 
     @Query("DELETE FROM CustomCollection WHERE collectionName =:collectionName")
     suspend fun deleteCustomCollection(collectionName: String)
-
 }

@@ -199,16 +199,22 @@ class ProfileMovieViewModel @Inject constructor(
                 allMovies.forEach { if (it.movieId == 0) emptyMovies.add(it) }
                 emptyMovies.forEach { itemEmptyMovie ->
                     val groupedCollections =
-                        allMovies.filter { it.collectionName == itemEmptyMovie.collectionName }
+                        allMovies.filter {
+                            it.collectionName ==
+                                    itemEmptyMovie.collectionName }
                     if (groupedCollections.size > 1) {
-                        deleteMovieFromCustomCollection(itemEmptyMovie.collectionName, 0)
+//                        deleteMovieFromCustomCollection(itemEmptyMovie.collectionName, 0)
                     }
                 }
                 val names = allMovies.groupBy { it.collectionName }
-                names.forEach { (name, list) ->
-                    if (list.contains(CustomCollection(name, 0, date))) {
-                        filteredCollections.add(CustomCollection(name, list.size - 1, date))
-                    } else filteredCollections.add(CustomCollection(name, list.size, date))
+                names.forEach { (collectionName, list) ->
+                    if (list.contains(CustomCollection(collectionName, 0, date))) {
+                        filteredCollections
+                            .add(CustomCollection(collectionName, list.size - 1, date))
+                    } else {
+                        filteredCollections
+                            .add(CustomCollection(collectionName, list.size, date))
+                    }
                 }
                 _customCollections.value = filteredCollections
             } catch (e: Throwable) {

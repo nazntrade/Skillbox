@@ -113,7 +113,7 @@ class ProfileFragment :
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
+                profileMovieViewModel.getAllMoviesFromCustomCollection().collect { list ->
                     profileMovieViewModel.getCustomCollections(list)
                 }
             }
@@ -206,10 +206,7 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllToWatch().collectLatest { list ->
-                    if (list.isNotEmpty()) {
-                        numberInToWatchCollection.isVisible = true
-                        numberInToWatchCollection.text = list.size.toString()
-                    } else numberInToWatchCollection.isVisible = false
+                    numberInToWatchCollection.text = list.size.toString()
                 }
             }
         }
@@ -223,10 +220,7 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllFavorites().collectLatest { list ->
-                    if (list.isNotEmpty()) {
-                        numberInFavoritesCollection.isVisible = true
-                        numberInFavoritesCollection.text = list.size.toString()
-                    } else numberInFavoritesCollection.isVisible = false
+                    numberInFavoritesCollection.text = list.size.toString()
                 }
             }
         }

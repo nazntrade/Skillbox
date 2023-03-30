@@ -14,6 +14,20 @@ open class CustomCollectionAdapter(
     val onDeleteCollectionClick: (String) -> Unit
 ) : ListAdapter<CustomCollection, CustomSelectionViewHolder>(DiffUtilCallBackCustomCollection()) {
 
+    class DiffUtilCallBackCustomCollection : DiffUtil.ItemCallback<CustomCollection>() {
+        override fun areItemsTheSame(
+            oldItem: CustomCollection, newItem: CustomCollection
+        ): Boolean {
+            return oldItem.collectionName == newItem.collectionName
+        }
+
+        override fun areContentsTheSame(
+            oldItem: CustomCollection, newItem: CustomCollection
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomSelectionViewHolder {
         return CustomSelectionViewHolder(
             binding = CustomCollectionInProfileBinding.inflate(
@@ -39,10 +53,9 @@ class CustomSelectionViewHolder(
         with(binding) {
             customCollectionTitle.text = item.collectionName
             if (item.movieId == 0) {
-                numberInCustomCollection.isVisible = false
+                countInCustomCollection.text = item.movieId.toString()
             } else {
-                numberInCustomCollection.isVisible = true
-                numberInCustomCollection.text = item.movieId.toString()
+                countInCustomCollection.text = (item.movieId - 1).toString()
             }
             binding.root.setOnClickListener {
                 onCollectionItemClick(item)
@@ -53,19 +66,3 @@ class CustomSelectionViewHolder(
         }
     }
 }
-
-class DiffUtilCallBackCustomCollection : DiffUtil.ItemCallback<CustomCollection>() {
-    override fun areItemsTheSame(
-        oldItem: CustomCollection, newItem: CustomCollection
-    ): Boolean {
-        return oldItem.collectionName == newItem.collectionName
-    }
-
-    override fun areContentsTheSame(
-        oldItem: CustomCollection, newItem: CustomCollection
-    ): Boolean {
-        return oldItem == newItem
-    }
-}
-
-
