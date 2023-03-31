@@ -64,7 +64,8 @@ class ClearInterestingViewHolder(
 }
 
 class InterestingViewHolderCommon(
-    val binding: ItemFilmBinding, val onInterestingItemClick: (Movie) -> Unit
+    val binding: ItemFilmBinding,
+    val onInterestingItemClick: (Movie) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Movie) {
         with(binding) {
@@ -86,5 +87,3 @@ class InterestingViewHolderCommon(
         }
     }
 }
-
-

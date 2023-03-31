@@ -339,7 +339,7 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
         val countMovieInCollection =
             customCollectionView.findViewById<AppCompatTextView>(R.id.count_in_custom_collection)
 
-        countMovieInCollection.text = (collectionSize -1).toString()
+        countMovieInCollection.text = (collectionSize - 1).toString()
 
         val checkbox =
             customCollectionView.findViewById<AppCompatCheckBox>(R.id.checkbox_custom_collection)
@@ -347,15 +347,16 @@ class CollectionHandlerFragment : BottomSheetDialogFragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { listMovies ->
-                    profileMovieViewModel.checkCustomCollection(
-                        collectionNameFormatted,
-                        movieId,
-                        index,
-                        collectionsCount,
-                        listMovies
-                    )
-                }
+                profileMovieViewModel.getAllMoviesFromCustomCollection()
+                    .collectLatest { listMovies ->
+                        profileMovieViewModel.checkCustomCollection(
+                            collectionNameFormatted,
+                            movieId,
+                            index,
+                            collectionsCount,
+                            listMovies
+                        )
+                    }
             }
         }
 

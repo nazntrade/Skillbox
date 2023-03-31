@@ -6,7 +6,9 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
@@ -16,6 +18,7 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.profile.adapters.WatchedAdapterIndividual
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WatchedFragment :
@@ -45,12 +48,14 @@ class WatchedFragment :
         watchedRecycler = binding.watchedRecyclerView
         watchedRecycler.adapter = watchedAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.watchedList.collectLatest {
-                if (it.isNotEmpty()) {
-                    watchedRecycler.isVisible = true
-                    watchedAdapter.submitList(it)
-                } else watchedRecycler.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.watchedList.collectLatest {
+                    if (it.isNotEmpty()) {
+                        watchedRecycler.isVisible = true
+                        watchedAdapter.submitList(it)
+                    } else watchedRecycler.isVisible = false
+                }
             }
         }
     }

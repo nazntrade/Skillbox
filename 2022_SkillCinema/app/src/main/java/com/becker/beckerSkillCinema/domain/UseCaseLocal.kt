@@ -3,7 +3,6 @@ package com.becker.beckerSkillCinema.domain
 import com.becker.beckerSkillCinema.data.localData.entities.*
 import com.becker.beckerSkillCinema.data.repositories.RepositoryDataBase
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 import javax.inject.Inject
 
 class UseCaseLocal @Inject constructor(private val repositoryDataBase: RepositoryDataBase) {
@@ -16,8 +15,8 @@ class UseCaseLocal @Inject constructor(private val repositoryDataBase: Repositor
         return repositoryDataBase.addMovieToInteresting(interesting)
     }
 
-    suspend fun cleanInteresting() {
-        return repositoryDataBase.cleanInteresting()
+    suspend fun clearInteresting() {
+        return repositoryDataBase.clearInteresting()
     }
 
     fun getAllMoviesFromCustomCollection(): Flow<List<CustomCollection>> {
@@ -60,8 +59,8 @@ class UseCaseLocal @Inject constructor(private val repositoryDataBase: Repositor
         return repositoryDataBase.deleteFromWatched(movieId)
     }
 
-    suspend fun cleanWatched() {
-        return repositoryDataBase.cleanWatched()
+    suspend fun clearWatched() {
+        return repositoryDataBase.clearWatched()
     }
 
     fun getAllFavorites(): Flow<List<Favorites>> {

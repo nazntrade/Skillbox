@@ -2,7 +2,6 @@ package com.becker.beckerSkillCinema.presentation.profile.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -52,9 +51,12 @@ class CustomSelectionViewHolder(
     fun bind(item: CustomCollection) {
         with(binding) {
             customCollectionTitle.text = item.collectionName
+            //1.0 instead of movieId I store the size of the list
+            //ProfileMovieViewModel.getCustomCollections
             if (item.movieId == 0) {
                 countInCustomCollection.text = item.movieId.toString()
             } else {
+                //1.0 instead of id I passed here the size of the list
                 countInCustomCollection.text = (item.movieId - 1).toString()
             }
             binding.root.setOnClickListener {

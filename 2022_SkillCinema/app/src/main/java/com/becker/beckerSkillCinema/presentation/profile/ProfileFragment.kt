@@ -52,7 +52,7 @@ class ProfileFragment :
 
     private val watchedAdapter = WatchedAdapterCommon(
         onWatchedItemClick = { movie -> onWatchedItemClick(movie) },
-        onClearClick = { onClearBtnClick() }
+        onClearClick = { onClearWatchedBtnClick() }
     )
     private val historyAdapter = HistoryAdapter(
         onInterestingItemClick = { movie -> onInterestingItemClick(movie) },
@@ -113,17 +113,19 @@ class ProfileFragment :
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileMovieViewModel.getAllMoviesFromCustomCollection().collect { list ->
+                profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
                     profileMovieViewModel.getCustomCollections(list)
                 }
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileMovieViewModel.customCollections.collectLatest { list ->
-                    if (list.isNotEmpty()) {
+                //1.0 the _customCollections.value stored list.size instead id
+                // path: ProfileMovieViewModel.getCustomCollections
+                profileMovieViewModel.customCollections.collectLatest { customCollectionList ->
+                    if (customCollectionList.isNotEmpty()) {
                         collectionRecyclerView.isVisible = true
-                        collectionAdapter.submitList(list)
+                        collectionAdapter.submitList(customCollectionList)
                     } else collectionRecyclerView.isVisible = false
                 }
             }
@@ -235,18 +237,18 @@ class ProfileFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
                     createCollectionText.setOnClickListener {
-                        createCollection(list)
+                        createNewCollection(list)
                     }
                     createCollectionButton.setOnClickListener {
-                        createCollection(list)
+                        createNewCollection(list)
                     }
                 }
             }
         }
     }
 
-    private fun onClearBtnClick() {
-        profileMovieViewModel.onCleanWatched()
+    private fun onClearWatchedBtnClick() {
+        profileMovieViewModel.onClearWatched()
         watchedRecyclerView.isVisible = false
     }
 
@@ -258,7 +260,7 @@ class ProfileFragment :
     }
 
     private fun onClearInterestingBtnClick() {
-        profileMovieViewModel.onCleanInteresting()
+        profileMovieViewModel.onClearInteresting()
         historyRecyclerView.isVisible = false
     }
 
@@ -288,7 +290,7 @@ class ProfileFragment :
     }
 
     @SuppressLint("InflateParams")
-    private fun createCollection(list: List<CustomCollection>) {
+    private fun createNewCollection(list: List<CustomCollection>) {
         profileMovieViewModel.getCustomCollectionNames(list)
         val dialog = Dialog(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.alert_dialog, null)
@@ -301,9 +303,9 @@ class ProfileFragment :
             dialog.dismiss()
         }
 
-        collectionTitleInputField.doOnTextChanged { text, _, _, _ ->
-            if (text != null) {
-                if (text.count() >= 3) {
+        collectionTitleInputField.doOnTextChanged { charSequence, _, _, _ ->
+            if (charSequence != null) {
+                if (charSequence.count() >= 3) {
                     doneButton.isActivated = true
                     doneButton.isClickable = true
                     doneButton.isEnabled = true
@@ -317,19 +319,19 @@ class ProfileFragment :
 
         doneButton.setOnClickListener {
             val collectionNameInput = collectionTitleInputField.text
-            val collectionNameFormatted = collectionNameInput.toString()
+            val collectionNameFormatted = collectionNameInput
+                .toString()
                 .trim { it <= ' ' }
                 .lowercase(Locale.ROOT)
-                .replaceFirstChar { it.uppercaseChar() }
+                .replaceFirstChar { char -> char.uppercaseChar() }
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    val tempList = profileMovieViewModel.customCollectionNamesList.value
-                    if (!tempList.all { it != collectionNameFormatted }) {
+                    val tempListOfNames = profileMovieViewModel.customCollectionNamesList.value
+                    if (!tempListOfNames.all { it != collectionNameFormatted }) {
                         dialog.dismiss()
                     }
                 }
             }
-
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     val tempList = profileMovieViewModel.customCollectionNamesList.value

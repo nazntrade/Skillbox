@@ -3,7 +3,7 @@
     android:id="@+id/clear_history_item"
     android:layout_width="112dp"
     android:layout_height="156dp"
-    android:layout_marginEnd="8dp">
+    android:layout_marginEnd="@dimen/dimen_8">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/trash_picture"

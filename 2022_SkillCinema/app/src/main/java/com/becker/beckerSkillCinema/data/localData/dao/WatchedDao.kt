@@ -20,6 +20,6 @@ interface WatchedDao {
     suspend fun deleteFromWatched(movieId: Int)
 
     @Query("DELETE FROM Watched")
-    suspend fun cleanWatched()
+    suspend fun clearWatched()
 
 }

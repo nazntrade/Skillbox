@@ -6,7 +6,9 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
@@ -16,6 +18,7 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.profile.adapters.InterestingAdapterIndividual
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class InterestingFragment :
@@ -45,12 +48,14 @@ class InterestingFragment :
         interestingRecycler = binding.historyRecyclerView
         interestingRecycler.adapter = interestingAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileMovieViewModel.interestingList.collectLatest {
-                if (it.isNotEmpty()) {
-                    interestingRecycler.isVisible = true
-                    interestingAdapter.submitList(it)
-                } else interestingRecycler.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                profileMovieViewModel.interestingList.collectLatest {
+                    if (it.isNotEmpty()) {
+                        interestingRecycler.isVisible = true
+                        interestingAdapter.submitList(it)
+                    } else interestingRecycler.isVisible = false
+                }
             }
         }
     }

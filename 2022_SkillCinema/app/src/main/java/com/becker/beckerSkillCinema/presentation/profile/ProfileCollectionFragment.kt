@@ -82,7 +82,7 @@ class ProfileCollectionFragment :
     private fun chooseWhichListDownloadAndDisplay() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileMovieViewModel.collectionChosen.collectLatest { collections ->
+                profileMovieViewModel.chosenCollection.collectLatest { collections ->
                     when (collections) {
                         Collections.Favorites -> {
                             collectionTitle.text = FAVORITES
@@ -121,9 +121,8 @@ class ProfileCollectionFragment :
     private fun onItemClick(movie: Movie) {
         filmDetailViewModel.putFilmId(movie.movieId)
         val action =
-            ProfileCollectionFragmentDirections.actionProfileCollectionFragmentToFragmentFilmDetail(
-                movie.movieId
-            )
+            ProfileCollectionFragmentDirections
+                .actionProfileCollectionFragmentToFragmentFilmDetail(movie.movieId)
         findNavController().navigate(action)
     }
 
@@ -132,4 +131,3 @@ class ProfileCollectionFragment :
         private const val TO_WATCH = "Хочу посмотреть"
     }
 }
-

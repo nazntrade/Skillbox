@@ -17,5 +17,5 @@ interface InterestingDao {
     fun getAllInteresting(): Flow<List<Interesting>>
 
     @Query("DELETE FROM Interesting")
-    suspend fun cleanInteresting()
+    suspend fun clearInteresting()
 }

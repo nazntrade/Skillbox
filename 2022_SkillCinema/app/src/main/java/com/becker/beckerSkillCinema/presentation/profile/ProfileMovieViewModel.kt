@@ -8,7 +8,6 @@ import com.becker.beckerSkillCinema.data.localData.entities.*
 import com.becker.beckerSkillCinema.data.profile.Collections
 import com.becker.beckerSkillCinema.domain.UseCaseLocal
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -63,8 +62,8 @@ class ProfileMovieViewModel @Inject constructor(
     private val _customCollectionList = MutableStateFlow<List<Movie>>(emptyList())
     val customCollectionList = _customCollectionList.asStateFlow()
 
-    private val _collectionChosen = MutableStateFlow<Collections>(Collections.Favorites)
-    val collectionChosen = _collectionChosen.asStateFlow()
+    private val _chosenCollection = MutableStateFlow<Collections>(Collections.Favorites)
+    val chosenCollection = _chosenCollection.asStateFlow()
 
     private val _customCollectionChosen = MutableStateFlow<CustomCollection?>(null)
     val customCollectionChosen = _customCollectionChosen.asStateFlow()
@@ -84,7 +83,7 @@ class ProfileMovieViewModel @Inject constructor(
     }
 
     private suspend fun deleteAllMoviesFromInteresting() {
-        useCaseLocal.cleanInteresting()
+        useCaseLocal.clearInteresting()
     }
 
     fun addCurrentFilmToHistory(movieId: Int) {
@@ -97,12 +96,12 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    fun onCleanInteresting() {
+    fun onClearInteresting() {
         viewModelScope.launch {
             try {
                 deleteAllMoviesFromInteresting()
             } catch (e: Throwable) {
-                Timber.e("onCleanInterestingClick $e")
+                Timber.e("onClearInterestingClick $e")
             }
         }
     }
@@ -155,11 +154,11 @@ class ProfileMovieViewModel @Inject constructor(
     fun getCustomCollectionNames(allMovies: List<CustomCollection>) {
         viewModelScope.launch {
             try {
-                val names = mutableListOf<String>()
+                val collectionsNames = mutableListOf<String>()
                 allMovies.forEach {
-                    names.add(it.collectionName)
+                    collectionsNames.add(it.collectionName)
                 }
-                _customCollectionNamesList.value = names
+                _customCollectionNamesList.value = collectionsNames
             } catch (e: Throwable) {
                 Timber.e("getCustomCollectionNames $e")
             }
@@ -195,27 +194,19 @@ class ProfileMovieViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val filteredCollections = mutableListOf<CustomCollection>()
-                val emptyMovies = mutableListOf<CustomCollection>()
-                allMovies.forEach { if (it.movieId == 0) emptyMovies.add(it) }
-                emptyMovies.forEach { itemEmptyMovie ->
-                    val groupedCollections =
-                        allMovies.filter {
-                            it.collectionName ==
-                                    itemEmptyMovie.collectionName }
-                    if (groupedCollections.size > 1) {
-//                        deleteMovieFromCustomCollection(itemEmptyMovie.collectionName, 0)
-                    }
-                }
-                val names = allMovies.groupBy { it.collectionName }
-                names.forEach { (collectionName, list) ->
+                val collectionsNames = allMovies.groupBy { it.collectionName }
+                collectionsNames.forEach { (collectionName, list) ->
                     if (list.contains(CustomCollection(collectionName, 0, date))) {
+                        //1.0 instead of id I store here the size of the list
                         filteredCollections
                             .add(CustomCollection(collectionName, list.size - 1, date))
                     } else {
+                        //1.0 instead of id I store here the size of the list
                         filteredCollections
                             .add(CustomCollection(collectionName, list.size, date))
                     }
                 }
+                //1.0 the _customCollections.value stored list.size instead id
                 _customCollections.value = filteredCollections
             } catch (e: Throwable) {
                 Timber.e("getCustomCollections $e")
@@ -261,7 +252,7 @@ class ProfileMovieViewModel @Inject constructor(
     fun onCustomCollectionButtonClick(collectionName: String, movieId: Int) {
         viewModelScope.launch {
             try {
-            // add or delete movie to or from custom collection
+                // add or delete movie to or from custom collection
                 if (_addedToCustomCollection.value[collectionName] == false) {
                     val initialStatus = _addedToCustomCollection.value.entries
                     val status = mutableMapOf<String, Boolean>()
@@ -394,15 +385,15 @@ class ProfileMovieViewModel @Inject constructor(
     }
 
     private suspend fun deleteAllMoviesFromWatched() {
-        useCaseLocal.cleanWatched()
+        useCaseLocal.clearWatched()
     }
 
-    fun onCleanWatched() {
+    fun onClearWatched() {
         viewModelScope.launch {
             try {
                 deleteAllMoviesFromWatched()
             } catch (e: Throwable) {
-                Timber.e("onCleanWatchedClick $e")
+                Timber.e("onClearWatchedClick $e")
             }
         }
     }
@@ -475,7 +466,7 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    fun getAllToWatch(): Flow<List<ToWatch>> = useCaseLocal.getAllToWatch()
+    fun getAllToWatch() = useCaseLocal.getAllToWatch()
 
     private suspend fun addToWatch(movieId: Int) {
         viewModelScope.launch {
@@ -543,12 +534,12 @@ class ProfileMovieViewModel @Inject constructor(
         }
     }
 
-    fun chooseCollection(collections: Collections) {
+    fun chooseCollection(chosenCollections: Collections) {
         viewModelScope.launch {
             try {
-                _collectionChosen.value = collections
+                _chosenCollection.value = chosenCollections
             } catch (e: Throwable) {
-                Timber.e("chooseCollection $e")
+                Timber.e("chosenCollection $e")
             }
         }
     }

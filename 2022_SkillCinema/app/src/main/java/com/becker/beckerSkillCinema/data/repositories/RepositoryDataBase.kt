@@ -22,8 +22,8 @@ class RepositoryDataBase @Inject constructor(
         return interestingDao.insertToInteresting(interesting)
     }
 
-    suspend fun cleanInteresting() {
-        return interestingDao.cleanInteresting()
+    suspend fun clearInteresting() {
+        return interestingDao.clearInteresting()
     }
 
     fun getAllMoviesFromCustomCollection(): Flow<List<CustomCollection>> {
@@ -66,8 +66,8 @@ class RepositoryDataBase @Inject constructor(
         return watchedDao.deleteFromWatched(movieId)
     }
 
-    suspend fun cleanWatched() {
-        return watchedDao.cleanWatched()
+    suspend fun clearWatched() {
+        return watchedDao.clearWatched()
     }
 
     fun getAllFavorites(): Flow<List<Favorites>> {
