@@ -32,7 +32,6 @@
         android:id="@+id/removeButton"
         android:layout_width="36dp"
         android:layout_height="36dp"
-
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/iconChatImageView"

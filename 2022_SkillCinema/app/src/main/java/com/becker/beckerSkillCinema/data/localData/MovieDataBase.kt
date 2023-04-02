@@ -6,7 +6,8 @@ import com.becker.beckerSkillCinema.data.localData.dao.*
 import com.becker.beckerSkillCinema.data.localData.entities.*
 
 @Database(
-    entities = [Favorites::class,
+    entities = [
+        Favorites::class,
         ToWatch::class,
         Watched::class,
         Movie::class,
@@ -15,10 +16,10 @@ import com.becker.beckerSkillCinema.data.localData.entities.*
     version = 1
 )
 abstract class MovieDataBase : RoomDatabase() {
+    abstract fun movieDao(): MovieDao
     abstract fun favoritesDao(): FavoritesDao
     abstract fun toWatchDao(): ToWatchDao
     abstract fun watchedDao(): WatchedDao
-    abstract fun movieDao(): MovieDao
     abstract fun customCollectionDao(): CustomCollectionDao
     abstract fun interestingDao(): InterestingDao
 }

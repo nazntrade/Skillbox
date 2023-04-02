@@ -10,6 +10,7 @@ import com.example.hw_roomdao.data.db.models.Director
 import com.example.hw_roomdao.data.db.models.Project
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class ProjectRepository {
 
@@ -57,7 +58,7 @@ class ProjectRepository {
                 val sharedPrefExistedValue =
                     sharedPreferences.getBoolean("first_run", true)
                 if (sharedPrefExistedValue) {
-                    Log.d("first_run: ", "true")
+                    Timber.tag("first_run: ").d("true")
 
                     // in order to insert all objects in ONE transaction
                     Database.instance.withTransaction {

@@ -21,5 +21,4 @@ interface WatchedDao {
 
     @Query("DELETE FROM Watched")
     suspend fun clearWatched()
-
 }

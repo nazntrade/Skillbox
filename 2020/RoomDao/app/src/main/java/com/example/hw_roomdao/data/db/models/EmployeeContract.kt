@@ -13,5 +13,4 @@ object EmployeeContract {
         const val POSITION = "position"
         const val AGE = "age"
     }
-
 }
