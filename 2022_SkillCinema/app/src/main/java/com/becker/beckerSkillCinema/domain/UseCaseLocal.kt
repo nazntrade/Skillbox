@@ -5,7 +5,9 @@ import com.becker.beckerSkillCinema.data.repositories.RepositoryDataBase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UseCaseLocal @Inject constructor(private val repositoryDataBase: RepositoryDataBase) {
+class UseCaseLocal @Inject constructor(
+    private val repositoryDataBase: RepositoryDataBase
+) {
 
     fun getAllInterestingMovies(): Flow<List<Interesting>> {
         return repositoryDataBase.getAllInterestingMovies()

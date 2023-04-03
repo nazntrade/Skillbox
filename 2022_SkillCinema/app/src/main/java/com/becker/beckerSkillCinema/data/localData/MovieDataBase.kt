@@ -13,7 +13,7 @@ import com.becker.beckerSkillCinema.data.localData.entities.*
         Movie::class,
         CustomCollection::class,
         Interesting::class],
-    version = 1
+    version = MovieDataBase.DB_VERSION
 )
 abstract class MovieDataBase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
@@ -22,4 +22,8 @@ abstract class MovieDataBase : RoomDatabase() {
     abstract fun watchedDao(): WatchedDao
     abstract fun customCollectionDao(): CustomCollectionDao
     abstract fun interestingDao(): InterestingDao
+
+    companion object {
+        const val DB_VERSION = 1
+    }
 }
