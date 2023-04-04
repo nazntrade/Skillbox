@@ -103,5 +103,24 @@
     <string name="to_watch">Хочу посмотреть</string>
     <string name="create_own_collection">Создать свою коллекцию</string>
 
+    <!--Season Adapter-->
+    <string name="ofJanuary">января</string>
+    <string name="ofFebruary">февраля</string>
+    <string name="ofMarch">марта</string>
+    <string name="ofApril">апреля</string>
+    <string name="ofMay">мая</string>
+    <string name="ofJune">июня</string>
+    <string name="ofJuly">июля</string>
+    <string name="ofAugust">августа</string>
+    <string name="ofSeptember">сентября</string>
+    <string name="ofOctober">октября</string>
+    <string name="ofNovember">ноября</string>
+    <string name="ofDecember">декабря</string>
+
+    <!--Common    -->
+    <string name="NoData">Нет данных</string>
+    <string name="not_specified">Не указан</string>
+    <string name="unknown_name">Unknown name</string>
+
 
 </resources>

@@ -28,6 +28,7 @@ import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.F
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter.GalleryAdapter
+import com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm.FragmentAllStaffsByFilm
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.presentation.profile.CollectionHandlerFragment
 import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
@@ -374,9 +375,15 @@ class FragmentFilmDetail :
                         }
                         actorAdapter.submitList(actorsListTemp)
                         binding.apply {
-                            filmActorsLabel.setOnClickListener { showAllStaffs("ACTOR") }
-                            filmActorsBtn.setOnClickListener { showAllStaffs("ACTOR") }
-                            filmActorsCount.setOnClickListener { showAllStaffs("ACTOR") }
+                            filmActorsLabel.setOnClickListener {
+                                showAllStaffs(FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                            }
+                            filmActorsBtn.setOnClickListener {
+                                showAllStaffs(FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                            }
+                            filmActorsCount.setOnClickListener {
+                                showAllStaffs(FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                            }
                         }
                     }
                 }
@@ -629,6 +636,5 @@ class FragmentFilmDetail :
         private const val MAX_ACTORS_ROWS = 4
         private const val MAX_MAKERS_COLUMN = 3
         private const val MAX_MAKERS_ROWS = 2
-
     }
 }

@@ -38,7 +38,7 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
             val text = binding.root.resources.getString(
                 R.string.season_episode_name,
                 item.episodeNumber,
-                item.nameRu ?: item.nameEn ?: "Нет данных"
+                item.nameRu ?: item.nameEn ?: binding.root.resources.getString(R.string.NoData)
             )
             binding.episodeNumberName.text = text
             binding.episodeDate.text = formatReleaseDate(item.releaseDate)
@@ -61,18 +61,18 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
                 val tempData = date.split("-").reversed().toMutableList()
                 tempData[1] =
                     when (tempData[1]) {
-                        "01" -> "января"
-                        "02" -> "февраля"
-                        "03" -> "марта"
-                        "04" -> "апреля"
-                        "05" -> "мая"
-                        "06" -> "июня"
-                        "07" -> "июля"
-                        "08" -> "августа"
-                        "09" -> "сентября"
-                        "10" -> "октября"
-                        "11" -> "ноября"
-                        "12" -> "декабря"
+                        "01" -> binding.root.resources.getString(R.string.ofJanuary)
+                        "02" -> binding.root.resources.getString(R.string.ofFebruary)
+                        "03" -> binding.root.resources.getString(R.string.ofMarch)
+                        "04" -> binding.root.resources.getString(R.string.ofApril)
+                        "05" -> binding.root.resources.getString(R.string.ofMay)
+                        "06" -> binding.root.resources.getString(R.string.ofJune)
+                        "07" -> binding.root.resources.getString(R.string.ofJuly)
+                        "08" -> binding.root.resources.getString(R.string.ofAugust)
+                        "09" -> binding.root.resources.getString(R.string.ofSeptember)
+                        "10" -> binding.root.resources.getString(R.string.ofOctober)
+                        "11" -> binding.root.resources.getString(R.string.ofNovember)
+                        "12" -> binding.root.resources.getString(R.string.ofDecember)
                         else -> ""
                     }
                 return tempData.joinToString(" ")

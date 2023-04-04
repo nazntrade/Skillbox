@@ -73,7 +73,8 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
     }
 
     private fun makeFullScreen() {
-        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             (requireActivity() as MainActivity).window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             (requireActivity() as MainActivity).window.setFlags(
@@ -85,7 +86,8 @@ class FragmentVideo : ViewBindingFragment<FragmentVideoBinding>(FragmentVideoBin
 
     override fun onPause() {
         super.onPause()
-        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             (requireActivity() as MainActivity).window.insetsController?.show(WindowInsets.Type.statusBars())
         } else {
             (requireActivity() as MainActivity).window.clearFlags(

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.becker.beckerSkillCinema.R
@@ -14,6 +16,7 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
+import kotlinx.coroutines.launch
 
 class FragmentSimilarFilms :
     ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
@@ -48,9 +51,11 @@ class FragmentSimilarFilms :
     }
 
     private fun setFilmList() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentFilmSimilar.collect {
-                adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentFilmSimilar.collect {
+                    adapter.submitList(it)
+                }
             }
         }
     }

@@ -17,6 +17,7 @@ import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullPagingSource
+import com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm.FragmentAllStaffsByFilm
 import com.becker.beckerSkillCinema.utils.toLimitImages
 import com.becker.beckerSkillCinema.utils.toLimitSimilarFilm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -146,7 +147,8 @@ class FilmDetailViewModel @Inject constructor(
         val actors = emptyList<ResponseStaffByFilmId>().toMutableList()
         val makers = emptyList<ResponseStaffByFilmId>().toMutableList()
         filmCrewNotSorted.forEach { thisPeople ->
-            if (thisPeople.professionKey == "ACTOR") actors.add(thisPeople)
+            if (thisPeople.professionKey == FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                actors.add(thisPeople)
             else makers.add(thisPeople)
         }
         _currentFilmActors.value = actors

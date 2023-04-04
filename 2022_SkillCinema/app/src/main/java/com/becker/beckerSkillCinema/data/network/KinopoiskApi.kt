@@ -45,7 +45,7 @@ interface KinopoiskApi {
     ): ResponsePremier
 
     // FragmentHome (TV_SERIES) & FragmentSearch
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT3")////////////////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT3")
     @GET("v2.2/films/")
     suspend fun getFilmsByFilter(
         @Query("countries") countries: String,
@@ -69,14 +69,14 @@ interface KinopoiskApi {
     ): ResponseCurrentFilm
 
     // StaffInFilm
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT5")////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT5")
     @GET("v1/staff")
     suspend fun getActors(
         @Query("filmId") filmId: Int
     ): List<ResponseStaffByFilmId>
 
     // FragmentStaffDetail
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT6")////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT6")
     @GET("v1/staff/{id}")
     suspend fun getStaff(
         @Path("id") id: Int
@@ -97,7 +97,7 @@ interface KinopoiskApi {
     ): ResponseSeasons
 
     // Images
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9") ///////////////////////////////////////
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
     @GET("v2.2/films/{id}/images")
     suspend fun getFilmImages(
         @Path("id") id: Int,

@@ -8,7 +8,9 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
@@ -21,6 +23,7 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdap
 import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.launch
 
 class FragmentGalleryFull :
     ViewBindingFragment<FragmentFilmGalleryScreenBinding>(FragmentFilmGalleryScreenBinding::inflate) {
@@ -46,45 +49,47 @@ class FragmentGalleryFull :
     }
 
     private fun setChipButtons() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.numberOfPicturesByCategory.collect { categoriesWithNumbers ->
-                // creating chipGroup
-                val chipGroup = ChipGroup(requireContext()).apply {
-                    isSingleSelection = true
-                    chipSpacingHorizontal = 8
-                }
-                // creating chip
-                categoriesWithNumbers.forEach { (key, value) ->
-                    if (value != 0) {
-                        val nameChip = GALLERY_TYPES[key]
-                        val chip = Chip(requireContext()).apply {
-                            text = resources.getString(R.string.chip_name, nameChip, value)
-                            chipBackgroundColor = chipBackColors
-                            setTextColor(chipTextColors)
-                            chipStrokeColor = chipStrokeColors
-                            isCheckable = true
-                            checkedIcon = null
-                            transitionName = key
-                            chipStrokeWidth = 1F
-                            isSelected = false
-                        }
-                        chip.setOnClickListener { myChipClicked ->
-                            viewModel.updateParamsFilterGallery(
-                                galleryType = myChipClicked.transitionName
-                            )
-                            galleryAdapter.refresh()
-                        }
-                        if (chipGroup.size == 0) {
-                            chip.isChecked = true
-                            setGalleryImages(chip.transitionName)
-                            galleryAdapter.refresh()
-                        }
-                        // adding every chip to chipGroup
-                        chipGroup.addView(chip)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.numberOfPicturesByCategory.collect { categoriesWithNumbers ->
+                    // creating chipGroup
+                    val chipGroup = ChipGroup(requireContext()).apply {
+                        isSingleSelection = true
+                        chipSpacingHorizontal = 8
                     }
+                    // creating chip
+                    categoriesWithNumbers.forEach { (key, value) ->
+                        if (value != 0) {
+                            val nameChip = GALLERY_TYPES[key]
+                            val chip = Chip(requireContext()).apply {
+                                text = resources.getString(R.string.chip_name, nameChip, value)
+                                chipBackgroundColor = chipBackColors
+                                setTextColor(chipTextColors)
+                                chipStrokeColor = chipStrokeColors
+                                isCheckable = true
+                                checkedIcon = null
+                                transitionName = key
+                                chipStrokeWidth = 1F
+                                isSelected = false
+                            }
+                            chip.setOnClickListener { myChipClicked ->
+                                viewModel.updateParamsFilterGallery(
+                                    galleryType = myChipClicked.transitionName
+                                )
+                                galleryAdapter.refresh()
+                            }
+                            if (chipGroup.size == 0) {
+                                chip.isChecked = true
+                                setGalleryImages(chip.transitionName)
+                                galleryAdapter.refresh()
+                            }
+                            // adding every chip to chipGroup
+                            chipGroup.addView(chip)
+                        }
+                    }
+                    // placing chipGroup in view
+                    binding.galleryChipsGroupContainer.addView(chipGroup)
                 }
-                // placing chipGroup in view
-                binding.galleryChipsGroupContainer.addView(chipGroup)
             }
         }
     }
@@ -110,10 +115,12 @@ class FragmentGalleryFull :
         binding.filmGalleryPager.layoutManager = gridManager
         binding.filmGalleryPager.adapter = galleryAdapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.updateParamsFilterGallery(galleryType = galleryType)
-            viewModel.galleryByType.collect {
-                galleryAdapter.submitData(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.updateParamsFilterGallery(galleryType = galleryType)
+                viewModel.galleryByType.collect {
+                    galleryAdapter.submitData(it)
+                }
             }
         }
     }

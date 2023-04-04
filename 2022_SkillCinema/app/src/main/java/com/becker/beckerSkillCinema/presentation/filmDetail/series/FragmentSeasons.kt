@@ -8,7 +8,9 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.becker.beckerSkillCinema.presentation.filmDetail.series.adapter.SeasonsAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
+import kotlinx.coroutines.launch
 
 class FragmentSeasons :
     ViewBindingFragment<FragmentSeasonsBinding>(FragmentSeasonsBinding::inflate) {
@@ -58,16 +61,17 @@ class FragmentSeasons :
     }
 
     private fun setFirstDefaultEpisodeList() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.seasons.collect { allSeasons ->
-                binding.seasonsAndEpisodesCount.text =
-                    getSeasonsLabel(
-                        allSeasons[0].number,
-                        allSeasons[0].episodes.size
-                    )
-
-                adapter.submitList(allSeasons[0].episodes)
-                setChipGroup(allSeasons)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.seasons.collect { allSeasons ->
+                    binding.seasonsAndEpisodesCount.text =
+                        getSeasonsLabel(
+                            allSeasons[0].number,
+                            allSeasons[0].episodes.size
+                        )
+                    adapter.submitList(allSeasons[0].episodes)
+                    setChipGroup(allSeasons)
+                }
             }
         }
     }

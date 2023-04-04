@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
+import kotlinx.coroutines.launch
 
 class FragmentAllStaffsByFilm :
     ViewBindingFragment<FragmentStaffAllByFilmBinding>(FragmentStaffAllByFilmBinding::inflate) {
@@ -49,20 +52,22 @@ class FragmentAllStaffsByFilm :
 
         binding.allStaffsList.adapter = adapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            when (args.professionKey) {
-                "ACTOR" -> {
-                    binding.allStaffsCategoryTv.text =
-                        resources.getString(R.string.label_film_actors)
-                    viewModel.currentFilmActors.collect { actorList ->
-                        adapter.submitList(actorList)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                when (args.professionKey) {
+                    PROF_KEY_ACTOR -> {
+                        binding.allStaffsCategoryTv.text =
+                            resources.getString(R.string.label_film_actors)
+                        viewModel.currentFilmActors.collect { actorList ->
+                            adapter.submitList(actorList)
+                        }
                     }
-                }
-                else -> {
-                    binding.allStaffsCategoryTv.text =
-                        resources.getString(R.string.label_film_makers)
-                    viewModel.currentFilmMakers.collect { makersList ->
-                        adapter.submitList(makersList)
+                    else -> {
+                        binding.allStaffsCategoryTv.text =
+                            resources.getString(R.string.label_film_makers)
+                        viewModel.currentFilmMakers.collect { makersList ->
+                            adapter.submitList(makersList)
+                        }
                     }
                 }
             }
@@ -73,5 +78,9 @@ class FragmentAllStaffsByFilm :
         val action = FragmentAllStaffsByFilmDirections
             .actionFragmentAllStaffsByFilmToFragmentStaffDetail(staff.staffId)
         findNavController().navigate(action)
+    }
+
+    companion object {
+        const val PROF_KEY_ACTOR = "ACTOR"
     }
 }

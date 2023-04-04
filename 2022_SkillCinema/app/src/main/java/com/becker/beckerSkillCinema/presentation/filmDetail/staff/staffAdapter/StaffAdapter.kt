@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.ItemStaffDetailFilmBinding
 import com.becker.beckerSkillCinema.utils.loadImage
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
@@ -45,8 +46,11 @@ class StaffAdapter(
         ) {
             binding.apply {
                 actorAvatarFilmDetail.loadImage(item.posterUrl)
-                actorNameFilmDetail.text = item.nameRu ?: item.nameEn ?: "Не указан"
-                actorRoleFilmDetail.text = item.description ?: item.professionText ?: "Не указан"
+                actorNameFilmDetail.text =
+                    item.nameRu ?: item.nameEn ?: root.resources.getString(R.string.not_specified)
+                actorRoleFilmDetail.text =
+                    item.description ?: item.professionText
+                            ?: root.resources.getString(R.string.not_specified)
             }
             binding.root.setOnClickListener { clickActor(item) }
         }

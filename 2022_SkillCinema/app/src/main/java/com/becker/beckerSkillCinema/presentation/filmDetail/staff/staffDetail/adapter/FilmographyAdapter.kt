@@ -41,5 +41,4 @@ class FilmographyAdapter(
 
     class FilmographyViewHolder(val binding: ItemFilmographyFilmBinding) :
         RecyclerView.ViewHolder(binding.root)
-
 }

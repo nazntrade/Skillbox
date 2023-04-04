@@ -8,7 +8,9 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.size
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.becker.beckerSkillCinema.data.PROFESSIONS
@@ -18,6 +20,7 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail.adapter.FilmographyAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.launch
 
 class FragmentFilmography :
     ViewBindingFragment<FragmentStaffFilmographyBinding>(FragmentStaffFilmographyBinding::inflate) {
@@ -39,8 +42,8 @@ class FragmentFilmography :
         super.onViewCreated(view, savedInstanceState)
 
         binding.filmographyBack.setOnClickListener { findNavController().popBackStack() }
-        setAdapter()                // set adapter
-        setFilmList()               // get movieList
+        setAdapter()
+        setFilmList()
     }
 
     private fun setAdapter() {
@@ -51,11 +54,13 @@ class FragmentFilmography :
     }
 
     private fun setFilmList() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentStaff.collect { staff ->
-                if (staff?.films?.isNotEmpty() == true) {
-                    setChipButton(staff.films)
-                    adapter.submitList(staff.films)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentStaff.collect { staff ->
+                    if (staff?.films?.isNotEmpty() == true) {
+                        setChipButton(staff.films)
+                        adapter.submitList(staff.films)
+                    }
                 }
             }
         }

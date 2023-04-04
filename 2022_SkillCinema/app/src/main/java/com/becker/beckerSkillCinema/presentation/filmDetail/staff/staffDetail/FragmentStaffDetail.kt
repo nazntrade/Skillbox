@@ -6,7 +6,9 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.FilmAdapter
 import com.becker.beckerSkillCinema.utils.autoCleared
 import com.becker.beckerSkillCinema.utils.loadImage
+import kotlinx.coroutines.launch
 
 class FragmentStaffDetail :
     ViewBindingFragment<FragmentStaffDetailBinding>(FragmentStaffDetailBinding::inflate) {
@@ -40,10 +43,10 @@ class FragmentStaffDetail :
         super.onViewCreated(view, savedInstanceState)
 
         binding.staffDetailBackBtn.setOnClickListener { findNavController().popBackStack() }
-        setFilmsAdapter()                       // set adapter
-        setLoadingStateAndDetails()             // Loading state
-        getStaffInfo()                          // get info about person
-        setListeners()                          // set listeners
+        setFilmsAdapter()
+        setLoadingStateAndDetails()
+        getStaffInfo()
+        setListeners()
     }
 
     private fun setFilmsAdapter() {
@@ -54,36 +57,38 @@ class FragmentStaffDetail :
     }
 
     private fun setLoadingStateAndDetails() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.loadCurrentStaff.collect { state ->
-                when (state) {
-                    is StateLoading.Loading -> {
-                        binding.apply {
-                            progressGroupContainer.progressGroup.isVisible = true
-                            progressGroupContainer.loadingRefreshBtn.isVisible = false
-                            staffDetailMainGroup.isVisible = false
-                            staffDetailBestGroup.isVisible = false
-                            staffDetailFilmographyGroup.isVisible = false
-                            progressGroupContainer.noAnswerText.isVisible = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadCurrentStaff.collect { state ->
+                    when (state) {
+                        is StateLoading.Loading -> {
+                            binding.apply {
+                                progressGroupContainer.progressGroup.isVisible = true
+                                progressGroupContainer.loadingRefreshBtn.isVisible = false
+                                staffDetailMainGroup.isVisible = false
+                                staffDetailBestGroup.isVisible = false
+                                staffDetailFilmographyGroup.isVisible = false
+                                progressGroupContainer.noAnswerText.isVisible = false
+                            }
                         }
-                    }
-                    is StateLoading.Success -> {
-                        binding.apply {
-                            progressGroupContainer.progressGroup.isVisible = false
-                            progressGroupContainer.loadingRefreshBtn.isVisible = false
-                            staffDetailMainGroup.isVisible = true
-                            staffDetailBestGroup.isVisible = true
-                            staffDetailFilmographyGroup.isVisible = true
+                        is StateLoading.Success -> {
+                            binding.apply {
+                                progressGroupContainer.progressGroup.isVisible = false
+                                progressGroupContainer.loadingRefreshBtn.isVisible = false
+                                staffDetailMainGroup.isVisible = true
+                                staffDetailBestGroup.isVisible = true
+                                staffDetailFilmographyGroup.isVisible = true
+                            }
                         }
-                    }
-                    else -> {
-                        binding.apply {
-                            progressGroupContainer.progressGroup.isVisible = false
-                            progressGroupContainer.loadingRefreshBtn.isVisible = true
-                            staffDetailMainGroup.isVisible = false
-                            staffDetailBestGroup.isVisible = false
-                            staffDetailFilmographyGroup.isVisible = false
-                            progressGroupContainer.noAnswerText.isVisible = true
+                        else -> {
+                            binding.apply {
+                                progressGroupContainer.progressGroup.isVisible = false
+                                progressGroupContainer.loadingRefreshBtn.isVisible = true
+                                staffDetailMainGroup.isVisible = false
+                                staffDetailBestGroup.isVisible = false
+                                staffDetailFilmographyGroup.isVisible = false
+                                progressGroupContainer.noAnswerText.isVisible = true
+                            }
                         }
                     }
                 }
@@ -93,60 +98,64 @@ class FragmentStaffDetail :
 
     private fun getStaffInfo() {
         viewModel.getStaffDetail(args.staffId)
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.currentStaff.collect { staff ->
-                if (staff != null) {
-                    binding.apply {
-                        staffDetailPoster.apply {
-                            loadImage(staff.posterUrl)
-                            setListeners(link = staff.posterUrl)
-                        }
-
-                        staffDetailName.text = staff.nameRu ?: staff.nameEn ?: "Unknown name"
-
-                        if (staff.profession != null) staffDetailProfession.text =
-                            staff.profession
-                        else staffDetailProfession.isVisible = false
-
-                        if (staff.birthday != null)
-                            "Год рождения: ${staff.birthday.substring(0, 4)}".also {
-                                staffDetailBirthday.text = it
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentStaff.collect { staff ->
+                    if (staff != null) {
+                        binding.apply {
+                            staffDetailPoster.apply {
+                                loadImage(staff.posterUrl)
+                                setListeners(link = staff.posterUrl)
                             }
-                        else staffDetailBirthday.isVisible = false
 
-                        if (staff.birthPlace != null)
-                            "Место рождения: ${staff.birthPlace}".also {
-                                staffDetailPlaceOfBirthday.text = it
+                            staffDetailName.text =
+                                staff.nameRu ?: staff.nameEn ?: getString(R.string.unknown_name)
+
+                            if (staff.profession != null) staffDetailProfession.text =
+                                staff.profession
+                            else staffDetailProfession.isVisible = false
+
+                            if (staff.birthday != null)
+                                "Год рождения: ${staff.birthday.substring(0, 4)}".also {
+                                    staffDetailBirthday.text = it
+                                }
+                            else staffDetailBirthday.isVisible = false
+
+                            if (staff.birthPlace != null)
+                                "Место рождения: ${staff.birthPlace}".also {
+                                    staffDetailPlaceOfBirthday.text = it
+                                }
+                            else staffDetailPlaceOfBirthday.isVisible = false
+
+                            if (staff.films != null) {
+                                staffDetailFilmsCount.text =
+                                    resources.getQuantityString(
+                                        R.plurals.staff_details_film_count,
+                                        staff.films.size,
+                                        staff.films.size
+                                    )
+
+                                val list: MutableList<HomeItem> = staff.films.toMutableList()
+                                list.removeAll { it.rating == null }
+                                val sortedListBest =
+                                    list.sortedBy { it.rating?.toDouble() }.reversed()
+                                val resultBest = mutableListOf<HomeItem>()
+                                if (sortedListBest.size > 10) {
+                                    repeat(10) { resultBest.add(sortedListBest[it]) }
+                                } else resultBest.addAll(sortedListBest)
+                                resultBest.sortedBy { it.rating }
+                                // response from server has no poster!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                filmAdapter.submitList(resultBest)
                             }
-                        else staffDetailPlaceOfBirthday.isVisible = false
 
-                        if (staff.films != null) {
-                            staffDetailFilmsCount.text =
-                                resources.getQuantityString(
-                                    R.plurals.staff_details_film_count,
-                                    staff.films.size,
-                                    staff.films.size
-                                )
-
-                            val list: MutableList<HomeItem> = staff.films.toMutableList()
-                            list.removeAll { it.rating == null }
-                            val sortedListBest = list.sortedBy { it.rating?.toDouble() }.reversed()
-                            val resultBest = mutableListOf<HomeItem>()
-                            if (sortedListBest.size > 10) {
-                                repeat(10) { resultBest.add(sortedListBest[it]) }
-                            } else resultBest.addAll(sortedListBest)
-                            resultBest.sortedBy { it.rating }
-                            // response from server has no poster!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                            filmAdapter.submitList(resultBest)
-                        }
-
-                        if (staff.facts == null || staff.facts.isEmpty()) {
-                            factsTitle.isVisible = false
-                            factsFieldText.isVisible = false
-                        } else {
-                            factsTitle.isVisible = true
-                            factsFieldText.isVisible = true
-                            factsFieldText.text = staff.facts.joinToString(" ")
+                            if (staff.facts == null || staff.facts.isEmpty()) {
+                                factsTitle.isVisible = false
+                                factsFieldText.isVisible = false
+                            } else {
+                                factsTitle.isVisible = true
+                                factsFieldText.isVisible = true
+                                factsFieldText.text = staff.facts.joinToString(" ")
+                            }
                         }
                     }
                 }
