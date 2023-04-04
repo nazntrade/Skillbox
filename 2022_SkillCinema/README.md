@@ -8,8 +8,9 @@
 - Flow
 - Retrofit 2
 - Room
-- Navigation component (Для передачи данных между фрагментами использовал SavedStateHandle)
-- Hilt
+- Navigation component
 - MotionLayout
 - Custom View
 - Adapter Delegate
+- Firebase
+

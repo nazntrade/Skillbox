@@ -29,7 +29,8 @@ class App : Application() {
         }
 
         //switch on Crashlytics on Debug
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+        FirebaseCrashlytics.getInstance()
+            .setCrashlyticsCollectionEnabled(/*!BuildConfig.DEBUG*/true)
 
         // Create notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

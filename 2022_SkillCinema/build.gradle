@@ -1,16 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-
-    ext.kotlin_version = '1.8.0'
+    ext.kotlin_version = '1.8.20'
     repositories {
+        google()
         mavenCentral()
     }
-
     dependencies {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
-        //for hilt
+        // hilt
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.44.2"
+        //Firebase
+        classpath 'com.google.gms:google-services:4.3.15'
+        // Add the dependency for the Crashlytics Gradle plugin
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
     }
 }
 

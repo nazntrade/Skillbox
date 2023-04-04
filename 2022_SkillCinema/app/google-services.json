@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "160018019910",
+    "project_id": "beckercinema-final-project",
+    "storage_bucket": "beckercinema-final-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160018019910:android:bf30d361a177826ac3bc47",
+        "android_client_info": {
+          "package_name": "com.becker.beckerSkillCinema"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160018019910-je74a27jja16314nqqcqqojos0dcoibk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKMPaXlFozK0Jx0prRiAGwSh5Sgmt7jSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160018019910-je74a27jja16314nqqcqqojos0dcoibk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

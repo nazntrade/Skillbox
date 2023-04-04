@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.ActivityMainBinding
@@ -19,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        testFirebaseCrashlytics()
 
         defineFirstRun()
     }
@@ -40,6 +44,21 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.mainFragment)
         }
     }
+
+//    private fun testFirebaseCrashlytics() {
+//        val crashButton = Button(this)
+//        crashButton.text = "Test Crash"
+//        crashButton.setOnClickListener {
+//            throw RuntimeException("Test Crash") // Force a crash
+//        }
+//
+//        addContentView(
+//            crashButton, ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT
+//            )
+//        )
+//    }
 
     companion object {
         const val FIRST_RUN = "FirstRun"
