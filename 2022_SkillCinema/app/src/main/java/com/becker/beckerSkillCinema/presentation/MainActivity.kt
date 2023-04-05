@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
 import com.becker.beckerSkillCinema.R
+import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.ActivityMainBinding
 import com.becker.beckerSkillCinema.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        CategoriesFilms.initialize(applicationContext)
 
 //        testFirebaseCrashlytics()
 

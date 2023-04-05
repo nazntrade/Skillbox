@@ -136,5 +136,14 @@ class HomeViewModel @Inject constructor(
         private val calendar: Calendar = Calendar.getInstance()
         val currentMonth: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
         val currentYear: Int = calendar.get(Calendar.YEAR)
+        val GENRE_BIOGRAPHY_FILTER = mapOf(
+            8 to TOP_TYPES.getValue(CategoriesFilms.BIOGRAPHY)
+        )
+        val GENRE_SCIENCE_FICTION_FILTER = mapOf(
+            6 to TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION)
+        )
+        val GENRE_CARTOONS_FILTER = mapOf(
+            18 to TOP_TYPES.getValue(CategoriesFilms.CARTOONS)
+        )
     }
 }

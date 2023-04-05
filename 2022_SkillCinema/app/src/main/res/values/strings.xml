@@ -46,9 +46,18 @@
     <string name="facts">Факты: </string>
 
     <!-- Gallery full fragment -->
+    <string name="search_trailers">Найти трейлеры</string>
     <string name="title_gallery">Галерея</string>
     <string name="chip_name">%s %d</string>
-    <string name="search_trailers">Найти трейлеры</string>
+    <string name="steel">кадры</string>
+    <string name="shooting">со съемок</string>
+    <string name="poster">постеры</string>
+    <string name="fan_art">фан-арты</string>
+    <string name="promo">промо</string>
+    <string name="concept">концепт-арты</string>
+    <string name="wallpaper">обои</string>
+    <string name="cover">обложки</string>
+    <string name="screenshot">скриншоты</string>
 
     <!-- Search fragment -->
     <string name="search_not_found">К сожалению, по Вашему\nничего не найдено</string>
@@ -121,6 +130,16 @@
     <string name="NoData">Нет данных</string>
     <string name="not_specified">Не указан</string>
     <string name="unknown_name">Unknown name</string>
+
+    <!--CategoriesFilms    -->
+    <string name="category_best_250">ТОП-250</string>
+    <string name="popular_100">Популярное</string>
+    <string name="premiers">Премьеры</string>
+    <string name="most_await">Самые ожидаемые</string>
+    <string name="tv_series">Сериалы</string>
+    <string name="biography">Биографии</string>
+    <string name="science_fiction">Фантастика</string>
+    <string name="cartoons">Мультфильмы</string>
 
 
 </resources>

@@ -7,7 +7,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
-import com.becker.beckerSkillCinema.data.GALLERY_TYPES
 import com.becker.beckerSkillCinema.data.ParamsFilterGallery
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.filmGallery.ItemImageGallery
@@ -16,8 +15,9 @@ import com.becker.beckerSkillCinema.data.similarFilm.SimilarItem
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
+import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.FragmentGalleryFull.Companion.GALLERY_TYPES
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullPagingSource
-import com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm.FragmentAllStaffsByFilm
+import com.becker.beckerSkillCinema.utils.Constants.PROF_KEY_ACTOR
 import com.becker.beckerSkillCinema.utils.toLimitImages
 import com.becker.beckerSkillCinema.utils.toLimitSimilarFilm
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -147,7 +147,7 @@ class FilmDetailViewModel @Inject constructor(
         val actors = emptyList<ResponseStaffByFilmId>().toMutableList()
         val makers = emptyList<ResponseStaffByFilmId>().toMutableList()
         filmCrewNotSorted.forEach { thisPeople ->
-            if (thisPeople.professionKey == FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+            if (thisPeople.professionKey == PROF_KEY_ACTOR)
                 actors.add(thisPeople)
             else makers.add(thisPeople)
         }

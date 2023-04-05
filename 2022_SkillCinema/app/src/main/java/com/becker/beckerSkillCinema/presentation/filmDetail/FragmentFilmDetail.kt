@@ -32,6 +32,7 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.presentation.profile.CollectionHandlerFragment
 import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
+import com.becker.beckerSkillCinema.utils.Constants.PROF_KEY_ACTOR
 import com.becker.beckerSkillCinema.utils.loadImage
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
@@ -270,7 +271,7 @@ class FragmentFilmDetail :
                 lifecycleScope.launch {
                     lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                         try {
-                            viewModel.currentFilm.collect { film ->
+                            viewModel.currentFilm.collectLatest { film ->
                                 if (film != null) {
                                     if (film.type == TOP_TYPES.getValue(CategoriesFilms.TV_SERIES)) {
                                         binding.seasonsGroup.isVisible = true
@@ -292,9 +293,7 @@ class FragmentFilmDetail :
                                         filmCountryLengthAgeLimitTv.text =
                                             getStrCountriesLengthAge(film)
                                     }
-                                }
-                                if (film != null) {
-                                    // Add film to DataBase !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    // Add film to DataBase !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                     profileMovieViewModel.addMovieToDataBase(film)
                                 }
                             }
@@ -376,13 +375,13 @@ class FragmentFilmDetail :
                         actorAdapter.submitList(actorsListTemp)
                         binding.apply {
                             filmActorsLabel.setOnClickListener {
-                                showAllStaffs(FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                                showAllStaffs(PROF_KEY_ACTOR)
                             }
                             filmActorsBtn.setOnClickListener {
-                                showAllStaffs(FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                                showAllStaffs(PROF_KEY_ACTOR)
                             }
                             filmActorsCount.setOnClickListener {
-                                showAllStaffs(FragmentAllStaffsByFilm.PROF_KEY_ACTOR)
+                                showAllStaffs(PROF_KEY_ACTOR)
                             }
                         }
                     }
@@ -532,6 +531,7 @@ class FragmentFilmDetail :
         viewModel.getFilmById()
         binding.myScroll.scrollTo(0, 0)
         binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
+        profileMovieViewModel.addCurrentFilmToHistory(newFilmId)
     }
 
 

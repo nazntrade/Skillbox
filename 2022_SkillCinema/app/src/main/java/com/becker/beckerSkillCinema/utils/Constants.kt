@@ -26,4 +26,6 @@ object Constants {
 
     const val TYPE_FILM = "film"
     const val TYPE_PEOPLE = "people"
+
+    const val PROF_KEY_ACTOR = "ACTOR"
 }

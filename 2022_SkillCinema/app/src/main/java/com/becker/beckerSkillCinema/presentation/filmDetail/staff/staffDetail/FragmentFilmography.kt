@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.becker.beckerSkillCinema.data.PROFESSIONS
 import com.becker.beckerSkillCinema.data.staffById.StaffsFilms
 import com.becker.beckerSkillCinema.databinding.FragmentStaffFilmographyBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
@@ -134,6 +133,21 @@ class FragmentFilmography :
                 intArrayOf()
             ),
             intArrayOf(Color.RED, Color.BLACK)
+        )
+
+        val PROFESSIONS = mapOf(
+            "WRITER" to "Сценарист",
+            "OPERATOR" to "Оператор",
+            "EDITOR" to "Монтаж",
+            "COMPOSER" to "Композитор",
+            "PRODUCER_USSR" to "Режиссёр СССР",
+            "TRANSLATOR" to "Дубляж",
+            "DIRECTOR" to "Режиссёр",
+            "DESIGN" to "Художник-постановщик",
+            "PRODUCER" to "Продюссер",
+            "ACTOR" to "Актёр",
+            "VOICE_DIRECTOR" to "Звукорежиссёр",
+            "UNKNOWN" to "Неизвестно"
         )
     }
 }

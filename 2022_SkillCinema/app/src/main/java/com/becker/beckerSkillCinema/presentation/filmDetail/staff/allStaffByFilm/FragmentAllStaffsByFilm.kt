@@ -17,6 +17,7 @@ import com.becker.beckerSkillCinema.databinding.FragmentStaffAllByFilmBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
+import com.becker.beckerSkillCinema.utils.Constants.PROF_KEY_ACTOR
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 
@@ -78,9 +79,5 @@ class FragmentAllStaffsByFilm :
         val action = FragmentAllStaffsByFilmDirections
             .actionFragmentAllStaffsByFilmToFragmentStaffDetail(staff.staffId)
         findNavController().navigate(action)
-    }
-
-    companion object {
-        const val PROF_KEY_ACTOR = "ACTOR"
     }
 }

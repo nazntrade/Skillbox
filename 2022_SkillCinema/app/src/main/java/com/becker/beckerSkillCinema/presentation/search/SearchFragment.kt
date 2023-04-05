@@ -155,36 +155,38 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             }
         }
         //LOADING STATE PEOPLE
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.loadingState.collect { state ->
-                when (state) {
-                    is StateLoading.Loading -> {
-                        binding.apply {
-                            searchFilmList.isVisible = false
-                            searchPeopleList.isVisible = false
-                            searchProgressGroup.isVisible = true
-                            loadingProgress.isVisible = true
-                            searchProgressText.isVisible = false
-                            searchProgressImage.isVisible = true
-                        }
-                    }
-                    is StateLoading.Success -> {
-                        binding.apply {
-                            if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
-                                searchPeopleList.isVisible = true
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadingState.collect { state ->
+                    when (state) {
+                        is StateLoading.Loading -> {
+                            binding.apply {
                                 searchFilmList.isVisible = false
+                                searchPeopleList.isVisible = false
+                                searchProgressGroup.isVisible = true
+                                loadingProgress.isVisible = true
+                                searchProgressText.isVisible = false
+                                searchProgressImage.isVisible = true
                             }
-                            loadingProgress.isVisible = false
-                            searchProgressText.isVisible = false
-                            searchProgressImage.isVisible = false
                         }
-                    }
-                    else -> {
-                        binding.apply {
-                            searchFilmList.isVisible = false
-                            searchPeopleList.isVisible = false
-                            loadingProgress.isVisible = false
-                            searchProgressImage.isVisible = true
+                        is StateLoading.Success -> {
+                            binding.apply {
+                                if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+                                    searchPeopleList.isVisible = true
+                                    searchFilmList.isVisible = false
+                                }
+                                loadingProgress.isVisible = false
+                                searchProgressText.isVisible = false
+                                searchProgressImage.isVisible = false
+                            }
+                        }
+                        else -> {
+                            binding.apply {
+                                searchFilmList.isVisible = false
+                                searchPeopleList.isVisible = false
+                                loadingProgress.isVisible = false
+                                searchProgressImage.isVisible = true
+                            }
                         }
                     }
                 }
@@ -236,27 +238,31 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
         binding.searchMyField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                    try {
-                        delay(2000)
-                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
-                            if (s.toString() != viewModel.getFilters().keyword) {
-                                viewModel.updateFilters(
-                                    filterFilm = viewModel.getFilters().copy(keyword = s.toString())
-                                )
-                                adapterFilms.refresh()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        try {
+                            delay(2000)
+                            if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                                if (s.toString() != viewModel.getFilters().keyword) {
+                                    viewModel.updateFilters(
+                                        filterFilm = viewModel.getFilters()
+                                            .copy(keyword = s.toString())
+                                    )
+                                    adapterFilms.refresh()
+                                }
                             }
-                        }
-                        if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
-                            if (s.toString() != viewModel.getFilters().keyword) {
-                                viewModel.updateFilters(
-                                    filterFilm = viewModel.getFilters().copy(keyword = s.toString())
-                                )
-                                viewModel.getPeople()
+                            if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+                                if (s.toString() != viewModel.getFilters().keyword) {
+                                    viewModel.updateFilters(
+                                        filterFilm = viewModel.getFilters()
+                                            .copy(keyword = s.toString())
+                                    )
+                                    viewModel.getPeople()
+                                }
                             }
+                        } catch (e: Throwable) {
+                            Timber.e("onTextChanged $e")
                         }
-                    } catch (e: Throwable) {
-                        Timber.e("onTextChanged $e")
                     }
                 }
             }
