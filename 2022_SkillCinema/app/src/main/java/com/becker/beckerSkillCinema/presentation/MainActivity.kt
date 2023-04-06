@@ -4,13 +4,10 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.fragment.NavHostFragment
 import com.becker.beckerSkillCinema.R
-import com.becker.beckerSkillCinema.data.CategoriesFilms
 import com.becker.beckerSkillCinema.databinding.ActivityMainBinding
-import com.becker.beckerSkillCinema.utils.Constants
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,9 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        CategoriesFilms.initialize(applicationContext)
-
-//        testFirebaseCrashlytics()
+//      testFirebaseCrashlytics()
 
         defineFirstRun()
     }
@@ -37,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
         val sharedPref = getSharedPreferences(
-            Constants.SHARED_PREFS_NAME,
+            ConstantsAndParams.SHARED_PREFS_NAME,
             Context.MODE_PRIVATE
         )
         val firstRun = sharedPref.getBoolean(FIRST_RUN, true)

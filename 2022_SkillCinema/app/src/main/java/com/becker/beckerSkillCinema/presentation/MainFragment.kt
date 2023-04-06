@@ -23,10 +23,10 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
             override fun handleOnBackPressed() {
                 AlertDialog.Builder(requireContext())
                     .setIcon(R.drawable.becker_cinema_icon)
-                    .setTitle("Выход")
-                    .setMessage("Вы уверены, что хотите закрыть приложение?")
-                    .setPositiveButton("Да") { _, _ -> requireActivity().finish() }
-                    .setNegativeButton("Нет", null)
+                    .setTitle(getString(R.string.exit))
+                    .setMessage(getString(R.string.are_you_really_want))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ -> requireActivity().finish() }
+                    .setNegativeButton(getString(R.string.no), null)
                     .show()
             }
         }

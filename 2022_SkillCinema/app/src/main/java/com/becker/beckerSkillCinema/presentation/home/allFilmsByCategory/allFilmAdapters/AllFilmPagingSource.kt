@@ -7,9 +7,10 @@ import com.becker.beckerSkillCinema.domain.GetFilmListUseCase
 import com.becker.beckerSkillCinema.domain.GetPremierFilmUseCase
 import com.becker.beckerSkillCinema.domain.GetTopFilmsUseCase
 import com.becker.beckerSkillCinema.entity.HomeItem
-import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.GENRE_BIOGRAPHY_FILTER
-import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.GENRE_CARTOONS_FILTER
-import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.GENRE_SCIENCE_FICTION_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GENRE_BIOGRAPHY_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GENRE_CARTOONS_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GENRE_SCIENCE_FICTION_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.TOP_TYPES
 
 class AllFilmPagingSource(
     private val categoriesFilms: CategoriesFilms,

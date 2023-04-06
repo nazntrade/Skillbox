@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.CategoriesFilms
-import com.becker.beckerSkillCinema.data.TOP_TYPES
+import com.becker.beckerSkillCinema.data.Professions
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.databinding.FragmentFilmDetailBinding
@@ -28,11 +28,10 @@ import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.F
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.galleryAdapter.GalleryAdapter
-import com.becker.beckerSkillCinema.presentation.filmDetail.staff.allStaffByFilm.FragmentAllStaffsByFilm
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
 import com.becker.beckerSkillCinema.presentation.profile.CollectionHandlerFragment
 import com.becker.beckerSkillCinema.presentation.profile.ProfileMovieViewModel
-import com.becker.beckerSkillCinema.utils.Constants.PROF_KEY_ACTOR
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.TOP_TYPES
 import com.becker.beckerSkillCinema.utils.loadImage
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
@@ -68,10 +67,10 @@ class FragmentFilmDetail :
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
         stateLoadingListener()              // Set listener downloads
         setFilmDetailsAndAddToDataBase()    // set Film Details And Add To DataBase
-        setFilmActors()                     // Ser ListActors
-        setFilmCrew()                       // Set ListFilmCrew
-        setFilmGallery()                    // Set Gallery
-        setSimilarFilms()                   // Set List Similar Films
+        setFilmActors()
+        setFilmCrew()
+        setFilmGallery()
+        setSimilarFilms()
         actionOnPosterBtn()
     }
 
@@ -105,11 +104,11 @@ class FragmentFilmDetail :
     private fun doOnClickShareBtn() {
         binding.btnShare.setOnClickListener {
             val share = Intent(Intent.ACTION_SEND)
-            share.type = "text/plain"
+            share.type = INTENT_TYPE
             share.putExtra(
                 Intent.EXTRA_TEXT, "https://www.kinopoisk.ru/film/${incomeArgs.filmId}/"
             )
-            startActivity(Intent.createChooser(share, "Share Link"))
+            startActivity(Intent.createChooser(share, INTENT_TITLE))
         }
     }
 
@@ -217,7 +216,7 @@ class FragmentFilmDetail :
         popupWindow.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
         popupWindow.enterTransition = com.google.android.material.R.id.animateToStart
         popupWindow.exitTransition = com.google.android.material.R.id.animateToEnd
-        popupWindow.show(requireActivity().supportFragmentManager, "POP_UP")
+        popupWindow.show(requireActivity().supportFragmentManager, POPUP_WINDOW_TAG)
     }
 
     private fun stateLoadingListener() {
@@ -375,13 +374,13 @@ class FragmentFilmDetail :
                         actorAdapter.submitList(actorsListTemp)
                         binding.apply {
                             filmActorsLabel.setOnClickListener {
-                                showAllStaffs(PROF_KEY_ACTOR)
+                                showAllStaffs(Professions.ACTOR.name)
                             }
                             filmActorsBtn.setOnClickListener {
-                                showAllStaffs(PROF_KEY_ACTOR)
+                                showAllStaffs(Professions.ACTOR.name)
                             }
                             filmActorsCount.setOnClickListener {
-                                showAllStaffs(PROF_KEY_ACTOR)
+                                showAllStaffs(Professions.ACTOR.name)
                             }
                         }
                     }
@@ -622,7 +621,7 @@ class FragmentFilmDetail :
         return if (this.filmLength != null) {
             val hours = this.filmLength.div(60)
             val minutes = this.filmLength.rem(60)
-            "$hours ч $minutes мин"
+            "$hours ${R.string.hour_short} $minutes ${R.string.minutes_short}"
         } else null
     }
 
@@ -636,5 +635,8 @@ class FragmentFilmDetail :
         private const val MAX_ACTORS_ROWS = 4
         private const val MAX_MAKERS_COLUMN = 3
         private const val MAX_MAKERS_ROWS = 2
+        private const val INTENT_TYPE = "text/plain"
+        private const val INTENT_TITLE = "Share Link"
+        private const val POPUP_WINDOW_TAG = "POP_UP"
     }
 }

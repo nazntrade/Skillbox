@@ -19,10 +19,10 @@ import com.becker.beckerSkillCinema.databinding.FragmentFilmGalleryScreenBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.filmDetail.gallery.recyclerAdapter.GalleryFullAdapter
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GALLERY_TYPES
 import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.internal.ContextUtils.getActivity
 import kotlinx.coroutines.launch
 
 class FragmentGalleryFull :
@@ -152,17 +152,6 @@ class FragmentGalleryFull :
                 intArrayOf()
             ),
             intArrayOf(Color.RED, Color.BLACK)
-        )
-        val GALLERY_TYPES = mapOf(
-            "STILL" to resourses.getString(R.string.steel),
-            "SHOOTING" to "со съемок",
-            "POSTER" to "постеры",
-            "FAN_ART" to "фан-арты",
-            "PROMO" to "промо",
-            "CONCEPT" to "концепт-арты",
-            "WALLPAPER" to "обои",
-            "COVER" to "обложки",
-            "SCREENSHOT" to "скриншоты"
         )
     }
 }

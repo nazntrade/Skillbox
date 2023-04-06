@@ -6,8 +6,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.personFromSearch.PeopleFromSearch
 import com.becker.beckerSkillCinema.databinding.ItemFilmSearchBinding
+import com.becker.beckerSkillCinema.utils.MyStrings
 import com.becker.beckerSkillCinema.utils.loadImage
 
 class SearchPeopleAdapter(
@@ -35,7 +37,8 @@ class SearchPeopleAdapter(
         (holder.binding).apply {
             item?.let {
                 itemFilmographyImage.loadImage(item.posterUrl)
-                itemFilmographyName.text = item.nameRu ?: item.nameEn ?: "Не указан"
+                itemFilmographyName.text =
+                    item.nameRu ?: item.nameEn ?: MyStrings.get(R.string.unknown)
                 itemFilmographyRating.isVisible = false
                 itemFilmSearch.setOnClickListener {
                     onClick(item.kinopoiskId)

@@ -1,30 +1,18 @@
 package com.becker.beckerSkillCinema.data
 
-import android.content.Context
 import android.os.Parcelable
 import com.becker.beckerSkillCinema.R
-import kotlinx.parcelize.IgnoredOnParcel
+import com.becker.beckerSkillCinema.utils.MyStrings
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-enum class CategoriesFilms(private val stringResId: Int) : Parcelable {
-    BEST_250(R.string.category_best_250),
-    POPULAR_100(R.string.popular_100),
-    PREMIERS(R.string.premiers),
-    MOST_AWAIT(R.string.most_await),
-    TV_SERIES(R.string.tv_series),
-    BIOGRAPHY(R.string.biography),
-    SCIENCE_FICTION(R.string.science_fiction),
-    CARTOONS(R.string.cartoons);
-
-    @IgnoredOnParcel
-    lateinit var text: String
-        private set
-
-    companion object {
-        fun initialize(context: Context) {
-            for (value in CategoriesFilms.values()) value.text =
-                context.getString(value.stringResId)
-        }
-    }
+enum class CategoriesFilms(val text: String) : Parcelable {
+    BEST_250(text = MyStrings.get(R.string.category_best_250)),
+    POPULAR_100(text = MyStrings.get(R.string.popular_100)),
+    PREMIERS(text = MyStrings.get(R.string.premiers)),
+    MOST_AWAIT(text = MyStrings.get(R.string.most_await)),
+    TV_SERIES(text = MyStrings.get(R.string.tv_series)),
+    BIOGRAPHY(text = MyStrings.get(R.string.biography)),
+    SCIENCE_FICTION(text = MyStrings.get(R.string.science_fiction)),
+    CARTOONS(text = MyStrings.get(R.string.cartoons));
 }

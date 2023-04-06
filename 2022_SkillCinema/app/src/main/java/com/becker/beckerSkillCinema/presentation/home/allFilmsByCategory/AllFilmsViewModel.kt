@@ -14,6 +14,7 @@ import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.cu
 import com.becker.beckerSkillCinema.presentation.home.HomeViewModel.Companion.currentYear
 import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.AllFilmPagingSource
 import com.becker.beckerSkillCinema.presentation.home.allFilmsByCategory.allFilmAdapters.FilmsByFilterPagingSource
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.TOP_TYPES
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.becker.beckerSkillCinema.data.network
 
-import com.becker.beckerSkillCinema.utils.Constants
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,7 +13,7 @@ object Retrofit {
         .build()
 
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
+        .baseUrl(ConstantsAndParams.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .client(okHttpClient)
         .build()

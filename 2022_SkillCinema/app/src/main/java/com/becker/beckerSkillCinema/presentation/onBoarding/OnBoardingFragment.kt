@@ -11,7 +11,7 @@ import com.becker.beckerSkillCinema.databinding.FragmentOnboardingBinding
 import com.becker.beckerSkillCinema.presentation.MainActivity
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.onBoarding.adapter.PagerAdapter
-import com.becker.beckerSkillCinema.utils.Constants
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams
 import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -52,7 +52,7 @@ class OnBoardingFragment :
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
         val sharedPref =
             requireActivity().getSharedPreferences(
-                Constants.SHARED_PREFS_NAME,
+                ConstantsAndParams.SHARED_PREFS_NAME,
                 Context.MODE_PRIVATE
             )
         val firstRunEditor = sharedPref.edit()

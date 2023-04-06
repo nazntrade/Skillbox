@@ -233,7 +233,6 @@ class ProfileMovieViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
-                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 val customCollectionChosen =
                     allMovies.filter { it.collectionName == collectionName }
                 if (index <= (collectionsCount - 1)) {
@@ -556,7 +555,11 @@ class ProfileMovieViewModel @Inject constructor(
 
     private fun getDateTime(): String {
         val watchedDate = Calendar.getInstance().time
-        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
         return dateFormat.format(watchedDate).toString()
+    }
+
+    companion object {
+        const val DATE_FORMAT = "yyyy/MM/dd HH:mm:ss"
     }
 }

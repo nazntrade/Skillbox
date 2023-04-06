@@ -54,6 +54,7 @@ class CustomSelectionViewHolder(
             //1.0 instead of movieId I store the size of the list
             //ProfileMovieViewModel.getCustomCollections
             if (item.movieId == 0) {
+                // Value of 'item.movieId' is always zero - !!!!!!!  it's WRONG
                 countInCustomCollection.text = item.movieId.toString()
             } else {
                 //1.0 instead of id I passed here the size of the list

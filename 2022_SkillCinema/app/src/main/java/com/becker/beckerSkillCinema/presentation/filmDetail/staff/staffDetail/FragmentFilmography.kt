@@ -17,6 +17,7 @@ import com.becker.beckerSkillCinema.data.staffById.StaffsFilms
 import com.becker.beckerSkillCinema.databinding.FragmentStaffFilmographyBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail.adapter.FilmographyAdapter
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.PROFESSIONS
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.launch
@@ -133,21 +134,6 @@ class FragmentFilmography :
                 intArrayOf()
             ),
             intArrayOf(Color.RED, Color.BLACK)
-        )
-
-        val PROFESSIONS = mapOf(
-            "WRITER" to "Сценарист",
-            "OPERATOR" to "Оператор",
-            "EDITOR" to "Монтаж",
-            "COMPOSER" to "Композитор",
-            "PRODUCER_USSR" to "Режиссёр СССР",
-            "TRANSLATOR" to "Дубляж",
-            "DIRECTOR" to "Режиссёр",
-            "DESIGN" to "Художник-постановщик",
-            "PRODUCER" to "Продюссер",
-            "ACTOR" to "Актёр",
-            "VOICE_DIRECTOR" to "Звукорежиссёр",
-            "UNKNOWN" to "Неизвестно"
         )
     }
 }

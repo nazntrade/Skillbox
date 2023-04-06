@@ -10,7 +10,11 @@ import timber.log.Timber
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(/*!BuildConfig.DEBUG*/true)
+
+        instance = this // in order to get strings from resources anywhere class MyStrings
+
+        FirebaseCrashlytics.getInstance()
+            .setCrashlyticsCollectionEnabled(/*!BuildConfig.DEBUG*/true)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
             StrictMode.setThreadPolicy(
@@ -22,5 +26,10 @@ class App : Application() {
                     .build()
             )
         }
+    }
+
+    companion object {
+        // in order to get strings from resources anywhere class MyStrings
+        lateinit var instance: App private set
     }
 }

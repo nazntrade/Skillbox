@@ -2,6 +2,12 @@
     <string name="app_name">BeckerCinema</string>
     <string name="name_project">BeckerCinema</string>
 
+    <!--MainFragment    -->
+    <string name="exit">Выход</string>
+    <string name="are_you_really_want">Вы уверены, что хотите закрыть приложение?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
     <!--bottom menu-->
     <string name="bottom_menu_home">Главная</string>
     <string name="bottom_menu_search">Поиск</string>
@@ -28,6 +34,8 @@
     <string name="seasons_episodes_count">%s, %s</string>
     <string name="placeholder_series_start_year">_</string>
     <string name="placeholder_series_end_year">н.в.</string>
+    <string name="hour_short">ч</string>
+    <string name="minutes_short">мин</string>
 
     <!-- Series seasons/episodes fragment -->
     <string name="label_series_seasons">Сезоны и серии</string>
@@ -44,11 +52,15 @@
     <string name="staff_detail_best_label">Лучшее</string>
     <string name="staff_detail_filmography_all">К списку</string>
     <string name="facts">Факты: </string>
+    <string name="year_of_birth">Год рождения: </string>
+    <string name="place_of_birth">Место рождения: </string>
 
     <!-- Gallery full fragment -->
     <string name="search_trailers">Найти трейлеры</string>
     <string name="title_gallery">Галерея</string>
     <string name="chip_name">%s %d</string>
+
+    <!--Constants    -->
     <string name="steel">кадры</string>
     <string name="shooting">со съемок</string>
     <string name="poster">постеры</string>
@@ -58,6 +70,18 @@
     <string name="wallpaper">обои</string>
     <string name="cover">обложки</string>
     <string name="screenshot">скриншоты</string>
+    <string name="writer">Сценарист</string>
+    <string name="operator">Оператор</string>
+    <string name="editor">Монтаж</string>
+    <string name="composer">Композитор</string>
+    <string name="producer_ussr">Режиссёр СССР</string>
+    <string name="translator">Дубляж</string>
+    <string name="director">Режиссёр</string>
+    <string name="design">Художник-постановщик</string>
+    <string name="producer">Продюссер</string>
+    <string name="actor">Актёр</string>
+    <string name="voice_director">Звукорежиссёр</string>
+    <string name="unknown">Неизвестно</string>
 
     <!-- Search fragment -->
     <string name="search_not_found">К сожалению, по Вашему\nничего не найдено</string>
@@ -84,7 +108,6 @@
     <string name="apply">Применить</string>
     <string name="watched">Просмотрен</string>
     <string name="marked_watched">Отмечены просмотренными"</string>
-
     <string name="period">Период</string>
     <string name="period_from">Искать в период с:</string>
     <string name="period_to">Искать в период до:</string>
@@ -92,7 +115,15 @@
     <string name="search_set_datepicker_text">c %d до %d</string>
     <string name="_1998_2017">с 1850 до 3895</string>
     <string name="reset">сброс</string>
+    <string name="no_year">Год не указан</string>
     <string name="people">Люди</string>
+    <string name="any">любой</string>
+
+    <!--CountryGenreSearchFiltersFragment-->
+    <string name="countries">Страны</string>
+    <string name="choose_country">Выбери страну</string>
+    <string name="genre">Жанры</string>
+    <string name="choose_genre">Выбери жанр</string>
 
     <!--Profile-->
     <string name="collections">Коллекции</string>
@@ -140,6 +171,5 @@
     <string name="biography">Биографии</string>
     <string name="science_fiction">Фантастика</string>
     <string name="cartoons">Мультфильмы</string>
-
 
 </resources>

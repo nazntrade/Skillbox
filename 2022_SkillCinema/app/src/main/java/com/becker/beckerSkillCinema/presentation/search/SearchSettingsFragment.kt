@@ -53,17 +53,8 @@ class SearchSettingsFragment :
         setTextCountryGenre()
         setSortOrder()
         setRatingSlider()
-//        setCheckBoxViewed()
         resetSettings()
     }
-//
-//    private fun setCheckBoxViewed() {
-//        binding.checkboxIsWatched.setOnClickListener {
-//            if (binding.checkboxIsWatched.isChecked) binding.checkboxIsWatched.text =
-//                getString(R.string.watched)
-//            else binding.checkboxIsWatched.text = getString(R.string.marked_watched)
-//        }
-//    }
 
     private fun resetSettings() {
         binding.resetSettingsBtn.setOnClickListener {
@@ -211,7 +202,7 @@ class SearchSettingsFragment :
             object : RangeSlider.OnSliderTouchListener {
                 override fun onStartTrackingTouch(slider: RangeSlider) {
                     if (slider.values == listOf(1f, 10f)) {
-                        binding.searchSettingsRatingTv.text = "любой"
+                        binding.searchSettingsRatingTv.text = getString(R.string.any)
                     } else {
                         val values = slider.values.map { it.toInt() }
                         binding.apply {
@@ -235,7 +226,7 @@ class SearchSettingsFragment :
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
                     if (slider.values == listOf(1f, 10f)) {
-                        binding.searchSettingsRatingTv.text = "любой"
+                        binding.searchSettingsRatingTv.text = getString(R.string.any)
                     } else {
                         val values = slider.values.map { it.toInt() }
                         binding.apply {

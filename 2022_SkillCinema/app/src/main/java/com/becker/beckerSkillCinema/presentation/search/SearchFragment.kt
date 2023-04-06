@@ -21,7 +21,7 @@ import com.becker.beckerSkillCinema.presentation.StateLoading
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchPeopleAdapter
-import com.becker.beckerSkillCinema.utils.Constants
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,24 +47,25 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
 
     private fun setSearchType() {
         when (viewModel.getSearchType()) {
-            Constants.TYPE_FILM -> {
+            ConstantsAndParams.TYPE_FILM -> {
                 binding.searchRadioFilms.isChecked = true
                 toggleList()
             }
-            Constants.TYPE_PEOPLE -> {
+            ConstantsAndParams.TYPE_PEOPLE -> {
                 binding.searchRadioPeople.isChecked = true
                 toggleList()
             }
+            else -> {}
         }
 
         binding.searchTypeRadioGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.search_radio_films -> {
-                    viewModel.updateSearchType(newType = Constants.TYPE_FILM)
+                    viewModel.updateSearchType(newType = ConstantsAndParams.TYPE_FILM)
                     toggleList()
                 }
                 R.id.search_radio_people -> {
-                    viewModel.updateSearchType(newType = Constants.TYPE_PEOPLE)
+                    viewModel.updateSearchType(newType = ConstantsAndParams.TYPE_PEOPLE)
                     toggleList()
                 }
             }
@@ -72,7 +73,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     }
 
     private fun toggleList() {
-        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+        if (viewModel.getSearchType() == ConstantsAndParams.TYPE_FILM) {
             binding.searchFilmList.isVisible = true
             binding.searchPeopleList.isInvisible = true
             viewModel.getFilms()
@@ -80,7 +81,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 adapterFilms.refresh()
             }
         }
-        if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+        if (viewModel.getSearchType() == ConstantsAndParams.TYPE_PEOPLE) {
             binding.searchPeopleList.isVisible = true
             binding.searchFilmList.isInvisible = true
             if (viewModel.getFilters().keyword != "") {
@@ -125,7 +126,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                     binding.apply {
                         searchFilmList.isVisible = false
                         searchProgressText.isVisible = false
-                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                        if (viewModel.getSearchType() == ConstantsAndParams.TYPE_FILM) {
                             searchProgressGroup.isVisible = true
                             loadingProgress.isVisible = true
                             searchProgressImage.isVisible = true
@@ -134,7 +135,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                 }
                 is LoadState.NotLoading -> {
                     binding.apply {
-                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                        if (viewModel.getSearchType() == ConstantsAndParams.TYPE_FILM) {
                             searchFilmList.isVisible = true
                             searchPeopleList.isVisible = false
                         }
@@ -171,7 +172,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                         }
                         is StateLoading.Success -> {
                             binding.apply {
-                                if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+                                if (viewModel.getSearchType() == ConstantsAndParams.TYPE_PEOPLE) {
                                     searchPeopleList.isVisible = true
                                     searchFilmList.isVisible = false
                                 }
@@ -210,7 +211,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
     private fun setSearchString() {
         binding.apply {
             searchFilterBtn.setOnClickListener {
-                if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                if (viewModel.getSearchType() == ConstantsAndParams.TYPE_FILM) {
                     findNavController().navigate(R.id.action_fragmentSearch_to_searchSettingsFragment)
                 }
             }
@@ -242,7 +243,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                     viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                         try {
                             delay(2000)
-                            if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                            if (viewModel.getSearchType() == ConstantsAndParams.TYPE_FILM) {
                                 if (s.toString() != viewModel.getFilters().keyword) {
                                     viewModel.updateFilters(
                                         filterFilm = viewModel.getFilters()
@@ -251,7 +252,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
                                     adapterFilms.refresh()
                                 }
                             }
-                            if (viewModel.getSearchType() == Constants.TYPE_PEOPLE) {
+                            if (viewModel.getSearchType() == ConstantsAndParams.TYPE_PEOPLE) {
                                 if (s.toString() != viewModel.getFilters().keyword) {
                                     viewModel.updateFilters(
                                         filterFilm = viewModel.getFilters()
@@ -287,7 +288,7 @@ class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearch
             try {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.isFilterChanged.collect {
-                        if (viewModel.getSearchType() == Constants.TYPE_FILM) {
+                        if (viewModel.getSearchType() == ConstantsAndParams.TYPE_FILM) {
                             if (it) adapterFilms.refresh()
                         }
                     }

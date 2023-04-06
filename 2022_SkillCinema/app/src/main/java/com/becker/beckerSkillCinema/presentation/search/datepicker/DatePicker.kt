@@ -40,7 +40,7 @@ class DatePicker @Inject constructor(
         Draw.drawRangeData(canvas, setting)
     }
 
-    @SuppressLint("Recycle")
+    @SuppressLint("Recycle", "CustomViewStyleable")
     private fun setAttribute(attrs: AttributeSet) {
         val typArray = context.obtainStyledAttributes(attrs, R.styleable.datepicker)
         setting.borderWidth = typArray.getDimension(

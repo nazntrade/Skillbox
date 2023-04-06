@@ -7,8 +7,10 @@ import androidx.core.view.isInvisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.databinding.ItemFilmSearchBinding
 import com.becker.beckerSkillCinema.entity.HomeItem
+import com.becker.beckerSkillCinema.utils.MyStrings
 import com.becker.beckerSkillCinema.utils.loadImage
 
 class SearchAdapter(
@@ -38,7 +40,7 @@ class SearchAdapter(
             item?.let {
                 holder.binding.apply {
                     itemFilmographyImage.loadImage(item.posterUrlPreview)
-                    itemFilmographyName.text = item.nameRu ?: "No name"
+                    itemFilmographyName.text = item.nameRu ?: MyStrings.get(R.string.unknown)
                     itemFilmographyGenre.text = item.genres.joinToString(", ") { it.genre }
                     if (item.rating != null) {
                         itemFilmographyRating.isInvisible = false
@@ -47,7 +49,8 @@ class SearchAdapter(
                     itemFilmSearch.setOnClickListener {
                         onClick(item.filmId)
                     }
-                    if (item.yearHomeItem == "null") itemFilmYear.text = "Год не указан"
+                    if (item.yearHomeItem == "null") itemFilmYear.text =
+                        MyStrings.get(R.string.no_year)
                     else itemFilmYear.text = item.yearHomeItem
                 }
             }

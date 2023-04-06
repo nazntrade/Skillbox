@@ -7,6 +7,10 @@ import com.becker.beckerSkillCinema.data.home.HomeList
 import com.becker.beckerSkillCinema.data.repositories.CinemaRepository
 import com.becker.beckerSkillCinema.domain.*
 import com.becker.beckerSkillCinema.presentation.StateLoading
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GENRE_BIOGRAPHY_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GENRE_CARTOONS_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.GENRE_SCIENCE_FICTION_FILTER
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.TOP_TYPES
 import com.becker.beckerSkillCinema.utils.toLimitTheNumberOfObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -136,14 +140,5 @@ class HomeViewModel @Inject constructor(
         private val calendar: Calendar = Calendar.getInstance()
         val currentMonth: String = Month.of(calendar.get(Calendar.MONTH) + 1).name
         val currentYear: Int = calendar.get(Calendar.YEAR)
-        val GENRE_BIOGRAPHY_FILTER = mapOf(
-            8 to TOP_TYPES.getValue(CategoriesFilms.BIOGRAPHY)
-        )
-        val GENRE_SCIENCE_FICTION_FILTER = mapOf(
-            6 to TOP_TYPES.getValue(CategoriesFilms.SCIENCE_FICTION)
-        )
-        val GENRE_CARTOONS_FILTER = mapOf(
-            18 to TOP_TYPES.getValue(CategoriesFilms.CARTOONS)
-        )
     }
 }

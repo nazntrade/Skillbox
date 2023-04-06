@@ -12,12 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.data.profile.Collections
 import com.becker.beckerSkillCinema.databinding.FragmentCollectionProfileBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.profile.adapters.InterestingAdapterIndividual
+import com.becker.beckerSkillCinema.utils.MyStrings
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -127,7 +129,7 @@ class ProfileCollectionFragment :
     }
 
     companion object {
-        private const val FAVORITES = "Любимые фильмы"
-        private const val TO_WATCH = "Хочу посмотреть"
+        private val FAVORITES = MyStrings.get(R.string.favorites)
+        private val TO_WATCH = MyStrings.get(R.string.want_to_watch)
     }
 }

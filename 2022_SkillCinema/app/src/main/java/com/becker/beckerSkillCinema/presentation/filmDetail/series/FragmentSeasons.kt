@@ -46,7 +46,7 @@ class FragmentSeasons :
         super.onViewCreated(view, savedInstanceState)
 
         binding.seriesBack.setOnClickListener { findNavController().popBackStack() }
-        setAdapter()                        // set adapter
+        setAdapter()
         setFirstDefaultEpisodeList()        // get episodes and then set them in ChipGroup
         binding.seriesNameTv.text = args.seriesName
     }

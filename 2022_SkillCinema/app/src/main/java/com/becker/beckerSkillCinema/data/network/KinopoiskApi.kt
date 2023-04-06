@@ -1,5 +1,6 @@
 package com.becker.beckerSkillCinema.data.network
 
+import com.becker.beckerSkillCinema.data.GalleryTypes
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseByFilter
 import com.becker.beckerSkillCinema.data.filmByFilter.ResponseGenresCountries
 import com.becker.beckerSkillCinema.data.filmById.ResponseCurrentFilm
@@ -11,17 +12,17 @@ import com.becker.beckerSkillCinema.data.seasons.ResponseSeasons
 import com.becker.beckerSkillCinema.data.similarFilm.ResponseSimilarFilms
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.data.staffById.ResponseStaffById
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT1
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT2
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT3
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT4
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT5
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT6
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT7
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT8
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT9
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT10
-import com.becker.beckerSkillCinema.utils.Constants.KINOPOISKACCESSRIGHT11
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT1
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT2
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT3
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT4
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT5
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT6
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT7
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT8
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT9
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT10
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT11
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -101,7 +102,7 @@ interface KinopoiskApi {
     @GET("v2.2/films/{id}/images")
     suspend fun getFilmImages(
         @Path("id") id: Int,
-        @Query("type") type: String = "STILL",
+        @Query("type") type: String = GalleryTypes.STILL.name,
         @Query("page") page: Int
     ): ResponseFilmGallery
 

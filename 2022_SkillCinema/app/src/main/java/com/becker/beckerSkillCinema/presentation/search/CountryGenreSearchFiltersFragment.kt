@@ -64,13 +64,13 @@ class CountryGenreSearchFiltersFragment :
     private fun getFilterTypeList(filterType: String) {
         val list = when (filterType) {
             KEY_COUNTRY -> {
-                binding.searchFiltersCategoryTv.text = "Страны"
-                binding.searchFiltersSv.queryHint = "Выберете страну"
+                binding.searchFiltersCategoryTv.text = getString(R.string.countries)
+                binding.searchFiltersSv.queryHint = getString(R.string.choose_country)
                 viewModel.countries.value
             }
             else -> {
-                binding.searchFiltersCategoryTv.text = "Жанры"
-                binding.searchFiltersSv.queryHint = "Выберете жанр"
+                binding.searchFiltersCategoryTv.text = getString(R.string.genre)
+                binding.searchFiltersSv.queryHint = getString(R.string.choose_genre)
                 viewModel.genres.value
             }
         }

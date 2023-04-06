@@ -12,12 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.becker.beckerSkillCinema.R
+import com.becker.beckerSkillCinema.data.Professions
 import com.becker.beckerSkillCinema.data.staffByFilmId.ResponseStaffByFilmId
 import com.becker.beckerSkillCinema.databinding.FragmentStaffAllByFilmBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.FilmDetailViewModel
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.StaffAdapter
-import com.becker.beckerSkillCinema.utils.Constants.PROF_KEY_ACTOR
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 
@@ -56,7 +56,7 @@ class FragmentAllStaffsByFilm :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 when (args.professionKey) {
-                    PROF_KEY_ACTOR -> {
+                    Professions.ACTOR.name -> {
                         binding.allStaffsCategoryTv.text =
                             resources.getString(R.string.label_film_actors)
                         viewModel.currentFilmActors.collect { actorList ->
