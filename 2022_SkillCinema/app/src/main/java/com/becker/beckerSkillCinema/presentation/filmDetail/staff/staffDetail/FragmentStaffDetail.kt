@@ -116,13 +116,13 @@ class FragmentStaffDetail :
                             else staffDetailProfession.isVisible = false
 
                             if (staff.birthday != null)
-                                "${R.string.year_of_birth}${staff.birthday.substring(0, 4)}".also {
+                                "${getString(R.string.year_of_birth)} ${staff.birthday.substring(0, 4)}".also {
                                     staffDetailBirthday.text = it
                                 }
                             else staffDetailBirthday.isVisible = false
 
                             if (staff.birthPlace != null)
-                                "${R.string.place_of_birth}${staff.birthPlace}".also {
+                                "${getString(R.string.place_of_birth)} ${staff.birthPlace}".also {
                                     staffDetailPlaceOfBirthday.text = it
                                 }
                             else staffDetailPlaceOfBirthday.isVisible = false

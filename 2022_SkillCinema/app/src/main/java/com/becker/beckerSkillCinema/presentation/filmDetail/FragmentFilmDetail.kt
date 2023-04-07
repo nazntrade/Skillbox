@@ -526,13 +526,10 @@ class FragmentFilmDetail :
 
     private fun onSimilarFilmClick(newFilmId: Int) {
         viewModel.putFilmId(newFilmId)
-        viewModel.getFilmId()
-        viewModel.getFilmById()
-        binding.myScroll.scrollTo(0, 0)
-        binding.filmDetailMotionLayout.jumpToState(R.id.expanded)
-        profileMovieViewModel.addCurrentFilmToHistory(newFilmId)
+        val action =
+            FragmentFilmDetailDirections.actionFragmentFilmDetailToFragmentFilmDetail(newFilmId)
+        findNavController().navigate(action)
     }
-
 
     private fun getRatingName(film: ResponseCurrentFilm): String {
         val result = mutableListOf<String>()
@@ -621,7 +618,7 @@ class FragmentFilmDetail :
         return if (this.filmLength != null) {
             val hours = this.filmLength.div(60)
             val minutes = this.filmLength.rem(60)
-            "$hours ${R.string.hour_short} $minutes ${R.string.minutes_short}"
+            "$hours ${getString(R.string.hour_short)} $minutes ${getString(R.string.minutes_short)}"
         } else null
     }
 

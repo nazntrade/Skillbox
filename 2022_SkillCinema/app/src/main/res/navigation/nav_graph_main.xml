@@ -205,9 +205,6 @@
             app:destination="@id/fragmentStaffDetail"
             app:popUpTo="@+id/fragmentFilmDetail" />
         <action
-            android:id="@+id/action_fragmentFilmDetail_self"
-            app:destination="@id/fragmentFilmDetail" />
-        <action
             android:id="@+id/action_fragmentFilmDetail_to_fragmentBigImage"
             app:destination="@id/fragmentBigImage"
             app:enterAnim="@android:anim/fade_in"
@@ -219,6 +216,16 @@
             android:id="@+id/action_fragmentFilmDetail_to_fragmentVideo"
             app:destination="@id/fragmentVideo"
             app:popUpTo="@+id/fragmentFilmDetail" />
+        <action
+            android:id="@+id/action_fragmentFilmDetail_to_fragmentFilmDetail"
+            app:destination="@id/fragmentFilmDetail"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/fragmentFilmDetail"
+            app:popUpToInclusive="true" />
+<!--to avoid add to backStack
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/fragmentFilmDetail"
+            app:popUpToInclusive="true"    -->
     </fragment>
 
     <fragment

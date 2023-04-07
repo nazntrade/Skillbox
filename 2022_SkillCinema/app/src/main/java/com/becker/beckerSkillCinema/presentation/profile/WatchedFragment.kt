@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.databinding.FragmentWatchedBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
@@ -45,6 +46,7 @@ class WatchedFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.backBtn.setOnClickListener { findNavController().popBackStack() }
+        binding.searchFiltersCategoryTv.text = getText(R.string.marked_watched)
         watchedRecycler = binding.watchedRecyclerView
         watchedRecycler.adapter = watchedAdapter
 

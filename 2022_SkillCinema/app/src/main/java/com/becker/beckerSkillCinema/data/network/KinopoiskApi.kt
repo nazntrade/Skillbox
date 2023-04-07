@@ -23,6 +23,7 @@ import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGH
 import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT9
 import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT10
 import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT11
+import com.becker.beckerSkillCinema.utils.ConstantsAndParams.KINOPOISKACCESSRIGHT12
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -98,7 +99,7 @@ interface KinopoiskApi {
     ): ResponseSeasons
 
     // Images
-    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT9")
+    @Headers("X-API-KEY: $KINOPOISKACCESSRIGHT12")
     @GET("v2.2/films/{id}/images")
     suspend fun getFilmImages(
         @Path("id") id: Int,

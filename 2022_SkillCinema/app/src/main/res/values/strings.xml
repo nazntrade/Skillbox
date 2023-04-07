@@ -52,8 +52,8 @@
     <string name="staff_detail_best_label">Лучшее</string>
     <string name="staff_detail_filmography_all">К списку</string>
     <string name="facts">Факты: </string>
-    <string name="year_of_birth">Год рождения: </string>
-    <string name="place_of_birth">Место рождения: </string>
+    <string name="year_of_birth">Год рождения:</string>
+    <string name="place_of_birth">Место рождения:</string>
 
     <!-- Gallery full fragment -->
     <string name="search_trailers">Найти трейлеры</string>
@@ -132,7 +132,7 @@
     <string name="want_to_watch">Хочу посмотреть</string>
     <string name="history">История</string>
     <string name="watched_movies">Просмотренные фильмы</string>
-    <string name="interesting_movies">Вам были интересны эти фильмы</string>
+    <string name="interesting_movies">История</string>
     <string name="custom_collection">Custom collection</string>
     <string name="choose_collection_name">Придумайте название для Вашей новой коллекции</string>
     <string name="collection_title">collection title</string>
