@@ -4,14 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.data.profile.Collections
@@ -25,8 +23,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProfileCollectionFragment :
-    ViewBindingFragment<FragmentCollectionProfileBinding>(FragmentCollectionProfileBinding::inflate) {
+class ProfileCollectionFragment : ViewBindingFragment<FragmentCollectionProfileBinding>(
+    FragmentCollectionProfileBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,8 +37,6 @@ class ProfileCollectionFragment :
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private lateinit var collectionTitle: AppCompatTextView
-    private lateinit var collectionRecycler: RecyclerView
     private val collectionAdapter = InterestingAdapterIndividual(
         onInterestingItemClick = { movie -> onItemClick(movie) }
     )
@@ -50,9 +47,7 @@ class ProfileCollectionFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.backBtn.setOnClickListener { findNavController().popBackStack() }
-        collectionRecycler = binding.collectionRecyclerView
-        collectionRecycler.adapter = collectionAdapter
-        collectionTitle = binding.collectionTitle
+        binding.collectionRecyclerView.adapter = collectionAdapter
         getMovies()
         chooseWhichListDownloadAndDisplay()
     }
@@ -87,31 +82,31 @@ class ProfileCollectionFragment :
                 profileMovieViewModel.chosenCollection.collectLatest { collections ->
                     when (collections) {
                         Collections.Favorites -> {
-                            collectionTitle.text = FAVORITES
+                            binding.collectionTitle.text = FAVORITES
                             profileMovieViewModel.favoritesList.collectLatest {
                                 if (it.isNotEmpty()) {
-                                    collectionRecycler.isVisible = true
+                                    binding.collectionRecyclerView.isVisible = true
                                     collectionAdapter.submitList(it)
-                                } else collectionRecycler.isVisible = false
+                                } else binding.collectionRecyclerView.isVisible = false
                             }
                         }
                         Collections.Custom -> {
-                            collectionTitle.text =
+                            binding.collectionTitle.text =
                                 profileMovieViewModel.customCollectionChosen.value?.collectionName
                             profileMovieViewModel.customCollectionList.collectLatest {
                                 if (it.isNotEmpty()) {
-                                    collectionRecycler.isVisible = true
+                                    binding.collectionRecyclerView.isVisible = true
                                     collectionAdapter.submitList(it)
-                                } else collectionRecycler.isVisible = false
+                                } else binding.collectionRecyclerView.isVisible = false
                             }
                         }
                         Collections.ToWatch -> {
-                            collectionTitle.text = TO_WATCH
+                            binding.collectionTitle.text = TO_WATCH
                             profileMovieViewModel.toWatchList.collectLatest {
                                 if (it.isNotEmpty()) {
-                                    collectionRecycler.isVisible = true
+                                    binding.collectionRecyclerView.isVisible = true
                                     collectionAdapter.submitList(it)
-                                } else collectionRecycler.isVisible = false
+                                } else binding.collectionRecyclerView.isVisible = false
                             }
                         }
                     }

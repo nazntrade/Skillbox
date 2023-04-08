@@ -13,8 +13,9 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.google.android.material.slider.RangeSlider
 import java.util.*
 
-class SearchSettingsFragment :
-    ViewBindingFragment<FragmentSearchSettingsBinding>(FragmentSearchSettingsBinding::inflate) {
+class SearchSettingsFragment : ViewBindingFragment<FragmentSearchSettingsBinding>(
+    FragmentSearchSettingsBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

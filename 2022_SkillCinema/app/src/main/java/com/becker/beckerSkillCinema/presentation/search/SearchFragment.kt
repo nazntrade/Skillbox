@@ -22,6 +22,7 @@ import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchAdapter
 import com.becker.beckerSkillCinema.presentation.search.adapters.SearchPeopleAdapter
 import com.becker.beckerSkillCinema.utils.ConstantsAndParams
+import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,8 +31,8 @@ import timber.log.Timber
 class SearchFragment : ViewBindingFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     private val viewModel: SearchViewModel by activityViewModels()
-    private lateinit var adapterFilms: SearchAdapter
-    private lateinit var adapterPeople: SearchPeopleAdapter
+    private var adapterFilms: SearchAdapter by autoCleared()
+    private var adapterPeople: SearchPeopleAdapter by autoCleared()
     private var isEditFocused = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

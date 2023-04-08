@@ -13,4 +13,6 @@
 - Custom View
 - Adapter Delegate
 - Firebase
-
+- Animation
+- Hilt
+ 

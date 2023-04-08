@@ -46,7 +46,7 @@
 
     <!-- Search field -->
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_filters_sv"
+        android:id="@+id/search_filters_view"
         style="@style/SearchViewStyle"
         android:layout_width="0dp"
         android:layout_height="36dp"
@@ -68,7 +68,7 @@
         android:layout_marginTop="@dimen/dimen_16"
         android:scrollIndicators="none"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_filters_sv"
+        app:layout_constraintTop_toBottomOf="@id/search_filters_view"
         tools:listitem="@layout/item_search_filters" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,8 +18,9 @@ import com.becker.beckerSkillCinema.presentation.home.homeAdapters.filmAdapter.F
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 
-class FragmentSimilarFilms :
-    ViewBindingFragment<FragmentAllFilmsBinding>(FragmentAllFilmsBinding::inflate) {
+class FragmentSimilarFilms : ViewBindingFragment<FragmentAllFilmsBinding>(
+    FragmentAllFilmsBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

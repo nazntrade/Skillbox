@@ -21,8 +21,9 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffAdapter.S
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 
-class FragmentAllStaffsByFilm :
-    ViewBindingFragment<FragmentStaffAllByFilmBinding>(FragmentStaffAllByFilmBinding::inflate) {
+class FragmentAllStaffsByFilm : ViewBindingFragment<FragmentStaffAllByFilmBinding>(
+    FragmentStaffAllByFilmBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

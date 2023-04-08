@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.databinding.FragmentWatchedBinding
@@ -22,8 +21,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WatchedFragment :
-    ViewBindingFragment<FragmentWatchedBinding>(FragmentWatchedBinding::inflate) {
+class WatchedFragment : ViewBindingFragment<FragmentWatchedBinding>(
+    FragmentWatchedBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,7 +35,6 @@ class WatchedFragment :
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private lateinit var watchedRecycler: RecyclerView
     private val watchedAdapter = WatchedAdapterIndividual(
         onWatchedItemClick = { movie -> onItemClickWatched(movie) }
     )
@@ -45,18 +44,19 @@ class WatchedFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backBtn.setOnClickListener { findNavController().popBackStack() }
-        binding.searchFiltersCategoryTv.text = getText(R.string.marked_watched)
-        watchedRecycler = binding.watchedRecyclerView
-        watchedRecycler.adapter = watchedAdapter
+        binding.apply {
+            backBtn.setOnClickListener { findNavController().popBackStack() }
+            searchFiltersCategoryTv.text = getText(R.string.marked_watched)
+            watchedRecyclerView.adapter = watchedAdapter
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.watchedList.collectLatest {
                     if (it.isNotEmpty()) {
-                        watchedRecycler.isVisible = true
+                        binding.watchedRecyclerView.isVisible = true
                         watchedAdapter.submitList(it)
-                    } else watchedRecycler.isVisible = false
+                    } else binding.watchedRecyclerView.isVisible = false
                 }
             }
         }

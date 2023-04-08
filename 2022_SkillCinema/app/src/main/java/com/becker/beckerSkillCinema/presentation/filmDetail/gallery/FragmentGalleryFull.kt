@@ -25,8 +25,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.launch
 
-class FragmentGalleryFull :
-    ViewBindingFragment<FragmentFilmGalleryScreenBinding>(FragmentFilmGalleryScreenBinding::inflate) {
+class FragmentGalleryFull : ViewBindingFragment<FragmentFilmGalleryScreenBinding>(
+    FragmentFilmGalleryScreenBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -25,8 +25,9 @@ import com.becker.beckerSkillCinema.presentation.filmDetail.series.adapter.Seaso
 import com.becker.beckerSkillCinema.utils.autoCleared
 import kotlinx.coroutines.launch
 
-class FragmentSeasons :
-    ViewBindingFragment<FragmentSeasonsBinding>(FragmentSeasonsBinding::inflate) {
+class FragmentSeasons : ViewBindingFragment<FragmentSeasonsBinding>(
+    FragmentSeasonsBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

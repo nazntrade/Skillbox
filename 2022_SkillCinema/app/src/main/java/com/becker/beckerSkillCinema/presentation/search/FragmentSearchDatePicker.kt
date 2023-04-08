@@ -10,8 +10,9 @@ import com.becker.beckerSkillCinema.databinding.FragmentSearchDatePickerBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import java.util.*
 
-class FragmentSearchDatePicker :
-    ViewBindingFragment<FragmentSearchDatePickerBinding>(FragmentSearchDatePickerBinding::inflate) {
+class FragmentSearchDatePicker : ViewBindingFragment<FragmentSearchDatePickerBinding>(
+    FragmentSearchDatePickerBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

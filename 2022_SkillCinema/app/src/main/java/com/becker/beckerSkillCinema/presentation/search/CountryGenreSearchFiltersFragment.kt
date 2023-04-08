@@ -18,9 +18,11 @@ import com.becker.beckerSkillCinema.databinding.FragmentSearchFiltersBinding
 import com.becker.beckerSkillCinema.entity.FilterCountryGenre
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.search.adapters.CountryGenreSearchFiltersAdapter
+import com.becker.beckerSkillCinema.utils.autoCleared
 
-class CountryGenreSearchFiltersFragment :
-    ViewBindingFragment<FragmentSearchFiltersBinding>(FragmentSearchFiltersBinding::inflate) {
+class CountryGenreSearchFiltersFragment : ViewBindingFragment<FragmentSearchFiltersBinding>(
+    FragmentSearchFiltersBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,9 +34,8 @@ class CountryGenreSearchFiltersFragment :
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private lateinit var searchView: SearchView
     private var listToDisplay = mutableListOf<FilterCountryGenre>()
-    private lateinit var adapter: CountryGenreSearchFiltersAdapter
+    private var adapter: CountryGenreSearchFiltersAdapter by autoCleared()
     private val filterValuesList = mutableListOf<FilterCountryGenre>()
     private val viewModel: SearchViewModel by activityViewModels()
     private val args: CountryGenreSearchFiltersFragmentArgs by navArgs()
@@ -42,7 +43,6 @@ class CountryGenreSearchFiltersFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchView = binding.searchFiltersSv
         binding.searchFiltersBackBtn.setOnClickListener { findNavController().popBackStack() }
         setAdapter()
         getFilterTypeList(args.filterType)
@@ -65,19 +65,19 @@ class CountryGenreSearchFiltersFragment :
         val list = when (filterType) {
             KEY_COUNTRY -> {
                 binding.searchFiltersCategoryTv.text = getString(R.string.countries)
-                binding.searchFiltersSv.queryHint = getString(R.string.choose_country)
+                binding.searchFiltersView.queryHint = getString(R.string.choose_country)
                 viewModel.countries.value
             }
             else -> {
                 binding.searchFiltersCategoryTv.text = getString(R.string.genre)
-                binding.searchFiltersSv.queryHint = getString(R.string.choose_genre)
+                binding.searchFiltersView.queryHint = getString(R.string.choose_genre)
                 viewModel.genres.value
             }
         }
         filterValuesList.addAll(list)
         adapter.submitList(list)
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchFiltersView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query == null || query.isEmpty()) {
                     adapter.submitList(list.toMutableList())

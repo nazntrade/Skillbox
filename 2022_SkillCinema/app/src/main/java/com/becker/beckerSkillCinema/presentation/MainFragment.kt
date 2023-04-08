@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.becker.beckerSkillCinema.R
@@ -14,8 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
-
-    private lateinit var navController: NavController
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,7 +42,8 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(FragmentMainBindin
         //to put(navigate) certain fragments in our container
         val navHost =
             childFragmentManager.findFragmentById(R.id.working_container) as NavHostFragment
-        navController = navHost.navController
+
+        val navController = navHost.navController
 
         binding.bottomNavigation.setupWithNavController(navController)
 

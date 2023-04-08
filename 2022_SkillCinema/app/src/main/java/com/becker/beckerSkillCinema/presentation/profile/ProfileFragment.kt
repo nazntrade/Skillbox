@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.widget.*
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -15,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.CustomCollection
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
@@ -30,25 +28,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ProfileFragment :
-    ViewBindingFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
-
-    private lateinit var loader: AppCompatImageView
-    private lateinit var allWatchedNumber: AppCompatButton
-    private lateinit var extendWatched: AppCompatImageButton
-    private lateinit var extendWatchedTitle: AppCompatTextView
-    private lateinit var watchedRecyclerView: RecyclerView
-    private lateinit var createCollectionButton: AppCompatImageButton
-    private lateinit var createCollectionText: AppCompatButton
-    private lateinit var numberInFavoritesCollection: AppCompatTextView
-    private lateinit var numberInToWatchCollection: AppCompatTextView
-    private lateinit var allHistoryNumber: AppCompatButton
-    private lateinit var extendHistory: AppCompatImageButton
-    private lateinit var historyTitle: AppCompatTextView
-    private lateinit var historyRecyclerView: RecyclerView
-    private lateinit var favoritesCollection: FrameLayout
-    private lateinit var toWatchCollection: FrameLayout
-    private lateinit var collectionRecyclerView: RecyclerView
+class ProfileFragment : ViewBindingFragment<FragmentProfileBinding>(
+    FragmentProfileBinding::inflate
+) {
 
     private val watchedAdapter = WatchedAdapterCommon(
         onWatchedItemClick = { movie -> onWatchedItemClick(movie) },
@@ -68,7 +50,6 @@ class ProfileFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getLayoutElementsBinding()
         setAdapters()
         createNewCollection()                                  // Create collection
         getMoviesFromCustomCollection()                        // Custom collection
@@ -78,29 +59,12 @@ class ProfileFragment :
         getMovieFromWishToWatch()                              // Wish to watch
     }
 
-    private fun getLayoutElementsBinding() {
-        loader = binding.loader
-        allWatchedNumber = binding.allWatchedNumber
-        extendWatched = binding.extendWatched
-        extendWatchedTitle = binding.watchedTitle
-        watchedRecyclerView = binding.watchedRecyclerView
-        createCollectionButton = binding.createCollectionButton
-        createCollectionText = binding.createCustomCollectionText
-        numberInFavoritesCollection = binding.numberInFavoritesCollection
-        numberInToWatchCollection = binding.numberInToWatchCollection
-        allHistoryNumber = binding.allHistoryNumber
-        extendHistory = binding.extendHistory
-        historyTitle = binding.historyTitle
-        historyRecyclerView = binding.historyRecyclerView
-        favoritesCollection = binding.favoritsCollection
-        toWatchCollection = binding.toWatchCollection
-        collectionRecyclerView = binding.containerLayoutForCustomCollections
-    }
-
     private fun setAdapters() {
-        watchedRecyclerView.adapter = watchedAdapter
-        historyRecyclerView.adapter = historyAdapter
-        collectionRecyclerView.adapter = collectionAdapter
+        binding.apply {
+            watchedRecyclerView.adapter = watchedAdapter
+            historyRecyclerView.adapter = historyAdapter
+            containerLayoutForCustomCollections.adapter = collectionAdapter
+        }
     }
 
     private fun getMoviesFromCustomCollection() {
@@ -124,9 +88,9 @@ class ProfileFragment :
                 // path: ProfileMovieViewModel.getCustomCollections
                 profileMovieViewModel.customCollections.collectLatest { customCollectionList ->
                     if (customCollectionList.isNotEmpty()) {
-                        collectionRecyclerView.isVisible = true
+                        binding.containerLayoutForCustomCollections.isVisible = true
                         collectionAdapter.submitList(customCollectionList)
-                    } else collectionRecyclerView.isVisible = false
+                    } else binding.containerLayoutForCustomCollections.isVisible = false
                 }
             }
         }
@@ -143,7 +107,7 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllInteresting().collectLatest { list ->
-                    allHistoryNumber.text = list.size.toString()
+                    binding.allHistoryNumber.text = list.size.toString()
                 }
             }
         }
@@ -151,19 +115,19 @@ class ProfileFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.interestingList.collectLatest { list ->
                     if (list.isNotEmpty()) {
-                        historyRecyclerView.isVisible = true
+                        binding.historyRecyclerView.isVisible = true
                         historyAdapter.submitList(list.take(11))
-                    } else historyRecyclerView.isVisible = false
+                    } else binding.historyRecyclerView.isVisible = false
                 }
             }
         }
-        allHistoryNumber.setOnClickListener {
+        binding.allHistoryNumber.setOnClickListener {
             extendHistory()
         }
-        extendHistory.setOnClickListener {
+        binding.extendHistory.setOnClickListener {
             extendHistory()
         }
-        historyTitle.setOnClickListener {
+        binding.historyTitle.setOnClickListener {
             extendHistory()
         }
     }
@@ -179,7 +143,7 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllWatched().collectLatest { list ->
-                    allWatchedNumber.text = list.size.toString()
+                    binding.allWatchedNumber.text = list.size.toString()
                 }
             }
         }
@@ -187,19 +151,19 @@ class ProfileFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.watchedList.collectLatest { list ->
                     if (list.isNotEmpty()) {
-                        watchedRecyclerView.isVisible = true
+                        binding.watchedRecyclerView.isVisible = true
                         watchedAdapter.submitList(list.take(11))
-                    } else watchedRecyclerView.isVisible = false
+                    } else binding.watchedRecyclerView.isVisible = false
                 }
             }
         }
-        allWatchedNumber.setOnClickListener {
+        binding.allWatchedNumber.setOnClickListener {
             extendWatched()
         }
-        extendWatched.setOnClickListener {
+        binding.extendWatched.setOnClickListener {
             extendWatched()
         }
-        extendWatchedTitle.setOnClickListener {
+        binding.watchedTitle.setOnClickListener {
             extendWatched()
         }
     }
@@ -208,11 +172,11 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllToWatch().collectLatest { list ->
-                    numberInToWatchCollection.text = list.size.toString()
+                    binding.numberInToWatchCollection.text = list.size.toString()
                 }
             }
         }
-        toWatchCollection.setOnClickListener {
+        binding.toWatchCollection.setOnClickListener {
             profileMovieViewModel.chooseCollection(Collections.ToWatch)
             findNavController().navigate(R.id.action_navigation_profile_to_profileCollectionFragment)
         }
@@ -222,11 +186,11 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllFavorites().collectLatest { list ->
-                    numberInFavoritesCollection.text = list.size.toString()
+                    binding.numberInFavoritesCollection.text = list.size.toString()
                 }
             }
         }
-        favoritesCollection.setOnClickListener {
+        binding.favoritsCollection.setOnClickListener {
             profileMovieViewModel.chooseCollection(Collections.Favorites)
             findNavController().navigate(R.id.action_navigation_profile_to_profileCollectionFragment)
         }
@@ -236,10 +200,10 @@ class ProfileFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.getAllMoviesFromCustomCollection().collectLatest { list ->
-                    createCollectionText.setOnClickListener {
+                    binding.createCustomCollectionText.setOnClickListener {
                         createNewCollection(list)
                     }
-                    createCollectionButton.setOnClickListener {
+                    binding.createCollectionButton.setOnClickListener {
                         createNewCollection(list)
                     }
                 }
@@ -249,7 +213,7 @@ class ProfileFragment :
 
     private fun onClearWatchedBtnClick() {
         profileMovieViewModel.onClearWatched()
-        watchedRecyclerView.isVisible = false
+        binding.watchedRecyclerView.isVisible = false
     }
 
     private fun onWatchedItemClick(movie: Movie) {
@@ -261,7 +225,7 @@ class ProfileFragment :
 
     private fun onClearInterestingBtnClick() {
         profileMovieViewModel.onClearInteresting()
-        historyRecyclerView.isVisible = false
+        binding.historyRecyclerView.isVisible = false
     }
 
     private fun onInterestingItemClick(movie: Movie) {

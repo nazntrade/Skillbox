@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
+import com.becker.beckerSkillCinema.data.Months
 import com.becker.beckerSkillCinema.data.seasons.Episode
 import com.becker.beckerSkillCinema.databinding.ItemSeriesEpisodeBinding
 
@@ -61,18 +62,18 @@ class SeasonsAdapter : ListAdapter<Episode, SeasonsAdapter.SeasonsVewHolder>(Sea
                 val tempData = date.split("-").reversed().toMutableList()
                 tempData[1] =
                     when (tempData[1]) {
-                        "01" -> binding.root.resources.getString(R.string.ofJanuary)
-                        "02" -> binding.root.resources.getString(R.string.ofFebruary)
-                        "03" -> binding.root.resources.getString(R.string.ofMarch)
-                        "04" -> binding.root.resources.getString(R.string.ofApril)
-                        "05" -> binding.root.resources.getString(R.string.ofMay)
-                        "06" -> binding.root.resources.getString(R.string.ofJune)
-                        "07" -> binding.root.resources.getString(R.string.ofJuly)
-                        "08" -> binding.root.resources.getString(R.string.ofAugust)
-                        "09" -> binding.root.resources.getString(R.string.ofSeptember)
-                        "10" -> binding.root.resources.getString(R.string.ofOctober)
-                        "11" -> binding.root.resources.getString(R.string.ofNovember)
-                        "12" -> binding.root.resources.getString(R.string.ofDecember)
+                        Months.JANUARY.number -> binding.root.resources.getString(R.string.ofJanuary)
+                        Months.FEBRUARY.number -> binding.root.resources.getString(R.string.ofFebruary)
+                        Months.MARCH.number -> binding.root.resources.getString(R.string.ofMarch)
+                        Months.APRIL.number -> binding.root.resources.getString(R.string.ofApril)
+                        Months.MAY.number -> binding.root.resources.getString(R.string.ofMay)
+                        Months.JUNE.number -> binding.root.resources.getString(R.string.ofJune)
+                        Months.JULY.number -> binding.root.resources.getString(R.string.ofJuly)
+                        Months.AUGUST.number -> binding.root.resources.getString(R.string.ofAugust)
+                        Months.SEPTEMBER.number -> binding.root.resources.getString(R.string.ofSeptember)
+                        Months.OCTOBER.number -> binding.root.resources.getString(R.string.ofOctober)
+                        Months.NOVEMBER.number -> binding.root.resources.getString(R.string.ofNovember)
+                        Months.DECEMBER.number -> binding.root.resources.getString(R.string.ofDecember)
                         else -> ""
                     }
                 return tempData.joinToString(" ")

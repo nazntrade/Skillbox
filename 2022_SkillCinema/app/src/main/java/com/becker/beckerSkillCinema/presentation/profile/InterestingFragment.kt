@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.becker.beckerSkillCinema.R
 import com.becker.beckerSkillCinema.data.localData.entities.Movie
 import com.becker.beckerSkillCinema.databinding.FragmentInterestingBinding
@@ -22,8 +21,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class InterestingFragment :
-    ViewBindingFragment<FragmentInterestingBinding>(FragmentInterestingBinding::inflate) {
+class InterestingFragment : ViewBindingFragment<FragmentInterestingBinding>(
+    FragmentInterestingBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,8 +35,7 @@ class InterestingFragment :
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private lateinit var interestingRecycler: RecyclerView
-    private val interestingAdapter = InterestingAdapterIndividual(
+    private val historyAdapter = InterestingAdapterIndividual(
         onInterestingItemClick = { movie -> onItemClickInteresting(movie) }
     )
     private val profileMovieViewModel: ProfileMovieViewModel by activityViewModels()
@@ -45,18 +44,19 @@ class InterestingFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backBtn.setOnClickListener { findNavController().popBackStack() }
-        binding.searchFiltersCategoryTv.text = getText(R.string.interesting_movies)
-        interestingRecycler = binding.historyRecyclerView
-        interestingRecycler.adapter = interestingAdapter
+        binding.apply {
+            backBtn.setOnClickListener { findNavController().popBackStack() }
+            searchFiltersCategoryTv.text = getText(R.string.interesting_movies)
+            historyRecyclerView.adapter = historyAdapter
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileMovieViewModel.interestingList.collectLatest {
                     if (it.isNotEmpty()) {
-                        interestingRecycler.isVisible = true
-                        interestingAdapter.submitList(it)
-                    } else interestingRecycler.isVisible = false
+                        binding.historyRecyclerView.isVisible = true
+                        historyAdapter.submitList(it)
+                    } else binding.historyRecyclerView.isVisible = false
                 }
             }
         }

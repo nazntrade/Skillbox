@@ -18,12 +18,14 @@ import com.becker.beckerSkillCinema.databinding.FragmentStaffFilmographyBinding
 import com.becker.beckerSkillCinema.presentation.ViewBindingFragment
 import com.becker.beckerSkillCinema.presentation.filmDetail.staff.staffDetail.adapter.FilmographyAdapter
 import com.becker.beckerSkillCinema.utils.ConstantsAndParams.PROFESSIONS
+import com.becker.beckerSkillCinema.utils.autoCleared
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.launch
 
-class FragmentFilmography :
-    ViewBindingFragment<FragmentStaffFilmographyBinding>(FragmentStaffFilmographyBinding::inflate) {
+class FragmentFilmography : ViewBindingFragment<FragmentStaffFilmographyBinding>(
+    FragmentStaffFilmographyBinding::inflate
+) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,7 +38,7 @@ class FragmentFilmography :
     }
 
     private val viewModel: StaffDetailViewModel by activityViewModels()
-    private lateinit var adapter: FilmographyAdapter
+    private var adapter: FilmographyAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
