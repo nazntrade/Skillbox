@@ -1,8 +1,10 @@
-# BeckerCinema_Final_Project
+# О проектe.
 
-(https://kinopoiskapiunofficial.tech/)**
+Мобильное приложение для поиска фильмов и сериалов, а также управления коллекциями фильмов.  
+В роли источника данных выступает [Kinopoisk Api Unofficial](https://kinopoiskapiunofficial.tech/)
 
 #### Стек технологий
+
 - MVVM
 - Kotlin Coroutines
 - Flow
@@ -15,4 +17,9 @@
 - Firebase
 - Animation
 - Hilt
- 
+
+<p float="left">
+
+
+
+</p>
