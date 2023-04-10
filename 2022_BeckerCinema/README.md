@@ -1,5 +1,8 @@
 # О проектe.
 
+Mobile application for searching movies and series, as well as managing movie collections.
+The data source is [Kinopoisk Api Unofficial](https://kinopoiskapiunofficial.tech/)
+
 Мобильное приложение для поиска фильмов и сериалов, а также управления коллекциями фильмов.  
 В роли источника данных выступает [Kinopoisk Api Unofficial](https://kinopoiskapiunofficial.tech/)
 
@@ -17,10 +20,3 @@
 - Firebase
 - Animation
 - Hilt
-
-<p float="left">
-
-<img src="https://gitlab.skillbox.ru/andrei_nazentsev/android_basic/-/blob/dev_final_v2/2022_BeckerCinema/app/src/ScreenExamples/home.jpg" width=20% height=20%>
-
-
-</p>
