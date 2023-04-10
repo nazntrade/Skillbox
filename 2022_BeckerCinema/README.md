@@ -1,4 +1,4 @@
-# SkillBox_Final_Project
+# BeckerCinema_Final_Project
 
 (https://kinopoiskapiunofficial.tech/)**
 
