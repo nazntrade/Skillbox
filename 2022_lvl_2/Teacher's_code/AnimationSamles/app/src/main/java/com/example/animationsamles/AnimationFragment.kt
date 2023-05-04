@@ -57,9 +57,9 @@ class AnimationFragment : Fragment(R.layout.fragment_animation) {
         val obj = ObjectAnimator.ofPropertyValuesHolder(textView, scaleX, scaleY)
         obj.addListener(
             object : Animator.AnimatorListener {
-                override fun onAnimationStart(p0: Animator?) = Unit
+                override fun onAnimationStart(animation: Animator) = Unit
 
-                override fun onAnimationEnd(p0: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     val scaleX2 = PropertyValuesHolder.ofFloat("scaleX", 1.0F)
                     val scaleY2 = PropertyValuesHolder.ofFloat("scaleY", 1.0F)
                     ObjectAnimator
@@ -68,8 +68,8 @@ class AnimationFragment : Fragment(R.layout.fragment_animation) {
                         .start()
                 }
 
-                override fun onAnimationCancel(p0: Animator?) = Unit
-                override fun onAnimationRepeat(p0: Animator?) = Unit
+                override fun onAnimationCancel(animation: Animator) = Unit
+                override fun onAnimationRepeat(animation: Animator) = Unit
             }
         )
         obj.setDuration(1000L).start()
