@@ -1,12 +1,16 @@
 package com.example.animationsamles
 
-import android.animation.*
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.animationsamles.databinding.FragmentAnimationBinding
 

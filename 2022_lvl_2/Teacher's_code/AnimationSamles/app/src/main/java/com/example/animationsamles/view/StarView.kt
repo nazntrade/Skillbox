@@ -72,7 +72,7 @@ processing time (reference only) : ${end - starting} (ns)"""
     }
 
     fun setNumberOfPoint(pt: Int) {
-        if(pt != numberOfPoint) {
+        if (pt != numberOfPoint) {
             numberOfPoint = pt
             invalidate()
         }

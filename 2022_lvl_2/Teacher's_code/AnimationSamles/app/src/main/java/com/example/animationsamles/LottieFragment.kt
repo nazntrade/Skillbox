@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieDrawable
 import com.example.animationsamles.databinding.FragmentLottieBinding
 
-class LottieFragment:Fragment() {
-    private lateinit var binding:FragmentLottieBinding
+class LottieFragment : Fragment() {
+    private lateinit var binding: FragmentLottieBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,5 +26,9 @@ class LottieFragment:Fragment() {
         binding.lottieView.setAnimation("logo.json")
         binding.lottieView.playAnimation()
         binding.lottieView.repeatCount = LottieDrawable.INFINITE
+
+        binding.lottieView2.setAnimation("moon_run.json")
+        binding.lottieView2.playAnimation()
+        binding.lottieView2.repeatCount = LottieDrawable.INFINITE
     }
 }

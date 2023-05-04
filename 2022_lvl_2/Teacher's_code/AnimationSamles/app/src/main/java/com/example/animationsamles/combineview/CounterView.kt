@@ -15,11 +15,11 @@ class CounterView @JvmOverloads constructor(
     private val leftButton: Button
     private val rightButton: Button
     private val counterView: TextView
-    private var counterListeners = mutableSetOf<(Int)->Unit>()
+    private var counterListeners = mutableSetOf<(Int) -> Unit>()
 
     var counter = 0
         set(value) {
-            if(value == field)
+            if (value == field)
                 return
             field = value
             counterView.text = value.toString()
@@ -36,7 +36,7 @@ class CounterView @JvmOverloads constructor(
         rightButton.setOnClickListener { counter++ }
     }
 
-    fun addListener(listener:(Int)->Unit){
+    fun addListener(listener: (Int) -> Unit) {
         counterListeners.add(listener)
         listener(counter)
     }
